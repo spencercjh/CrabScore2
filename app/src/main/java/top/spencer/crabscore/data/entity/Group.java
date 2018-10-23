@@ -1,4 +1,4 @@
-package top.spencer.crabscore.entity;
+package top.spencer.crabscore.data.entity;
 
 import lombok.Data;
 

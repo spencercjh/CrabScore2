@@ -1,27 +1,27 @@
-package top.spencer.crabscore.entity;
+package top.spencer.crabscore.data.entity;
 
 import lombok.Data;
 
 import java.util.Date;
 
 /**
- * 大赛信息配置对象模型
+ * 用户组对象模型
  *
  * @author spencercjh
- * rxpb_competition_config
+ * rxpb_role_info
  */
 @Data
-public class CompetitionConfig {
+public class Role {
 
     /**
-     * 唯一标识")
+     * 唯一标识 用户组id")
      */
-    private Integer id;
+    private Integer roleId;
 
     /**
-     * 大赛id")
+     * 用户组名称")
      */
-    private Integer competitionId;
+    private String roleName;
 
     /**
      * 创建时间")

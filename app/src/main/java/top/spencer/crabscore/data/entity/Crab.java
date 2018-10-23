@@ -1,22 +1,22 @@
-package top.spencer.crabscore.entity;
+package top.spencer.crabscore.data.entity;
 
 import lombok.Data;
 
 import java.util.Date;
 
 /**
- * 种质分数对象模型
+ * 螃蟹对象模型
  *
  * @author spencercjh
- * rxpb_score_quality
+ * rxpb_crab_info
  */
 @Data
-public class QualityScore {
+public class Crab {
 
     /**
-     * 唯一标识 种质分数id")
+     * 唯一标识 螃蟹id")
      */
-    private Integer scoreId;
+    private Integer crabId;
 
     /**
      * 所属小组id")
@@ -29,39 +29,24 @@ public class QualityScore {
     private Integer crabSex;
 
     /**
-     * 评委用户ID")
+     * 螃蟹标签")
      */
-    private Integer userId;
+    private String crabLabel;
 
     /**
-     * 最终给分")
+     * 重量")
      */
-    private Float scoreFin;
+    private Float crabWeight;
 
     /**
-     * 体色(背)")
+     * 长度")
      */
-    private Float scoreBts;
+    private Float crabLength;
 
     /**
-     * 体色(腹)")
+     * 肥满度")
      */
-    private Float scoreFts;
-
-    /**
-     * 额齿")
-     */
-    private Float scoreEc;
-
-    /**
-     * 第4侧齿")
-     */
-    private Float scoreDscc;
-
-    /**
-     * 背部疣状突")
-     */
-    private Float scoreBbyzt;
+    private Float crabFatness;
 
     /**
      * 创建时间")
@@ -84,7 +69,7 @@ public class QualityScore {
     private String updateUser;
 
     /**
-     * 赛事信息（为0时代表永久有效）")
+     * 大赛id")
      */
     private Integer competitionId;
 

@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#eeeeee"
-        tools:context="top.spencer.crabscore.activity.LoginActivity">
+        tools:context="notmvp.activity.LoginActivity">
 
 
     <LinearLayout
@@ -112,7 +112,7 @@
 
     </LinearLayout>
 
-    <top.spencer.crabscore.view.OwlView
+    <top.spencer.crabscore.notmvp.view.OwlView
             android:id="@+id/owl_view"
             android:layout_above="@id/ll_login_pane"
             android:layout_width="175dp"

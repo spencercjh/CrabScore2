@@ -23,7 +23,7 @@ android {
         }
     }
     dataBinding {
-        enabled = true
+        enabled true
     }
 }
 
@@ -43,11 +43,13 @@ dependencies {
     implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.51'
     // https://mvnrepository.com/artifact/commons-codec/commons-codec
     implementation group: 'commons-codec', name: 'commons-codec', version: '1.11'
+    //DataBinding
+    annotationProcessor 'com.android.databinding:compiler:3.1.2'
     //ButterKnife
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    provided group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
     // https://mvnrepository.com/artifact/com.qiniu/qiniu-android-sdk
     implementation group: 'com.qiniu', name: 'qiniu-android-sdk', version: '7.3.13'
     // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
