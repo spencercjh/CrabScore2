@@ -1,6 +1,9 @@
 package top.spencer.crabscore.data.model;
 
+import android.util.Log;
 import top.spencer.crabscore.base.BaseModel;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * @author spencercjh
@@ -14,7 +17,7 @@ public class DataModel {
             model = (BaseModel) Class.forName(token).newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
-            //TODO execute exception
+            Log.e(TAG, "Model反射错误");
         }
         return model;
     }

@@ -16,12 +16,12 @@ import static android.content.ContentValues.TAG;
 /**
  * @author spencercjh
  */
-@SuppressWarnings({"Duplicates", "unused"})
-public abstract class BaseModel<T> {
+@SuppressWarnings("Duplicates")
+public abstract class BaseModel {
     /**
      * 数据请求参数
      */
-    protected String[] mParams;
+    protected String[] mvpParams;
 
     /**
      * 设置数据请求参数
@@ -29,7 +29,7 @@ public abstract class BaseModel<T> {
      * @param args 参数数组
      */
     public BaseModel params(String... args) {
-        mParams = args;
+        mvpParams = args;
         return this;
     }
 
@@ -38,16 +38,16 @@ public abstract class BaseModel<T> {
      *
      * @param myCallBack myCallBack
      */
-    public abstract void execute(Callback<T> myCallBack);
+    public abstract void execute(Callback<JSONObject> myCallBack);
 
     /**
-     * OkHttp3 异步Get请求
+     * OkHttp3 异步Get请求 
      *
      * @param url        URL (需要在外面处理好)
      * @param myCallBack myCallBack
      * @param jwt        Header里的JWT串
      */
-    protected void requestGetAPI(String url, final Callback<Map<String, Object>> myCallBack, String jwt) {
+    protected void requestGetAPI(String url, final Callback<JSONObject> myCallBack, String jwt) {
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
@@ -81,7 +81,7 @@ public abstract class BaseModel<T> {
                 if (code.equals(CommonConstant.SUCCESS)) {
                     myCallBack.onSuccess(responseJsonResult);
                 } else {
-                    myCallBack.onFailure(responseJsonResult.getString("message"));
+                    myCallBack.onFailure(responseJsonResult);
                 }
                 myCallBack.onComplete();
             }
@@ -89,7 +89,7 @@ public abstract class BaseModel<T> {
     }
 
     /**
-     * OkHttp3 Post异步方式提交表单
+     * OkHttp3 Post异步方式提交表单 
      *
      * @param url        URL
      * @param postParams body中的参数
@@ -97,7 +97,7 @@ public abstract class BaseModel<T> {
      * @param jwt        Header里的JWT串
      */
     protected void requestPostAPI(String url, Map<String, Object> postParams,
-                                  final Callback<Map<String, Object>> myCallBack, String jwt) {
+                                  final Callback<JSONObject> myCallBack, String jwt) {
         OkHttpClient okHttpClient = new OkHttpClient();
         FormBody.Builder formBody = new FormBody.Builder();
         for (Map.Entry<String, Object> param : postParams.entrySet()) {
@@ -136,7 +136,7 @@ public abstract class BaseModel<T> {
                 if (code.equals(CommonConstant.SUCCESS)) {
                     myCallBack.onSuccess(responseJsonResult);
                 } else {
-                    myCallBack.onFailure(responseJsonResult.getString("message"));
+                    myCallBack.onFailure(responseJsonResult);
                 }
                 myCallBack.onComplete();
             }
@@ -144,7 +144,7 @@ public abstract class BaseModel<T> {
     }
 
     /**
-     * OkHttp3 PUT异步请求
+     * OkHttp3 PUT异步请求 
      *
      * @param url        URL
      * @param putParams  body中的参数
@@ -152,7 +152,7 @@ public abstract class BaseModel<T> {
      * @param jwt        Header里的JWT串
      */
     protected void requestPutAPI(String url, Map<String, Object> putParams,
-                                 final Callback<Map<String, Object>> myCallBack, String jwt) {
+                                 final Callback<JSONObject> myCallBack, String jwt) {
         OkHttpClient okHttpClient = new OkHttpClient();
         FormBody.Builder formBody = new FormBody.Builder();
         for (Map.Entry<String, Object> param : putParams.entrySet()) {
@@ -192,7 +192,7 @@ public abstract class BaseModel<T> {
                 if (code.equals(CommonConstant.SUCCESS)) {
                     myCallBack.onSuccess(responseJsonResult);
                 } else {
-                    myCallBack.onFailure(responseJsonResult.getString("message"));
+                    myCallBack.onFailure(responseJsonResult);
                 }
                 myCallBack.onComplete();
             }
@@ -200,13 +200,13 @@ public abstract class BaseModel<T> {
     }
 
     /**
-     * OkHttp3 Delete异步请求
+     * OkHttp3 Delete异步请求 
      *
      * @param url        URL (需要在外面处理好)
      * @param myCallBack myCallBack
      * @param jwt        Header里的JWT串
      */
-    protected void requestDeleteAPI(String url, final Callback<Map<String, Object>> myCallBack, String jwt) {
+    protected void requestDeleteAPI(String url, final Callback<JSONObject> myCallBack, String jwt) {
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
@@ -240,7 +240,7 @@ public abstract class BaseModel<T> {
                 if (code.equals(CommonConstant.SUCCESS)) {
                     myCallBack.onSuccess(responseJsonResult);
                 } else {
-                    myCallBack.onFailure(responseJsonResult.getString("message"));
+                    myCallBack.onFailure(responseJsonResult);
                 }
                 myCallBack.onComplete();
             }

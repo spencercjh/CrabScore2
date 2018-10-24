@@ -1,6 +1,5 @@
 package top.spencer.crabscore.base;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +10,7 @@ import top.spencer.crabscore.R;
 /**
  * @author spencercjh
  */
+@SuppressWarnings("deprecation")
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
 
     private ProgressDialog mProgressDialog;
@@ -43,12 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     @Override
     public void showErr() {
-        showToast(getResources().getString(R.string.api_error_msg));
-    }
-
-    @Override
-    public void showFailure() {
-        showToast("结果失败");
+        showToast(getResources().getString(R.string.api_sever_error_msg));
     }
 
     @Override

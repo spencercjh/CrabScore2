@@ -1,6 +1,7 @@
 package top.spencer.crabscore.base;
 
 import android.content.Context;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author spencercjh
@@ -9,9 +10,9 @@ public interface BaseView {
     /**
      * 当数据请求成功后，调用此接口显示数据
      *
-     * @param data 数据源
+     * @param successData 成功数据源
      */
-    void showData(String data);
+    void showData(JSONObject successData);
 
     /**
      * 显示正在加载view
@@ -32,8 +33,10 @@ public interface BaseView {
 
     /**
      * 显示失败
+     *
+     * @param errorData 错误数据源
      */
-    void showFailure();
+    void showFailure(JSONObject errorData);
 
     /**
      * 显示请求错误提示
