@@ -1,4 +1,4 @@
-package notmvp.activity;
+package top.spencer.crabscore.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,16 +8,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import notmvp.view.OwlView;
 import top.spencer.crabscore.R;
+import top.spencer.crabscore.base.BaseActivity;
+import top.spencer.crabscore.base.BaseView;
+import top.spencer.crabscore.presenter.LoginPresenter;
 
 /**
  * @author spencercjh
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity implements BaseView {
 
-    @BindView(R.id.owl_view)
-    OwlView mOwlView;
+    private LoginPresenter loginPresenter;
+
     @BindView(R.id.email)
     EditText email;
     @BindView(R.id.password)
@@ -31,23 +33,19 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         //绑定初始化ButterKnife
         ButterKnife.bind(this);
-        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    mOwlView.open();
-
-                } else {
-                    mOwlView.close();
-                }
-            }
-        });
-
+        loginPresenter = new LoginPresenter();
+        loginPresenter.attachView(this);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LoginActivity.this, "我要登录了", Toast.LENGTH_SHORT).show();
+                loginPresenter.login(email.getText().toString().trim(),
+                        password.getText().toString().trim());
             }
         });
+    }
+
+    @Override
+    public void showData(String data) {
+        Toast.makeText(getContext(), data, Toast.LENGTH_SHORT).show();
     }
 }

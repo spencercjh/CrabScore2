@@ -10,15 +10,16 @@ import top.spencer.crabscore.data.model.DataModel;
  * @author spencercjh
  */
 @SuppressWarnings("unchecked")
-public class TestPresenter extends BasePresenter<BaseView> {
+public class LoginPresenter extends BasePresenter<BaseView> {
 
 
     /**
-     * 获取网络数据
+     * 登陆请求
      *
-     * @param params 参数
+     * @param username 用户名
+     * @param password 密码
      */
-    public void getData(String params) {
+    public void login(String username, String password) {
 
         if (!isViewAttached()) {
             //如果没有View引用就不加载数据
@@ -30,9 +31,9 @@ public class TestPresenter extends BasePresenter<BaseView> {
 
         DataModel
                 // 设置请求标识token
-                .request(Token.API_USER_DATA)
+                .request(Token.API_LOGIN)
                 // 添加请求参数，没有则不添加`
-                .params(params)
+                .params(username, password)
                 // 注册监听回调
                 .execute(new Callback<String>() {
                     @Override

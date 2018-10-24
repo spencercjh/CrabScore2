@@ -8,12 +8,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseActivity;
+import top.spencer.crabscore.base.BaseView;
 import top.spencer.crabscore.presenter.TestPresenter;
 
 /**
  * @author spencercjh
  */
-public class TestActivity extends BaseActivity implements TestView {
+public class TestActivity extends BaseActivity implements BaseView {
 
     @BindView(R.id.text)
     TextView text;
