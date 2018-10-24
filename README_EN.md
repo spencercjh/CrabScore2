@@ -9,7 +9,7 @@ Client:Android (**MVP**)
 
 ————————————
 
-[Sever](https://gitee.com/spencercjh/crabscore)(Spring Boot,REST)
+[Sever](https://github.com/spencercjh/crabscore_springboot)(Spring Boot,REST)
 
 ## Using Package and Library 
 
