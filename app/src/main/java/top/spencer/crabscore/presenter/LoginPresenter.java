@@ -2,7 +2,6 @@ package top.spencer.crabscore.presenter;
 
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BasePresenter;
-import top.spencer.crabscore.base.BaseView;
 import top.spencer.crabscore.data.Callback;
 import top.spencer.crabscore.data.constant.Token;
 import top.spencer.crabscore.data.model.DataModel;

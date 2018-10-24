@@ -26,19 +26,19 @@ public class PatternUtil {
      */
     private static final Pattern EMAIL = Pattern.compile("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$");
 
-    public static boolean username(String v) {
+    public static boolean isUsername(String v) {
 
         Matcher m = USERNAME.matcher(v);
         return m.matches();
     }
 
-    public static boolean mobile(String v) {
+    public static boolean isMobile(String v) {
 
         Matcher m = MOBILE.matcher(v);
         return m.matches();
     }
 
-    public static boolean email(String v) {
+    public static boolean isEmail(String v) {
 
         Matcher m = EMAIL.matcher(v);
         return m.matches();
