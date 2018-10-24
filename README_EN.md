@@ -1,7 +1,7 @@
-# Characteristic Rive Crab Tournament Rating Management System Based On MVP Framework
+# Characteristic Rive Crab Tournament Rating Management System 's Android Based On MVP Framework
 
 ## Project Introduce
-Characteristic Rive Crab Tournament Rating Management System Based On MVP Framework 's second version，[the first version App](https://gitee.com/spencercjh/CrabScore)，[the first version Sever](https://gitee.com/spencercjh/CrabScore_Sever)
+Characteristic Rive Crab Tournament Rating Management System 's Android Based On MVP Framework 's second version，[the first version App](https://gitee.com/spencercjh/CrabScore)，[the first version Sever](https://gitee.com/spencercjh/CrabScore_Sever)
 
 ## Software Framework
 
@@ -11,7 +11,8 @@ Client:Android (**MVP**)
 
 [Sever](https://gitee.com/spencercjh/crabscore)(Spring Boot,REST)
 
-## Using Package and Library
+## Using Package and Library 
+
 network:OkHttp
 
 picture:Glide
