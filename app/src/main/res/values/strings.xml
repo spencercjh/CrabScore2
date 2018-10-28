@@ -5,6 +5,7 @@
     <string name="menu_second">大赛管理</string>
     <string name="menu_third">个人中心</string>
     <string name="introduce">在线考评服务</string>
+
     <string name="请输入您的用户名">请输入您的用户名</string>
     <string name="确认">确 认</string>
     <string name="请输入您的姓名">请输入您的姓名</string>
@@ -18,4 +19,16 @@
     <string name="api_sever_error_msg">服务器连接失败</string>
     <string name="新用户注册点我">新用户注册点我！</string>
     <string name="忘记密码">忘记密码?</string>
+
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">用户名</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">登录</string>
+    <string name="action_sign_in_short">添加或注册账号</string>
+    <string name="error_invalid_email">不是有效的邮箱地址</string>
+    <string name="error_invalid_password">密码太短,至少输入4位</string>
+    <string name="error_incorrect_password">密码是无效的</string>
+    <string name="error_field_required">用户名无效</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
 </resources>

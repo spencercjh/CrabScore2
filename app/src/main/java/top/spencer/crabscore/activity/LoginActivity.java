@@ -2,6 +2,8 @@ package top.spencer.crabscore.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -31,7 +33,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     EditText password;
     @BindView(R.id.button_login)
     Button login;
-    @BindView(R.id.button_register)
+    @BindView(R.id.button_regist)
     Button register;
     @BindView(R.id.button_forget_password)
     Button forgetPassword;
@@ -43,6 +45,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
     CheckBox rememberPassword;
     @BindView(R.id.checkbox_auto_login)
     CheckBox autoLogin;
+    @BindView(R.id.toggle_password)
+    ToggleButton togglePassword;
 
     private int roleChoice = 0;
 
@@ -132,6 +136,19 @@ public class LoginActivity extends BaseActivity implements LoginView {
         }
     }
 
+    @OnCheckedChanged(R.id.toggle_password)
+    public void displayPassword(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            //如果选中，显示密码
+            password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            password.setBackground(getDrawable(R.drawable.eye_open));
+        } else {
+            //否则隐藏密码
+            password.setBackground(getDrawable(R.drawable.eye_close));
+            password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        }
+    }
+
     @OnCheckedChanged(R.id.checkbox_remember_password)
     public void rememberPassword(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
@@ -163,7 +180,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
         loginPresenter.login(username.getText().toString().trim(), password.getText().toString().trim(), String.valueOf(roleChoice));
     }
 
-    @OnClick(R.id.button_register)
+    @OnClick(R.id.button_regist)
     public void register(View view) {
         Intent intent = new Intent();
         //TODO 跳转注册活动
