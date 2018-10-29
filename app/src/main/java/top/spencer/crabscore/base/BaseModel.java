@@ -41,13 +41,14 @@ public abstract class BaseModel {
     public abstract void execute(Callback<JSONObject> myCallBack);
 
     /**
-     * OkHttp3 异步Get请求 
+     * OkHttp3 异步Get请求
      *
      * @param url        URL (需要在外面处理好)
      * @param myCallBack myCallBack
      * @param jwt        Header里的JWT串
      */
     protected void requestGetAPI(String url, final Callback<JSONObject> myCallBack, String jwt) {
+        Log.i(TAG, url);
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
@@ -68,8 +69,9 @@ public abstract class BaseModel {
                 JSONObject responseJsonResult;
                 try {
                     assert response.body() != null;
-                    Log.d(TAG, response.body().string());
-                    responseJsonResult = JSON.parseObject(response.body().string());
+                    String responseBody = response.body().string();
+                    Log.d(TAG, responseBody);
+                    responseJsonResult = JSON.parseObject(responseBody);
                     responseJsonResult.put("jwt", jwt);
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
@@ -89,7 +91,7 @@ public abstract class BaseModel {
     }
 
     /**
-     * OkHttp3 Post异步方式提交表单 
+     * OkHttp3 Post异步方式提交表单
      *
      * @param url        URL
      * @param postParams body中的参数
@@ -98,6 +100,7 @@ public abstract class BaseModel {
      */
     protected void requestPostAPI(String url, Map<String, Object> postParams,
                                   final Callback<JSONObject> myCallBack, String jwt) {
+        Log.i(TAG, url);
         OkHttpClient okHttpClient = new OkHttpClient();
         FormBody.Builder formBody = new FormBody.Builder();
         for (Map.Entry<String, Object> param : postParams.entrySet()) {
@@ -123,8 +126,9 @@ public abstract class BaseModel {
                 JSONObject responseJsonResult;
                 try {
                     assert response.body() != null;
-                    Log.d(TAG, response.body().string());
-                    responseJsonResult = JSON.parseObject(response.body().string());
+                    String responseBody = response.body().string();
+                    Log.d(TAG, responseBody);
+                    responseJsonResult = JSON.parseObject(responseBody);
                     responseJsonResult.put("jwt", jwt);
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
@@ -144,7 +148,7 @@ public abstract class BaseModel {
     }
 
     /**
-     * OkHttp3 PUT异步请求 
+     * OkHttp3 PUT异步请求
      *
      * @param url        URL
      * @param putParams  body中的参数
@@ -153,6 +157,7 @@ public abstract class BaseModel {
      */
     protected void requestPutAPI(String url, Map<String, Object> putParams,
                                  final Callback<JSONObject> myCallBack, String jwt) {
+        Log.i(TAG, url);
         OkHttpClient okHttpClient = new OkHttpClient();
         FormBody.Builder formBody = new FormBody.Builder();
         for (Map.Entry<String, Object> param : putParams.entrySet()) {
@@ -179,8 +184,9 @@ public abstract class BaseModel {
                 JSONObject responseJsonResult;
                 try {
                     assert response.body() != null;
-                    Log.d(TAG, response.body().string());
-                    responseJsonResult = JSON.parseObject(response.body().string());
+                    String responseBody = response.body().string();
+                    Log.d(TAG, responseBody);
+                    responseJsonResult = JSON.parseObject(responseBody);
                     responseJsonResult.put("jwt", jwt);
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
@@ -200,13 +206,14 @@ public abstract class BaseModel {
     }
 
     /**
-     * OkHttp3 Delete异步请求 
+     * OkHttp3 Delete异步请求
      *
      * @param url        URL (需要在外面处理好)
      * @param myCallBack myCallBack
      * @param jwt        Header里的JWT串
      */
     protected void requestDeleteAPI(String url, final Callback<JSONObject> myCallBack, String jwt) {
+        Log.i(TAG, url);
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
@@ -227,8 +234,9 @@ public abstract class BaseModel {
                 JSONObject responseJsonResult;
                 try {
                     assert response.body() != null;
-                    Log.d(TAG, response.body().string());
-                    responseJsonResult = JSON.parseObject(response.body().string());
+                    String responseBody = response.body().string();
+                    Log.d(TAG, responseBody);
+                    responseJsonResult = JSON.parseObject(responseBody);
                     responseJsonResult.put("jwt", jwt);
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();

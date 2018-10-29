@@ -10,7 +10,7 @@ public interface CommonConstant {
     /**
      * 服务器地址
      */
-    String URL = "http://localhost:8080/api/";
+    String URL = "https://www.spencercjh.top/crabscore/api/";
 
     /**
      * 成功

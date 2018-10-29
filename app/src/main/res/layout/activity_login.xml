@@ -49,20 +49,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                <EditText
-                        android:id="@+id/edit_password"
-                        android:layout_width="318dp"
-                        android:layout_height="match_parent"
-                        android:hint="@string/prompt_password"
-                        android:imeActionId="@+id/button_login"
-                        android:imeActionLabel="@string/action_sign_in_short"
-                        android:imeOptions="actionUnspecified"
-                        android:inputType="textPassword"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        tools:ignore="InvalidImeActionId"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"/>
+                <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <EditText
+                            android:id="@+id/edit_password"
+                            android:layout_width="318dp"
+                            android:layout_height="match_parent"
+                            android:hint="@string/prompt_password"
+                            android:imeActionId="@+id/button_login"
+                            android:imeActionLabel="@string/action_sign_in_short"
+                            android:imeOptions="actionUnspecified"
+                            android:inputType="textPassword"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            tools:ignore="InvalidImeActionId"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"/>
+                </android.support.design.widget.TextInputLayout>
                 <ToggleButton
                         android:id="@+id/toggle_password"
                         android:layout_width="34dp"
@@ -75,19 +79,44 @@
                         android:background="@drawable/eye_open"
                         android:checked="false"/>
             </RelativeLayout>
-
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.25"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    tools:ignore="InefficientWeight">
 
-                <!--
-                android:imeActionId 设置IME动作ID，在onEditorAction中捕获判断进行逻辑操作。
-                android:imeActionLabel  设置IME动作标签。但是不能保证一定会使用，猜想在输入法扩展的时候应该有用。
-                android:imeOptions  设置软键盘的Enter键。
-                -->
+                <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
-            </android.support.design.widget.TextInputLayout>
+                    <CheckBox
+                            android:id="@+id/checkbox_remember_password"
+                            android:layout_width="100sp"
+                            android:layout_height="40sp"
+                            android:text="@string/记住密码"/>
 
+                    <CheckBox
+                            android:id="@+id/checkbox_auto_login"
+                            android:layout_width="100sp"
+                            android:layout_height="40sp"
+                            android:text="@string/自动登录"/>
+                </RadioGroup>
+
+                <Spinner
+                        android:id="@+id/spinner_role"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.39"
+                        android:autofillHints="sd"
+                        tools:ignore="InefficientWeight,NestedWeights"
+                        tools:targetApi="o"/>
+
+            </LinearLayout>
             <Button
                     android:id="@+id/button_login"
                     style="?android:textAppearanceSmall"

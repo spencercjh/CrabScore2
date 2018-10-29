@@ -27,11 +27,10 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             return;
         }
         //显示正在加载进度条
-        getView().showLoading();
         DataModel
                 // 设置请求标识token
                 .request(Token.API_LOGIN)
-                // 添加请求参数，没有则不添加`
+                // 添加请求参数，没有则不添加
                 .params(username, password, roleId)
                 // 注册监听回调
                 .execute(new Callback<JSONObject>() {

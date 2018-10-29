@@ -2,6 +2,7 @@ package top.spencer.crabscore.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
@@ -140,11 +141,11 @@ public class LoginActivity extends BaseActivity implements LoginView {
     public void displayPassword(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
             //如果选中，显示密码
+            togglePassword.setBackground(getDrawable(R.drawable.eye_open));
             password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-            password.setBackground(getDrawable(R.drawable.eye_open));
         } else {
             //否则隐藏密码
-            password.setBackground(getDrawable(R.drawable.eye_close));
+            togglePassword.setBackground(getDrawable(R.drawable.eye_close));
             password.setTransformationMethod(PasswordTransformationMethod.getInstance());
         }
     }
@@ -194,15 +195,15 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void showData(JSONObject successData) {
-        Toast.makeText(getContext(), successData.getString("message"), Toast.LENGTH_SHORT).show();
         SharedPreferencesUtil.putData("USERNAME", username.getText().toString().trim());
         SharedPreferencesUtil.putData("PASSWORD", password.getText().toString().trim());
         Intent intent = new Intent();
+        this.showToast(successData.getString("message"));
         //TODO 跳转主活动
     }
 
     @Override
     public void showFailure(JSONObject errorData) {
-        Toast.makeText(getContext(), errorData.getString("message"), Toast.LENGTH_SHORT).show();
+        showToast(errorData.getString("message"));
     }
 }
