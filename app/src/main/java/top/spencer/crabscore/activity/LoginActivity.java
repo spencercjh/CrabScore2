@@ -34,7 +34,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     EditText password;
     @BindView(R.id.button_login)
     Button login;
-    @BindView(R.id.button_regist)
+    @BindView(R.id.button_goto_regist)
     Button register;
     @BindView(R.id.button_forget_password)
     Button forgetPassword;
@@ -54,8 +54,10 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setTitle("请先登录");
         ButterKnife.bind(this);
         loginPresenter = new LoginPresenter();
         loginPresenter.attachView(this);
@@ -181,7 +183,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
         loginPresenter.login(username.getText().toString().trim(), password.getText().toString().trim(), String.valueOf(roleChoice));
     }
 
-    @OnClick(R.id.button_regist)
+    @OnClick(R.id.button_goto_regist)
     public void register(View view) {
         Intent intent = new Intent();
         //TODO 跳转注册活动

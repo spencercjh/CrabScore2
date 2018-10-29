@@ -110,7 +110,7 @@
                 <Spinner
                         android:id="@+id/spinner_role"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="38dp"
                         android:layout_weight="0.39"
                         android:autofillHints="sd"
                         tools:ignore="InefficientWeight,NestedWeights"
@@ -129,7 +129,7 @@
                     android:textStyle="bold"/>
 
             <Button
-                    android:id="@+id/button_regist"
+                    android:id="@+id/button_goto_regist"
                     style="?android:textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

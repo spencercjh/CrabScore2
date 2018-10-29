@@ -16,13 +16,98 @@
             android:layout_height="wrap_content">
 
         <AutoCompleteTextView
-                android:id="@+id/email"
+                android:id="@+id/edit_phone_regist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="QQ号/邮箱"
-                android:inputType="textEmailAddress"
+                android:hint="手机号"
+                android:inputType="textPhonetic"
                 android:maxLines="1"
-                android:singleLine="true"/>
+                android:singleLine="true"
+        />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <EditText
+                        android:id="@+id/edit_password_regist"
+                        android:layout_width="318dp"
+                        android:layout_height="match_parent"
+                        android:hint="确认密码"
+                        android:imeActionId="@+id/button_login"
+                        android:imeActionLabel="@string/action_sign_in_short"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        tools:ignore="InvalidImeActionId"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <ToggleButton
+                    android:id="@+id/toggle_password_regist"
+                    android:layout_width="34dp"
+                    android:layout_height="42dp"
+                    android:padding="10dp"
+                    android:textOff=""
+                    android:textOn=""
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/eye_open"
+                    android:checked="false"/>
+        </RelativeLayout>
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <EditText
+                        android:id="@+id/edit_repeat_password_regist"
+                        android:layout_width="318dp"
+                        android:layout_height="match_parent"
+                        android:hint="@string/prompt_password"
+                        android:imeActionId="@+id/button_login"
+                        android:imeActionLabel="@string/action_sign_in_short"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        tools:ignore="InvalidImeActionId"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"/>
+            </android.support.design.widget.TextInputLayout>
+            <ToggleButton
+                    android:id="@+id/toggle_repeat_password_regist"
+                    android:layout_width="34dp"
+                    android:layout_height="42dp"
+                    android:padding="10dp"
+                    android:textOff=""
+                    android:textOn=""
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/eye_open"
+                    android:checked="false"/>
+        </RelativeLayout>
 
     </android.support.design.widget.TextInputLayout>
 
@@ -31,45 +116,10 @@
             android:layout_height="wrap_content">
 
         <EditText
-                android:id="@+id/password"
+                android:id="@+id/edit_name_regist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_password"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true"/>
-
-    </android.support.design.widget.TextInputLayout>
-
-
-    <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <EditText
-                android:id="@+id/repassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="确认密码"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true"/>
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <EditText
-                android:id="@+id/rename"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="真实姓名"
+                android:hint="真实姓名/单位名"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
                 android:inputType="text"
@@ -79,8 +129,59 @@
     </android.support.design.widget.TextInputLayout>
 
 
+    <Spinner
+            android:id="@+id/spinner_role_regist"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:autofillHints="sd"
+            tools:ignore="InefficientWeight,NestedWeights"
+            tools:targetApi="o"/>
+
+    <SeekBar
+            android:id="@+id/seekbar_verify_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/seekbar_bg"
+            android:thumb="@drawable/seekbar"
+            android:thumbOffset="0dp"/>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <EditText
+                    android:id="@+id/edit_code_regist"
+                    android:layout_width="319dp"
+                    android:layout_height="match_parent"
+                    android:hint="验证码"
+                    android:imeActionId="@+id/button_login"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    tools:ignore="InvalidImeActionId"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true" android:inputType="number"/>
+        </android.support.design.widget.TextInputLayout>
+        <ToggleButton
+                android:id="@+id/toggle_code_regist"
+                android:layout_width="35dp"
+                android:layout_height="41dp"
+                android:padding="10dp"
+                android:textOff=""
+                android:textOn=""
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/code"
+                android:checked="false" android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
     <Button
-            android:id="@+id/email_sign_in_button"
+            android:id="@+id/button_regist"
             style="?android:textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
