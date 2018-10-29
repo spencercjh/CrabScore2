@@ -44,4 +44,8 @@ public class LoginModel extends BaseModel {
         //login接口JWT为空，返回会拿到一个JWT，JWT是放在ResponseBody里的，再下次请求时要把JWT放进RequestHeader
         requestGetAPI(url, myCallBack, "");
     }
+
+    private void generateJWT(int roleId){
+
+    }
 }
