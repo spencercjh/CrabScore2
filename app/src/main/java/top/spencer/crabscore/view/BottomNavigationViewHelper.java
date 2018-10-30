@@ -1,4 +1,4 @@
-package notmvp.view;
+package top.spencer.crabscore.view;
 
 import android.annotation.SuppressLint;
 import android.support.design.internal.BottomNavigationItemView;

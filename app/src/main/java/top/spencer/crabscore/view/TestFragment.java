@@ -1,4 +1,4 @@
-package notmvp.fragment;
+package top.spencer.crabscore.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

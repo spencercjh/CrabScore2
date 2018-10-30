@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import butterknife.*;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseActivity;
@@ -62,6 +63,32 @@ public class LoginActivity extends BaseActivity implements LoginView {
         SharedPreferencesUtil.getInstance(getContext(), "LOGIN");
         initSpinner();
         readSharedPreferences();
+        returnFromRegist();
+    }
+
+    //TODO 手机号一键登录/注册
+
+    /**
+     * 从注册界面返回，自动填上刚注册的用户信息
+     */
+    private void returnFromRegist() {
+        try {
+            Intent intent = getIntent();
+            String usernameString = intent.getStringExtra("USERNAME");
+            String passwordString = intent.getStringExtra("PASSWORD");
+            roleChoice = intent.getIntExtra("ROLE_CHOICE", 0);
+            if (StrUtil.isBlank(usernameString)) {
+                throw new Exception("并不是从注册界面返回");
+            } else {
+                Log.d(TAG, "从注册界面返回");
+                username.setText(usernameString);
+                password.setText(passwordString);
+                roleSpinner.setSelection(roleChoice);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d(TAG, "并不是从注册界面返回");
+        }
     }
 
     @Override
@@ -183,8 +210,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @OnClick(R.id.button_goto_regist)
     public void register(View view) {
-        Intent intent = new Intent();
-        //TODO 跳转注册活动
+        Intent intent = new Intent(getContext(), RegistActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.button_forget_password)
@@ -197,13 +224,17 @@ public class LoginActivity extends BaseActivity implements LoginView {
     public void showData(JSONObject successData) {
         SharedPreferencesUtil.putData("USERNAME", username.getText().toString().trim());
         SharedPreferencesUtil.putData("PASSWORD", password.getText().toString().trim());
-        Intent intent = new Intent();
-        this.showToast(successData.getString("message"));
-        //TODO 跳转主活动
+        showToast(successData.getString("message"));
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        intent.putExtra("USERNAME", username.getText().toString().trim());
+        intent.putExtra("ROLE_CHOICE", roleChoice);
+        startActivity(intent);
+        finish();
     }
 
     @Override
     public void showFailure(JSONObject errorData) {
         showToast(errorData.getString("message"));
     }
+
 }

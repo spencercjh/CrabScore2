@@ -1,4 +1,4 @@
-package notmvp.activity;
+package top.spencer.crabscore.activity;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,10 +9,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import notmvp.adapter.ViewPagerAdapter;
-import notmvp.fragment.TestFragment;
-import notmvp.view.BottomNavigationViewHelper;
 import top.spencer.crabscore.R;
+import top.spencer.crabscore.view.BottomNavigationViewHelper;
+import top.spencer.crabscore.view.TestFragment;
+import top.spencer.crabscore.view.ViewPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

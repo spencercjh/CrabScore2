@@ -5,6 +5,10 @@ package top.spencer.crabscore.common;
  */
 public interface CommonConstant {
     /**
+     * 双击两次返回键后退出程序的时间间隔 单位ms
+     */
+    Integer EXIT_GAP_TIME = 1000;
+    /**
      * 验证码长度
      */
     Integer CODE_LENGTH = 4;

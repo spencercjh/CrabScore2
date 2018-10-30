@@ -6,7 +6,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import okhttp3.*;
 import top.spencer.crabscore.common.CommonConstant;
-import top.spencer.crabscore.data.Callback;
 
 import java.io.IOException;
 import java.util.Map;
@@ -39,6 +38,11 @@ public abstract class BaseModel {
      * @param myCallBack myCallBack
      */
     public abstract void execute(Callback<JSONObject> myCallBack);
+
+    protected String generateJWT(String roleId) {
+        //TODO 生成JWT串
+        return "";
+    }
 
     /**
      * OkHttp3 异步Get请求

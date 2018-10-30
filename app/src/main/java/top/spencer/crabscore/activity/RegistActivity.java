@@ -1,5 +1,6 @@
 package top.spencer.crabscore.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -75,7 +76,7 @@ public class RegistActivity extends BaseActivity implements RegistView {
         registPresenter.detachView();
     }
 
-    @OnCheckedChanged(R.id.toggle_password)
+    @OnCheckedChanged(R.id.toggle_password_regist)
     public void displayPassword(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
             //如果选中，显示密码
@@ -88,7 +89,7 @@ public class RegistActivity extends BaseActivity implements RegistView {
         }
     }
 
-    @OnCheckedChanged(R.id.toggle_password_regist)
+    @OnCheckedChanged(R.id.toggle_repeat_password_regist)
     public void displayRepeatPassword(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
             //如果选中，显示密码
@@ -105,15 +106,22 @@ public class RegistActivity extends BaseActivity implements RegistView {
     public void regist(View view) {
         String mobile = phone.getText().toString().trim();
         String passwordString = password.getText().toString().trim();
+        String repeatPasswordString = repeatPassword.getText().toString().trim();
         String nameString = name.getText().toString().trim();
         if (!PatternUtil.isMobile(mobile)) {
             showToast("非法手机号");
             return;
-        } else if (!PatternUtil.isUsername(passwordString)) {
+        } else if (!PatternUtil.isUsername(passwordString) || !PatternUtil.isUsername(repeatPasswordString)) {
             showToast("非法密码");
             return;
         } else if (!PatternUtil.isName(nameString)) {
             showToast("非法姓名");
+            return;
+        } else if (!isVerified) {
+            showToast("请通过手机号校验");
+            return;
+        } else if (!passwordString.equals(repeatPasswordString)) {
+            showToast("两次密码不一致");
             return;
         }
         registPresenter.regist(mobile, passwordString, String.valueOf(roleChoice), mobile, nameString);
@@ -203,7 +211,7 @@ public class RegistActivity extends BaseActivity implements RegistView {
     }
 
     /**
-     * 注册结果
+     * 注册成功
      *
      * @param successData 成功数据源
      */
@@ -211,6 +219,12 @@ public class RegistActivity extends BaseActivity implements RegistView {
     public void showData(JSONObject successData) {
         String message = successData.getString("message");
         showToast(message);
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        intent.putExtra("USERNAME", phone.getText().toString().trim());
+        intent.putExtra("PASSWORD", password.getText().toString().trim());
+        intent.putExtra("ROLE_CHOICE", roleChoice);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -220,7 +234,7 @@ public class RegistActivity extends BaseActivity implements RegistView {
     }
 
     /**
-     * 发送验证码结果
+     * 发送验证码成功
      *
      * @param successData 携带验证码的JSON串
      */
@@ -236,7 +250,7 @@ public class RegistActivity extends BaseActivity implements RegistView {
     }
 
     /**
-     * 校验验证码结果
+     * 校验验证码成功
      *
      * @param successData 携带校验结果的JSON串
      */
@@ -245,6 +259,7 @@ public class RegistActivity extends BaseActivity implements RegistView {
         Integer code = successData.getInteger("code");
         String message = successData.getString("message");
         if (code.equals(CommonConstant.SUCCESS) && "验证码校验成功".equals(message)) {
+            isVerified = true;
             showToast("验证码校验成功！");
         } else {
             showToast("验证码校验失败！");

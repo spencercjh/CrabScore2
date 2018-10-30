@@ -1,4 +1,4 @@
-package notmvp.adapter;
+package top.spencer.crabscore.view;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

@@ -1,4 +1,4 @@
-package top.spencer.crabscore.data;
+package top.spencer.crabscore.base;
 
 /**
  * @author spencercjh
