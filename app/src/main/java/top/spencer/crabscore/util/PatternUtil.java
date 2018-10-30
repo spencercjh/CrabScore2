@@ -26,6 +26,11 @@ public class PatternUtil {
      */
     private static final Pattern EMAIL = Pattern.compile("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$");
 
+    /**
+     * 姓名1到10个中文
+     */
+    private static final Pattern NAME = Pattern.compile("^([a-zA-Z0-9\\u4e00-\\u9fa5\\·]{1,10})$");
+
     public static boolean isUsername(String v) {
 
         Matcher m = USERNAME.matcher(v);
@@ -41,6 +46,11 @@ public class PatternUtil {
     public static boolean isEmail(String v) {
 
         Matcher m = EMAIL.matcher(v);
+        return m.matches();
+    }
+
+    public static boolean isName(String v) {
+        Matcher m = NAME.matcher(v);
         return m.matches();
     }
 }

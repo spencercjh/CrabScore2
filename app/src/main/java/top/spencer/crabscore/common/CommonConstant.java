@@ -4,6 +4,11 @@ package top.spencer.crabscore.common;
  * @author spencercjh
  */
 public interface CommonConstant {
+    /**
+     * 验证码长度
+     */
+    Integer CODE_LENGTH = 4;
+
     String AUTO_LOGIN = "AUTO_LOGIN";
 
     String REMEMBER_PASSWORD = "REMEMBER_PASSWORD";

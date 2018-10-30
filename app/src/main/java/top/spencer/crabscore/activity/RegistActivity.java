@@ -1,18 +1,18 @@
 package top.spencer.crabscore.activity;
 
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
-import butterknife.BindArray;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import butterknife.*;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseActivity;
 import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.presenter.RegistPresenter;
+import top.spencer.crabscore.util.PatternUtil;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
 import top.spencer.crabscore.view.RegistView;
 
@@ -37,20 +37,21 @@ public class RegistActivity extends BaseActivity implements RegistView {
     Spinner roleSpinner;
     @BindView(R.id.seekbar_verify_phone)
     SeekBar verifyPhone;
-    @BindView(R.id.edit_code_regist)
+    @BindView(R.id.edit_code_verify)
     EditText code;
     @BindView(R.id.toggle_password_regist)
     ToggleButton togglePassword;
     @BindView(R.id.toggle_repeat_password_regist)
     ToggleButton toggleRepeatPassword;
-    @BindView(R.id.toggle_code_regist)
-    ToggleButton toggleCode;
+    @BindView(R.id.button_verify_code)
+    Button sendCode;
     @BindView(R.id.button_regist)
     Button regist;
     @BindArray(R.array.roles)
     String[] roles;
 
-    private int seekbarProgress = 0;
+    private final static Integer SUCCESS_VERIFY = 100;
+    private int seekBarProgress = 0;
     private boolean isVerified = false;
     private int roleChoice = 0;
 
@@ -65,6 +66,7 @@ public class RegistActivity extends BaseActivity implements RegistView {
         registPresenter = new RegistPresenter();
         registPresenter.attachView(this);
         initSeekBar();
+        initSpinner();
     }
 
     @Override
@@ -73,27 +75,69 @@ public class RegistActivity extends BaseActivity implements RegistView {
         registPresenter.detachView();
     }
 
-    //TODO 3个toggleButton的监听
-
-    //TODO 参数校验 滑动检测
-
-    @Override
-    public void showData(JSONObject successData) {
-
+    @OnCheckedChanged(R.id.toggle_password)
+    public void displayPassword(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            //如果选中，显示密码
+            togglePassword.setBackground(getDrawable(R.drawable.eye_open));
+            password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        } else {
+            //否则隐藏密码
+            togglePassword.setBackground(getDrawable(R.drawable.eye_close));
+            password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        }
     }
 
-    @Override
-    public void showFailure(JSONObject errorData) {
-
+    @OnCheckedChanged(R.id.toggle_password_regist)
+    public void displayRepeatPassword(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            //如果选中，显示密码
+            toggleRepeatPassword.setBackground(getDrawable(R.drawable.eye_open));
+            repeatPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        } else {
+            //否则隐藏密码
+            toggleRepeatPassword.setBackground(getDrawable(R.drawable.eye_close));
+            repeatPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        }
     }
 
     @OnClick(R.id.button_regist)
     public void regist(View view) {
-        registPresenter.regist(phone.getText().toString().trim(),
-                password.getText().toString().trim(),
-                String.valueOf(roleChoice),
-                phone.getText().toString().trim(),
-                name.getText().toString().trim());
+        String mobile = phone.getText().toString().trim();
+        String passwordString = password.getText().toString().trim();
+        String nameString = name.getText().toString().trim();
+        if (!PatternUtil.isMobile(mobile)) {
+            showToast("非法手机号");
+            return;
+        } else if (!PatternUtil.isUsername(passwordString)) {
+            showToast("非法密码");
+            return;
+        } else if (!PatternUtil.isName(nameString)) {
+            showToast("非法姓名");
+            return;
+        }
+        registPresenter.regist(mobile, passwordString, String.valueOf(roleChoice), mobile, nameString);
+    }
+
+    @OnClick(R.id.button_verify_code)
+    public void verifyCode(View view) {
+        String mobile = phone.getText().toString().trim();
+        String codeString = code.getText().toString().trim();
+        try {
+            if (codeString.length() != CommonConstant.CODE_LENGTH) {
+                throw new NumberFormatException("非法验证码");
+            }
+            Integer.parseInt(codeString);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            showToast("非法验证码");
+            return;
+        }
+        if (PatternUtil.isMobile(mobile)) {
+            registPresenter.verifyCode(mobile, codeString);
+        } else {
+            showToast("非法手机号");
+        }
     }
 
     @Override
@@ -102,17 +146,25 @@ public class RegistActivity extends BaseActivity implements RegistView {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
-                    seekbarProgress = progress;
+                    seekBarProgress = progress;
                 }
+                /*if(seekBarProgress==100){
+                    showToast("滑动条验证成功！将发送验证码短信");
+                }*/
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                showToast("请拖到底后点击校验按钮！");
+                showToast("拖到底后会收到验证码短信！");
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                if (seekBarProgress == SUCCESS_VERIFY) {
+                    showToast("滑动条验证成功！将发送验证码短信");
+                    String mobile = phone.getText().toString().trim();
+                    registPresenter.sendCode(mobile);
+                }
             }
         });
     }
@@ -148,5 +200,54 @@ public class RegistActivity extends BaseActivity implements RegistView {
                 SharedPreferencesUtil.putData(CommonConstant.COMPANY, false);
             }
         });
+    }
+
+    /**
+     * 注册结果
+     *
+     * @param successData 成功数据源
+     */
+    @Override
+    public void showData(JSONObject successData) {
+        String message = successData.getString("message");
+        showToast(message);
+    }
+
+    @Override
+    public void showFailure(JSONObject errorData) {
+        String message = errorData.getString("message");
+        showToast(message);
+    }
+
+    /**
+     * 发送验证码结果
+     *
+     * @param successData 携带验证码的JSON串
+     */
+    @Override
+    public void dealSendCode(JSONObject successData) {
+        Integer code = successData.getInteger("code");
+        String message = successData.getString("message");
+        if (code.equals(CommonConstant.SUCCESS) && "验证码发送成功".equals(message)) {
+            showToast("验证码发送成功！");
+        } else {
+            showToast("验证码发送失败！");
+        }
+    }
+
+    /**
+     * 校验验证码结果
+     *
+     * @param successData 携带校验结果的JSON串
+     */
+    @Override
+    public void dealVerifyCode(JSONObject successData) {
+        Integer code = successData.getInteger("code");
+        String message = successData.getString("message");
+        if (code.equals(CommonConstant.SUCCESS) && "验证码校验成功".equals(message)) {
+            showToast("验证码校验成功！");
+        } else {
+            showToast("验证码校验失败！");
+        }
     }
 }

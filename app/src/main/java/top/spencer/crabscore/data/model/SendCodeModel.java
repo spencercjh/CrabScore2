@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BaseModel;
 import top.spencer.crabscore.data.Callback;
 
-public class VerifyModel extends BaseModel {
+/**
+ * @author spencercjh
+ */
+public class SendCodeModel extends BaseModel {
     @Override
     public void execute(Callback<JSONObject> myCallBack) {
-        //TODO 验证码请求
+        //TODO 发送验证码
     }
 }

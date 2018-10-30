@@ -2,12 +2,10 @@ package top.spencer.crabscore.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.*;
 import butterknife.*;
 import com.alibaba.fastjson.JSONObject;
@@ -23,7 +21,7 @@ import static android.content.ContentValues.TAG;
 /**
  * @author spencercjh
  */
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings("Duplicates")
 public class LoginActivity extends BaseActivity implements LoginView {
 
     private LoginPresenter loginPresenter;

@@ -7,9 +7,9 @@ import top.spencer.crabscore.data.Callback;
 /**
  * @author spencercjh
  */
-public class RegistModel extends BaseModel {
+public class VerifyCodeModel extends BaseModel {
     @Override
     public void execute(Callback<JSONObject> myCallBack) {
-        //TODO 注册
+        //TODO 校验验证码
     }
 }
