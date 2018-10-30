@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import butterknife.*;
@@ -20,6 +21,8 @@ import top.spencer.crabscore.view.RegistView;
 import static android.content.ContentValues.TAG;
 
 /**
+ * 注册活动
+ *
  * @author spencercjh
  */
 @SuppressWarnings("Duplicates")
@@ -45,13 +48,12 @@ public class RegistActivity extends BaseActivity implements RegistView {
     @BindView(R.id.toggle_repeat_password_regist)
     ToggleButton toggleRepeatPassword;
     @BindView(R.id.button_verify_code)
-    Button sendCode;
+    Button verifyCode;
     @BindView(R.id.button_regist)
     Button regist;
     @BindArray(R.array.roles)
     String[] roles;
 
-    private final static Integer SUCCESS_VERIFY = 100;
     private int seekBarProgress = 0;
     private boolean isVerified = false;
     private int roleChoice = 0;
@@ -63,11 +65,23 @@ public class RegistActivity extends BaseActivity implements RegistView {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setTitle("注册");
+        actionBar.setDisplayHomeAsUpEnabled(true);
         ButterKnife.bind(this);
         registPresenter = new RegistPresenter();
         registPresenter.attachView(this);
         initSeekBar();
         initSpinner();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -156,9 +170,6 @@ public class RegistActivity extends BaseActivity implements RegistView {
                 if (fromUser) {
                     seekBarProgress = progress;
                 }
-                /*if(seekBarProgress==100){
-                    showToast("滑动条验证成功！将发送验证码短信");
-                }*/
             }
 
             @Override
@@ -168,7 +179,7 @@ public class RegistActivity extends BaseActivity implements RegistView {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                if (seekBarProgress == SUCCESS_VERIFY) {
+                if (seekBarProgress == CommonConstant.SUCCESS_VERIFY) {
                     showToast("滑动条验证成功！将发送验证码短信");
                     String mobile = phone.getText().toString().trim();
                     registPresenter.sendCode(mobile);
@@ -225,12 +236,6 @@ public class RegistActivity extends BaseActivity implements RegistView {
         intent.putExtra("ROLE_CHOICE", roleChoice);
         startActivity(intent);
         finish();
-    }
-
-    @Override
-    public void showFailure(JSONObject errorData) {
-        String message = errorData.getString("message");
-        showToast(message);
     }
 
     /**

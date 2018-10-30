@@ -39,11 +39,6 @@ public abstract class BaseModel {
      */
     public abstract void execute(Callback<JSONObject> myCallBack);
 
-    protected String generateJWT(String roleId) {
-        //TODO 生成JWT串
-        return "";
-    }
-
     /**
      * OkHttp3 异步Get请求
      *
@@ -69,14 +64,12 @@ public abstract class BaseModel {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
-                String jwt = response.headers().get("jwt");
                 JSONObject responseJsonResult;
                 try {
                     assert response.body() != null;
                     String responseBody = response.body().string();
                     Log.d(TAG, responseBody);
                     responseJsonResult = JSON.parseObject(responseBody);
-                    responseJsonResult.put("jwt", jwt);
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
                     myCallBack.onError();
@@ -126,14 +119,12 @@ public abstract class BaseModel {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
-                String jwt = response.headers().get("jwt");
                 JSONObject responseJsonResult;
                 try {
                     assert response.body() != null;
                     String responseBody = response.body().string();
                     Log.d(TAG, responseBody);
                     responseJsonResult = JSON.parseObject(responseBody);
-                    responseJsonResult.put("jwt", jwt);
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
                     myCallBack.onError();
@@ -184,14 +175,12 @@ public abstract class BaseModel {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
-                String jwt = response.headers().get("jwt");
                 JSONObject responseJsonResult;
                 try {
                     assert response.body() != null;
                     String responseBody = response.body().string();
                     Log.d(TAG, responseBody);
                     responseJsonResult = JSON.parseObject(responseBody);
-                    responseJsonResult.put("jwt", jwt);
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
                     myCallBack.onError();
@@ -234,14 +223,12 @@ public abstract class BaseModel {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
-                String jwt = response.headers().get("jwt");
                 JSONObject responseJsonResult;
                 try {
                     assert response.body() != null;
                     String responseBody = response.body().string();
                     Log.d(TAG, responseBody);
                     responseJsonResult = JSON.parseObject(responseBody);
-                    responseJsonResult.put("jwt", jwt);
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
                     myCallBack.onError();

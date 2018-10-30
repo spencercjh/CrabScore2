@@ -150,6 +150,23 @@
                     android:background="@color/colorPrimary"
                     android:text="@string/忘记密码"
                     android:textStyle="bold"/>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+            </LinearLayout>
+            <Button
+                    android:id="@+id/button_phone_login"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="6dp"
+                    android:textColor="#fff"
+                    android:gravity="center"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/手机号一键登录注册"
+                    android:textStyle="bold"/>
+
 
         </LinearLayout>
     </ScrollView>

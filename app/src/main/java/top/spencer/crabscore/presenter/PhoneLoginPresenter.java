@@ -5,32 +5,29 @@ import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.Callback;
 import top.spencer.crabscore.data.constant.Token;
 import top.spencer.crabscore.data.model.DataModel;
-import top.spencer.crabscore.view.RegistView;
+import top.spencer.crabscore.data.model.PhoneLoginModel;
+import top.spencer.crabscore.view.PhoneLoginView;
 
 /**
  * @author spencercjh
  */
 @SuppressWarnings("Duplicates")
-public class RegistPresenter extends BasePresenter<RegistView> {
-
-
+public class PhoneLoginPresenter extends BasePresenter<PhoneLoginView> {
     /**
-     * 注册请求
+     * 手机登陆
+     * <p>
+     * 这个接口会在body里返回JWT！
      *
-     * @param username    用户名（其实是手机号作为用户名）
-     * @param password    密码
-     * @param roleId      用户组（1,2,3,4）
-     * @param email       其实是手机
-     * @param displayName 显示名
-     * @see top.spencer.crabscore.data.model.RegistModel
+     * @param mobile 手机号
+     * @see PhoneLoginModel
      */
-    public void regist(String username, String password, String roleId, String email, String displayName) {
+    public void loginOrRegist(String mobile) {
         if (!isViewAttached()) {
             return;
         }
         DataModel
-                .request(Token.API_REGIST)
-                .params(username, password, roleId, email, displayName)
+                .request(Token.API_LOGIN_OR_REGIST)
+                .params(mobile)
                 .execute(new Callback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {

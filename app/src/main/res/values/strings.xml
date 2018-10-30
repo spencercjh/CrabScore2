@@ -31,4 +31,6 @@
     <string name="error_incorrect_password">密码是无效的</string>
     <string name="error_field_required">用户名无效</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="手机号一键登录注册">手机号一键登录/注册</string>
+    <string name="一键登录注册">一键登录/注册</string>
 </resources>

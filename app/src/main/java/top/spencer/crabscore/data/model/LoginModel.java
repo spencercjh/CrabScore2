@@ -20,6 +20,8 @@ public class LoginModel extends BaseModel {
     /**
      * 参数表 String username, String password, String roleId
      * login接口JWT为空，返回会拿到一个JWT
+     * <p>
+     * 这个接口会在body里返回JWT！！！
      *
      * @param myCallBack myCallBack
      */

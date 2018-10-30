@@ -14,7 +14,7 @@ public class PatternUtil {
     /**
      * 由字母数字下划线组成且开头必须是字母，不能超过16位
      */
-    private static final Pattern USERNAME = Pattern.compile("[a-zA-Z][a-zA-Z0-9_]{1,15}");
+    private static final Pattern USERNAME = Pattern.compile("[a-zA-Z0-9_][a-zA-Z0-9_]{1,15}");
 
     /**
      * 手机号

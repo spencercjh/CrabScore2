@@ -15,13 +15,15 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     /**
      * 登陆请求
+     * <p>
+     * 这个接口会在body里返回JWT！！！
      *
      * @param username 用户名
      * @param password 密码
      * @param roleId   用户组（1、2、3、4）
+     * @see top.spencer.crabscore.data.model.LoginModel
      */
     public void login(String username, String password, String roleId) {
-
         if (!isViewAttached()) {
             //如果没有View引用就不加载数据
             return;

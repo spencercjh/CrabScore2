@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
+import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.common.CommonConstant;
 
@@ -16,7 +17,6 @@ import top.spencer.crabscore.common.CommonConstant;
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
 
     private ProgressDialog mProgressDialog;
-    private long lastPressTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,13 +77,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     }
 
     @Override
-    public void onBackPressed() {
-        if (System.currentTimeMillis() - lastPressTime < CommonConstant.EXIT_GAP_TIME) {
-            finish();
-            Runtime.getRuntime().exit(0);
-        } else {
-            lastPressTime = System.currentTimeMillis();
-            showToast("再按一次返回键退出程序");
-        }
+    public void showFailure(JSONObject errorData) {
+        showToast(errorData.getString("message"));
     }
 }

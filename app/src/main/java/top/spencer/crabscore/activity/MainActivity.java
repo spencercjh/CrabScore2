@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 主导航界面
+ * 主导航活动
  *
  * @author spencercjh
  */

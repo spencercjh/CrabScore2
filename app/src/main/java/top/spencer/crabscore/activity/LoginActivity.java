@@ -2,6 +2,7 @@ package top.spencer.crabscore.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
@@ -17,9 +18,13 @@ import top.spencer.crabscore.presenter.LoginPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
 import top.spencer.crabscore.view.LoginView;
 
+import java.util.Map;
+
 import static android.content.ContentValues.TAG;
 
 /**
+ * 登录活动
+ *
  * @author spencercjh
  */
 @SuppressWarnings("Duplicates")
@@ -37,6 +42,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
     Button register;
     @BindView(R.id.button_forget_password)
     Button forgetPassword;
+    @BindView(R.id.button_phone_login)
+    Button phoneLogin;
     @BindView(R.id.spinner_role)
     Spinner roleSpinner;
     @BindArray(R.array.roles)
@@ -49,6 +56,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     ToggleButton togglePassword;
 
     private int roleChoice = 0;
+    private long lastPressTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +68,17 @@ public class LoginActivity extends BaseActivity implements LoginView {
         ButterKnife.bind(this);
         loginPresenter = new LoginPresenter();
         loginPresenter.attachView(this);
-        SharedPreferencesUtil.getInstance(getContext(), "LOGIN");
+        SharedPreferencesUtil.getInstance(getContext(), "PROPERTY");
         initSpinner();
         readSharedPreferences();
         returnFromRegist();
     }
 
-    //TODO 手机号一键登录/注册
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        loginPresenter.detachView();
+    }
 
     /**
      * 从注册界面返回，自动填上刚注册的用户信息
@@ -91,12 +103,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        loginPresenter.detachView();
-    }
-
+    /**
+     * 初始化Spinner
+     */
     @Override
     public void initSpinner() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roles);
@@ -130,6 +139,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
         });
     }
 
+    /**
+     * 读取SharedPreferences修改UI
+     */
     @Override
     public void readSharedPreferences() {
         //读取SharedPreferences中的用户组信息
@@ -155,15 +167,23 @@ public class LoginActivity extends BaseActivity implements LoginView {
         }
         //记住密码
         if (SharedPreferencesUtil.getData(CommonConstant.REMEMBER_PASSWORD, false).equals(true)) {
+            rememberPassword.setChecked(true);
             username.setText((String) SharedPreferencesUtil.getData("USERNAME", ""));
             password.setText((String) SharedPreferencesUtil.getData("PASSWORD", ""));
         }
         //自动登录
         if (SharedPreferencesUtil.getData(CommonConstant.AUTO_LOGIN, false).equals(true)) {
+            autoLogin.setChecked(true);
             loginPresenter.login(username.getText().toString().trim(), password.getText().toString().trim(), String.valueOf(roleChoice));
         }
     }
 
+    /**
+     * 显示密码的监听
+     *
+     * @param buttonView buttonView
+     * @param isChecked  isChecked
+     */
     @OnCheckedChanged(R.id.toggle_password)
     public void displayPassword(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
@@ -177,6 +197,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
         }
     }
 
+    /**
+     * 记住密码的监听
+     *
+     * @param buttonView buttonView
+     * @param isChecked  isChecked
+     */
     @OnCheckedChanged(R.id.checkbox_remember_password)
     public void rememberPassword(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
@@ -190,6 +216,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
         }
     }
 
+    /**
+     * 自动登录的监听
+     *
+     * @param buttonView buttonView
+     * @param isChecked  isChecked
+     */
     @OnCheckedChanged(R.id.checkbox_auto_login)
     public void autoLogin(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
@@ -203,38 +235,80 @@ public class LoginActivity extends BaseActivity implements LoginView {
         }
     }
 
+    /**
+     * 登陆按钮的监听
+     *
+     * @param view view
+     */
     @OnClick(R.id.button_login)
     public void login(View view) {
         loginPresenter.login(username.getText().toString().trim(), password.getText().toString().trim(), String.valueOf(roleChoice));
     }
 
+    /**
+     * 注册按钮监听
+     *
+     * @param view view
+     */
     @OnClick(R.id.button_goto_regist)
     public void register(View view) {
         Intent intent = new Intent(getContext(), RegistActivity.class);
         startActivity(intent);
     }
 
-    @OnClick(R.id.button_forget_password)
-    public void forgetPassword(View view) {
-        Intent intent = new Intent();
-        //TODO 跳转忘记密码活动
-    }
-
-    @Override
-    public void showData(JSONObject successData) {
-        SharedPreferencesUtil.putData("USERNAME", username.getText().toString().trim());
-        SharedPreferencesUtil.putData("PASSWORD", password.getText().toString().trim());
-        showToast(successData.getString("message"));
-        Intent intent = new Intent(getContext(), MainActivity.class);
-        intent.putExtra("USERNAME", username.getText().toString().trim());
-        intent.putExtra("ROLE_CHOICE", roleChoice);
+    /**
+     * 手机登录按钮的监听
+     *
+     * @param view view
+     */
+    @OnClick(R.id.button_phone_login)
+    public void phoneLoginRegist(View view) {
+        Intent intent = new Intent(getContext(), PhoneLoginActivity.class);
         startActivity(intent);
         finish();
     }
 
-    @Override
-    public void showFailure(JSONObject errorData) {
-        showToast(errorData.getString("message"));
+    /**
+     * 忘记密码按钮的监听
+     *
+     * @param view view
+     */
+    @OnClick(R.id.button_forget_password)
+    public void forgetPassword(View view) {
+        Intent intent = new Intent(getContext(), ForgetPasswordActvity.class);
+        startActivity(intent);
     }
 
+    /**
+     * 登陆成功
+     *
+     * @param successData 成功数据源
+     */
+    @Override
+    public void showData(JSONObject successData) {
+        SharedPreferencesUtil.putData("USERNAME", username.getText().toString().trim());
+        SharedPreferencesUtil.putData("PASSWORD", password.getText().toString().trim());
+        SharedPreferencesUtil.putData("ROLE_CHOICE", roleChoice);
+        showToast(successData.getString("message"));
+        Map result = (Map) successData.get("result");
+        SharedPreferencesUtil.putData("JWT", result.get("jwt"));
+        //TODO BUG
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    /**
+     * 重写返回键
+     */
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - lastPressTime < CommonConstant.EXIT_GAP_TIME) {
+            finish();
+            Runtime.getRuntime().exit(0);
+        } else {
+            lastPressTime = System.currentTimeMillis();
+            showToast("再按一次返回键退出程序");
+        }
+    }
 }
