@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.Callback;
 import top.spencer.crabscore.data.constant.Token;
-import top.spencer.crabscore.data.model.DataModel;
+import top.spencer.crabscore.data.model.ModelFactory;
 import top.spencer.crabscore.view.LoginView;
 
 /**
@@ -29,7 +29,8 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             return;
         }
         //显示正在加载进度条
-        DataModel
+        getView().showLoading();
+        ModelFactory
                 // 设置请求标识token
                 .request(Token.API_LOGIN)
                 // 添加请求参数，没有则不添加

@@ -290,9 +290,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
         SharedPreferencesUtil.putData("PASSWORD", password.getText().toString().trim());
         SharedPreferencesUtil.putData("ROLE_CHOICE", roleChoice);
         showToast(successData.getString("message"));
-        Map result = (Map) successData.get("result");
-        SharedPreferencesUtil.putData("JWT", result.get("jwt"));
-        //TODO BUG
+        String jwt = successData.getString("result");
+        SharedPreferencesUtil.putData("JWT", jwt);
         Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);
         finish();

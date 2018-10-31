@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.Callback;
 import top.spencer.crabscore.data.constant.Token;
-import top.spencer.crabscore.data.model.DataModel;
+import top.spencer.crabscore.data.model.ModelFactory;
 import top.spencer.crabscore.view.RegistView;
 
 /**
@@ -28,7 +28,8 @@ public class RegistPresenter extends BasePresenter<RegistView> {
         if (!isViewAttached()) {
             return;
         }
-        DataModel
+        getView().showLoading();
+        ModelFactory
                 .request(Token.API_REGIST)
                 .params(username, password, roleId, email, displayName)
                 .execute(new Callback<JSONObject>() {
@@ -64,7 +65,8 @@ public class RegistPresenter extends BasePresenter<RegistView> {
         if (!isViewAttached()) {
             return;
         }
-        DataModel
+        getView().showLoading();
+        ModelFactory
                 .request(Token.API_SEND_CODE)
                 .params(mobile)
                 .execute(new Callback<JSONObject>() {
@@ -101,7 +103,8 @@ public class RegistPresenter extends BasePresenter<RegistView> {
         if (!isViewAttached()) {
             return;
         }
-        DataModel
+        getView().showLoading();
+        ModelFactory
                 .request(Token.API_VERIFY_CODE)
                 .params(mobile, code)
                 .execute(new Callback<JSONObject>() {

@@ -3,6 +3,7 @@ package top.spencer.crabscore.base;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
@@ -22,48 +23,42 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setTitle("请稍后");
         mProgressDialog.setCancelable(true);
     }
 
     @Override
     public void showLoading() {
-        if (!mProgressDialog.isShowing()) {
-            if (!"main".equals(Thread.currentThread().getName())) {
-                if (Looper.myLooper() == null) {
-                    Looper.prepare();
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                if (!mProgressDialog.isShowing()) {
+                    mProgressDialog.show();
                 }
-                mProgressDialog.show();
-                Looper.loop();
             }
-            mProgressDialog.show();
-        }
+        });
     }
 
     @Override
     public void hideLoading() {
-        if (mProgressDialog.isShowing()) {
-            if (!"main".equals(Thread.currentThread().getName())) {
-                if (Looper.myLooper() == null) {
-                    Looper.prepare();
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                if (mProgressDialog.isShowing()) {
+                    mProgressDialog.dismiss();
                 }
-                mProgressDialog.dismiss();
-                Looper.loop();
             }
-            mProgressDialog.dismiss();
-        }
+        });
     }
 
     @Override
-    public void showToast(String msg) {
-        if (!"main".equals(Thread.currentThread().getName())) {
-            if (Looper.myLooper() == null) {
-                Looper.prepare();
+    public void showToast(final String msg) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
             }
-            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-            Looper.loop();
-        } else {
-            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-        }
+        });
     }
 
     @Override

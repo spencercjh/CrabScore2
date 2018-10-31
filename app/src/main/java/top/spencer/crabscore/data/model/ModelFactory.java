@@ -8,7 +8,7 @@ import static android.content.ContentValues.TAG;
 /**
  * @author spencercjh
  */
-public class DataModel {
+public class ModelFactory {
     public static BaseModel request(String token) {
         // 声明一个空的BaseModel
         BaseModel model = null;

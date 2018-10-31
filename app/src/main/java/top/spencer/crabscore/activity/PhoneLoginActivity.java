@@ -196,7 +196,6 @@ public class PhoneLoginActivity extends BaseActivity implements PhoneLoginView {
             Map result = (Map) successData.get("result");
             SharedPreferencesUtil.putData("JWT", result.get("jwt"));
             SharedPreferencesUtil.putData("ROLE_CHOICE", result.get("roleId"));
-            //TODO BUG
             Intent intent = new Intent(getContext(), MainActivity.class);
             startActivity(intent);
             finish();
