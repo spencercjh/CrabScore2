@@ -5,12 +5,11 @@ import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.Callback;
 import top.spencer.crabscore.data.constant.Token;
 import top.spencer.crabscore.data.model.ModelFactory;
-import top.spencer.crabscore.view.LoginView;
 
 /**
  * @author spencercjh
  */
-public class LoginPresenter extends BasePresenter<LoginView> {
+public class LoginPresenter extends BasePresenter {
 
 
     /**

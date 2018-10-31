@@ -6,7 +6,7 @@ import top.spencer.crabscore.base.BaseView;
 /**
  * @author spencercjh
  */
-public interface ForgetPasswordView extends BaseView {
+public interface VerifyCodeView extends BaseView {
     /**
      * 初始化校验SeekBar
      */

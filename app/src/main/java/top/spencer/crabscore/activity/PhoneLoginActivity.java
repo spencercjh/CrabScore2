@@ -14,10 +14,10 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseActivity;
 import top.spencer.crabscore.common.CommonConstant;
-import top.spencer.crabscore.presenter.PhoneLoginPresenter;
+import top.spencer.crabscore.presenter.VerifyCodePresenter;
 import top.spencer.crabscore.util.PatternUtil;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
-import top.spencer.crabscore.view.PhoneLoginView;
+import top.spencer.crabscore.view.VerifyCodeView;
 
 import java.util.Map;
 
@@ -26,9 +26,8 @@ import java.util.Map;
  *
  * @author spencercjh
  */
-@SuppressWarnings("Duplicates")
-public class PhoneLoginActivity extends BaseActivity implements PhoneLoginView {
-    private PhoneLoginPresenter phoneLoginPresenter;
+public class PhoneLoginActivity extends BaseActivity implements VerifyCodeView {
+    private VerifyCodePresenter verifyCodePresenter;
     @BindView(R.id.edit_phone_login)
     EditText phone;
     @BindView(R.id.edit_code_verify)
@@ -53,8 +52,8 @@ public class PhoneLoginActivity extends BaseActivity implements PhoneLoginView {
         actionBar.setDisplayHomeAsUpEnabled(true);
         ButterKnife.bind(this);
         SharedPreferencesUtil.getInstance(getContext(), "PROPERTY");
-        phoneLoginPresenter = new PhoneLoginPresenter();
-        phoneLoginPresenter.attachView(this);
+        verifyCodePresenter = new VerifyCodePresenter();
+        verifyCodePresenter.attachView(this);
         initSeekBar();
     }
 
@@ -64,8 +63,8 @@ public class PhoneLoginActivity extends BaseActivity implements PhoneLoginView {
      * @param item item
      * @return super.onOptionsItemSelected(item)
      */
-    @SuppressWarnings("Duplicates")
     @Override
+    @SuppressWarnings("Duplicates")
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -79,6 +78,7 @@ public class PhoneLoginActivity extends BaseActivity implements PhoneLoginView {
     /**
      * 初始化SeekBar
      */
+    @SuppressWarnings("Duplicates")
     @Override
     public void initSeekBar() {
         verifyPhone.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -99,7 +99,7 @@ public class PhoneLoginActivity extends BaseActivity implements PhoneLoginView {
                 if (seekBarProgress == CommonConstant.SUCCESS_VERIFY) {
                     showToast("滑动条验证成功！将发送验证码短信");
                     String mobile = phone.getText().toString().trim();
-                    phoneLoginPresenter.sendCode(mobile);
+                    verifyCodePresenter.sendCode(mobile);
                 }
             }
         });
@@ -111,6 +111,7 @@ public class PhoneLoginActivity extends BaseActivity implements PhoneLoginView {
      * @param view view
      */
     @OnClick(R.id.button_verify_code)
+    @SuppressWarnings("Duplicates")
     public void verifyCode(View view) {
         String mobile = phone.getText().toString().trim();
         String codeString = code.getText().toString().trim();
@@ -125,7 +126,7 @@ public class PhoneLoginActivity extends BaseActivity implements PhoneLoginView {
             return;
         }
         if (PatternUtil.isMobile(mobile)) {
-            phoneLoginPresenter.verifyCode(mobile, codeString);
+            verifyCodePresenter.verifyCode(mobile, codeString);
         } else {
             showToast("非法手机号");
         }
@@ -141,7 +142,7 @@ public class PhoneLoginActivity extends BaseActivity implements PhoneLoginView {
         String mobile = phone.getText().toString().trim();
         if (PatternUtil.isMobile(mobile)) {
             if (isVerified) {
-                phoneLoginPresenter.loginOrRegist(mobile);
+                verifyCodePresenter.loginOrRegist(mobile);
             } else {
                 showToast("请通过手机号校验");
             }
@@ -179,7 +180,7 @@ public class PhoneLoginActivity extends BaseActivity implements PhoneLoginView {
             isVerified = true;
             showToast("验证码校验成功！");
         } else {
-            showToast("验证码校验失败！");
+            showToast(message);
         }
     }
 

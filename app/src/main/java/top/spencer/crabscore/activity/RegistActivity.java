@@ -2,9 +2,6 @@ package top.spencer.crabscore.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
@@ -13,22 +10,19 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseActivity;
 import top.spencer.crabscore.common.CommonConstant;
-import top.spencer.crabscore.presenter.RegistPresenter;
+import top.spencer.crabscore.presenter.VerifyCodePresenter;
 import top.spencer.crabscore.util.PatternUtil;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
-import top.spencer.crabscore.view.RegistView;
-
-import static android.content.ContentValues.TAG;
+import top.spencer.crabscore.view.InitHelper;
+import top.spencer.crabscore.view.VerifyCodeView;
 
 /**
  * 注册活动
  *
  * @author spencercjh
  */
-@SuppressWarnings("Duplicates")
-public class RegistActivity extends BaseActivity implements RegistView {
-    private RegistPresenter registPresenter;
-
+public class RegistActivity extends BaseActivity implements VerifyCodeView {
+    private VerifyCodePresenter verifyCodePresenter;
     @BindView(R.id.edit_phone_regist)
     EditText phone;
     @BindView(R.id.edit_password_regist)
@@ -67,13 +61,20 @@ public class RegistActivity extends BaseActivity implements RegistView {
         actionBar.setTitle("注册");
         actionBar.setDisplayHomeAsUpEnabled(true);
         ButterKnife.bind(this);
-        registPresenter = new RegistPresenter();
-        registPresenter.attachView(this);
+        verifyCodePresenter = new VerifyCodePresenter();
+        verifyCodePresenter.attachView(this);
         initSeekBar();
         initSpinner();
     }
 
+    /**
+     * 重写actionBar返回键
+     *
+     * @param item item
+     * @return super.onOptionsItemSelected(item)
+     */
     @Override
+    @SuppressWarnings("Duplicates")
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -87,35 +88,36 @@ public class RegistActivity extends BaseActivity implements RegistView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        registPresenter.detachView();
+        verifyCodePresenter.detachView();
     }
 
+    /**
+     * 显示密码的监听
+     *
+     * @param buttonView buttonView
+     * @param isChecked  isChecked
+     */
     @OnCheckedChanged(R.id.toggle_password_regist)
     public void displayPassword(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            //如果选中，显示密码
-            togglePassword.setBackground(getDrawable(R.drawable.eye_open));
-            password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-        } else {
-            //否则隐藏密码
-            togglePassword.setBackground(getDrawable(R.drawable.eye_close));
-            password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        }
+        InitHelper.toggleButtonDisplayPassword(togglePassword, password, isChecked, getContext());
     }
 
+    /**
+     * 显示确认密码的监听
+     *
+     * @param buttonView buttonView
+     * @param isChecked  isChecked
+     */
     @OnCheckedChanged(R.id.toggle_repeat_password_regist)
     public void displayRepeatPassword(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            //如果选中，显示密码
-            toggleRepeatPassword.setBackground(getDrawable(R.drawable.eye_open));
-            repeatPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-        } else {
-            //否则隐藏密码
-            toggleRepeatPassword.setBackground(getDrawable(R.drawable.eye_close));
-            repeatPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        }
+        InitHelper.toggleButtonDisplayPassword(toggleRepeatPassword, repeatPassword, isChecked, getContext());
     }
 
+    /**
+     * 注册按钮的监听
+     *
+     * @param view view
+     */
     @OnClick(R.id.button_regist)
     public void regist(View view) {
         String mobile = phone.getText().toString().trim();
@@ -138,10 +140,16 @@ public class RegistActivity extends BaseActivity implements RegistView {
             showToast("两次密码不一致");
             return;
         }
-        registPresenter.regist(mobile, passwordString, String.valueOf(roleChoice), mobile, nameString);
+        verifyCodePresenter.regist(mobile, passwordString, String.valueOf(roleChoice), mobile, nameString);
     }
 
+    /**
+     * 校验验证码按钮的监听
+     *
+     * @param view view
+     */
     @OnClick(R.id.button_verify_code)
+    @SuppressWarnings("Duplicates")
     public void verifyCode(View view) {
         String mobile = phone.getText().toString().trim();
         String codeString = code.getText().toString().trim();
@@ -156,13 +164,17 @@ public class RegistActivity extends BaseActivity implements RegistView {
             return;
         }
         if (PatternUtil.isMobile(mobile)) {
-            registPresenter.verifyCode(mobile, codeString);
+            verifyCodePresenter.verifyCode(mobile, codeString);
         } else {
             showToast("非法手机号");
         }
     }
 
+    /**
+     * 初始化SeekBar
+     */
     @Override
+    @SuppressWarnings("Duplicates")
     public void initSeekBar() {
         verifyPhone.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -182,13 +194,16 @@ public class RegistActivity extends BaseActivity implements RegistView {
                 if (seekBarProgress == CommonConstant.SUCCESS_VERIFY) {
                     showToast("滑动条验证成功！将发送验证码短信");
                     String mobile = phone.getText().toString().trim();
-                    registPresenter.sendCode(mobile);
+                    verifyCodePresenter.sendCode(mobile);
                 }
             }
         });
     }
 
-    @Override
+    /**
+     * 初始化Spinner
+     */
+    @SuppressWarnings("Duplicates")
     public void initSpinner() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roles);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -196,8 +211,6 @@ public class RegistActivity extends BaseActivity implements RegistView {
         roleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Log.d(TAG, "用户组改变");
-                showToast("用户组改变");
                 roleChoice = pos;
                 if (pos == CommonConstant.USER_TYPE_ADMIN) {
                     SharedPreferencesUtil.putData(CommonConstant.ADMINISTRATOR, true);
@@ -212,7 +225,6 @@ public class RegistActivity extends BaseActivity implements RegistView {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Log.d(TAG, "用户组未改变");
                 SharedPreferencesUtil.putData(CommonConstant.ADMINISTRATOR, false);
                 SharedPreferencesUtil.putData(CommonConstant.JUDGE, false);
                 SharedPreferencesUtil.putData(CommonConstant.STAFF, false);
@@ -228,14 +240,18 @@ public class RegistActivity extends BaseActivity implements RegistView {
      */
     @Override
     public void showData(JSONObject successData) {
-        String message = successData.getString("message");
-        showToast(message);
-        Intent intent = new Intent(getContext(), LoginActivity.class);
-        intent.putExtra("USERNAME", phone.getText().toString().trim());
-        intent.putExtra("PASSWORD", password.getText().toString().trim());
-        intent.putExtra("ROLE_CHOICE", roleChoice);
-        startActivity(intent);
-        finish();
+        if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
+            showToast(successData.getString("message"));
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            intent.putExtra("USERNAME", phone.getText().toString().trim());
+            intent.putExtra("PASSWORD", password.getText().toString().trim());
+            intent.putExtra("ROLE_CHOICE", roleChoice);
+            startActivity(intent);
+            finish();
+        } else {
+            showToast(successData.getString("message"));
+        }
+
     }
 
     /**

@@ -1,8 +1,6 @@
 package top.spencer.crabscore.activity;
 
 import android.os.Bundle;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
@@ -14,19 +12,18 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseActivity;
 import top.spencer.crabscore.common.CommonConstant;
-import top.spencer.crabscore.presenter.ForgetPasswordPresenter;
+import top.spencer.crabscore.presenter.VerifyCodePresenter;
 import top.spencer.crabscore.util.PatternUtil;
-import top.spencer.crabscore.view.ForgetPasswordView;
+import top.spencer.crabscore.view.InitHelper;
+import top.spencer.crabscore.view.VerifyCodeView;
 
 /**
  * 忘记密码活动
  *
  * @author spencercjh
  */
-public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswordView {
-
-    private ForgetPasswordPresenter forgetPasswordPresenter;
-
+public class ForgetPasswordActivity extends BaseActivity implements VerifyCodeView {
+    private VerifyCodePresenter verifyCodePresenter;
     @BindView(R.id.edit_phone)
     EditText phone;
     @BindView(R.id.seekbar_verify_phone)
@@ -54,14 +51,15 @@ public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswo
         actionBar.setTitle("验证手机修改密码");
         actionBar.setDisplayHomeAsUpEnabled(true);
         ButterKnife.bind(this);
-        forgetPasswordPresenter = new ForgetPasswordPresenter();
-        forgetPasswordPresenter.attachView(this);
+        verifyCodePresenter = new VerifyCodePresenter();
+        verifyCodePresenter.attachView(this);
+        initSeekBar();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        forgetPasswordPresenter.detachView();
+        verifyCodePresenter.detachView();
     }
 
     /**
@@ -70,8 +68,8 @@ public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswo
      * @param item item
      * @return super.onOptionsItemSelected(item)
      */
-    @SuppressWarnings("Duplicates")
     @Override
+    @SuppressWarnings("Duplicates")
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -106,7 +104,7 @@ public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswo
                 if (seekBarProgress == CommonConstant.SUCCESS_VERIFY) {
                     showToast("滑动条验证成功！将发送验证码短信");
                     String mobile = phone.getText().toString().trim();
-                    forgetPasswordPresenter.sendCode(mobile);
+                    verifyCodePresenter.sendCode(mobile);
                 }
             }
         });
@@ -117,8 +115,8 @@ public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswo
      *
      * @param view view
      */
-    @SuppressWarnings("Duplicates")
     @OnClick(R.id.button_verify_code)
+    @SuppressWarnings("Duplicates")
     public void verifyCode(View view) {
         String mobile = phone.getText().toString().trim();
         String codeString = code.getText().toString().trim();
@@ -133,7 +131,7 @@ public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswo
             return;
         }
         if (PatternUtil.isMobile(mobile)) {
-            forgetPasswordPresenter.verifyCode(mobile, codeString);
+            verifyCodePresenter.verifyCode(mobile, codeString);
         } else {
             showToast("非法手机号");
         }
@@ -145,18 +143,9 @@ public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswo
      * @param buttonView buttonView
      * @param isChecked  isChecked
      */
-    @SuppressWarnings("Duplicates")
     @OnCheckedChanged(R.id.toggle_password_update)
     public void displayPassword(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            //如果选中，显示密码
-            togglePassword.setBackground(getDrawable(R.drawable.eye_open));
-            password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-        } else {
-            //否则隐藏密码
-            togglePassword.setBackground(getDrawable(R.drawable.eye_close));
-            password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        }
+        InitHelper.toggleButtonDisplayPassword(togglePassword, password, isChecked, getContext());
     }
 
     @OnClick(R.id.button_update_password)
@@ -173,7 +162,7 @@ public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswo
             showToast("请通过手机号校验");
             return;
         }
-        forgetPasswordPresenter.forgetPassword(mobile, newPassword);
+        verifyCodePresenter.forgetPassword(mobile, newPassword);
     }
 
     /**
@@ -185,6 +174,8 @@ public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswo
     public void showData(JSONObject successData) {
         if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
             showToast("密码修改成功");
+        } else {
+            showToast(successData.getString("message"));
         }
     }
 

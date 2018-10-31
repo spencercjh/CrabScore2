@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
-import top.spencer.crabscore.common.CommonConstant;
 
 /**
  * @author spencercjh

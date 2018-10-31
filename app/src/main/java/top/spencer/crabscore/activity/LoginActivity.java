@@ -2,8 +2,6 @@ package top.spencer.crabscore.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
@@ -15,6 +13,7 @@ import top.spencer.crabscore.base.BaseActivity;
 import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.presenter.LoginPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
+import top.spencer.crabscore.view.InitHelper;
 import top.spencer.crabscore.view.LoginView;
 
 import static android.content.ContentValues.TAG;
@@ -24,7 +23,6 @@ import static android.content.ContentValues.TAG;
  *
  * @author spencercjh
  */
-@SuppressWarnings("Duplicates")
 public class LoginActivity extends BaseActivity implements LoginView {
 
     private LoginPresenter loginPresenter;
@@ -104,6 +102,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
      * 初始化Spinner
      */
     @Override
+    @SuppressWarnings("Duplicates")
     public void initSpinner() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roles);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -111,8 +110,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
         roleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Log.d(TAG, "用户组改变");
-                showToast("用户组改变");
                 roleChoice = pos;
                 if (pos == CommonConstant.USER_TYPE_ADMIN) {
                     SharedPreferencesUtil.putData(CommonConstant.ADMINISTRATOR, true);
@@ -127,7 +124,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Log.d(TAG, "用户组未改变");
                 SharedPreferencesUtil.putData(CommonConstant.ADMINISTRATOR, false);
                 SharedPreferencesUtil.putData(CommonConstant.JUDGE, false);
                 SharedPreferencesUtil.putData(CommonConstant.STAFF, false);
@@ -183,15 +179,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
      */
     @OnCheckedChanged(R.id.toggle_password)
     public void displayPassword(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            //如果选中，显示密码
-            togglePassword.setBackground(getDrawable(R.drawable.eye_open));
-            password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-        } else {
-            //否则隐藏密码
-            togglePassword.setBackground(getDrawable(R.drawable.eye_close));
-            password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        }
+        InitHelper.toggleButtonDisplayPassword(togglePassword, password, isChecked, getContext());
     }
 
     /**
@@ -203,12 +191,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @OnCheckedChanged(R.id.checkbox_remember_password)
     public void rememberPassword(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
-            Log.d(TAG, "记住密码已选中");
-            showToast("记住密码已选中");
             SharedPreferencesUtil.putData("REMEMBER_PASSWORD", true);
         } else {
-            Log.d(TAG, "记住密码没有选中");
-            showToast("记住密码没有选中");
             SharedPreferencesUtil.putData("REMEMBER_PASSWORD", false);
         }
     }
@@ -222,12 +206,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @OnCheckedChanged(R.id.checkbox_auto_login)
     public void autoLogin(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
-            Log.d(TAG, "自动登录已选中");
-            showToast("自动登录已选中");
             SharedPreferencesUtil.putData("AUTO_LOGIN", true);
         } else {
-            Log.d(TAG, "自动登录未选中");
-            showToast("自动登录未选中");
             SharedPreferencesUtil.putData("AUTO_LOGIN", false);
         }
     }
@@ -282,15 +262,20 @@ public class LoginActivity extends BaseActivity implements LoginView {
      */
     @Override
     public void showData(JSONObject successData) {
-        SharedPreferencesUtil.putData("USERNAME", username.getText().toString().trim());
-        SharedPreferencesUtil.putData("PASSWORD", password.getText().toString().trim());
-        SharedPreferencesUtil.putData("ROLE_CHOICE", roleChoice);
-        showToast(successData.getString("message"));
-        String jwt = successData.getString("result");
-        SharedPreferencesUtil.putData("JWT", jwt);
-        Intent intent = new Intent(getContext(), MainActivity.class);
-        startActivity(intent);
-        finish();
+        if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
+            SharedPreferencesUtil.putData("USERNAME", username.getText().toString().trim());
+            SharedPreferencesUtil.putData("PASSWORD", password.getText().toString().trim());
+            SharedPreferencesUtil.putData("ROLE_CHOICE", roleChoice);
+            showToast(successData.getString("message"));
+            String jwt = successData.getString("result");
+            SharedPreferencesUtil.putData("JWT", jwt);
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            showToast(successData.getString("message"));
+        }
+
     }
 
     /**

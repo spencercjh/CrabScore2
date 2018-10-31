@@ -18,5 +18,5 @@ public interface Token {
 
     String API_LOGIN_OR_REGIST = PhoneLoginModel.class.getName();
 
-    String API_FORGET_PASSWORD = ForgetPsswordModel.class.getName();
+    String API_FORGET_PASSWORD = ForgetPasswordModel.class.getName();
 }
