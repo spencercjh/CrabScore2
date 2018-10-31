@@ -1,44 +1,46 @@
 package top.spencer.crabscore.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.SeekBar;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseActivity;
 import top.spencer.crabscore.common.CommonConstant;
-import top.spencer.crabscore.presenter.PhoneLoginPresenter;
+import top.spencer.crabscore.presenter.ForgetPasswordPresenter;
 import top.spencer.crabscore.util.PatternUtil;
-import top.spencer.crabscore.util.SharedPreferencesUtil;
-import top.spencer.crabscore.view.PhoneLoginView;
-
-import java.util.Map;
+import top.spencer.crabscore.view.ForgetPasswordView;
 
 /**
- * 手机登陆
+ * 忘记密码活动
  *
  * @author spencercjh
  */
-@SuppressWarnings("Duplicates")
-public class PhoneLoginActivity extends BaseActivity implements PhoneLoginView {
-    private PhoneLoginPresenter phoneLoginPresenter;
-    @BindView(R.id.edit_phone_login)
+public class ForgetPasswordActivity extends BaseActivity implements ForgetPasswordView {
+
+    private ForgetPasswordPresenter forgetPasswordPresenter;
+
+    @BindView(R.id.edit_phone)
     EditText phone;
-    @BindView(R.id.edit_code_verify)
-    EditText code;
-    @BindView(R.id.button_verify_code)
-    Button verifyCode;
-    @BindView(R.id.button_phone_login)
-    Button phoneLogin;
     @BindView(R.id.seekbar_verify_phone)
     SeekBar verifyPhone;
+    @BindView(R.id.button_verify_code)
+    Button verifyCode;
+    @BindView(R.id.edit_code_verify)
+    EditText code;
+    @BindView(R.id.edit_password_update)
+    EditText password;
+    @BindView(R.id.toggle_password_update)
+    ToggleButton togglePassword;
+    @BindView(R.id.button_update_password)
+    Button updatePassword;
 
     private int seekBarProgress = 0;
     private boolean isVerified = false;
@@ -46,16 +48,20 @@ public class PhoneLoginActivity extends BaseActivity implements PhoneLoginView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_phone_login);
+        setContentView(R.layout.activity_forget_password_actvity);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar.setTitle("手机号一键登录");
+        actionBar.setTitle("验证手机修改密码");
         actionBar.setDisplayHomeAsUpEnabled(true);
         ButterKnife.bind(this);
-        SharedPreferencesUtil.getInstance(getContext(), "PROPERTY");
-        phoneLoginPresenter = new PhoneLoginPresenter();
-        phoneLoginPresenter.attachView(this);
-        initSeekBar();
+        forgetPasswordPresenter = new ForgetPasswordPresenter();
+        forgetPasswordPresenter.attachView(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        forgetPasswordPresenter.detachView();
     }
 
     /**
@@ -80,6 +86,7 @@ public class PhoneLoginActivity extends BaseActivity implements PhoneLoginView {
      * 初始化SeekBar
      */
     @Override
+    @SuppressWarnings("Duplicates")
     public void initSeekBar() {
         verifyPhone.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -99,7 +106,7 @@ public class PhoneLoginActivity extends BaseActivity implements PhoneLoginView {
                 if (seekBarProgress == CommonConstant.SUCCESS_VERIFY) {
                     showToast("滑动条验证成功！将发送验证码短信");
                     String mobile = phone.getText().toString().trim();
-                    phoneLoginPresenter.sendCode(mobile);
+                    forgetPasswordPresenter.sendCode(mobile);
                 }
             }
         });
@@ -110,6 +117,7 @@ public class PhoneLoginActivity extends BaseActivity implements PhoneLoginView {
      *
      * @param view view
      */
+    @SuppressWarnings("Duplicates")
     @OnClick(R.id.button_verify_code)
     public void verifyCode(View view) {
         String mobile = phone.getText().toString().trim();
@@ -125,30 +133,61 @@ public class PhoneLoginActivity extends BaseActivity implements PhoneLoginView {
             return;
         }
         if (PatternUtil.isMobile(mobile)) {
-            phoneLoginPresenter.verifyCode(mobile, codeString);
+            forgetPasswordPresenter.verifyCode(mobile, codeString);
         } else {
             showToast("非法手机号");
         }
     }
 
     /**
-     * 手机登录按钮的监听
+     * 显示密码的监听
      *
-     * @param view view
+     * @param buttonView buttonView
+     * @param isChecked  isChecked
      */
-    @OnClick(R.id.button_phone_login)
-    public void loginOrRegist(View view) {
-        String mobile = phone.getText().toString().trim();
-        if (PatternUtil.isMobile(mobile)) {
-            if (isVerified) {
-                phoneLoginPresenter.loginOrRegist(mobile);
-            } else {
-                showToast("请通过手机号校验");
-            }
+    @SuppressWarnings("Duplicates")
+    @OnCheckedChanged(R.id.toggle_password_update)
+    public void displayPassword(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            //如果选中，显示密码
+            togglePassword.setBackground(getDrawable(R.drawable.eye_open));
+            password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
         } else {
-            showToast("非法手机号");
+            //否则隐藏密码
+            togglePassword.setBackground(getDrawable(R.drawable.eye_close));
+            password.setTransformationMethod(PasswordTransformationMethod.getInstance());
         }
     }
+
+    @OnClick(R.id.button_update_password)
+    public void updatePassword(View view) {
+        String mobile = phone.getText().toString().trim();
+        String newPassword = password.getText().toString().trim();
+        if (!PatternUtil.isMobile(mobile)) {
+            showToast("非法搜狐及");
+            return;
+        } else if (!PatternUtil.isUsername(newPassword)) {
+            showToast("非法密码");
+            return;
+        } else if (!isVerified) {
+            showToast("请通过手机号校验");
+            return;
+        }
+        forgetPasswordPresenter.forgetPassword(mobile, newPassword);
+    }
+
+    /**
+     * 修改密码成功
+     *
+     * @param successData 成功数据源
+     */
+    @Override
+    public void showData(JSONObject successData) {
+        if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
+            showToast("密码修改成功");
+        }
+    }
+
 
     /**
      * 发送验证码成功
@@ -183,22 +222,4 @@ public class PhoneLoginActivity extends BaseActivity implements PhoneLoginView {
         }
     }
 
-    /**
-     * 一键登录/注册成功
-     *
-     * @param successData 成功数据源
-     */
-    @Override
-    public void showData(JSONObject successData) {
-        if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
-            SharedPreferencesUtil.putData("USERNAME", phone.getText().toString().trim());
-            showToast(successData.getString("message"));
-            Map result = (Map) successData.get("result");
-            SharedPreferencesUtil.putData("JWT", result.get("jwt"));
-            SharedPreferencesUtil.putData("ROLE_CHOICE", result.get("roleId"));
-            Intent intent = new Intent(getContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
 }

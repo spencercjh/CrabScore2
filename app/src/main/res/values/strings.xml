@@ -33,4 +33,5 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="手机号一键登录注册">手机号一键登录/注册</string>
     <string name="一键登录注册">一键登录/注册</string>
+    <string name="修改密码">修改密码</string>
 </resources>

@@ -2,7 +2,6 @@ package top.spencer.crabscore.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
@@ -17,8 +16,6 @@ import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.presenter.LoginPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
 import top.spencer.crabscore.view.LoginView;
-
-import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
@@ -265,7 +262,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
     public void phoneLoginRegist(View view) {
         Intent intent = new Intent(getContext(), PhoneLoginActivity.class);
         startActivity(intent);
-        finish();
     }
 
     /**
@@ -275,7 +271,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
      */
     @OnClick(R.id.button_forget_password)
     public void forgetPassword(View view) {
-        Intent intent = new Intent(getContext(), ForgetPasswordActvity.class);
+        Intent intent = new Intent(getContext(), ForgetPasswordActivity.class);
         startActivity(intent);
     }
 
