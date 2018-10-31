@@ -2,6 +2,9 @@ package top.spencer.crabscore.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +22,11 @@ import top.spencer.crabscore.util.PatternUtil;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
 import top.spencer.crabscore.view.VerifyCodeView;
 
+import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 手机登陆
@@ -41,6 +48,9 @@ public class PhoneLoginActivity extends BaseActivity implements VerifyCodeView {
 
     private int seekBarProgress = 0;
     private boolean isVerified = false;
+    private boolean isDelayed = false;
+    private ThreadPoolExecutor executor;
+    private long nextSendCodeTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +64,15 @@ public class PhoneLoginActivity extends BaseActivity implements VerifyCodeView {
         SharedPreferencesUtil.getInstance(getContext(), "PROPERTY");
         verifyCodePresenter = new VerifyCodePresenter();
         verifyCodePresenter.attachView(this);
+        initThreadPool();
         initSeekBar();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        verifyCodePresenter.detachView();
+        executor.shutdown();
     }
 
     /**
@@ -84,22 +102,26 @@ public class PhoneLoginActivity extends BaseActivity implements VerifyCodeView {
         verifyPhone.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (fromUser) {
-                    seekBarProgress = progress;
-                }
+                seekBarProgress = progress;
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                showToast("拖到底后会收到验证码短信！");
             }
 
+            @SuppressWarnings("deprecation")
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                if (seekBarProgress == CommonConstant.SUCCESS_VERIFY) {
-                    showToast("滑动条验证成功！将发送验证码短信");
+                if (seekBarProgress == CommonConstant.SUCCESS_VERIFY && !isDelayed) {
                     String mobile = phone.getText().toString().trim();
-                    verifyCodePresenter.sendCode(mobile);
+                    if (PatternUtil.isMobile(mobile)) {
+                        showToast("滑动条验证成功！将发送验证码短信");
+                        verifyCodePresenter.sendCode(mobile);
+                    } else {
+                        showToast("手机号格式有误");
+                    }
+                } else if (isDelayed) {
+                    showToast("请您再稍等" + new Date(nextSendCodeTime - System.currentTimeMillis()).getSeconds() + "秒的时间");
                 }
             }
         });
@@ -111,7 +133,7 @@ public class PhoneLoginActivity extends BaseActivity implements VerifyCodeView {
      * @param view view
      */
     @OnClick(R.id.button_verify_code)
-    @SuppressWarnings("Duplicates")
+    @SuppressWarnings({"Duplicates", "WeakerAccess"})
     public void verifyCode(View view) {
         String mobile = phone.getText().toString().trim();
         String codeString = code.getText().toString().trim();
@@ -137,12 +159,13 @@ public class PhoneLoginActivity extends BaseActivity implements VerifyCodeView {
      *
      * @param view view
      */
+    @SuppressWarnings("WeakerAccess")
     @OnClick(R.id.button_phone_login)
     public void loginOrRegist(View view) {
         String mobile = phone.getText().toString().trim();
         if (PatternUtil.isMobile(mobile)) {
             if (isVerified) {
-                verifyCodePresenter.loginOrRegist(mobile);
+                verifyCodePresenter.phoneLogin(mobile);
             } else {
                 showToast("请通过手机号校验");
             }
@@ -162,6 +185,7 @@ public class PhoneLoginActivity extends BaseActivity implements VerifyCodeView {
         String message = successData.getString("message");
         if (code.equals(CommonConstant.SUCCESS) && "验证码发送成功".equals(message)) {
             showToast("验证码发送成功！");
+            delaySendCode();
         } else {
             showToast("验证码发送失败！");
         }
@@ -201,5 +225,48 @@ public class PhoneLoginActivity extends BaseActivity implements VerifyCodeView {
             startActivity(intent);
             finish();
         }
+    }
+
+    @SuppressWarnings("Duplicates")
+    private void initThreadPool() {
+        executor = new ThreadPoolExecutor(
+                5,
+                5,
+                80,
+                TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(),
+                new ThreadPoolExecutor.AbortPolicy());
+    }
+
+    @SuppressWarnings("Duplicates")
+    private void delaySendCode() {
+        long sendCodeTime = System.currentTimeMillis();
+        nextSendCodeTime = sendCodeTime + (60 * 1000);
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                verifyPhone.setBackgroundColor(getColor(R.color.tab_checked));
+                verifyPhone.setProgress(0);
+            }
+        });
+        isDelayed = true;
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(60 * 1000);
+                    isDelayed = false;
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            verifyPhone.setBackgroundColor(getColor(R.color.white));
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    isDelayed = true;
+                    Log.e(RegistActivity.class.getName(), "延迟60s出错");
+                }
+            }
+        });
     }
 }

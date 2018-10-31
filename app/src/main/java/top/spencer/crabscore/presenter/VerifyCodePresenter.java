@@ -58,6 +58,7 @@ public class VerifyCodePresenter extends BasePresenter<VerifyCodeView> {
      *
      * @param username    用户名（手机号）
      * @param newPassword 新密码
+     * @see top.spencer.crabscore.data.model.ForgetPasswordModel
      */
     public void forgetPassword(String username, String newPassword) {
         if (!isViewAttached()) {
@@ -98,7 +99,7 @@ public class VerifyCodePresenter extends BasePresenter<VerifyCodeView> {
      * @param mobile 手机号
      * @see PhoneLoginModel
      */
-    public void loginOrRegist(String mobile) {
+    public void phoneLogin(String mobile) {
         if (!isViewAttached()) {
             return;
         }
