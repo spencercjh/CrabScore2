@@ -23,7 +23,7 @@ public class LoginPresenter extends BasePresenter {
      * @see top.spencer.crabscore.data.model.LoginModel
      */
     public void login(String username, String password, String roleId) {
-        if (!isViewAttached()) {
+        if (isViewAttached()) {
             //如果没有View引用就不加载数据
             return;
         }

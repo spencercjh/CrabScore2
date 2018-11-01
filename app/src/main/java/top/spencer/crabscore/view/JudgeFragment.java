@@ -15,12 +15,12 @@ import java.util.Objects;
 /**
  * @author spencercjh
  */
-public class TestFragment extends Fragment {
+public class JudgeFragment extends Fragment {
 
-    public static TestFragment newInstance(String name) {
+    public static JudgeFragment newInstance(String name) {
         Bundle args = new Bundle();
         args.putString("name", name);
-        TestFragment fragment = new TestFragment();
+        JudgeFragment fragment = new JudgeFragment();
         fragment.setArguments(args);
         return fragment;
     }

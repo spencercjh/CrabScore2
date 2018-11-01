@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-            android:id="@+id/navigation_home"
+            android:id="@+id/navigation_rank"
             android:icon="@drawable/admin"
-            android:title="首页" />
+            android:title="大赛排名"/>
     <item
-            android:id="@+id/navigation_dashboard"
+            android:id="@+id/navigation_function"
             android:icon="@drawable/user3"
-            android:title="钱包" />
+            android:title="参与大赛"/>
     <item
-            android:id="@+id/navigation_notifications"
+            android:id="@+id/navigation_person_center"
             android:icon="@drawable/user2"
-            android:title="卡片" />
-    <item
-            android:id="@+id/navigation_person"
-            android:icon="@drawable/user1"
-            android:title="个人" />
+            android:title="个人中心"/>
 </menu>

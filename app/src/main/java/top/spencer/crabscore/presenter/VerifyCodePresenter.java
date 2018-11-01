@@ -23,7 +23,7 @@ public class VerifyCodePresenter extends BasePresenter<VerifyCodeView> {
      * @see top.spencer.crabscore.data.model.RegistModel
      */
     public void regist(String username, String password, String roleId, String email, String displayName) {
-        if (!isViewAttached()) {
+        if (isViewAttached()) {
             return;
         }
         getView().showLoading();
@@ -61,7 +61,7 @@ public class VerifyCodePresenter extends BasePresenter<VerifyCodeView> {
      * @see top.spencer.crabscore.data.model.ForgetPasswordModel
      */
     public void forgetPassword(String username, String newPassword) {
-        if (!isViewAttached()) {
+        if (isViewAttached()) {
             return;
         }
         getView().showLoading();
@@ -100,7 +100,7 @@ public class VerifyCodePresenter extends BasePresenter<VerifyCodeView> {
      * @see PhoneLoginModel
      */
     public void phoneLogin(String mobile) {
-        if (!isViewAttached()) {
+        if (isViewAttached()) {
             return;
         }
         getView().showLoading();
@@ -137,7 +137,7 @@ public class VerifyCodePresenter extends BasePresenter<VerifyCodeView> {
      * @see top.spencer.crabscore.data.model.SendCodeModel
      */
     public void sendCode(String mobile) {
-        if (!isViewAttached()) {
+        if (isViewAttached()) {
             return;
         }
         getView().showLoading();
@@ -175,7 +175,7 @@ public class VerifyCodePresenter extends BasePresenter<VerifyCodeView> {
      * @see top.spencer.crabscore.data.model.VerifyCodeModel
      */
     public void verifyCode(String mobile, String code) {
-        if (!isViewAttached()) {
+        if (isViewAttached()) {
             return;
         }
         getView().showLoading();
