@@ -1,4 +1,4 @@
-package top.spencer.crabscore.view;
+package top.spencer.crabscore.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author spencercjh
  */
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class MainPagerAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> list;
 
@@ -18,7 +18,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         notifyDataSetChanged();
     }
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    public MainPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 

@@ -282,6 +282,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
      * 重写返回键
      */
     @Override
+    @SuppressWarnings("Duplicates")
     public void onBackPressed() {
         if (System.currentTimeMillis() - lastPressTime < CommonConstant.EXIT_GAP_TIME) {
             finish();

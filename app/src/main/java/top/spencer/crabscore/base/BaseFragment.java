@@ -2,31 +2,45 @@ package top.spencer.crabscore.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author spencercjh
  */
 public abstract class BaseFragment extends Fragment implements BaseView {
+    private Unbinder unbinder;
 
+    /**
+     * 返回布局id
+     *
+     * @return content view(fragment layout) Id
+     */
     public abstract int getContentViewId();
 
-    protected abstract void initAllMembersView(Bundle savedInstanceState);
-
-    protected Context mContext;
-    protected View mRootView;
+    private Context mContext;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mRootView = inflater.inflate(getContentViewId(), container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View mRootView = inflater.inflate(getContentViewId(), container, false);
         this.mContext = getActivity();
-        initAllMembersView(savedInstanceState);
+        unbinder = ButterKnife.bind(this, mRootView);
         return mRootView;
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override
@@ -51,6 +65,11 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     public void showErr() {
         checkActivityAttached();
         ((BaseActivity) mContext).showErr();
+    }
+
+    @Override
+    public void showFailure(JSONObject errorData) {
+        showToast(errorData.getString("message"));
     }
 
     protected boolean isAttachedContext() {

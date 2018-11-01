@@ -56,7 +56,7 @@ public class ForgetPasswordActivity extends BaseActivity implements VerifyCodeVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forget_password_actvity);
+        setContentView(R.layout.activity_forget_password);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setTitle("验证手机修改密码");

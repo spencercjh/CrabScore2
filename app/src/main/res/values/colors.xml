@@ -4,10 +4,21 @@
     <color name="colorPrimaryDark">#2b90cf</color>
     <color name="colorAccent">#FF4081</color>
 
+    <!--底部导航栏、SeekBar禁用背景色-->
     <color name="tab_checked">#ED6A2C</color>
     <color name="tab_unchecked">#757575</color>
 
-    <color name="textcolor">#1a2564</color>
+    <!--SeekBar的原始背景色-->
     <color name="white">#ffffff</color>
+
+    <!--顶部导航栏-->
+    <color name="red">#ff0000</color>
+    <color name="grey">#eeeeee</color>
+    <color name="tab_text_selected">#0084e8</color>
+    <color name="tab_text_normal">#7597b3</color>
+
+    <!--注册-->
+    <color name="bgc1">#EFEFF4</color>
+    <color name="bgc">#80ddff</color>
 
 </resources>

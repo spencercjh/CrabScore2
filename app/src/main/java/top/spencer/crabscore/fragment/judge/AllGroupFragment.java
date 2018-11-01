@@ -1,4 +1,4 @@
-package top.spencer.crabscore.view;
+package top.spencer.crabscore.fragment.judge;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,12 +15,12 @@ import java.util.Objects;
 /**
  * @author spencercjh
  */
-public class JudgeFragment extends Fragment {
+public class AllGroupFragment extends Fragment {
 
-    public static JudgeFragment newInstance(String name) {
+    public static AllGroupFragment newInstance(String name) {
         Bundle args = new Bundle();
         args.putString("name", name);
-        JudgeFragment fragment = new JudgeFragment();
+        AllGroupFragment fragment = new AllGroupFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -28,20 +28,17 @@ public class JudgeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_test, container, false);
+        return inflater.inflate(R.layout.fragment_sub_fragment_test, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TextView tv = view.findViewById(R.id.fragment_test_tv);
-
         Bundle bundle = getArguments();
         if (bundle != null) {
             String name = Objects.requireNonNull(bundle.get("name")).toString();
             tv.setText(name);
         }
-
     }
-
 }
