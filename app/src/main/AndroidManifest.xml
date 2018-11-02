@@ -17,18 +17,16 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity" android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
-        <activity android:name=".activity.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+        <activity
+                android:name=".view.activity.MainActivity"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+        <activity android:name=".view.activity.LoginActivity">
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
-        <activity android:name=".activity.RegistActivity"/>
-        <activity android:name=".activity.PhoneLoginActivity">
+        <activity android:name=".view.activity.RegistActivity"/>
+        <activity android:name=".view.activity.PhoneLoginActivity">
         </activity>
-        <activity android:name=".activity.ForgetPasswordActivity">
+        <activity android:name=".view.activity.ForgetPasswordActivity">
         </activity>
     </application>
 

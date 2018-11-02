@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSONObject;
  */
 public abstract class BaseFragment extends Fragment implements BaseView {
     private Unbinder unbinder;
+    protected View mRootView;
 
     /**
      * 返回布局id
@@ -30,7 +31,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View mRootView = inflater.inflate(getContentViewId(), container, false);
+        mRootView = inflater.inflate(getContentViewId(), container, false);
         this.mContext = getActivity();
         unbinder = ButterKnife.bind(this, mRootView);
         return mRootView;
