@@ -5,7 +5,12 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.widget.EditText;
 import android.widget.ToggleButton;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
+import top.spencer.crabscore.data.entity.Group;
+
+import java.util.List;
 
 /**
  * @author spencercjh
@@ -29,5 +34,20 @@ public class InitHelper {
             toggleButton.setBackground(context.getDrawable(R.drawable.eye_close));
             password.setTransformationMethod(PasswordTransformationMethod.getInstance());
         }
+    }
+
+    public static boolean dealGroupListJSON(JSONArray groups, List<Group> groupList) {
+        boolean repeat = false;
+        for (Object object : groups) {
+            JSONObject jsonObject = (JSONObject) object;
+            String jsonString = jsonObject.toJSONString();
+            Group group = JSONObject.parseObject(jsonString, Group.class);
+            if (!groupList.contains(group)) {
+                groupList.add(group);
+            } else {
+                repeat = true;
+            }
+        }
+        return repeat;
     }
 }

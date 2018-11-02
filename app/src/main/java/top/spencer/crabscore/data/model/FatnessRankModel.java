@@ -17,7 +17,7 @@ public class FatnessRankModel extends BaseModel {
      */
     @Override
     public void execute(Callback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "/common/score/fatnesses/" + mvpParams[0];
+        String url = CommonConstant.URL + "/common/score/fatnesses/" + mvpParams[0] + "/" + mvpParams[1] + "/" + mvpParams[2];
         requestGetAPI(url, myCallBack, "");
     }
 }

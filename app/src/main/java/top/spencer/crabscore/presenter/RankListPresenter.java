@@ -14,15 +14,17 @@ public class RankListPresenter extends BasePresenter {
      * 查询金蟹奖成绩
      *
      * @param competitionId 大赛Id
+     * @param pageNum       页数
+     * @param pageSize      页面大小
      */
-    public void getFatnessRank(Integer competitionId) {
+    public void getFatnessRank(Integer competitionId, Integer pageNum, Integer pageSize) {
         if (isViewAttached()) {
             return;
         }
         getView().showLoading();
         ModelFactory
                 .request(Token.API_FATNESS_RANK)
-                .params(String.valueOf(competitionId))
+                .params(String.valueOf(competitionId), String.valueOf(pageNum), String.valueOf(pageSize))
                 .execute(new Callback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
@@ -50,15 +52,17 @@ public class RankListPresenter extends BasePresenter {
      * 查询种质奖成绩
      *
      * @param competitionId 大赛Id
+     * @param pageNum       页数
+     * @param pageSize      页面大小
      */
-    public void getQualityRank(Integer competitionId) {
+    public void getQualityRank(Integer competitionId, Integer pageNum, Integer pageSize) {
         if (isViewAttached()) {
             return;
         }
         getView().showLoading();
         ModelFactory
                 .request(Token.API_QUALITY_RANK)
-                .params(String.valueOf(competitionId))
+                .params(String.valueOf(competitionId), String.valueOf(pageNum), String.valueOf(pageSize))
                 .execute(new Callback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
@@ -86,15 +90,17 @@ public class RankListPresenter extends BasePresenter {
      * 查询口感奖成绩
      *
      * @param competitionId 大赛Id
+     * @param pageNum       页数
+     * @param pageSize      页面大小
      */
-    public void getTasteRank(Integer competitionId) {
+    public void getTasteRank(Integer competitionId, Integer pageNum, Integer pageSize) {
         if (isViewAttached()) {
             return;
         }
         getView().showLoading();
         ModelFactory
                 .request(Token.API_TASTE_RANK)
-                .params(String.valueOf(competitionId))
+                .params(String.valueOf(competitionId), String.valueOf(pageNum), String.valueOf(pageSize))
                 .execute(new Callback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {

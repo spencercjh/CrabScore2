@@ -17,7 +17,7 @@ import com.alibaba.fastjson.JSONObject;
  */
 public abstract class BaseFragment extends Fragment implements BaseView {
     private Unbinder unbinder;
-    protected View mRootView;
+    protected static int pageSize = 10;
 
     /**
      * 返回布局id
@@ -31,7 +31,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mRootView = inflater.inflate(getContentViewId(), container, false);
+        View mRootView = inflater.inflate(getContentViewId(), container, false);
         this.mContext = getActivity();
         unbinder = ButterKnife.bind(this, mRootView);
         return mRootView;
@@ -73,21 +73,17 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         showToast(errorData.getString("message"));
     }
 
-    protected boolean isAttachedContext() {
-        return getActivity() != null;
-    }
-
     /**
      * 检查activity连接情况
      */
-    public void checkActivityAttached() {
+    private void checkActivityAttached() {
         if (getActivity() == null) {
             throw new ActivityNotAttachedException();
         }
     }
 
     public static class ActivityNotAttachedException extends RuntimeException {
-        public ActivityNotAttachedException() {
+        ActivityNotAttachedException() {
             super("Fragment has disconnected from Activity ! - -.");
         }
     }
