@@ -1,16 +1,21 @@
 package top.spencer.crabscore.view.fragment.rank;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 import butterknife.BindView;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
+import top.spencer.crabscore.data.entity.Group;
 import top.spencer.crabscore.presenter.RankListPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
 import top.spencer.crabscore.view.adapter.FatnessRankListAdapter;
@@ -28,9 +33,12 @@ public class FatnessRankFragment extends BaseFragment {
     EmptyRecyclerView rankListView;
     @BindView(R.id.textview_empty)
     TextView emptyText;
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
+    private FatnessRankListAdapter fatnessRankListAdapter;
     private RankListPresenter rankListPresenter;
-    private List groupList = new ArrayList<>(4);
+    private List<Group> groupList = new ArrayList<>(4);
 
     public static FatnessRankFragment newInstance(String name) {
         Bundle args = new Bundle();
@@ -59,13 +67,18 @@ public class FatnessRankFragment extends BaseFragment {
         rankListPresenter.attachView(this);
         SharedPreferencesUtil.getInstance(getContext(), "PROPERTY");
         setRecycleView();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                rankListPresenter.getFatnessRank((Integer) SharedPreferencesUtil.getData("PRESENT_COMPETITION_ID", 1));
+            }
+        });
+        rankListView.setLayoutManager(new LinearLayoutManager(getContext()));
+        rankListView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.VERTICAL));
     }
 
     private void setRecycleView() {
-        rankListView.setLayoutManager(new LinearLayoutManager(getContext()));
-        rankListView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()),
-                DividerItemDecoration.VERTICAL));
-        FatnessRankListAdapter fatnessRankListAdapter = new FatnessRankListAdapter(groupList);
+        fatnessRankListAdapter = new FatnessRankListAdapter(groupList);
         if (groupList.size() == 0) {
             rankListView.setEmptyView(emptyText);
         }
@@ -80,7 +93,23 @@ public class FatnessRankFragment extends BaseFragment {
 
     @Override
     public void showData(JSONObject successData) {
-        groupList = (List) successData.get("result");
-        setRecycleView();
+        groupList.clear();
+        JSONArray groups = successData.getJSONArray("result");
+        //noinspection Duplicates
+        for (Object object : groups) {
+            JSONObject jsonObject = (JSONObject) object;
+            String jsonString = jsonObject.toJSONString();
+            Group group = JSONObject.parseObject(jsonString, Group.class);
+            groupList.add(group);
+        }
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+
+            @Override
+            public void run() {
+                fatnessRankListAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
+
 }

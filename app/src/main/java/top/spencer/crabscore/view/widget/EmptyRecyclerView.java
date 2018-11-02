@@ -1,13 +1,14 @@
 package top.spencer.crabscore.view.widget;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 
 /**
- *
  * @author xiazdong
  * @date 16/10/7
  */
@@ -19,12 +20,18 @@ public class EmptyRecyclerView extends RecyclerView {
         @Override
         public void onChanged() {
             Adapter adapter = getAdapter();
-            if(adapter.getItemCount() == 0){
+            if (adapter.getItemCount() == 0) {
                 mEmptyView.setVisibility(VISIBLE);
                 EmptyRecyclerView.this.setVisibility(GONE);
-            } else{
-                mEmptyView.setVisibility(GONE);
-                EmptyRecyclerView.this.setVisibility(VISIBLE);
+            } else {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        mEmptyView.setVisibility(GONE);
+                        EmptyRecyclerView.this.setVisibility(VISIBLE);
+                    }
+                });
             }
         }
 
@@ -58,12 +65,12 @@ public class EmptyRecyclerView extends RecyclerView {
         super(context, attrs);
     }
 
-    public void setEmptyView(View view){
+    public void setEmptyView(View view) {
         mEmptyView = view;
     }
 
     @Override
-    public void setAdapter(RecyclerView.Adapter adapter){
+    public void setAdapter(RecyclerView.Adapter adapter) {
         super.setAdapter(adapter);
         adapter.registerAdapterDataObserver(mObserver);
         mObserver.onChanged();
