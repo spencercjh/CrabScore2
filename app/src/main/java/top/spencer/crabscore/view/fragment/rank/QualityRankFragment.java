@@ -3,20 +3,34 @@ package top.spencer.crabscore.view.fragment.rank;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
+import butterknife.BindView;
+import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
+import top.spencer.crabscore.base.BaseFragment;
+import top.spencer.crabscore.presenter.RankListPresenter;
+import top.spencer.crabscore.util.SharedPreferencesUtil;
+import top.spencer.crabscore.view.adapter.QualityRankListAdapter;
+import top.spencer.crabscore.view.widget.EmptyRecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * @author spencercjh
  */
-public class QualityRankFragment extends Fragment {
-    private View view;
+public class QualityRankFragment extends BaseFragment {
+    @BindView(R.id.recycler_view_rank)
+    EmptyRecyclerView rankListView;
+    @BindView(R.id.textview_empty)
+    TextView emptyText;
+
+    private RankListPresenter rankListPresenter;
+    private List groupList = new ArrayList<>(4);
 
     public static QualityRankFragment newInstance(String name) {
         Bundle args = new Bundle();
@@ -26,26 +40,47 @@ public class QualityRankFragment extends Fragment {
         return fragment;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_sub_fragment_test, container, false);
-        return view;
+    public void onDestroyView() {
+        super.onDestroyView();
+        rankListPresenter.detachView();
     }
 
     @Override
+    public int getContentViewId() {
+        return R.layout.fragment_rank_list;
+    }
+
+    @SuppressWarnings("Duplicates")
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        rankListPresenter = new RankListPresenter();
+        rankListPresenter.attachView(this);
+        SharedPreferencesUtil.getInstance(getContext(), "PROPERTY");
+        setRecycleView();
+    }
+
+    private void setRecycleView() {
+        rankListView.setLayoutManager(new LinearLayoutManager(getContext()));
+        rankListView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()),
+                DividerItemDecoration.VERTICAL));
+        QualityRankListAdapter qualityRankListAdapter = new QualityRankListAdapter(groupList);
+        if (groupList.size() == 0) {
+            rankListView.setEmptyView(emptyText);
+        }
+        rankListView.setAdapter(qualityRankListAdapter);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        TextView tv = view.findViewById(R.id.fragment_test_tv);
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            String name = Objects.requireNonNull(bundle.get("name")).toString();
-            tv.setText(name);
-        }
+        rankListPresenter.getQualityRank((Integer) SharedPreferencesUtil.getData("PRESENT_COMPETITION_ID", 1));
+    }
+
+    @Override
+    public void showData(JSONObject successData) {
+        groupList = (List) successData.get("result");
+        setRecycleView();
     }
 }

@@ -19,4 +19,12 @@ public interface Token {
     String API_LOGIN_OR_REGIST = PhoneLoginModel.class.getName();
 
     String API_FORGET_PASSWORD = ForgetPasswordModel.class.getName();
+
+    String API_FATNESS_RANK = FatnessRankModel.class.getName();
+
+    String API_QUALITY_RANK = QualityRankModel.class.getName();
+
+    String API_TASTE_RANK = TasteRankModel.class.getName();
+
+    String API_PRESENT_COMPETITION = PresentCompetitionModel.class.getName();
 }
