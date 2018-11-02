@@ -1,10 +1,10 @@
 package top.spencer.crabscore.activity;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Window;
 import butterknife.BindView;
@@ -23,7 +23,7 @@ import top.spencer.crabscore.fragment.person.PersonCenterFragment;
 import top.spencer.crabscore.fragment.rank.RankFragment;
 import top.spencer.crabscore.fragment.staff.StaffFragment;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
-import top.spencer.crabscore.view.*;
+import top.spencer.crabscore.view.BottomNavigationViewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +64,21 @@ public class MainActivity extends BaseActivity implements BaseView {
 
     private void initNavigationBar() {
         int roleChoice = (int) SharedPreferencesUtil.getData("ROLE_CHOICE", CommonConstant.USER_TYPE_COMPANY);
+        MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(mainPagerAdapter);
+        List<Fragment> list = new ArrayList<>();
+        list.add(RankFragment.newInstance("大赛排名"));
+        if (roleChoice == CommonConstant.USER_TYPE_ADMIN) {
+            list.add(AdministratorFragment.newInstance("管理员"));
+        } else if (roleChoice == CommonConstant.USER_TYPE_JUDGE) {
+            list.add(JudgeFragment.newInstance("评委"));
+        } else if (roleChoice == CommonConstant.USER_TYPE_STAFF) {
+            list.add(StaffFragment.newInstance("工作人员"));
+        } else {
+            list.add(CompanyFragment.newInstance("参选单位"));
+        }
+        list.add(PersonCenterFragment.newInstance("个人中心"));
+        mainPagerAdapter.setList(list);
         BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
@@ -107,21 +122,7 @@ public class MainActivity extends BaseActivity implements BaseView {
             public void onPageScrollStateChanged(int state) {
             }
         });
-        MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(mainPagerAdapter);
-        List<Fragment> list = new ArrayList<>();
-        list.add(RankFragment.newInstance("大赛排名"));
-        if (roleChoice == CommonConstant.USER_TYPE_ADMIN) {
-            list.add(AdministratorFragment.newInstance("管理员"));
-        } else if (roleChoice == CommonConstant.USER_TYPE_JUDGE) {
-            list.add(JudgeFragment.newInstance("评委"));
-        } else if (roleChoice == CommonConstant.USER_TYPE_STAFF) {
-            list.add(StaffFragment.newInstance("工作人员"));
-        } else {
-            list.add(CompanyFragment.newInstance("参选单位"));
-        }
-        list.add(PersonCenterFragment.newInstance("个人中心"));
-        mainPagerAdapter.setList(list);
+        viewPager.setOffscreenPageLimit(3);
     }
 
     @Override

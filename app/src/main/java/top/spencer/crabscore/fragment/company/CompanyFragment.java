@@ -8,19 +8,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
-import top.spencer.crabscore.adapter.AdministratorPageAdapter;
 import top.spencer.crabscore.adapter.CompanyPageAdapter;
 import top.spencer.crabscore.base.BaseFragment;
-import top.spencer.crabscore.fragment.administrator.AdministratorFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -30,12 +26,9 @@ public class CompanyFragment extends BaseFragment {
     @BindView(R.id.vp_content)
     ViewPager vpContent;
     @BindView(R.id.tab_title)
-    TabLayout tabTitle;
+    TabLayout tabLayout;
     @BindView(R.id.tl_head)
     Toolbar toolbar;
-
-    private ArrayList<String> mTitleArray = new ArrayList<>(3);
-
 
     public static CompanyFragment newInstance(String name) {
         Bundle args = new Bundle();
@@ -61,41 +54,24 @@ public class CompanyFragment extends BaseFragment {
         toolbar.setEnabled(false);
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
         initTabLayout();
-        initTabViewPager();
     }
 
     private void initTabLayout() {
-        tabTitle.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                vpContent.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
-        mTitleArray.add("整体情况");
-        mTitleArray.add("种质得分");
-        mTitleArray.add("口感得分");
-        tabTitle.addTab(tabTitle.newTab().setText(mTitleArray.get(0)),true);
-        tabTitle.addTab(tabTitle.newTab().setText(mTitleArray.get(1)));
-        tabTitle.addTab(tabTitle.newTab().setText(mTitleArray.get(2)));
-    }
-
-    private void initTabViewPager() {
-        CompanyPageAdapter adapter = new CompanyPageAdapter(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), mTitleArray);
+        List<String> mTitleList = new ArrayList<>(3);
+        mTitleList.add("整体情况");
+        mTitleList.add("种质得分");
+        mTitleList.add("口感得分");
+        tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(0)), true);
+        tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(1)));
+        tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(2)));
+        List<Fragment> mFragmentList = new ArrayList<>(3);
+        mFragmentList.add(OverallScoreFragment.newInstance("OverallScoreFragment"));
+        mFragmentList.add(QualityScoreFragment.newInstance("QualityScoreFragment"));
+        mFragmentList.add(TasteScoreFragment.newInstance("TasteScoreFragment"));
+        CompanyPageAdapter adapter = new CompanyPageAdapter(getChildFragmentManager(), mFragmentList, mTitleList);
         vpContent.setAdapter(adapter);
-        vpContent.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                Objects.requireNonNull(tabTitle.getTabAt(position)).select();
-            }
-        });
+        vpContent.setOffscreenPageLimit(mFragmentList.size());
+        tabLayout.setupWithViewPager(vpContent);
     }
 
     @Override

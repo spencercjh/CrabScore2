@@ -16,6 +16,7 @@ import java.util.Objects;
  * @author spencercjh
  */
 public class OverallScoreFragment extends Fragment {
+    private View view;
 
     public static OverallScoreFragment newInstance(String name) {
         Bundle args = new Bundle();
@@ -28,12 +29,18 @@ public class OverallScoreFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_sub_fragment_test, container, false);
+        view = inflater.inflate(R.layout.fragment_sub_fragment_test, container, false);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         TextView tv = view.findViewById(R.id.fragment_test_tv);
         Bundle bundle = getArguments();
         if (bundle != null) {

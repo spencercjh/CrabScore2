@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,8 +14,10 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.adapter.AdministratorPageAdapter;
 import top.spencer.crabscore.base.BaseFragment;
+import top.spencer.crabscore.fragment.company.CompanyFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -24,12 +27,9 @@ public class AdministratorFragment extends BaseFragment {
     @BindView(R.id.vp_content)
     ViewPager vpContent;
     @BindView(R.id.tab_title)
-    TabLayout tabTitle;
+    TabLayout tabLayout;
     @BindView(R.id.tl_head)
     Toolbar toolbar;
-
-    private ArrayList<String> mTitleArray = new ArrayList<>(4);
-
 
     public static AdministratorFragment newInstance(String name) {
         Bundle args = new Bundle();
@@ -56,43 +56,27 @@ public class AdministratorFragment extends BaseFragment {
         toolbar.setEnabled(false);
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
         initTabLayout();
-        initTabViewPager();
     }
 
     private void initTabLayout() {
-        tabTitle.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                vpContent.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
-        mTitleArray.add("用户列表");
-        mTitleArray.add("注册审核");
-        mTitleArray.add("参选单位");
-        mTitleArray.add("大赛管理");
-        tabTitle.addTab(tabTitle.newTab().setText(mTitleArray.get(0)), true);
-        tabTitle.addTab(tabTitle.newTab().setText(mTitleArray.get(1)));
-        tabTitle.addTab(tabTitle.newTab().setText(mTitleArray.get(2)));
-        tabTitle.addTab(tabTitle.newTab().setText(mTitleArray.get(3)));
-    }
-
-    private void initTabViewPager() {
-        AdministratorPageAdapter adapter = new AdministratorPageAdapter(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), mTitleArray);
+        List<String> mTitleList = new ArrayList<>(4);
+        mTitleList.add("用户列表");
+        mTitleList.add("注册审核");
+        mTitleList.add("参选单位");
+        mTitleList.add("大赛管理");
+        tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(0)), true);
+        tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(1)));
+        tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(2)));
+        tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(3)));
+        List<Fragment> mFragmentList = new ArrayList<>(4);
+        mFragmentList.add(UserAdminFragment.newInstance("UserAdminFragment"));
+        mFragmentList.add(RegistAssessmentFragment.newInstance("RegistAssessmentFragment"));
+        mFragmentList.add(CompanyAdminFragment.newInstance("CompanyAdminFragment"));
+        mFragmentList.add(CompetitionAdminFragment.newInstance("CompetitionAdminFragment"));
+        AdministratorPageAdapter adapter = new AdministratorPageAdapter(getChildFragmentManager(), mFragmentList, mTitleList);
         vpContent.setAdapter(adapter);
-        vpContent.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                Objects.requireNonNull(tabTitle.getTabAt(position)).select();
-            }
-        });
+        vpContent.setOffscreenPageLimit(mFragmentList.size());
+        tabLayout.setupWithViewPager(vpContent);
     }
 
     @Override

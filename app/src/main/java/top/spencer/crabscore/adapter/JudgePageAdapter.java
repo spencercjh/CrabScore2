@@ -3,46 +3,34 @@ package top.spencer.crabscore.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import top.spencer.crabscore.fragment.administrator.CompanyAdminFragment;
-import top.spencer.crabscore.fragment.administrator.CompetitionAdminFragment;
-import top.spencer.crabscore.fragment.administrator.RegistAssessmentFragment;
-import top.spencer.crabscore.fragment.administrator.UserAdminFragment;
-import top.spencer.crabscore.fragment.judge.AllGroupFragment;
-import top.spencer.crabscore.fragment.judge.QualityGradeFragment;
-import top.spencer.crabscore.fragment.judge.TasteGradeFragment;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author spencercjh
  */
 public class JudgePageAdapter extends FragmentPagerAdapter {
-    private ArrayList<String> mTitleArray;
+    private List<String> mTitleList;
+    private List<Fragment> mFragmentList;
 
-    public JudgePageAdapter(FragmentManager fm, ArrayList<String> titleArray) {
+    public JudgePageAdapter(FragmentManager fm, List<Fragment> fragmentList, List<String> titleArray) {
         super(fm);
-        mTitleArray = titleArray;
+        this.mFragmentList = fragmentList;
+        this.mTitleList = titleArray;
     }
 
     @Override
     public Fragment getItem(int position) {
-        if (position == 0) {
-            return AllGroupFragment.newInstance("AllGroupFragment");
-        } else if (position == 1) {
-            return QualityGradeFragment.newInstance("QualityGradeFragment");
-        } else if (position == 2) {
-            return TasteGradeFragment.newInstance("TasteGradeFragment");
-        }
-        return AllGroupFragment.newInstance("AllGroupFragment");
+        return mFragmentList.get(position);
     }
 
     @Override
     public int getCount() {
-        return mTitleArray.size();
+        return mFragmentList.size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mTitleArray.get(position);
+        return mTitleList.get(position);
     }
 }
