@@ -12,7 +12,7 @@ import android.view.View;
 import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
-import top.spencer.crabscore.adapter.JudgePageAdapter;
+import top.spencer.crabscore.adapter.TabLayoutPageAdapter;
 import top.spencer.crabscore.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ public class JudgeFragment extends BaseFragment {
         mFragmentList.add(AllGroupFragment.newInstance("AllGroupFragment"));
         mFragmentList.add(QualityGradeFragment.newInstance("QualityGradeFragment"));
         mFragmentList.add(TasteGradeFragment.newInstance("TasteGradeFragment"));
-        JudgePageAdapter adapter = new JudgePageAdapter(getChildFragmentManager(), mFragmentList, mTitleList);
+        TabLayoutPageAdapter adapter = new TabLayoutPageAdapter(getChildFragmentManager(), mFragmentList, mTitleList);
         vpContent.setAdapter(adapter);
         vpContent.setOffscreenPageLimit(mFragmentList.size());
         tabLayout.setupWithViewPager(vpContent);

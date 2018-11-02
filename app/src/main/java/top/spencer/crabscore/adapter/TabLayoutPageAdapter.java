@@ -9,14 +9,14 @@ import java.util.List;
 /**
  * @author spencercjh
  */
-public class CompanyPageAdapter extends FragmentPagerAdapter {
+public class TabLayoutPageAdapter extends FragmentPagerAdapter {
     private List<String> mTitleList;
     private List<Fragment> mFragmentList;
 
-    public CompanyPageAdapter(FragmentManager fm, List<Fragment> fragmentList, List<String> titleList) {
+    public TabLayoutPageAdapter(FragmentManager fm, List<Fragment> fragmentList, List<String> titleList) {
         super(fm);
-        this.mFragmentList = fragmentList;
         this.mTitleList = titleList;
+        this.mFragmentList = fragmentList;
     }
 
     @Override

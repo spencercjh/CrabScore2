@@ -12,7 +12,7 @@ import android.view.View;
 import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
-import top.spencer.crabscore.adapter.RankPageAdapter;
+import top.spencer.crabscore.adapter.TabLayoutPageAdapter;
 import top.spencer.crabscore.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ public class RankFragment extends BaseFragment {
         mFragmentList.add(FatnessRankFragment.newInstance("FatnessRankFragment"));
         mFragmentList.add(QualityRankFragment.newInstance("QualityRankFragment"));
         mFragmentList.add(TasteRankFragment.newInstance("TasteRankFragment"));
-        RankPageAdapter adapter = new RankPageAdapter(getChildFragmentManager(), mFragmentList, mTitleList);
+        TabLayoutPageAdapter adapter = new TabLayoutPageAdapter(getChildFragmentManager(), mFragmentList, mTitleList);
         vpContent.setAdapter(adapter);
         vpContent.setOffscreenPageLimit(mFragmentList.size());
         tabLayout.setupWithViewPager(vpContent);

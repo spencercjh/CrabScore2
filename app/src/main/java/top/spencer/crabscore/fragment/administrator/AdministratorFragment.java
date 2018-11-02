@@ -12,9 +12,8 @@ import android.view.View;
 import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
-import top.spencer.crabscore.adapter.AdministratorPageAdapter;
+import top.spencer.crabscore.adapter.TabLayoutPageAdapter;
 import top.spencer.crabscore.base.BaseFragment;
-import top.spencer.crabscore.fragment.company.CompanyFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +72,7 @@ public class AdministratorFragment extends BaseFragment {
         mFragmentList.add(RegistAssessmentFragment.newInstance("RegistAssessmentFragment"));
         mFragmentList.add(CompanyAdminFragment.newInstance("CompanyAdminFragment"));
         mFragmentList.add(CompetitionAdminFragment.newInstance("CompetitionAdminFragment"));
-        AdministratorPageAdapter adapter = new AdministratorPageAdapter(getChildFragmentManager(), mFragmentList, mTitleList);
+        TabLayoutPageAdapter adapter = new TabLayoutPageAdapter(getChildFragmentManager(), mFragmentList, mTitleList);
         vpContent.setAdapter(adapter);
         vpContent.setOffscreenPageLimit(mFragmentList.size());
         tabLayout.setupWithViewPager(vpContent);

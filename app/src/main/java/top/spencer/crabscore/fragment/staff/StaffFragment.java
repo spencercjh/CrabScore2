@@ -12,7 +12,7 @@ import android.view.View;
 import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
-import top.spencer.crabscore.adapter.StaffPageAdapter;
+import top.spencer.crabscore.adapter.TabLayoutPageAdapter;
 import top.spencer.crabscore.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ public class StaffFragment extends BaseFragment {
         List<Fragment> mFragmentList = new ArrayList<>(2);
         mFragmentList.add(DataEntryFragment.newInstance("DataEntryFragment"));
         mFragmentList.add(FindLabelFragment.newInstance("FindLabelFragment"));
-        StaffPageAdapter adapter = new StaffPageAdapter(getChildFragmentManager(), mFragmentList, mTitleList);
+        TabLayoutPageAdapter adapter = new TabLayoutPageAdapter(getChildFragmentManager(), mFragmentList, mTitleList);
         vpContent.setAdapter(adapter);
         vpContent.setOffscreenPageLimit(mFragmentList.size());
         tabLayout.setupWithViewPager(vpContent);

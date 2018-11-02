@@ -12,7 +12,7 @@ import android.view.View;
 import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
-import top.spencer.crabscore.adapter.CompanyPageAdapter;
+import top.spencer.crabscore.adapter.TabLayoutPageAdapter;
 import top.spencer.crabscore.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ public class CompanyFragment extends BaseFragment {
         mFragmentList.add(OverallScoreFragment.newInstance("OverallScoreFragment"));
         mFragmentList.add(QualityScoreFragment.newInstance("QualityScoreFragment"));
         mFragmentList.add(TasteScoreFragment.newInstance("TasteScoreFragment"));
-        CompanyPageAdapter adapter = new CompanyPageAdapter(getChildFragmentManager(), mFragmentList, mTitleList);
+        TabLayoutPageAdapter adapter = new TabLayoutPageAdapter(getChildFragmentManager(), mFragmentList, mTitleList);
         vpContent.setAdapter(adapter);
         vpContent.setOffscreenPageLimit(mFragmentList.size());
         tabLayout.setupWithViewPager(vpContent);
