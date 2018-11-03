@@ -13,6 +13,8 @@ import top.spencer.crabscore.R;
 import java.util.Objects;
 
 /**
+ * 评委用户组的种质评分小组页面
+ *
  * @author spencercjh
  */
 public class QualityGradeFragment extends Fragment {
@@ -48,4 +50,6 @@ public class QualityGradeFragment extends Fragment {
             tv.setText(name);
         }
     }
+
+    //TODO QualityGradeFragment
 }

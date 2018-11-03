@@ -11,6 +11,8 @@ import top.spencer.crabscore.data.entity.Group;
 import java.util.List;
 
 /**
+ * 肥满度排名列表适配器
+ *
  * @author spencercjh
  */
 public class FatnessRankListAdapter extends RecyclerView.Adapter<RankListItemViewHolder> {

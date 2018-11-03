@@ -3,6 +3,8 @@ package top.spencer.crabscore.view;
 import top.spencer.crabscore.base.BaseView;
 
 /**
+ * 排行榜列表页面View
+ *
  * @author spencercjh
  */
 public interface RankListView extends BaseView {

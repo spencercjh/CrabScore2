@@ -14,9 +14,9 @@ import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseActivity;
 import top.spencer.crabscore.base.BaseView;
 import top.spencer.crabscore.common.CommonConstant;
+import top.spencer.crabscore.data.entity.Competition;
 import top.spencer.crabscore.presenter.NavigationPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
-import top.spencer.crabscore.view.BottomNavigationViewHelper;
 import top.spencer.crabscore.view.adapter.MainPagerAdapter;
 import top.spencer.crabscore.view.fragment.administrator.AdministratorFragment;
 import top.spencer.crabscore.view.fragment.company.CompanyFragment;
@@ -24,6 +24,7 @@ import top.spencer.crabscore.view.fragment.judge.JudgeFragment;
 import top.spencer.crabscore.view.fragment.person.PersonCenterFragment;
 import top.spencer.crabscore.view.fragment.rank.RankFragment;
 import top.spencer.crabscore.view.fragment.staff.StaffFragment;
+import top.spencer.crabscore.view.helper.BottomNavigationViewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class MainActivity extends BaseActivity implements BaseView {
         initNavigationBar();
         navigationPresenter = new NavigationPresenter();
         navigationPresenter.attachView(this);
-        navigationPresenter.getPresentCompetition();
+        navigationPresenter.getPresentCompetitionProperty();
     }
 
     @Override
@@ -62,6 +63,9 @@ public class MainActivity extends BaseActivity implements BaseView {
         navigationPresenter.detachView();
     }
 
+    /**
+     * 初始化底部导航栏及其3个Fragment
+     */
     private void initNavigationBar() {
         int roleChoice = (int) SharedPreferencesUtil.getData("ROLE_CHOICE", CommonConstant.USER_TYPE_COMPANY);
         MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
@@ -125,9 +129,15 @@ public class MainActivity extends BaseActivity implements BaseView {
         viewPager.setOffscreenPageLimit(3);
     }
 
+    /**
+     * 查询当前大赛信息请求成功
+     *
+     * @param successData 成功数据源
+     */
     @Override
     public void showData(JSONObject successData) {
-        SharedPreferencesUtil.putData("PRESENT_COMPETITION_ID", successData.getInteger("result"));
+        SharedPreferencesUtil.putData("PRESENT_COMPETITION",
+                JSONObject.parseObject(successData.getString("result"), Competition.class));
     }
 
     /**

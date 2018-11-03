@@ -10,13 +10,18 @@ import top.spencer.crabscore.data.model.ModelFactory;
  * @author spencercjh
  */
 public class NavigationPresenter extends BasePresenter {
-    public void getPresentCompetition() {
+    /**
+     * 获取当前大赛信息
+     *
+     * @see top.spencer.crabscore.data.model.PresentCompetitionPropertyModel
+     */
+    public void getPresentCompetitionProperty() {
         if (isViewAttached()) {
             return;
         }
         getView().showLoading();
         ModelFactory
-                .request(Token.API_PRESENT_COMPETITION)
+                .request(Token.API_PRESENT_COMPETITION_PROPERTY)
                 .params()
                 .execute(new Callback<JSONObject>() {
                     @Override

@@ -9,6 +9,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
+ * 重载RecyclerView使得在其没有内容的情况显示特定视图
+ *
  * @author xiazdong
  * @date 16/10/7
  */

@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static top.spencer.crabscore.view.InitHelper.dealGroupListJSON;
+import static top.spencer.crabscore.view.helper.InitHelper.dealGroupListJSON;
 
 /**
  * @author spencercjh

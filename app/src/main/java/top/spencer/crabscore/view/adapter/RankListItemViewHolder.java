@@ -6,15 +6,17 @@ import android.widget.TextView;
 import top.spencer.crabscore.R;
 
 /**
+ * 分数排名列表适配器的ViewHolder
+ *
  * @author spencercjh
  */
-public class RankListItemViewHolder extends RecyclerView.ViewHolder {
-    public TextView order;
-    public TextView groupId;
-    public TextView companyName;
-    public TextView score;
+class RankListItemViewHolder extends RecyclerView.ViewHolder {
+    TextView order;
+    TextView groupId;
+    TextView companyName;
+    TextView score;
 
-    public RankListItemViewHolder(View view) {
+    RankListItemViewHolder(View view) {
         super(view);
         order = view.findViewById(R.id.textview_order);
         groupId = view.findViewById(R.id.textview_group_id);

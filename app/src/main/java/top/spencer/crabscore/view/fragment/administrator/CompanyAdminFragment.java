@@ -13,6 +13,8 @@ import top.spencer.crabscore.R;
 import java.util.Objects;
 
 /**
+ * 管理员用户组的参选单位管理页面
+ *
  * @author spencercjh
  */
 public class CompanyAdminFragment extends Fragment {
@@ -48,4 +50,6 @@ public class CompanyAdminFragment extends Fragment {
             tv.setText(name);
         }
     }
+
+    //TODO CompanyAdminFragment
 }

@@ -1,4 +1,4 @@
-package top.spencer.crabscore.view;
+package top.spencer.crabscore.view.helper;
 
 import android.annotation.SuppressLint;
 import android.support.design.internal.BottomNavigationItemView;
@@ -9,6 +9,8 @@ import android.util.Log;
 import java.lang.reflect.Field;
 
 /**
+ * 底部导航栏Helper
+ *
  * @author spencercjh
  */
 public class BottomNavigationViewHelper {

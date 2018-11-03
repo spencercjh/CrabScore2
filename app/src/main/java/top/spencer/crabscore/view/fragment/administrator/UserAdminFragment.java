@@ -13,6 +13,8 @@ import top.spencer.crabscore.R;
 import java.util.Objects;
 
 /**
+ * 管理员用户组的用户管理页面
+ *
  * @author spencercjh
  */
 public class UserAdminFragment extends Fragment {
@@ -48,4 +50,6 @@ public class UserAdminFragment extends Fragment {
             tv.setText(name);
         }
     }
+
+    //TODO UserAdminFragment
 }

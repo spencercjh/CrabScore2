@@ -26,5 +26,5 @@ public interface Token {
 
     String API_TASTE_RANK = TasteRankModel.class.getName();
 
-    String API_PRESENT_COMPETITION = PresentCompetitionModel.class.getName();
+    String API_PRESENT_COMPETITION_PROPERTY = PresentCompetitionPropertyModel.class.getName();
 }

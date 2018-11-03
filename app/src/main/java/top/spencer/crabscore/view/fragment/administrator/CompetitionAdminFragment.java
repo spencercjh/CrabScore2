@@ -13,6 +13,8 @@ import top.spencer.crabscore.R;
 import java.util.Objects;
 
 /**
+ * 管理员用户组的大赛配置信息管理页面
+ *
  * @author spencercjh
  */
 public class CompetitionAdminFragment extends Fragment {
@@ -48,4 +50,6 @@ public class CompetitionAdminFragment extends Fragment {
             tv.setText(name);
         }
     }
+
+    //TODO CompetitionAdminFragment
 }

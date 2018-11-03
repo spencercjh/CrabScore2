@@ -13,6 +13,8 @@ import top.spencer.crabscore.R;
 import java.util.Objects;
 
 /**
+ * 管理员用户组的用户注册审核管理页面
+ *
  * @author spencercjh
  */
 public class RegistAssessmentFragment extends Fragment {
@@ -48,4 +50,6 @@ public class RegistAssessmentFragment extends Fragment {
             tv.setText(name);
         }
     }
+
+    //TODO RegistAssessmentFragment
 }

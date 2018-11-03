@@ -3,6 +3,8 @@ package top.spencer.crabscore.view;
 import top.spencer.crabscore.base.BaseView;
 
 /**
+ * 登陆活动View
+ *
  * @author spencercjh
  */
 public interface LoginView extends BaseView {

@@ -13,6 +13,8 @@ import top.spencer.crabscore.R;
 import java.util.Objects;
 
 /**
+ * 个人中心页面
+ *
  * @author spencercjh
  */
 public class PersonCenterFragment extends Fragment {
@@ -48,4 +50,6 @@ public class PersonCenterFragment extends Fragment {
             tv.setText(name);
         }
     }
+
+    //TODO PersonCenterFragment
 }

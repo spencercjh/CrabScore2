@@ -11,6 +11,8 @@ import top.spencer.crabscore.data.entity.Group;
 import java.util.List;
 
 /**
+ * 口感分数排名列表适配器
+ *
  * @author spencercjh
  */
 public class TasteRankListAdapter extends RecyclerView.Adapter<RankListItemViewHolder> {

@@ -13,6 +13,8 @@ import top.spencer.crabscore.R;
 import java.util.Objects;
 
 /**
+ * 参选单位用户组的口感得分情况界面
+ *
  * @author spencercjh
  */
 public class TasteScoreFragment extends Fragment {
@@ -48,4 +50,6 @@ public class TasteScoreFragment extends Fragment {
             tv.setText(name);
         }
     }
+
+    //TODO TasteScoreFragment
 }

@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BaseView;
 
 /**
+ * 带校验码业务逻辑的活动View
+ *
  * @author spencercjh
  */
 public interface VerifyCodeView extends BaseView {

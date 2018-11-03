@@ -1,4 +1,4 @@
-package top.spencer.crabscore.view;
+package top.spencer.crabscore.view.helper;
 
 import android.content.Context;
 import android.text.method.HideReturnsTransformationMethod;
@@ -13,6 +13,8 @@ import top.spencer.crabscore.data.entity.Group;
 import java.util.List;
 
 /**
+ * UI Helper
+ *
  * @author spencercjh
  */
 public class InitHelper {
@@ -36,6 +38,13 @@ public class InitHelper {
         }
     }
 
+    /**
+     * 对排行榜页面中处理返回的group对象的封装
+     *
+     * @param groups    jsonResult
+     * @param groupList list
+     * @return 是否有重复
+     */
     public static boolean dealGroupListJSON(JSONArray groups, List<Group> groupList) {
         boolean repeat = false;
         for (Object object : groups) {

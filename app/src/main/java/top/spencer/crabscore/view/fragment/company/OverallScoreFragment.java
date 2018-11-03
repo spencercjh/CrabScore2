@@ -13,6 +13,8 @@ import top.spencer.crabscore.R;
 import java.util.Objects;
 
 /**
+ * 参选单位用户组的查看总体得分情况页面
+ *
  * @author spencercjh
  */
 public class OverallScoreFragment extends Fragment {
@@ -48,4 +50,6 @@ public class OverallScoreFragment extends Fragment {
             tv.setText(name);
         }
     }
+
+    //TODO OverallScoreFragment
 }

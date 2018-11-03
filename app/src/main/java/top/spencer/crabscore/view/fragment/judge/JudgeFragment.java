@@ -12,14 +12,16 @@ import android.view.View;
 import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
-import top.spencer.crabscore.view.adapter.TabLayoutPageAdapter;
 import top.spencer.crabscore.base.BaseFragment;
+import top.spencer.crabscore.view.adapter.TabLayoutPageAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
+ * 评委用户组一级页面
+ *
  * @author spencercjh
  */
 public class JudgeFragment extends BaseFragment {
@@ -30,6 +32,12 @@ public class JudgeFragment extends BaseFragment {
     @BindView(R.id.tl_head)
     Toolbar toolbar;
 
+    /**
+     * 取得实例
+     *
+     * @param name 测试参数
+     * @return fragment
+     */
     public static JudgeFragment newInstance(String name) {
         Bundle args = new Bundle();
         args.putString("name", name);
@@ -38,17 +46,31 @@ public class JudgeFragment extends BaseFragment {
         return fragment;
     }
 
+    /**
+     * 获得fragment的layout的Id
+     *
+     * @return layout Id
+     */
     @Override
     public int getContentViewId() {
         return R.layout.fragment_has_top_navigation;
     }
 
+    /**
+     * 初始化视图
+     *
+     * @param view               view
+     * @param savedInstanceState saveInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
     }
 
+    /**
+     * 初始化组件
+     */
     private void initView() {
         toolbar.setTitle("Judge");
         toolbar.setEnabled(false);
@@ -56,6 +78,9 @@ public class JudgeFragment extends BaseFragment {
         initTabLayout();
     }
 
+    /**
+     * 初始化二级页面TabLayout及其Fragment
+     */
     private void initTabLayout() {
         List<String> mTitleList = new ArrayList<>(3);
         mTitleList.add("全部小组");
@@ -78,4 +103,6 @@ public class JudgeFragment extends BaseFragment {
     public void showData(JSONObject successData) {
 
     }
+
+    //TODO JudgeFragment
 }

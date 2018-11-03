@@ -12,8 +12,8 @@ import android.view.View;
 import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
-import top.spencer.crabscore.view.adapter.TabLayoutPageAdapter;
 import top.spencer.crabscore.base.BaseFragment;
+import top.spencer.crabscore.view.adapter.TabLayoutPageAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,4 +75,6 @@ public class StaffFragment extends BaseFragment {
     public void showData(JSONObject successData) {
 
     }
+
+    //TODO StaffFragment
 }

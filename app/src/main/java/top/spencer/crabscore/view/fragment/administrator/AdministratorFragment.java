@@ -12,14 +12,16 @@ import android.view.View;
 import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
-import top.spencer.crabscore.view.adapter.TabLayoutPageAdapter;
 import top.spencer.crabscore.base.BaseFragment;
+import top.spencer.crabscore.view.adapter.TabLayoutPageAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
+ * 管理员用户组一级页面
+ *
  * @author spencercjh
  */
 public class AdministratorFragment extends BaseFragment {
@@ -30,6 +32,12 @@ public class AdministratorFragment extends BaseFragment {
     @BindView(R.id.tl_head)
     Toolbar toolbar;
 
+    /**
+     * 取得实例
+     *
+     * @param name 测试参数
+     * @return fragment
+     */
     public static AdministratorFragment newInstance(String name) {
         Bundle args = new Bundle();
         args.putString("name", name);
@@ -38,11 +46,22 @@ public class AdministratorFragment extends BaseFragment {
         return fragment;
     }
 
+    /**
+     * 获得fragment的layout的Id
+     *
+     * @return layout Id
+     */
     @Override
     public int getContentViewId() {
         return R.layout.fragment_has_top_navigation;
     }
 
+    /**
+     * 初始化视图
+     *
+     * @param view               view
+     * @param savedInstanceState saveInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -50,6 +69,9 @@ public class AdministratorFragment extends BaseFragment {
     }
 
 
+    /**
+     * 初始化组件
+     */
     private void initView() {
         toolbar.setTitle("Admin");
         toolbar.setEnabled(false);
@@ -57,6 +79,9 @@ public class AdministratorFragment extends BaseFragment {
         initTabLayout();
     }
 
+    /**
+     * 初始化二级页面TabLayout及其Fragment
+     */
     private void initTabLayout() {
         List<String> mTitleList = new ArrayList<>(4);
         mTitleList.add("用户列表");
@@ -78,8 +103,10 @@ public class AdministratorFragment extends BaseFragment {
         tabLayout.setupWithViewPager(vpContent);
     }
 
+
     @Override
     public void showData(JSONObject successData) {
-
     }
+
+    //TODO AdministratorFragment
 }

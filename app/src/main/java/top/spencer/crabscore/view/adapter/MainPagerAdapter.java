@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.List;
 
 /**
+ * 主页面底部导航栏适配器
+ *
  * @author spencercjh
  */
 public class MainPagerAdapter extends FragmentPagerAdapter {
