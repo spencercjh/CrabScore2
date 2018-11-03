@@ -1,4 +1,4 @@
-package top.spencer.crabscore.model.model;
+package top.spencer.crabscore.model.model.administrator;
 
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BaseModel;

@@ -1,4 +1,4 @@
-package top.spencer.crabscore.model.model;
+package top.spencer.crabscore.model.model.common;
 
 import android.util.Log;
 import top.spencer.crabscore.base.BaseModel;

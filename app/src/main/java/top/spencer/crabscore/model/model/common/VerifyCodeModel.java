@@ -1,4 +1,4 @@
-package top.spencer.crabscore.model.model;
+package top.spencer.crabscore.model.model.common;
 
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BaseModel;
@@ -11,21 +11,20 @@ import java.util.Map;
 /**
  * @author spencercjh
  */
-public class PhoneLoginModel extends BaseModel {
+public class VerifyCodeModel extends BaseModel {
     /**
-     * 参数表String mobile
+     * 参数表String mobile, String code
      * 参数校验放在Activity里写了
-     * common接口都不传JWT
-     * <p>
-     * 这个接口会在body里返回JWT！
+     * common接口不传JWT
      *
      * @param myCallBack myCallBack
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "common/direct";
+        String url = CommonConstant.URL + "common/code";
         Map<String, Object> postParams = new HashMap<>(2);
         postParams.put("mobile", mvpParams[0]);
+        postParams.put("code", mvpParams[1]);
         requestPostAPI(url, postParams, myCallBack, "");
     }
 }

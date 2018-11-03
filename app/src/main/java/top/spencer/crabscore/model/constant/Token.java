@@ -1,6 +1,12 @@
 package top.spencer.crabscore.model.constant;
 
-import top.spencer.crabscore.model.model.*;
+import top.spencer.crabscore.model.model.administrator.AllCompanyModel;
+import top.spencer.crabscore.model.model.administrator.AllUserByStatusModel;
+import top.spencer.crabscore.model.model.administrator.AllUserModel;
+import top.spencer.crabscore.model.model.common.*;
+import top.spencer.crabscore.model.model.common.rank.FatnessRankModel;
+import top.spencer.crabscore.model.model.common.rank.QualityRankModel;
+import top.spencer.crabscore.model.model.common.rank.TasteRankModel;
 
 /**
  * 具体Model类，常量用于反射

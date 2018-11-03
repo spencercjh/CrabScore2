@@ -1,4 +1,4 @@
-package top.spencer.crabscore.model.model;
+package top.spencer.crabscore.model.model.administrator;
 
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BaseModel;
@@ -8,17 +8,15 @@ import top.spencer.crabscore.common.CommonConstant;
 /**
  * @author spencercjh
  */
-public class SendCodeModel extends BaseModel {
+public class AllCompanyModel extends BaseModel {
     /**
-     * 参数表String mobile
-     * 参数校验放在Activity里写了
-     * common接口不传JWT
+     * 参数表Integer pageNum, Integer pageSize, String jwt
      *
      * @param myCallBack myCallBack
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "common/code?mobile=" + mvpParams[0];
-        requestGetAPI(url, myCallBack, "");
+        String url = CommonConstant.URL + "admin/company/companies/" + mvpParams[0] + "/" + mvpParams[1];
+        requestGetAPI(url, myCallBack, mvpParams[2]);
     }
 }

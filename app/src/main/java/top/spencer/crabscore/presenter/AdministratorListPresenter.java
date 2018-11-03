@@ -7,7 +7,10 @@ import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.entity.Company;
 import top.spencer.crabscore.model.entity.User;
-import top.spencer.crabscore.model.model.ModelFactory;
+import top.spencer.crabscore.model.model.common.ModelFactory;
+import top.spencer.crabscore.model.model.administrator.AllCompanyModel;
+import top.spencer.crabscore.model.model.administrator.AllUserByStatusModel;
+import top.spencer.crabscore.model.model.administrator.AllUserModel;
 import top.spencer.crabscore.view.view.MyRecycleListView;
 
 import java.util.List;
@@ -23,7 +26,7 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
      * @param pageNum  页数
      * @param pageSize 页面大小
      * @param jwt      JWT
-     * @see top.spencer.crabscore.model.model.AllUserModel
+     * @see AllUserModel
      */
     public void getAllUser(Integer pageNum, Integer pageSize, String jwt) {
         if (isViewAttached()) {
@@ -63,7 +66,7 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
      * @param pageNum  页数
      * @param pageSize 页面大小
      * @param jwt      JWT
-     * @see top.spencer.crabscore.model.model.AllUserByStatusModel
+     * @see AllUserByStatusModel
      */
     public void getAllUserByStatus(Integer status, Integer pageNum, Integer pageSize, String jwt) {
         if (isViewAttached()) {
@@ -124,7 +127,7 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
      * @param pageNum  页数
      * @param pageSize 页面大小
      * @param jwt      JWT
-     * @see top.spencer.crabscore.model.model.AllCompanyModel
+     * @see AllCompanyModel
      */
     public void getAllCompany(Integer pageNum, Integer pageSize, String jwt) {
         if (isViewAttached()) {

@@ -4,7 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
-import top.spencer.crabscore.model.model.ModelFactory;
+import top.spencer.crabscore.model.model.common.ModelFactory;
+import top.spencer.crabscore.model.model.common.LoginModel;
 import top.spencer.crabscore.view.view.LoginView;
 
 /**
@@ -21,7 +22,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
      * @param username 用户名
      * @param password 密码
      * @param roleId   用户组（1、2、3、4）
-     * @see top.spencer.crabscore.model.model.LoginModel
+     * @see LoginModel
      */
     public void login(String username, String password, String roleId) {
         if (isViewAttached()) {

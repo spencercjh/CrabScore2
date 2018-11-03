@@ -1,4 +1,4 @@
-package top.spencer.crabscore.model.model;
+package top.spencer.crabscore.model.model.common;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;

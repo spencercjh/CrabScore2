@@ -6,7 +6,10 @@ import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.entity.Group;
-import top.spencer.crabscore.model.model.ModelFactory;
+import top.spencer.crabscore.model.model.common.ModelFactory;
+import top.spencer.crabscore.model.model.common.rank.FatnessRankModel;
+import top.spencer.crabscore.model.model.common.rank.QualityRankModel;
+import top.spencer.crabscore.model.model.common.rank.TasteRankModel;
 import top.spencer.crabscore.view.view.MyRecycleListView;
 
 import java.util.List;
@@ -21,7 +24,7 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
      * @param competitionId 大赛Id
      * @param pageNum       页数
      * @param pageSize      页面大小
-     * @see top.spencer.crabscore.model.model.FatnessRankModel
+     * @see FatnessRankModel
      */
     public void getFatnessRank(Integer competitionId, Integer pageNum, Integer pageSize) {
         if (isViewAttached()) {
@@ -60,7 +63,7 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
      * @param competitionId 大赛Id
      * @param pageNum       页数
      * @param pageSize      页面大小
-     * @see top.spencer.crabscore.model.model.QualityRankModel
+     * @see QualityRankModel
      */
     public void getQualityRank(Integer competitionId, Integer pageNum, Integer pageSize) {
         if (isViewAttached()) {
@@ -99,7 +102,7 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
      * @param competitionId 大赛Id
      * @param pageNum       页数
      * @param pageSize      页面大小
-     * @see top.spencer.crabscore.model.model.TasteRankModel
+     * @see TasteRankModel
      */
     public void getTasteRank(Integer competitionId, Integer pageNum, Integer pageSize) {
         if (isViewAttached()) {

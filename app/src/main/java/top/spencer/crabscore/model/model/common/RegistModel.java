@@ -1,4 +1,4 @@
-package top.spencer.crabscore.model.model;
+package top.spencer.crabscore.model.model.common;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.codec.binary.Hex;

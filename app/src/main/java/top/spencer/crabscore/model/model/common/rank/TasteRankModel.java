@@ -1,4 +1,4 @@
-package top.spencer.crabscore.model.model;
+package top.spencer.crabscore.model.model.common.rank;
 
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BaseModel;
@@ -8,7 +8,7 @@ import top.spencer.crabscore.common.CommonConstant;
 /**
  * @author spencercjh
  */
-public class FatnessRankModel extends BaseModel {
+public class TasteRankModel extends BaseModel {
     /**
      * 参数表Integer competitionId
      * common接口不传JWT
@@ -17,7 +17,7 @@ public class FatnessRankModel extends BaseModel {
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "/common/score/fatness/" + mvpParams[0] + "/" + mvpParams[1] + "/" + mvpParams[2];
+        String url = CommonConstant.URL + "/common/score/tastes/" + mvpParams[0] + "/" + mvpParams[1] + "/" + mvpParams[2];
         requestGetAPI(url, myCallBack, "");
     }
 }

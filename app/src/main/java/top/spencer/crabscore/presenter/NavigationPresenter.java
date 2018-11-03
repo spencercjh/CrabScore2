@@ -4,7 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
-import top.spencer.crabscore.model.model.ModelFactory;
+import top.spencer.crabscore.model.model.common.ModelFactory;
+import top.spencer.crabscore.model.model.common.PresentCompetitionPropertyModel;
 
 /**
  * @author spencercjh
@@ -13,7 +14,7 @@ public class NavigationPresenter extends BasePresenter {
     /**
      * 获取当前大赛信息
      *
-     * @see top.spencer.crabscore.model.model.PresentCompetitionPropertyModel
+     * @see PresentCompetitionPropertyModel
      */
     public void getPresentCompetitionProperty() {
         if (isViewAttached()) {
