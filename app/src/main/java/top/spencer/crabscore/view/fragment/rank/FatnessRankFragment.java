@@ -15,7 +15,7 @@ import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
-import top.spencer.crabscore.data.entity.Group;
+import top.spencer.crabscore.model.entity.Group;
 import top.spencer.crabscore.presenter.RankListPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
 import top.spencer.crabscore.view.view.RankListView;

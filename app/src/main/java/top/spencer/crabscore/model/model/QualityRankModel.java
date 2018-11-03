@@ -1,4 +1,4 @@
-package top.spencer.crabscore.data.model;
+package top.spencer.crabscore.model.model;
 
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BaseModel;
@@ -8,17 +8,16 @@ import top.spencer.crabscore.common.CommonConstant;
 /**
  * @author spencercjh
  */
-public class SendCodeModel extends BaseModel {
+public class QualityRankModel extends BaseModel {
     /**
-     * 参数表String mobile
-     * 参数校验放在Activity里写了
+     * 参数表Integer competitionId
      * common接口不传JWT
      *
      * @param myCallBack myCallBack
      */
     @Override
     public void execute(Callback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "common/code?mobile=" + mvpParams[0];
+        String url = CommonConstant.URL + "/common/score/qualities/" + mvpParams[0] + "/" + mvpParams[1] + "/" + mvpParams[2];
         requestGetAPI(url, myCallBack, "");
     }
 }

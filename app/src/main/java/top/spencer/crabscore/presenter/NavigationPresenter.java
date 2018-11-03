@@ -3,8 +3,8 @@ package top.spencer.crabscore.presenter;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.Callback;
-import top.spencer.crabscore.data.constant.Token;
-import top.spencer.crabscore.data.model.ModelFactory;
+import top.spencer.crabscore.model.constant.Token;
+import top.spencer.crabscore.model.model.ModelFactory;
 
 /**
  * @author spencercjh
@@ -13,7 +13,7 @@ public class NavigationPresenter extends BasePresenter {
     /**
      * 获取当前大赛信息
      *
-     * @see top.spencer.crabscore.data.model.PresentCompetitionPropertyModel
+     * @see top.spencer.crabscore.model.model.PresentCompetitionPropertyModel
      */
     public void getPresentCompetitionProperty() {
         if (isViewAttached()) {

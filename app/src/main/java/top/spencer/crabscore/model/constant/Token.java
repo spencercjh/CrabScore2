@@ -1,6 +1,6 @@
-package top.spencer.crabscore.data.constant;
+package top.spencer.crabscore.model.constant;
 
-import top.spencer.crabscore.data.model.*;
+import top.spencer.crabscore.model.model.*;
 
 /**
  * 具体Model类，常量用于反射

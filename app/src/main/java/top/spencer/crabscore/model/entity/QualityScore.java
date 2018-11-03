@@ -1,20 +1,20 @@
-package top.spencer.crabscore.data.entity;
+package top.spencer.crabscore.model.entity;
 
 import lombok.Data;
 
 import java.util.Date;
 
 /**
- * 口感分数对象模型
+ * 种质分数对象模型
  *
  * @author spencercjh
- * rxpb_score_taste
+ * rxpb_score_quality
  */
 @Data
-public class TasteScore {
+public class QualityScore {
 
     /**
-     * 唯一标识 口感分数id")
+     * 唯一标识 种质分数id")
      */
     private Integer scoreId;
 
@@ -39,47 +39,37 @@ public class TasteScore {
     private Float scoreFin;
 
     /**
-     * 蟹盖颜色")
+     * 体色(背)")
      */
-    private Float scoreYgys;
+    private Float scoreBts;
 
     /**
-     * 鳃颜色")
+     * 体色(腹)")
      */
-    private Float scoreSys;
+    private Float scoreFts;
 
     /**
-     * 膏、黄颜色")
+     * 额齿")
      */
-    private Float scoreGhys;
+    private Float scoreEc;
 
     /**
-     * 腥味、香味")
+     * 第4侧齿")
      */
-    private Float scoreXwxw;
+    private Float scoreDscc;
 
     /**
-     * 膏、黄")
+     * 背部疣状突")
      */
-    private Float scoreGh;
+    private Float scoreBbyzt;
 
     /**
-     * 腹部肌肉")
-     */
-    private Float scoreFbjr;
-
-    /**
-     * 第二、三步足肌肉")
-     */
-    private Float scoreBzjr;
-
-    /**
-     * 创建用户")
+     * 创建时间")
      */
     private Date createDate;
 
     /**
-     * 最终给分")
+     * 创建用户")
      */
     private String createUser;
 

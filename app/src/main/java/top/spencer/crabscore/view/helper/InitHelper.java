@@ -8,7 +8,7 @@ import android.widget.ToggleButton;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
-import top.spencer.crabscore.data.entity.Group;
+import top.spencer.crabscore.model.entity.Group;
 
 import java.util.List;
 

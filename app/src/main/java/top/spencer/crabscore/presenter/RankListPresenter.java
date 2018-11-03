@@ -3,8 +3,8 @@ package top.spencer.crabscore.presenter;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.Callback;
-import top.spencer.crabscore.data.constant.Token;
-import top.spencer.crabscore.data.model.ModelFactory;
+import top.spencer.crabscore.model.constant.Token;
+import top.spencer.crabscore.model.model.ModelFactory;
 
 /**
  * @author spencercjh

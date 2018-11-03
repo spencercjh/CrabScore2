@@ -14,7 +14,7 @@ import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseActivity;
 import top.spencer.crabscore.base.BaseView;
 import top.spencer.crabscore.common.CommonConstant;
-import top.spencer.crabscore.data.entity.Competition;
+import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.presenter.NavigationPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
 import top.spencer.crabscore.view.adapter.MainPagerAdapter;

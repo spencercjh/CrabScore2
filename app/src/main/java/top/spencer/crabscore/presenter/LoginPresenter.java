@@ -3,8 +3,8 @@ package top.spencer.crabscore.presenter;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.Callback;
-import top.spencer.crabscore.data.constant.Token;
-import top.spencer.crabscore.data.model.ModelFactory;
+import top.spencer.crabscore.model.constant.Token;
+import top.spencer.crabscore.model.model.ModelFactory;
 
 /**
  * @author spencercjh
@@ -20,7 +20,7 @@ public class LoginPresenter extends BasePresenter {
      * @param username 用户名
      * @param password 密码
      * @param roleId   用户组（1、2、3、4）
-     * @see top.spencer.crabscore.data.model.LoginModel
+     * @see top.spencer.crabscore.model.model.LoginModel
      */
     public void login(String username, String password, String roleId) {
         if (isViewAttached()) {
