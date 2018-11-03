@@ -17,7 +17,7 @@ import top.spencer.crabscore.base.BaseActivity;
 import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.presenter.VerifyCodePresenter;
 import top.spencer.crabscore.util.PatternUtil;
-import top.spencer.crabscore.view.VerifyCodeView;
+import top.spencer.crabscore.view.view.VerifyCodeView;
 import top.spencer.crabscore.view.helper.InitHelper;
 
 import java.util.Date;

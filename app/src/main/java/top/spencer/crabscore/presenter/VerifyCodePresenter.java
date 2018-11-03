@@ -6,7 +6,7 @@ import top.spencer.crabscore.base.Callback;
 import top.spencer.crabscore.data.constant.Token;
 import top.spencer.crabscore.data.model.ModelFactory;
 import top.spencer.crabscore.data.model.PhoneLoginModel;
-import top.spencer.crabscore.view.VerifyCodeView;
+import top.spencer.crabscore.view.view.VerifyCodeView;
 
 /**
  * @author spencercjh

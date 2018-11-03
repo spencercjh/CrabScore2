@@ -18,7 +18,7 @@ import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.data.entity.Group;
 import top.spencer.crabscore.presenter.RankListPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
-import top.spencer.crabscore.view.RankListView;
+import top.spencer.crabscore.view.view.RankListView;
 import top.spencer.crabscore.view.adapter.QualityRankListAdapter;
 import top.spencer.crabscore.view.widget.EmptyRecyclerView;
 

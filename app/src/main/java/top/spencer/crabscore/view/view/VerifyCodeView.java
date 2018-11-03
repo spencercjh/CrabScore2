@@ -1,4 +1,4 @@
-package top.spencer.crabscore.view;
+package top.spencer.crabscore.view.view;
 
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BaseView;

@@ -13,7 +13,7 @@ import top.spencer.crabscore.base.BaseActivity;
 import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.presenter.LoginPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
-import top.spencer.crabscore.view.LoginView;
+import top.spencer.crabscore.view.view.LoginView;
 import top.spencer.crabscore.view.helper.InitHelper;
 
 import static android.content.ContentValues.TAG;
