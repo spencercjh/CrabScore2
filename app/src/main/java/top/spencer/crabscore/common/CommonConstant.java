@@ -96,4 +96,8 @@ public interface CommonConstant {
     Integer USER_TYPE_COMPANY = 4;
 
     String COMPANY = "COMPANY";
+
+    String AVAILABLE = "available";
+
+    String UNAVAILABLE = "unavailable";
 }

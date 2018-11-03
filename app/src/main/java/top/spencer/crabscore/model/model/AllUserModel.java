@@ -8,16 +8,15 @@ import top.spencer.crabscore.common.CommonConstant;
 /**
  * @author spencercjh
  */
-public class TasteRankModel extends BaseModel {
+public class AllUserModel extends BaseModel {
     /**
-     * 参数表Integer competitionId
-     * common接口不传JWT
+     * 参数表Integer pageNum, Integer pageSize ,String jwt
      *
      * @param myCallBack myCallBack
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "/common/score/tastes/" + mvpParams[0] + "/" + mvpParams[1] + "/" + mvpParams[2];
-        requestGetAPI(url, myCallBack, "");
+        String url = CommonConstant.URL + "admin/user/users/" + mvpParams[0] + "/" + mvpParams[1];
+        requestGetAPI(url, myCallBack, mvpParams[2]);
     }
 }

@@ -3,7 +3,7 @@ package top.spencer.crabscore.base;
 /**
  * @author spencercjh
  */
-public interface Callback<T> {
+public interface MyCallback<T> {
 
     /**
      * 数据请求成功

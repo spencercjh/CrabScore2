@@ -2,7 +2,7 @@ package top.spencer.crabscore.presenter;
 
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BasePresenter;
-import top.spencer.crabscore.base.Callback;
+import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.model.ModelFactory;
 
@@ -23,7 +23,7 @@ public class NavigationPresenter extends BasePresenter {
         ModelFactory
                 .request(Token.API_PRESENT_COMPETITION_PROPERTY)
                 .params()
-                .execute(new Callback<JSONObject>() {
+                .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
                         getView().showData(data);

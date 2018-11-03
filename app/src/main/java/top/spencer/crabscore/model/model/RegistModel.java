@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import top.spencer.crabscore.base.BaseModel;
-import top.spencer.crabscore.base.Callback;
+import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.common.CommonConstant;
 
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public class RegistModel extends BaseModel {
      * @param myCallBack myCallBack
      */
     @Override
-    public void execute(Callback<JSONObject> myCallBack) {
+    public void execute(MyCallback<JSONObject> myCallBack) {
         String url = CommonConstant.URL + "common/creation";
         Map<String, Object> postParams = new HashMap<>(8);
         postParams.put("username", mvpParams[0]);

@@ -2,14 +2,15 @@ package top.spencer.crabscore.presenter;
 
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BasePresenter;
-import top.spencer.crabscore.base.Callback;
+import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.model.ModelFactory;
+import top.spencer.crabscore.view.view.MyRecycleListView;
 
 /**
  * @author spencercjh
  */
-public class RankListPresenter extends BasePresenter {
+public class RankListPresenter extends BasePresenter<MyRecycleListView> {
     /**
      * 查询金蟹奖成绩
      *
@@ -25,7 +26,7 @@ public class RankListPresenter extends BasePresenter {
         ModelFactory
                 .request(Token.API_FATNESS_RANK)
                 .params(String.valueOf(competitionId), String.valueOf(pageNum), String.valueOf(pageSize))
-                .execute(new Callback<JSONObject>() {
+                .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
                         getView().showData(data);
@@ -63,7 +64,7 @@ public class RankListPresenter extends BasePresenter {
         ModelFactory
                 .request(Token.API_QUALITY_RANK)
                 .params(String.valueOf(competitionId), String.valueOf(pageNum), String.valueOf(pageSize))
-                .execute(new Callback<JSONObject>() {
+                .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
                         getView().showData(data);
@@ -101,7 +102,7 @@ public class RankListPresenter extends BasePresenter {
         ModelFactory
                 .request(Token.API_TASTE_RANK)
                 .params(String.valueOf(competitionId), String.valueOf(pageNum), String.valueOf(pageSize))
-                .execute(new Callback<JSONObject>() {
+                .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
                         getView().showData(data);

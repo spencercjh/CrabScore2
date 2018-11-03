@@ -2,7 +2,7 @@ package top.spencer.crabscore.model.model;
 
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BaseModel;
-import top.spencer.crabscore.base.Callback;
+import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.common.CommonConstant;
 
 import java.util.HashMap;
@@ -20,7 +20,7 @@ public class VerifyCodeModel extends BaseModel {
      * @param myCallBack myCallBack
      */
     @Override
-    public void execute(Callback<JSONObject> myCallBack) {
+    public void execute(MyCallback<JSONObject> myCallBack) {
         String url = CommonConstant.URL + "common/code";
         Map<String, Object> postParams = new HashMap<>(2);
         postParams.put("mobile", mvpParams[0]);

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical" android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="18sp"
+            android:layout_alignEnd="@+id/linearLayout2"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/linearLayout2"
+            android:layout_alignStart="@+id/linearLayout2"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="用户名:"/>
+
+        <TextView
+                android:id="@+id/textview_user_name"
+                android:layout_width="133dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"/>
+
+        <TextView
+                android:layout_width="68dp"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:text="显示名: "/>
+
+        <TextView
+                android:id="@+id/textview_display_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:lines="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="18sp"
+            android:layout_alignStart="@+id/linearLayout3"
+            android:layout_below="@+id/linearLayout1"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="用户组:"/>
+
+        <TextView
+                android:id="@+id/textview_role"
+                android:layout_width="135dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"/>
+
+        <TextView
+                android:id="@+id/textView4"
+                android:layout_width="68dp"
+                android:layout_height="match_parent"
+                android:text="比赛状态:"/>
+
+        <TextView
+                android:id="@+id/textview_competition_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:lines="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="18sp"
+            android:layout_below="@+id/linearLayout2"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+    </LinearLayout>
+</LinearLayout>

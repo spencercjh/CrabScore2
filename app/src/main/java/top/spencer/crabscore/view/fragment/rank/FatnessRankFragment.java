@@ -15,11 +15,12 @@ import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
+import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.Group;
 import top.spencer.crabscore.presenter.RankListPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
-import top.spencer.crabscore.view.view.RankListView;
 import top.spencer.crabscore.view.adapter.FatnessRankListAdapter;
+import top.spencer.crabscore.view.view.MyRecycleListView;
 import top.spencer.crabscore.view.widget.EmptyRecyclerView;
 
 import java.util.ArrayList;
@@ -31,14 +32,14 @@ import static top.spencer.crabscore.view.helper.InitHelper.dealGroupListJSON;
 /**
  * @author spencercjh
  */
-public class FatnessRankFragment extends BaseFragment implements RankListView {
-    @BindView(R.id.recycler_view_rank)
+public class FatnessRankFragment extends BaseFragment implements MyRecycleListView {
+    @BindView(R.id.recycler_view_list)
     EmptyRecyclerView rankListView;
     @BindView(R.id.textview_empty)
     TextView emptyText;
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
-
+    private Competition presentCompetition;
     private FatnessRankListAdapter fatnessRankListAdapter;
     private RankListPresenter rankListPresenter;
     private List<Group> groupList = new ArrayList<>(10);
@@ -61,7 +62,7 @@ public class FatnessRankFragment extends BaseFragment implements RankListView {
 
     @Override
     public int getContentViewId() {
-        return R.layout.fragment_rank_list;
+        return R.layout.fragment_list;
     }
 
     @SuppressWarnings("Duplicates")
@@ -71,6 +72,8 @@ public class FatnessRankFragment extends BaseFragment implements RankListView {
         rankListPresenter = new RankListPresenter();
         rankListPresenter.attachView(this);
         SharedPreferencesUtil.getInstance(getContext(), "PROPERTY");
+        presentCompetition = (Competition) (SharedPreferencesUtil.getData(
+                "PRESENT_COMPETITION", new Competition()));
         setRecycleView();
     }
 
@@ -84,8 +87,7 @@ public class FatnessRankFragment extends BaseFragment implements RankListView {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                rankListPresenter.getFatnessRank((Integer) SharedPreferencesUtil.getData(
-                        "PRESENT_COMPETITION_ID", 1), pageNum, pageSize);
+                rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
             }
         });
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -101,8 +103,7 @@ public class FatnessRankFragment extends BaseFragment implements RankListView {
                         && lastVisibleItemPosition[0] + 1 == fatnessRankListAdapter.getItemCount()) {
                     swipeRefreshLayout.setRefreshing(false);
                     if (!repeat) {
-                        rankListPresenter.getFatnessRank((Integer) SharedPreferencesUtil.getData(
-                                "PRESENT_COMPETITION_ID", 1), pageNum, pageSize);
+                        rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
                     }
                 }
             }
@@ -119,7 +120,7 @@ public class FatnessRankFragment extends BaseFragment implements RankListView {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        rankListPresenter.getFatnessRank((Integer) SharedPreferencesUtil.getData("PRESENT_COMPETITION_ID", 1),
+        rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(),
                 pageNum, pageSize);
     }
 
@@ -139,5 +140,4 @@ public class FatnessRankFragment extends BaseFragment implements RankListView {
             }
         });
     }
-
 }

@@ -37,7 +37,7 @@ public abstract class BaseModel {
      *
      * @param myCallBack myCallBack
      */
-    public abstract void execute(Callback<JSONObject> myCallBack);
+    public abstract void execute(MyCallback<JSONObject> myCallBack);
 
     /**
      * OkHttp3 异步Get请求
@@ -46,7 +46,7 @@ public abstract class BaseModel {
      * @param myCallBack myCallBack
      * @param jwt        Header里的JWT串
      */
-    protected void requestGetAPI(String url, final Callback<JSONObject> myCallBack, String jwt) {
+    protected void requestGetAPI(String url, final MyCallback<JSONObject> myCallBack, String jwt) {
         Log.i(TAG, url);
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
@@ -77,6 +77,11 @@ public abstract class BaseModel {
                     return;
                 }
                 Integer code = responseJsonResult.getInteger("code");
+                if (code == null) {
+                    myCallBack.onError();
+                    myCallBack.onComplete();
+                    return;
+                }
                 if (code.equals(CommonConstant.SUCCESS)) {
                     myCallBack.onSuccess(responseJsonResult);
                 } else {
@@ -96,7 +101,7 @@ public abstract class BaseModel {
      * @param jwt        Header里的JWT串
      */
     protected void requestPostAPI(String url, Map<String, Object> postParams,
-                                  final Callback<JSONObject> myCallBack, String jwt) {
+                                  final MyCallback<JSONObject> myCallBack, String jwt) {
         Log.i(TAG, url);
         OkHttpClient okHttpClient = new OkHttpClient();
         FormBody.Builder formBody = new FormBody.Builder();
@@ -132,6 +137,11 @@ public abstract class BaseModel {
                     return;
                 }
                 Integer code = responseJsonResult.getInteger("code");
+                if (code == null) {
+                    myCallBack.onError();
+                    myCallBack.onComplete();
+                    return;
+                }
                 if (code.equals(CommonConstant.SUCCESS)) {
                     myCallBack.onSuccess(responseJsonResult);
                 } else {
@@ -151,7 +161,7 @@ public abstract class BaseModel {
      * @param jwt        Header里的JWT串
      */
     protected void requestPutAPI(String url, Map<String, Object> putParams,
-                                 final Callback<JSONObject> myCallBack, String jwt) {
+                                 final MyCallback<JSONObject> myCallBack, String jwt) {
         Log.i(TAG, url);
         OkHttpClient okHttpClient = new OkHttpClient();
         FormBody.Builder formBody = new FormBody.Builder();
@@ -188,6 +198,11 @@ public abstract class BaseModel {
                     return;
                 }
                 Integer code = responseJsonResult.getInteger("code");
+                if (code == null) {
+                    myCallBack.onError();
+                    myCallBack.onComplete();
+                    return;
+                }
                 if (code.equals(CommonConstant.SUCCESS)) {
                     myCallBack.onSuccess(responseJsonResult);
                 } else {
@@ -205,7 +220,7 @@ public abstract class BaseModel {
      * @param myCallBack myCallBack
      * @param jwt        Header里的JWT串
      */
-    protected void requestDeleteAPI(String url, final Callback<JSONObject> myCallBack, String jwt) {
+    protected void requestDeleteAPI(String url, final MyCallback<JSONObject> myCallBack, String jwt) {
         Log.i(TAG, url);
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
@@ -236,6 +251,11 @@ public abstract class BaseModel {
                     return;
                 }
                 Integer code = responseJsonResult.getInteger("code");
+                if (code == null) {
+                    myCallBack.onError();
+                    myCallBack.onComplete();
+                    return;
+                }
                 if (code.equals(CommonConstant.SUCCESS)) {
                     myCallBack.onSuccess(responseJsonResult);
                 } else {

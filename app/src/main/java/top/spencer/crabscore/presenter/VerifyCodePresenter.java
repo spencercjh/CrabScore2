@@ -2,7 +2,7 @@ package top.spencer.crabscore.presenter;
 
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BasePresenter;
-import top.spencer.crabscore.base.Callback;
+import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.model.ModelFactory;
 import top.spencer.crabscore.model.model.PhoneLoginModel;
@@ -30,7 +30,7 @@ public class VerifyCodePresenter extends BasePresenter<VerifyCodeView> {
         ModelFactory
                 .request(Token.API_REGIST)
                 .params(username, password, roleId, email, displayName)
-                .execute(new Callback<JSONObject>() {
+                .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
                         getView().showData(data);
@@ -68,7 +68,7 @@ public class VerifyCodePresenter extends BasePresenter<VerifyCodeView> {
         ModelFactory
                 .request(Token.API_FORGET_PASSWORD)
                 .params(username, newPassword)
-                .execute(new Callback<JSONObject>() {
+                .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
                         getView().showData(data);
@@ -107,7 +107,7 @@ public class VerifyCodePresenter extends BasePresenter<VerifyCodeView> {
         ModelFactory
                 .request(Token.API_LOGIN_OR_REGIST)
                 .params(mobile)
-                .execute(new Callback<JSONObject>() {
+                .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
                         getView().showData(data);
@@ -144,7 +144,7 @@ public class VerifyCodePresenter extends BasePresenter<VerifyCodeView> {
         ModelFactory
                 .request(Token.API_SEND_CODE)
                 .params(mobile)
-                .execute(new Callback<JSONObject>() {
+                .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
                         getView().dealSendCode(data);
@@ -182,7 +182,7 @@ public class VerifyCodePresenter extends BasePresenter<VerifyCodeView> {
         ModelFactory
                 .request(Token.API_VERIFY_CODE)
                 .params(mobile, code)
-                .execute(new Callback<JSONObject>() {
+                .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
                         getView().dealVerifyCode(data);
