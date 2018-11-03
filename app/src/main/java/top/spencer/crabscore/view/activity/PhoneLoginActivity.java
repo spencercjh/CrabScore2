@@ -45,7 +45,6 @@ public class PhoneLoginActivity extends BaseActivity implements VerifyCodeView {
     Button phoneLogin;
     @BindView(R.id.seekbar_verify_phone)
     SeekBar verifyPhone;
-
     private int seekBarProgress = 0;
     private boolean isVerified = false;
     private boolean isDelayed = false;

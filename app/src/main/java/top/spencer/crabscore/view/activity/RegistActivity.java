@@ -17,7 +17,6 @@ import top.spencer.crabscore.presenter.VerifyCodePresenter;
 import top.spencer.crabscore.util.PatternUtil;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
 import top.spencer.crabscore.view.view.VerifyCodeView;
-import top.spencer.crabscore.view.helper.InitHelper;
 
 import java.util.Date;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -30,7 +29,6 @@ import java.util.concurrent.TimeUnit;
  * @author spencercjh
  */
 public class RegistActivity extends BaseActivity implements VerifyCodeView {
-    private VerifyCodePresenter verifyCodePresenter;
     @BindView(R.id.edit_phone_regist)
     EditText phone;
     @BindView(R.id.edit_password_regist)
@@ -55,7 +53,7 @@ public class RegistActivity extends BaseActivity implements VerifyCodeView {
     Button regist;
     @BindArray(R.array.roles)
     String[] roles;
-
+    private VerifyCodePresenter verifyCodePresenter;
     private int seekBarProgress = 0;
     private boolean isVerified = false;
     private int roleChoice = 0;
@@ -113,7 +111,7 @@ public class RegistActivity extends BaseActivity implements VerifyCodeView {
     @SuppressWarnings("unused")
     @OnCheckedChanged(R.id.toggle_password_regist)
     void displayPassword(CompoundButton buttonView, boolean isChecked) {
-        InitHelper.toggleButtonDisplayPassword(togglePassword, password, isChecked, getContext());
+        verifyCodePresenter.toggleButtonDisplayPassword(togglePassword, password, isChecked, getContext());
     }
 
     /**
@@ -125,7 +123,7 @@ public class RegistActivity extends BaseActivity implements VerifyCodeView {
     @SuppressWarnings("unused")
     @OnCheckedChanged(R.id.toggle_repeat_password_regist)
     void displayRepeatPassword(CompoundButton buttonView, boolean isChecked) {
-        InitHelper.toggleButtonDisplayPassword(toggleRepeatPassword, repeatPassword, isChecked, getContext());
+        verifyCodePresenter.toggleButtonDisplayPassword(toggleRepeatPassword, repeatPassword, isChecked, getContext());
     }
 
     /**

@@ -102,6 +102,11 @@ public class RankFragment extends BaseFragment implements TabLayoutView {
         tabLayout.setupWithViewPager(vpContent);
     }
 
+    /**
+     * 请求成功
+     *
+     * @param successData 成功数据源
+     */
     @Override
     public void showData(JSONObject successData) {
 

@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static top.spencer.crabscore.view.helper.InitHelper.dealGroupListJSON;
-
 /**
  * @author spencercjh
  */
@@ -46,6 +44,12 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
     private int pageNum = 1;
     private boolean repeat = false;
 
+    /**
+     * 取得实例
+     *
+     * @param name 测试参数
+     * @return fragment
+     */
     public static FatnessRankFragment newInstance(String name) {
         Bundle args = new Bundle();
         args.putString("name", name);
@@ -54,17 +58,31 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
         return fragment;
     }
 
+    /**
+     * 重写onDestroyView 断开view
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         rankListPresenter.detachView();
     }
 
+    /**
+     * 获得fragment的layout的Id
+     *
+     * @return layout Id
+     */
     @Override
     public int getContentViewId() {
         return R.layout.fragment_list;
     }
 
+    /**
+     * 初始化视图
+     *
+     * @param view               view
+     * @param savedInstanceState saveInstanceState
+     */
     @SuppressWarnings("Duplicates")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -77,6 +95,9 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
         setRecycleView();
     }
 
+    /**
+     * 初始化RecycleView
+     */
     @Override
     public void setRecycleView() {
         fatnessRankListAdapter = new FatnessRankListAdapter(groupList);
@@ -117,6 +138,11 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
         });
     }
 
+    /**
+     * 初始发起请求
+     *
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -124,10 +150,15 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
                 pageNum, pageSize);
     }
 
+    /**
+     * getFatnessRank请求成功
+     *
+     * @param successData 成功数据源
+     */
     @Override
     public void showData(JSONObject successData) {
         pageNum++;
-        repeat = dealGroupListJSON(successData.getJSONArray("result"), groupList);
+        repeat = rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
         if (repeat) {
             return;
         }

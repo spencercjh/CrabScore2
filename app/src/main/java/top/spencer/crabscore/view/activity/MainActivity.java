@@ -35,14 +35,13 @@ import java.util.List;
  * @author spencercjh
  */
 public class MainActivity extends BaseActivity implements BaseView {
-
-    private NavigationPresenter navigationPresenter;
     @BindView(R.id.navigation_view)
     BottomNavigationView bottomNavigationView;
     @BindView(R.id.view_page)
     ViewPager viewPager;
     private MenuItem menuItem;
     private long lastPressTime = 0;
+    private NavigationPresenter navigationPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

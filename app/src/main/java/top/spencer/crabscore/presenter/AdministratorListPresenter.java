@@ -1,11 +1,15 @@
 package top.spencer.crabscore.presenter;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
+import top.spencer.crabscore.model.entity.User;
 import top.spencer.crabscore.model.model.ModelFactory;
 import top.spencer.crabscore.view.view.MyRecycleListView;
+
+import java.util.List;
 
 
 /**
@@ -17,6 +21,7 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
      *
      * @param pageNum  页数
      * @param pageSize 页面大小
+     * @see top.spencer.crabscore.model.model.AllUserModel
      */
     public void getAllUser(Integer pageNum, Integer pageSize, String jwt) {
         if (isViewAttached()) {
@@ -47,5 +52,28 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
                         getView().hideLoading();
                     }
                 });
+    }
+
+    /**
+     * 处理返回结果
+     *
+     * @param users    jsonResult
+     * @param userList list
+     * @return 是否重复
+     * @see top.spencer.crabscore.view.fragment.administrator.UserAdminFragment#showData(JSONObject)
+     */
+    public boolean dealUserListJSON(JSONArray users, List<User> userList) {
+        boolean repeat = false;
+        for (Object object : users) {
+            JSONObject jsonObject = (JSONObject) object;
+            String jsonString = jsonObject.toJSONString();
+            User user = JSONObject.parseObject(jsonString, User.class);
+            if (!userList.contains(user)) {
+                userList.add(user);
+            } else {
+                repeat = true;
+            }
+        }
+        return repeat;
     }
 }

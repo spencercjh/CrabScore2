@@ -12,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import butterknife.BindView;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
@@ -70,6 +69,9 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
         return R.layout.fragment_list;
     }
 
+    /**
+     * 重写onDestroyView 断开view
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -105,7 +107,7 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                administratorListPresenter.getAllUser(pageNum, pageSize,jwt);
+                administratorListPresenter.getAllUser(pageNum, pageSize, jwt);
             }
         });
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -121,7 +123,7 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
                         && lastVisibleItemPosition[0] + 1 == userAdminListAdapter.getItemCount()) {
                     swipeRefreshLayout.setRefreshing(false);
                     if (!repeat) {
-                        administratorListPresenter.getAllUser(pageNum, pageSize,jwt);
+                        administratorListPresenter.getAllUser(pageNum, pageSize, jwt);
                     }
                 }
             }
@@ -135,16 +137,26 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
         });
     }
 
+    /**
+     * 初始发起请求
+     *
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        administratorListPresenter.getAllUser(pageNum, pageSize,jwt);
+        administratorListPresenter.getAllUser(pageNum, pageSize, jwt);
     }
 
+    /**
+     * getAllUser请求成功
+     *
+     * @param successData 成功数据源
+     */
     @Override
     public void showData(JSONObject successData) {
         pageNum++;
-        repeat = dealUserListJSON(successData.getJSONArray("result"), userList);
+        repeat = administratorListPresenter.dealUserListJSON(successData.getJSONArray("result"), userList);
         if (repeat) {
             return;
         }
@@ -158,18 +170,5 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
         });
     }
 
-    private boolean dealUserListJSON(JSONArray users, List<User> userList) {
-        boolean repeat = false;
-        for (Object object : users) {
-            JSONObject jsonObject = (JSONObject) object;
-            String jsonString = jsonObject.toJSONString();
-            User user = JSONObject.parseObject(jsonString, User.class);
-            if (!userList.contains(user)) {
-                userList.add(user);
-            } else {
-                repeat = true;
-            }
-        }
-        return repeat;
-    }
+
 }

@@ -18,7 +18,6 @@ import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.presenter.VerifyCodePresenter;
 import top.spencer.crabscore.util.PatternUtil;
 import top.spencer.crabscore.view.view.VerifyCodeView;
-import top.spencer.crabscore.view.helper.InitHelper;
 
 import java.util.Date;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -31,7 +30,6 @@ import java.util.concurrent.TimeUnit;
  * @author spencercjh
  */
 public class ForgetPasswordActivity extends BaseActivity implements VerifyCodeView {
-    private VerifyCodePresenter verifyCodePresenter;
     @BindView(R.id.edit_phone)
     EditText phone;
     @BindView(R.id.seekbar_verify_phone)
@@ -46,7 +44,7 @@ public class ForgetPasswordActivity extends BaseActivity implements VerifyCodeVi
     ToggleButton togglePassword;
     @BindView(R.id.button_update_password)
     Button updatePassword;
-
+    private VerifyCodePresenter verifyCodePresenter;
     private int seekBarProgress = 0;
     private boolean isVerified = false;
     private boolean isDelayed = false;
@@ -163,7 +161,7 @@ public class ForgetPasswordActivity extends BaseActivity implements VerifyCodeVi
     @SuppressWarnings({"WeakerAccess", "unused"})
     @OnCheckedChanged(R.id.toggle_password_update)
     public void displayPassword(CompoundButton buttonView, boolean isChecked) {
-        InitHelper.toggleButtonDisplayPassword(togglePassword, password, isChecked, getContext());
+        verifyCodePresenter.toggleButtonDisplayPassword(togglePassword, password, isChecked, getContext());
     }
 
     @SuppressWarnings("WeakerAccess")

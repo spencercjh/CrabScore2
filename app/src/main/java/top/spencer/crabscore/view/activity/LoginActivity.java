@@ -14,7 +14,6 @@ import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.presenter.LoginPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
 import top.spencer.crabscore.view.view.LoginView;
-import top.spencer.crabscore.view.helper.InitHelper;
 
 import static android.content.ContentValues.TAG;
 
@@ -24,9 +23,6 @@ import static android.content.ContentValues.TAG;
  * @author spencercjh
  */
 public class LoginActivity extends BaseActivity implements LoginView {
-
-    private LoginPresenter loginPresenter;
-
     @BindView(R.id.edit_username)
     EditText username;
     @BindView(R.id.edit_password)
@@ -49,7 +45,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     CheckBox autoLogin;
     @BindView(R.id.toggle_password)
     ToggleButton togglePassword;
-
+    private LoginPresenter loginPresenter;
     private int roleChoice = 0;
     private long lastPressTime = 0;
 
@@ -179,7 +175,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
      */
     @OnCheckedChanged(R.id.toggle_password)
     public void displayPassword(CompoundButton buttonView, boolean isChecked) {
-        InitHelper.toggleButtonDisplayPassword(togglePassword, password, isChecked, getContext());
+        loginPresenter.toggleButtonDisplayPassword(togglePassword, password, isChecked, getContext());
     }
 
     /**
