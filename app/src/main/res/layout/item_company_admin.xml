@@ -13,10 +13,10 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="用户名:"/>
+                android:text="编号:"/>
 
         <TextView
-                android:id="@+id/textview_user_name"
+                android:id="@+id/textview_company_id"
                 android:layout_width="133dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -27,11 +27,11 @@
                 android:layout_width="68dp"
                 android:layout_height="match_parent"
                 android:ellipsize="end"
-                android:text="显示名:"/>
+                android:text="状态:"/>
 
         <TextView
-                android:id="@+id/textview_display_name"
-                android:layout_width="0dp"
+                android:id="@+id/textview_status"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:lines="1"
@@ -45,32 +45,19 @@
             android:orientation="horizontal">
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="用户组:"/>
-
-        <TextView
-                android:id="@+id/textview_role"
-                android:layout_width="135dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:lines="1"
-                android:gravity="center"/>
-
-        <TextView
                 android:id="@+id/textView4"
                 android:layout_width="68dp"
                 android:layout_height="match_parent"
-                android:text="状态:"/>
+                android:text="单位名:"/>
 
         <TextView
-                android:id="@+id/textview_status"
+                android:id="@+id/textview_company_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:lines="1"
-                android:gravity="center"/>
+                android:gravity="left"/>
     </LinearLayout>
 
     <LinearLayout

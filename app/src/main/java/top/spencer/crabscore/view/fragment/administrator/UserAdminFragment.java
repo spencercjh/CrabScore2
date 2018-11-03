@@ -133,7 +133,6 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 lastVisibleItemPosition[0] = layoutManager.findLastVisibleItemPosition();
-
             }
         });
     }

@@ -65,18 +65,19 @@ public abstract class BaseModel {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 JSONObject responseJsonResult;
+                Integer code;
                 try {
                     assert response.body() != null;
                     String responseBody = response.body().string();
                     Log.d(TAG, responseBody);
                     responseJsonResult = JSON.parseObject(responseBody);
+                    code = responseJsonResult.getInteger("code");
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
                     myCallBack.onError();
                     myCallBack.onComplete();
                     return;
                 }
-                Integer code = responseJsonResult.getInteger("code");
                 if (code == null) {
                     myCallBack.onError();
                     myCallBack.onComplete();
@@ -125,18 +126,19 @@ public abstract class BaseModel {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 JSONObject responseJsonResult;
+                Integer code;
                 try {
                     assert response.body() != null;
                     String responseBody = response.body().string();
                     Log.d(TAG, responseBody);
                     responseJsonResult = JSON.parseObject(responseBody);
+                    code = responseJsonResult.getInteger("code");
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
                     myCallBack.onError();
                     myCallBack.onComplete();
                     return;
                 }
-                Integer code = responseJsonResult.getInteger("code");
                 if (code == null) {
                     myCallBack.onError();
                     myCallBack.onComplete();
@@ -186,18 +188,20 @@ public abstract class BaseModel {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 JSONObject responseJsonResult;
+                Integer code;
                 try {
                     assert response.body() != null;
                     String responseBody = response.body().string();
                     Log.d(TAG, responseBody);
                     responseJsonResult = JSON.parseObject(responseBody);
+                    code = responseJsonResult.getInteger("code");
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
                     myCallBack.onError();
                     myCallBack.onComplete();
                     return;
                 }
-                Integer code = responseJsonResult.getInteger("code");
+
                 if (code == null) {
                     myCallBack.onError();
                     myCallBack.onComplete();
@@ -239,18 +243,19 @@ public abstract class BaseModel {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 JSONObject responseJsonResult;
+                Integer code;
                 try {
                     assert response.body() != null;
                     String responseBody = response.body().string();
                     Log.d(TAG, responseBody);
                     responseJsonResult = JSON.parseObject(responseBody);
+                    code = responseJsonResult.getInteger("code");
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
                     myCallBack.onError();
                     myCallBack.onComplete();
                     return;
                 }
-                Integer code = responseJsonResult.getInteger("code");
                 if (code == null) {
                     myCallBack.onError();
                     myCallBack.onComplete();

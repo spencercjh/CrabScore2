@@ -8,10 +8,6 @@
             android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
             android:layout_height="18sp"
-            android:layout_alignEnd="@+id/linearLayout2"
-            android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/linearLayout2"
-            android:layout_alignStart="@+id/linearLayout2"
             android:orientation="horizontal">
 
         <TextView
@@ -24,55 +20,57 @@
                 android:layout_width="158dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:lines="1"/>
+                android:lines="1"
+                android:gravity="center"/>
 
         <TextView
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:ellipsize="end"
-                android:text="组号: "/>
+                android:text="组号:"/>
 
         <TextView
                 android:id="@+id/textview_group_id"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:lines="1"/>
+                android:lines="1"
+                android:gravity="center"/>
     </LinearLayout>
 
     <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="18sp"
-            android:layout_alignStart="@+id/linearLayout3"
-            android:layout_below="@+id/linearLayout1"
             android:orientation="horizontal">
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="参赛单位: "/>
+                android:text="参赛单位:"/>
 
         <TextView
                 android:id="@+id/textview_company_name"
                 android:layout_width="159dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:lines="1"/>
+                android:lines="1"
+                android:gravity="center"/>
 
         <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="专家分: "/>
+                android:text="专家分:"/>
 
         <TextView
                 android:id="@+id/textview_score"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                android:lines="1"/>
+                android:lines="1"
+                android:gravity="center"/>
     </LinearLayout>
 
     <LinearLayout

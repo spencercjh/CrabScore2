@@ -43,11 +43,8 @@ public class UserAdminListAdapter extends RecyclerView.Adapter<UserListItemViewH
             holder.username.setText(user.getUserName());
             holder.displayName.setText(user.getDisplayName());
             if (user.getStatus().equals(CommonConstant.USER_STATUS_NORMAL)) {
-                if (user.getCompetitionId().equals(CommonConstant.USER_COMPETITION_ALL)) {
-                    holder.status.setText("永久有效");
-                } else {
-                    holder.status.setText("仅当前赛事有效");
-                }
+                holder.status.setText(user.getCompetitionId().equals(CommonConstant.USER_COMPETITION_ALL) ?
+                        "永久有效" : "仅当前赛事有效");
             } else if (user.getStatus().equals(CommonConstant.USER_STATUS_LOCK)) {
                 holder.status.setText("未启用");
             }

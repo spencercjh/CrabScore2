@@ -31,4 +31,6 @@ public interface Token {
     String API_ALL_USER = AllUserModel.class.getName();
 
     String API_ALL_USER_BY_STATUS = AllUserByStatusModel.class.getName();
+
+    String API_ALL_COMPANY = AllCompanyModel.class.getName();
 }
