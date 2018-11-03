@@ -84,6 +84,7 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
      * @param view               view
      * @param savedInstanceState saveInstanceState
      */
+    @SuppressWarnings("Duplicates")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -169,6 +170,4 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
             }
         });
     }
-
-
 }

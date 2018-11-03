@@ -17,10 +17,11 @@ import java.util.List;
  */
 public class AdministratorListPresenter extends BasePresenter<MyRecycleListView> {
     /**
-     * 查询所有用户
+     * 查询所有用户，只返回状态为启用的用户
      *
      * @param pageNum  页数
      * @param pageSize 页面大小
+     * @param jwt      JWT
      * @see top.spencer.crabscore.model.model.AllUserModel
      */
     public void getAllUser(Integer pageNum, Integer pageSize, String jwt) {
@@ -31,6 +32,45 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
         ModelFactory
                 .request(Token.API_ALL_USER)
                 .params(String.valueOf(pageNum), String.valueOf(pageSize), jwt)
+                .execute(new MyCallback<JSONObject>() {
+                    @Override
+                    public void onSuccess(JSONObject data) {
+                        getView().showData(data);
+                    }
+
+                    @Override
+                    public void onFailure(JSONObject data) {
+                        getView().showFailure(data);
+                    }
+
+                    @Override
+                    public void onError() {
+                        getView().showErr();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        getView().hideLoading();
+                    }
+                });
+    }
+
+    /**
+     * 查询所有符合某一状态的用户
+     *
+     * @param status   状态（未启用：0）
+     * @param pageNum  页数
+     * @param pageSize 页面大小
+     * @param jwt      JWT
+     */
+    public void getAllUserByStatus(Integer status, Integer pageNum, Integer pageSize, String jwt) {
+        if (isViewAttached()) {
+            return;
+        }
+        getView().showLoading();
+        ModelFactory
+                .request(Token.API_ALL_USER_BY_STATUS)
+                .params(String.valueOf(status), String.valueOf(pageNum), String.valueOf(pageSize), jwt)
                 .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {

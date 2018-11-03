@@ -21,7 +21,7 @@ class UserListItemViewHolder extends RecyclerView.ViewHolder {
         username = view.findViewById(R.id.textview_user_name);
         displayName = view.findViewById(R.id.textview_display_name);
         role = view.findViewById(R.id.textview_role);
-        status = view.findViewById(R.id.textview_competition_status);
+        status = view.findViewById(R.id.textview_status);
     }
 }
 

@@ -42,19 +42,23 @@ public class UserAdminListAdapter extends RecyclerView.Adapter<UserListItemViewH
             User user = userList.get(position);
             holder.username.setText(user.getUserName());
             holder.displayName.setText(user.getDisplayName());
-            if (user.getStatus() == 1) {
-                holder.status.setText(CommonConstant.AVAILABLE);
-            } else {
-                holder.status.setText(CommonConstant.UNAVAILABLE);
+            if (user.getStatus().equals(CommonConstant.USER_STATUS_NORMAL)) {
+                if (user.getCompetitionId().equals(CommonConstant.USER_COMPETITION_ALL)) {
+                    holder.status.setText("永久有效");
+                } else {
+                    holder.status.setText("仅当前赛事有效");
+                }
+            } else if (user.getStatus().equals(CommonConstant.USER_STATUS_LOCK)) {
+                holder.status.setText("未启用");
             }
             if (user.getRoleId().equals(CommonConstant.USER_TYPE_ADMIN)) {
-                holder.role.setText(CommonConstant.ADMINISTRATOR);
+                holder.role.setText("管理员");
             } else if (user.getRoleId().equals(CommonConstant.USER_TYPE_JUDGE)) {
-                holder.role.setText(CommonConstant.JUDGE);
+                holder.role.setText("评委");
             } else if (user.getRoleId().equals(CommonConstant.USER_TYPE_STAFF)) {
-                holder.role.setText(CommonConstant.STAFF);
+                holder.role.setText("工作人员");
             } else if (user.getRoleId().equals(CommonConstant.USER_TYPE_COMPANY)) {
-                holder.role.setText(CommonConstant.COMPANY);
+                holder.role.setText("参选单位");
             }
         }
     }
