@@ -14,15 +14,18 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.view.adapter.TabLayoutPageAdapter;
+import top.spencer.crabscore.view.view.TabLayoutView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
+ * 工作人员用户组一级页面
+ *
  * @author spencercjh
  */
-public class StaffFragment extends BaseFragment {
+public class StaffFragment extends BaseFragment implements TabLayoutView {
     @BindView(R.id.vp_content)
     ViewPager vpContent;
     @BindView(R.id.tab_title)
@@ -30,6 +33,12 @@ public class StaffFragment extends BaseFragment {
     @BindView(R.id.tl_head)
     Toolbar toolbar;
 
+    /**
+     * 取得实例
+     *
+     * @param name 测试参数
+     * @return fragment
+     */
     public static StaffFragment newInstance(String name) {
         Bundle args = new Bundle();
         args.putString("name", name);
@@ -38,25 +47,44 @@ public class StaffFragment extends BaseFragment {
         return fragment;
     }
 
+    /**
+     * 获得fragment的layout的Id
+     *
+     * @return layout Id
+     */
     @Override
     public int getContentViewId() {
         return R.layout.fragment_has_top_navigation;
     }
 
+    /**
+     * 初始化视图
+     *
+     * @param view               view
+     * @param savedInstanceState saveInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
     }
 
-    private void initView() {
+    /**
+     * 初始化组件
+     */
+    @Override
+    public void initView() {
         toolbar.setTitle("Staff");
         toolbar.setEnabled(false);
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
         initTabLayout();
     }
 
-    private void initTabLayout() {
+    /**
+     * 初始化二级页面TabLayout及其Fragment
+     */
+    @Override
+    public void initTabLayout() {
         List<String> mTitleList = new ArrayList<>(4);
         mTitleList.add("数据录入");
         mTitleList.add("查找标识");

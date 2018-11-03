@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.view.adapter.TabLayoutPageAdapter;
+import top.spencer.crabscore.view.view.TabLayoutView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.Objects;
  *
  * @author spencercjh
  */
-public class JudgeFragment extends BaseFragment {
+public class JudgeFragment extends BaseFragment implements TabLayoutView {
     @BindView(R.id.vp_content)
     ViewPager vpContent;
     @BindView(R.id.tab_title)
@@ -71,7 +72,8 @@ public class JudgeFragment extends BaseFragment {
     /**
      * 初始化组件
      */
-    private void initView() {
+    @Override
+    public void initView() {
         toolbar.setTitle("Judge");
         toolbar.setEnabled(false);
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
@@ -81,7 +83,8 @@ public class JudgeFragment extends BaseFragment {
     /**
      * 初始化二级页面TabLayout及其Fragment
      */
-    private void initTabLayout() {
+    @Override
+    public void initTabLayout() {
         List<String> mTitleList = new ArrayList<>(3);
         mTitleList.add("全部小组");
         mTitleList.add("种质评分");
