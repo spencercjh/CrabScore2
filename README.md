@@ -1,5 +1,5 @@
 # 基于MVP的特色河蟹大赛评比管理系统
-
+sdasd
 ## 项目介绍
 中华绒螯蟹评比管理系统的第二代版本，[第一代版本](https://gitee.com/spencercjh/CrabScore)，[第一代服务端](https://gitee.com/spencercjh/CrabScore_Sever)
 
