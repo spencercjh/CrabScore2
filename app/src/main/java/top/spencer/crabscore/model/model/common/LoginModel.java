@@ -3,12 +3,16 @@ package top.spencer.crabscore.model.model.common;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.codec.digest.DigestUtils;
 import top.spencer.crabscore.base.BaseModel;
 import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.common.CommonConstant;
+import top.spencer.crabscore.util.AesUtil;
+import top.spencer.crabscore.util.Base64Util;
 import top.spencer.crabscore.util.PatternUtil;
+
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -46,9 +50,27 @@ public class LoginModel extends BaseModel {
             myCallBack.onComplete();
             return;
         }
-        String url = CommonConstant.URL + "common/login" + "?username=" + mvpParams[0] +
-                "&password=" + new String(Hex.encodeHex(DigestUtils.md5(mvpParams[1]))).toUpperCase() +
-                "&roleId=" + mvpParams[2];
+        byte[] key = null;
+        String keyString = "";
+        try {
+            key = AesUtil.initKey();
+            keyString = new String(key, StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Map<String, Object> param = new HashMap<>(3);
+        param.put("username", mvpParams[0]);
+        param.put("password", mvpParams[1]);
+        param.put("roleId", Integer.parseInt(mvpParams[2]));
+        String json = JSON.toJSONString(param);
+        String encryptedJson = "";
+        try {
+            encryptedJson = new String(AesUtil.encrypt(json.getBytes(StandardCharsets.UTF_8), key),
+                    StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String url = CommonConstant.URL + "/" + encryptedJson + "/" + Base64Util.encodeStr(keyString);
         requestGetAPI(url, myCallBack, "");
     }
 }
