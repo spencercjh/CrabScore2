@@ -52,7 +52,6 @@ public abstract class BaseModel {
         Request request = new Request.Builder()
                 .url(url)
                 .get()
-                .addHeader("content-type", "application/json;charset=UTF-8")
                 .addHeader("jwt", jwt)
                 .build();
         okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
@@ -114,7 +113,63 @@ public abstract class BaseModel {
         Request request = new Request.Builder()
                 .url(url)
                 .post(requestBody)
-                .addHeader("content-type", "application/json;charset=UTF-8")
+                .addHeader("jwt", jwt)
+                .build();
+        okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.d(TAG, "onFailure: " + e.getMessage());
+                myCallBack.onError();
+                myCallBack.onComplete();
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                JSONObject responseJsonResult;
+                Integer code;
+                try {
+                    assert response.body() != null;
+                    String responseBody = response.body().string();
+                    Log.d(TAG, responseBody);
+                    responseJsonResult = JSON.parseObject(responseBody);
+                    code = responseJsonResult.getInteger("code");
+                } catch (IOException | NullPointerException e) {
+                    e.printStackTrace();
+                    myCallBack.onError();
+                    myCallBack.onComplete();
+                    return;
+                }
+                if (code == null) {
+                    myCallBack.onError();
+                    myCallBack.onComplete();
+                    return;
+                }
+                if (code.equals(CommonConstant.SUCCESS)) {
+                    myCallBack.onSuccess(responseJsonResult);
+                } else {
+                    myCallBack.onFailure(responseJsonResult);
+                }
+                myCallBack.onComplete();
+            }
+        });
+    }
+
+    /**
+     * OkHttp3 Post异步方式提交JSON
+     *
+     * @param url        URL
+     * @param json       body中的JSON
+     * @param myCallBack myCallBack
+     * @param jwt        Header里的JWT串
+     */
+    protected void requestPostJSONAPI(String url, String json,
+                                      final MyCallback<JSONObject> myCallBack, String jwt) {
+        Log.i(TAG, url);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        RequestBody requestBody = FormBody.create(MediaType.parse("application/json"), json);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
                 .addHeader("jwt", jwt)
                 .build();
         okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
@@ -176,7 +231,6 @@ public abstract class BaseModel {
         Request request = new Request.Builder()
                 .url(url)
                 .put(requestBody)
-                .addHeader("content-type", "application/json;charset=UTF-8")
                 .addHeader("jwt", jwt)
                 .build();
         okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
@@ -220,6 +274,67 @@ public abstract class BaseModel {
         });
     }
 
+
+    /**
+     * OkHttp3 PUT异步请求
+     *
+     * @param url        URL
+     * @param json       body中的JSON
+     * @param myCallBack myCallBack
+     * @param jwt        Header里的JWT串
+     */
+    protected void requestPutJSONAPI(String url, String json,
+                                     final MyCallback<JSONObject> myCallBack, String jwt) {
+        Log.i(TAG, url);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        RequestBody requestBody = FormBody.create(MediaType.parse("application/json"), json);
+        Request request = new Request.Builder()
+                .url(url)
+                .put(requestBody)
+                .addHeader("jwt", jwt)
+                .build();
+        okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
+
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.d(TAG, "onFailure: " + e.getMessage());
+                myCallBack.onError();
+                myCallBack.onComplete();
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                JSONObject responseJsonResult;
+                Integer code;
+                try {
+                    assert response.body() != null;
+                    String responseBody = response.body().string();
+                    Log.d(TAG, responseBody);
+                    responseJsonResult = JSON.parseObject(responseBody);
+                    code = responseJsonResult.getInteger("code");
+                } catch (IOException | NullPointerException e) {
+                    e.printStackTrace();
+                    myCallBack.onError();
+                    myCallBack.onComplete();
+                    return;
+                }
+
+                if (code == null) {
+                    myCallBack.onError();
+                    myCallBack.onComplete();
+                    return;
+                }
+                if (code.equals(CommonConstant.SUCCESS)) {
+                    myCallBack.onSuccess(responseJsonResult);
+                } else {
+                    myCallBack.onFailure(responseJsonResult);
+                }
+                myCallBack.onComplete();
+            }
+        });
+    }
+
+
     /**
      * OkHttp3 Delete异步请求
      *
@@ -233,7 +348,6 @@ public abstract class BaseModel {
         Request request = new Request.Builder()
                 .url(url)
                 .delete()
-                .addHeader("content-type", "application/json;charset=UTF-8")
                 .addHeader("jwt", jwt)
                 .build();
         okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {

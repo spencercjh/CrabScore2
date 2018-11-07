@@ -200,7 +200,7 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
                 .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
-                        getView().showData(data);
+                        getView().showResponse1(data);
                     }
 
                     @Override

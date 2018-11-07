@@ -7,6 +7,7 @@ import top.spencer.crabscore.R;
 
 /**
  * 分数排名列表适配器的ViewHolder
+ * //TODO Add user phone
  *
  * @author spencercjh
  */

@@ -125,12 +125,15 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
                                 break;
                             }
                             case R.id.menu_ban_user: {
+                                //TODO BAN USER, just a request
                                 break;
                             }
                             case R.id.menu_allow_all_competition: {
+                                //TODO set competition, just a request
                                 break;
                             }
                             case R.id.menu_allow_only_present_competition: {
+                                //TODO set competition, just a request
                                 break;
                             }
                             default: {
@@ -225,7 +228,19 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
     public void showResponse1(JSONObject successData) {
         if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
             showToast(successData.getString("message"));
+            resetList();
         }
+    }
+
+    /**
+     * 更新过数据后重置列表
+     */
+    private void resetList() {
+        userList.clear();
+        pageNum = 1;
+        repeat = false;
+        administratorListPresenter.getAllUser(pageNum, pageSize, jwt);
+
     }
 
     /**
