@@ -17,7 +17,7 @@ public class TasteRankModel extends BaseModel {
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "/common/score/tastes/" + mvpParams[0] + "/" + mvpParams[1] + "/" + mvpParams[2];
+        String url = CommonConstant.URL + "common/score/tastes/" + mvpParams[0] + "/" + mvpParams[1] + "/" + mvpParams[2];
         requestGetAPI(url, myCallBack, "");
     }
 }

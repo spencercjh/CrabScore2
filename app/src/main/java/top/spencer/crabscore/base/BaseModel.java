@@ -52,6 +52,7 @@ public abstract class BaseModel {
         Request request = new Request.Builder()
                 .url(url)
                 .get()
+                .addHeader("content-type", "application/json;charset=UTF-8")
                 .addHeader("jwt", jwt)
                 .build();
         okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
@@ -113,6 +114,7 @@ public abstract class BaseModel {
         Request request = new Request.Builder()
                 .url(url)
                 .post(requestBody)
+                .addHeader("content-type", "application/json;charset=UTF-8")
                 .addHeader("jwt", jwt)
                 .build();
         okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
@@ -174,6 +176,7 @@ public abstract class BaseModel {
         Request request = new Request.Builder()
                 .url(url)
                 .put(requestBody)
+                .addHeader("content-type", "application/json;charset=UTF-8")
                 .addHeader("jwt", jwt)
                 .build();
         okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
@@ -230,6 +233,7 @@ public abstract class BaseModel {
         Request request = new Request.Builder()
                 .url(url)
                 .delete()
+                .addHeader("content-type", "application/json;charset=UTF-8")
                 .addHeader("jwt", jwt)
                 .build();
         okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {

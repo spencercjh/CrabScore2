@@ -2,6 +2,7 @@ package top.spencer.crabscore.model.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Date;
  * rxpb_score_taste
  */
 @Data
-public class TasteScore {
+public class TasteScore implements Serializable {
 
     /**
      * 唯一标识 口感分数id")

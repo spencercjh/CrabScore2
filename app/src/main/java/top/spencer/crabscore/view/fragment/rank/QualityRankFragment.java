@@ -138,6 +138,11 @@ public class QualityRankFragment extends BaseFragment implements MyRecycleListVi
         });
     }
 
+    @Override
+    public void showResponse1(JSONObject successData) {
+
+    }
+
     /**
      * 初始发起请求
      *

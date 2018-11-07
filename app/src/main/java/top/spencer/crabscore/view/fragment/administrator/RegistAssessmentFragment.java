@@ -138,6 +138,11 @@ public class RegistAssessmentFragment extends BaseFragment implements MyRecycleL
         });
     }
 
+    @Override
+    public void showResponse1(JSONObject successData) {
+
+    }
+
     /**
      * 初始发起请求
      *

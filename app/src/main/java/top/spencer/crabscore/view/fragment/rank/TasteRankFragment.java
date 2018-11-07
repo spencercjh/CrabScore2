@@ -138,6 +138,11 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
         });
     }
 
+    @Override
+    public void showResponse1(JSONObject successData) {
+
+    }
+
     /**
      * 初始发起请求
      *

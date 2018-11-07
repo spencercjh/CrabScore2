@@ -2,6 +2,7 @@ package top.spencer.crabscore.model.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Date;
  * rxpb_company_info
  */
 @Data
-public class Company {
+public class Company implements Serializable {
 
     /**
      * 唯一标识 参选单位id

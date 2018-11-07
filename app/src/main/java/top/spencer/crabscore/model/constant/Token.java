@@ -3,6 +3,7 @@ package top.spencer.crabscore.model.constant;
 import top.spencer.crabscore.model.model.administrator.AllCompanyModel;
 import top.spencer.crabscore.model.model.administrator.AllUserByStatusModel;
 import top.spencer.crabscore.model.model.administrator.AllUserModel;
+import top.spencer.crabscore.model.model.administrator.UpdateUserPropertyModel;
 import top.spencer.crabscore.model.model.common.*;
 import top.spencer.crabscore.model.model.common.rank.FatnessRankModel;
 import top.spencer.crabscore.model.model.common.rank.QualityRankModel;
@@ -39,4 +40,6 @@ public interface Token {
     String API_ALL_USER_BY_STATUS = AllUserByStatusModel.class.getName();
 
     String API_ALL_COMPANY = AllCompanyModel.class.getName();
+
+    String API_UPDATE_USER_PROPERTY = UpdateUserPropertyModel.class.getName();
 }

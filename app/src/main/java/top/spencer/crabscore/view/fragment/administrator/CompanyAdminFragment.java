@@ -137,6 +137,11 @@ public class CompanyAdminFragment extends BaseFragment implements MyRecycleListV
         });
     }
 
+    @Override
+    public void showResponse1(JSONObject successData) {
+
+    }
+
     /**
      * 初始发起请求
      *
