@@ -18,6 +18,7 @@ import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.model.entity.User;
 import top.spencer.crabscore.presenter.AdministratorListPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
+import top.spencer.crabscore.view.adapter.MyOnItemClickListener;
 import top.spencer.crabscore.view.adapter.UserAdminListAdapter;
 import top.spencer.crabscore.view.view.MyRecycleListView;
 import top.spencer.crabscore.view.widget.EmptyRecyclerView;
@@ -101,6 +102,20 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
     @Override
     public void setRecycleView() {
         userAdminListAdapter = new UserAdminListAdapter(userList);
+        userAdminListAdapter.setOnItemClickListener(new MyOnItemClickListener() {
+
+            @Override
+            public void onItemClick(View view) {
+                User user = (User) view.getTag();
+                showToast(user.toString());
+            }
+
+            @Override
+            public void onItemLongClick(View view) {
+                User user = (User) view.getTag();
+                showToast(user.toString());
+            }
+        });
         if (userList.size() == 0) {
             userListView.setEmptyView(emptyText);
         }

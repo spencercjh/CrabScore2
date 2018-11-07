@@ -1,6 +1,7 @@
 package top.spencer.crabscore.util;
 
 import org.apache.commons.codec.binary.Base64;
+import top.spencer.crabscore.common.CommonConstant;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -112,8 +113,11 @@ public class AesUtil {
         String str = "AES";
         System.out.println("原文：" + str);
         //初始化密钥
-        byte[] key = AesUtil.initKey();
-        System.out.println("密钥：" + Base64.encodeBase64String(key));
+        byte[] key = CommonConstant.AES_KEY;
+        String keyString=Base64.encodeBase64String(key);
+        System.out.println("密钥：" + keyString);
+        byte[] test=Base64.decodeBase64(keyString);
+        System.out.println(test==key);
         //加密数据
         byte[] data = AesUtil.encrypt(str.getBytes(), key);
         System.out.println("加密后：" + Base64.encodeBase64String(data));

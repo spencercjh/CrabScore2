@@ -17,8 +17,12 @@ import java.util.List;
  * @author spencercjh
  */
 public class UserAdminListAdapter extends RecyclerView.Adapter<UserListItemViewHolder> {
-
+    private MyOnItemClickListener myOnItemClickListener;
     private List<User> userList;
+
+    public void setOnItemClickListener(MyOnItemClickListener mListener) {
+        this.myOnItemClickListener = mListener;
+    }
 
     public UserAdminListAdapter(List<User> data) {
         this.userList = data;
@@ -33,6 +37,22 @@ public class UserAdminListAdapter extends RecyclerView.Adapter<UserListItemViewH
     @Override
     public UserListItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_admin, parent, false);
+        UserListItemViewHolder userListItemViewHolder = new UserListItemViewHolder(v);
+        if (myOnItemClickListener != null) {
+            userListItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    myOnItemClickListener.onItemClick(v);
+                }
+            });
+            userListItemViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    myOnItemClickListener.onItemLongClick(v);
+                    return true;
+                }
+            });
+        }
         return new UserListItemViewHolder(v);
     }
 
@@ -40,6 +60,7 @@ public class UserAdminListAdapter extends RecyclerView.Adapter<UserListItemViewH
     public void onBindViewHolder(@NonNull UserListItemViewHolder holder, int position) {
         if (userList.get(position) != null) {
             User user = userList.get(position);
+            holder.itemView.setTag(user);
             holder.username.setText(user.getUserName());
             holder.displayName.setText(user.getDisplayName());
             if (user.getStatus().equals(CommonConstant.USER_STATUS_NORMAL)) {
@@ -59,5 +80,4 @@ public class UserAdminListAdapter extends RecyclerView.Adapter<UserListItemViewH
             }
         }
     }
-
 }
