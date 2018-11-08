@@ -7,12 +7,12 @@ import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.entity.User;
 import top.spencer.crabscore.model.model.common.ModelFactory;
-import top.spencer.crabscore.view.view.MyRecycleListView;
+import top.spencer.crabscore.view.view.UserAdminListView;
 
 /**
  * @author spencercjh
  */
-public class UserAdminPresenter extends BasePresenter<MyRecycleListView> {
+public class UserAdminPresenter extends BasePresenter<UserAdminListView> {
     /**
      * 管理员修改用户资料
      *
@@ -31,7 +31,7 @@ public class UserAdminPresenter extends BasePresenter<MyRecycleListView> {
                 .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
-                        getView().showResponse1(data);
+                        getView().showUpdateUserResponse(data);
                     }
 
                     @Override

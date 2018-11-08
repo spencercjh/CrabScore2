@@ -41,7 +41,7 @@ public class CompanyAdminFragment extends BaseFragment implements MyRecycleListV
     private AdministratorListPresenter administratorListPresenter;
     private String jwt;
     private CompanyAdminListAdapter companyAdminListAdapter;
-    private List<Company> companyList = new ArrayList<>(10);
+    private List<Company> companyList = new ArrayList<>(pageSize);
     private int pageNum = 1;
     private boolean repeat = false;
 
@@ -135,11 +135,6 @@ public class CompanyAdminFragment extends BaseFragment implements MyRecycleListV
                 lastVisibleItemPosition[0] = layoutManager.findLastVisibleItemPosition();
             }
         });
-    }
-
-    @Override
-    public void showResponse1(JSONObject successData) {
-
     }
 
     /**

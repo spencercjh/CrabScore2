@@ -42,7 +42,7 @@ public class RegistAssessmentFragment extends BaseFragment implements MyRecycleL
     private AdministratorListPresenter administratorListPresenter;
     private String jwt;
     private UserAdminListAdapter userAdminListAdapter;
-    private List<User> userList = new ArrayList<>(10);
+    private List<User> userList = new ArrayList<>(pageSize);
     private int pageNum = 1;
     private boolean repeat = false;
 
@@ -136,11 +136,6 @@ public class RegistAssessmentFragment extends BaseFragment implements MyRecycleL
                 lastVisibleItemPosition[0] = layoutManager.findLastVisibleItemPosition();
             }
         });
-    }
-
-    @Override
-    public void showResponse1(JSONObject successData) {
-
     }
 
     /**

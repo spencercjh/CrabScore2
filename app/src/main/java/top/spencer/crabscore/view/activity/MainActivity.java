@@ -129,7 +129,7 @@ public class MainActivity extends BaseActivity implements BaseView {
     }
 
     /**
-     * 查询当前大赛信息请求成功
+     * getPresentCompetitionProperty请求成功
      *
      * @param successData 成功数据源
      */

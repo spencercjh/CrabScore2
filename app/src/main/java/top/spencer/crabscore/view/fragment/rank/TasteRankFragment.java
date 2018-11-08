@@ -40,7 +40,7 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
     private Competition presentCompetition;
     private TasteRankListAdapter tasteRankListAdapter;
     private RankListPresenter rankListPresenter;
-    private List<Group> groupList = new ArrayList<>(10);
+    private List<Group> groupList = new ArrayList<>(pageSize);
     private int pageNum = 1;
     private boolean repeat = false;
 
@@ -136,11 +136,6 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
 
             }
         });
-    }
-
-    @Override
-    public void showResponse1(JSONObject successData) {
-
     }
 
     /**

@@ -1,5 +1,6 @@
 package top.spencer.crabscore.view.fragment.administrator;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -26,7 +27,7 @@ import top.spencer.crabscore.util.PatternUtil;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
 import top.spencer.crabscore.view.adapter.MyOnItemClickListener;
 import top.spencer.crabscore.view.adapter.UserAdminListAdapter;
-import top.spencer.crabscore.view.view.MyRecycleListView;
+import top.spencer.crabscore.view.view.UserAdminListView;
 import top.spencer.crabscore.view.widget.EmptyRecyclerView;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ import java.util.Objects;
  *
  * @author spencercjh
  */
-public class UserAdminFragment extends BaseFragment implements MyRecycleListView {
+public class UserAdminFragment extends BaseFragment implements UserAdminListView {
     @BindView(R.id.recycler_view_list)
     EmptyRecyclerView userListView;
     @BindView(R.id.textview_empty)
@@ -52,7 +53,7 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
     private String adminUsername;
     private Competition presentCompetition;
     private UserAdminListAdapter userAdminListAdapter;
-    private List<User> userList = new ArrayList<>(10);
+    private List<User> userList = new ArrayList<>(pageSize);
     private int pageNum = 1;
     private boolean repeat = false;
 
@@ -266,7 +267,7 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
      * @param successData 成功数据源
      */
     @Override
-    public void showResponse1(JSONObject successData) {
+    public void showUpdateUserResponse(JSONObject successData) {
         if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
             showToast(successData.getString("message"));
             resetList();
@@ -290,6 +291,7 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
      * @param userInDialog 用户对象
      */
     private void initEditUserInfoDialog(final User userInDialog) {
+        @SuppressLint("InflateParams")
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_admin_edit_user_info, null);
         final EditText username = dialogView.findViewById(R.id.edit_username);
         username.setText(userInDialog.getUserName());

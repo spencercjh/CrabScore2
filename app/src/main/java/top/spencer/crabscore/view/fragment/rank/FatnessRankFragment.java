@@ -40,7 +40,7 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
     private Competition presentCompetition;
     private FatnessRankListAdapter fatnessRankListAdapter;
     private RankListPresenter rankListPresenter;
-    private List<Group> groupList = new ArrayList<>(10);
+    private List<Group> groupList = new ArrayList<>(pageSize);
     private int pageNum = 1;
     private boolean repeat = false;
 
@@ -136,11 +136,6 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
 
             }
         });
-    }
-
-    @Override
-    public void showResponse1(JSONObject successData) {
-
     }
 
     /**
