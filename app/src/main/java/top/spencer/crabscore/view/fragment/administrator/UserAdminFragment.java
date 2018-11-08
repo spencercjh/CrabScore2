@@ -18,8 +18,10 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.common.CommonConstant;
+import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.User;
 import top.spencer.crabscore.presenter.AdministratorListPresenter;
+import top.spencer.crabscore.presenter.UserAdminPresenter;
 import top.spencer.crabscore.util.PatternUtil;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
 import top.spencer.crabscore.view.adapter.MyOnItemClickListener;
@@ -28,6 +30,7 @@ import top.spencer.crabscore.view.view.MyRecycleListView;
 import top.spencer.crabscore.view.widget.EmptyRecyclerView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,7 +47,10 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     private AdministratorListPresenter administratorListPresenter;
+    private UserAdminPresenter userAdminPresenter;
     private String jwt;
+    private String adminUsername;
+    private Competition presentCompetition;
     private UserAdminListAdapter userAdminListAdapter;
     private List<User> userList = new ArrayList<>(10);
     private int pageNum = 1;
@@ -81,6 +87,7 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
     public void onDestroyView() {
         super.onDestroyView();
         administratorListPresenter.detachView();
+        userAdminPresenter.detachView();
     }
 
     /**
@@ -95,8 +102,12 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
         super.onViewCreated(view, savedInstanceState);
         administratorListPresenter = new AdministratorListPresenter();
         administratorListPresenter.attachView(this);
+        userAdminPresenter = new UserAdminPresenter();
+        userAdminPresenter.attachView(this);
         SharedPreferencesUtil.getInstance(getContext(), "PROPERTY");
         jwt = (String) (SharedPreferencesUtil.getData("JWT", ""));
+        adminUsername = (String) (SharedPreferencesUtil.getData("USERNAME", ""));
+        presentCompetition = (Competition) (SharedPreferencesUtil.getData("PRESENT_COMPETITION", new Competition()));
         setRecycleView();
     }
 
@@ -148,7 +159,7 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
 
             @Override
             public void onItemClick(View view) {
-                final User user = (User) view.getTag();
+                final User userInPopupMenu = (User) view.getTag();
                 final PopupMenu popupMenu = new PopupMenu(getContext(), view);
                 final MenuInflater inflater = popupMenu.getMenuInflater();
                 inflater.inflate(R.menu.pop_menu_user_admin, popupMenu.getMenu());
@@ -158,20 +169,20 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.menu_edit_user_info: {
-                                initEditUserInfoDialog(user);
+                                initEditUserInfoDialog(userInPopupMenu);
                                 popupMenu.dismiss();
                                 break;
                             }
                             case R.id.menu_ban_user: {
-                                //TODO BAN USER, just a request
+                                banUser(userInPopupMenu);
                                 break;
                             }
                             case R.id.menu_allow_all_competition: {
-                                //TODO set competition, just a request
+                                updateUserCompetition(userInPopupMenu, 0);
                                 break;
                             }
                             case R.id.menu_allow_only_present_competition: {
-                                //TODO set competition, just a request
+                                updateUserCompetition(userInPopupMenu, presentCompetition.getCompetitionId());
                                 break;
                             }
                             default: {
@@ -188,6 +199,31 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
             public void onItemLongClick(View view) {
             }
         });
+    }
+
+    /**
+     * 修改用户大赛权限（all/present）
+     *
+     * @param userInPopupMenu user对象
+     * @param competitionId   大赛Id
+     */
+    private void updateUserCompetition(User userInPopupMenu, int competitionId) {
+        userInPopupMenu.setCompetitionId(competitionId);
+        userInPopupMenu.setUpdateUser(adminUsername);
+        userInPopupMenu.setUpdateDate(new Date(System.currentTimeMillis()));
+        userAdminPresenter.updateUserProperty(userInPopupMenu, jwt);
+    }
+
+    /**
+     * 禁用用户
+     *
+     * @param userInPopupMenu user对象
+     */
+    private void banUser(User userInPopupMenu) {
+        userInPopupMenu.setStatus(CommonConstant.USER_STATUS_LOCK);
+        userInPopupMenu.setUpdateUser(adminUsername);
+        userInPopupMenu.setUpdateDate(new Date(System.currentTimeMillis()));
+        userAdminPresenter.updateUserProperty(userInPopupMenu, jwt);
     }
 
     /**
@@ -290,7 +326,9 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
                     userInDialog.setUserName(usernameString);
                     userInDialog.setDisplayName(displayNameString);
                     userInDialog.setEmail(mobile);
-                    administratorListPresenter.updateUserProperty(userInDialog,
+                    userInDialog.setUpdateUser(adminUsername);
+                    userInDialog.setUpdateDate(new Date(System.currentTimeMillis()));
+                    userAdminPresenter.updateUserProperty(userInDialog,
                             (String) SharedPreferencesUtil.getData("JWT", ""));
                 }
                 dialog.dismiss();
