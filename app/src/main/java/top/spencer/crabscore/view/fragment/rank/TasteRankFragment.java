@@ -125,6 +125,8 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
                     swipeRefreshLayout.setRefreshing(false);
                     if (!repeat) {
                         rankListPresenter.getTasteRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
+                    } else {
+                        showToast("没有更多了哦");
                     }
                 }
             }
@@ -159,6 +161,7 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
         pageNum++;
         repeat = rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
         if (repeat) {
+            showToast("没有更多了哦");
             return;
         }
         new Handler(Looper.getMainLooper()).post(new Runnable() {

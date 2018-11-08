@@ -48,6 +48,7 @@ public abstract class BaseModel {
      */
     protected void requestGetAPI(String url, final MyCallback<JSONObject> myCallBack, String jwt) {
         Log.i(TAG, url);
+        Log.i(TAG, jwt);
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
@@ -104,6 +105,7 @@ public abstract class BaseModel {
     protected void requestPostAPI(String url, Map<String, Object> postParams,
                                   final MyCallback<JSONObject> myCallBack, String jwt) {
         Log.i(TAG, url);
+        Log.i(TAG, jwt);
         OkHttpClient okHttpClient = new OkHttpClient();
         FormBody.Builder formBody = new FormBody.Builder();
         for (Map.Entry<String, Object> param : postParams.entrySet()) {
@@ -165,6 +167,7 @@ public abstract class BaseModel {
     protected void requestPostJSONAPI(String url, String json,
                                       final MyCallback<JSONObject> myCallBack, String jwt) {
         Log.i(TAG, url);
+        Log.i(TAG, jwt);
         OkHttpClient okHttpClient = new OkHttpClient();
         RequestBody requestBody = FormBody.create(MediaType.parse("application/json"), json);
         Request request = new Request.Builder()
@@ -222,6 +225,7 @@ public abstract class BaseModel {
     protected void requestPutAPI(String url, Map<String, Object> putParams,
                                  final MyCallback<JSONObject> myCallBack, String jwt) {
         Log.i(TAG, url);
+        Log.i(TAG, jwt);
         OkHttpClient okHttpClient = new OkHttpClient();
         FormBody.Builder formBody = new FormBody.Builder();
         for (Map.Entry<String, Object> param : putParams.entrySet()) {
@@ -286,6 +290,7 @@ public abstract class BaseModel {
     protected void requestPutJSONAPI(String url, String json,
                                      final MyCallback<JSONObject> myCallBack, String jwt) {
         Log.i(TAG, url);
+        Log.i(TAG, jwt);
         OkHttpClient okHttpClient = new OkHttpClient();
         RequestBody requestBody = FormBody.create(MediaType.parse("application/json"), json);
         Request request = new Request.Builder()
@@ -344,6 +349,7 @@ public abstract class BaseModel {
      */
     protected void requestDeleteAPI(String url, final MyCallback<JSONObject> myCallBack, String jwt) {
         Log.i(TAG, url);
+        Log.i(TAG, jwt);
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)

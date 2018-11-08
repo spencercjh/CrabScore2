@@ -50,4 +50,41 @@ public class UserAdminPresenter extends BasePresenter<UserAdminListView> {
                     }
                 });
     }
+
+    /**
+     * 管理员删除用户
+     *
+     * @param userId 用户id
+     * @param jwt    JWT
+     */
+    public void deleteUser(Integer userId, String jwt) {
+        if (isViewAttached()) {
+            return;
+        }
+        getView().showLoading();
+        ModelFactory
+                .request(Token.API_DELETE_USER)
+                .params(String.valueOf(userId), jwt)
+                .execute(new MyCallback<JSONObject>() {
+                    @Override
+                    public void onSuccess(JSONObject data) {
+                        getView().showDeleteUserResponse(data);
+                    }
+
+                    @Override
+                    public void onFailure(JSONObject data) {
+                        getView().showFailure(data);
+                    }
+
+                    @Override
+                    public void onError() {
+                        getView().showErr();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        getView().hideLoading();
+                    }
+                });
+    }
 }

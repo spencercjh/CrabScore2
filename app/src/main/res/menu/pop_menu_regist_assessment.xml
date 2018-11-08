@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/menu_edit_user_info"
+            android:title="编辑信息"/>
+    <item
+            android:id="@+id/menu_open_user"
+            android:title="启用账户"/>
+    <item
+            android:id="@+id/menu_delete_user"
+            android:title="删除账户"/>
+
+</menu>

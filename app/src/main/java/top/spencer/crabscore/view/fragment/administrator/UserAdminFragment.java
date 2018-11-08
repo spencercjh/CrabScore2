@@ -142,6 +142,8 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
                     swipeRefreshLayout.setRefreshing(false);
                     if (!repeat) {
                         administratorListPresenter.getAllUser(pageNum, pageSize, jwt);
+                    } else {
+                        showToast("没有更多了哦");
                     }
                 }
             }
@@ -154,6 +156,9 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
         });
     }
 
+    /**
+     * 初始化列表adapter，设置单击监听
+     */
     private void initUserAdminListAdapter() {
         userAdminListAdapter = new UserAdminListAdapter(userList);
         userAdminListAdapter.setOnItemClickListener(new MyOnItemClickListener() {
@@ -248,7 +253,7 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
         pageNum++;
         repeat = administratorListPresenter.dealUserListJSON(successData.getJSONArray("result"), userList);
         if (repeat) {
-            showToast("所有数据加载完毕！");
+            showToast("没有更多了哦");
             return;
         }
         new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -275,6 +280,16 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
     }
 
     /**
+     * 空闲
+     *
+     * @param successData 成功数据源
+     */
+    @Override
+    public void showDeleteUserResponse(JSONObject successData) {
+        //nothing here
+    }
+
+    /**
      * 更新过数据后重置列表
      */
     private void resetList() {
@@ -290,6 +305,7 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
      *
      * @param userInDialog 用户对象
      */
+    @SuppressWarnings("Duplicates")
     private void initEditUserInfoDialog(final User userInDialog) {
         @SuppressLint("InflateParams")
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_admin_edit_user_info, null);
