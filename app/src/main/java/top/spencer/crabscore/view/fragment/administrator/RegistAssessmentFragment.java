@@ -138,12 +138,7 @@ public class RegistAssessmentFragment extends BaseFragment implements UserAdminL
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && lastVisibleItemPosition[0] + 1 == userAdminListAdapter.getItemCount()) {
-                    swipeRefreshLayout.setRefreshing(false);
-                    if (!repeat) {
-                        administratorListPresenter.getAllUserByStatus(CommonConstant.USER_STATUS_LOCK, pageNum, pageSize, jwt);
-                    } else {
-                        showToast("没有更多了哦");
-                    }
+                    administratorListPresenter.getAllUserByStatus(CommonConstant.USER_STATUS_LOCK, pageNum, pageSize, jwt);
                 }
             }
 

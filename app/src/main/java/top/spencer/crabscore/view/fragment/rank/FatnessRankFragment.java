@@ -122,12 +122,7 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && lastVisibleItemPosition[0] + 1 == fatnessRankListAdapter.getItemCount()) {
-                    swipeRefreshLayout.setRefreshing(false);
-                    if (!repeat) {
-                        rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
-                    }else{
-                        showToast("没有更多了哦");
-                    }
+                    rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
                 }
             }
 
@@ -135,7 +130,6 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 lastVisibleItemPosition[0] = layoutManager.findLastVisibleItemPosition();
-
             }
         });
     }

@@ -122,12 +122,7 @@ public class QualityRankFragment extends BaseFragment implements MyRecycleListVi
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && lastVisibleItemPosition[0] + 1 == qualityRankListAdapter.getItemCount()) {
-                    swipeRefreshLayout.setRefreshing(false);
-                    if (!repeat) {
-                        rankListPresenter.getQualityRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
-                    }else{
-                        showToast("没有更多了哦");
-                    }
+                    rankListPresenter.getQualityRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
                 }
             }
 

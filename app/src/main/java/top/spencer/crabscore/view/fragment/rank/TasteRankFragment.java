@@ -122,12 +122,7 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && lastVisibleItemPosition[0] + 1 == tasteRankListAdapter.getItemCount()) {
-                    swipeRefreshLayout.setRefreshing(false);
-                    if (!repeat) {
-                        rankListPresenter.getTasteRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
-                    } else {
-                        showToast("没有更多了哦");
-                    }
+                    rankListPresenter.getTasteRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
                 }
             }
 

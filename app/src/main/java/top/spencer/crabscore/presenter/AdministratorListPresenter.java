@@ -12,7 +12,6 @@ import top.spencer.crabscore.model.model.administrator.AllUserByStatusModel;
 import top.spencer.crabscore.model.model.administrator.AllUserModel;
 import top.spencer.crabscore.model.model.common.ModelFactory;
 import top.spencer.crabscore.view.view.MyRecycleListView;
-import top.spencer.crabscore.view.view.UserAdminListView;
 
 import java.util.List;
 
@@ -108,15 +107,14 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
      * @return 是否重复
      */
     public boolean dealUserListJSON(JSONArray users, List<User> userList) {
-        boolean repeat = false;
+        boolean repeat = true;
         for (Object object : users) {
             JSONObject jsonObject = (JSONObject) object;
             String jsonString = jsonObject.toJSONString();
             User user = JSONObject.parseObject(jsonString, User.class);
             if (!userList.contains(user)) {
                 userList.add(user);
-            } else {
-                repeat = true;
+                repeat = false;
             }
         }
         return repeat;
@@ -169,15 +167,14 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
      * @return 是否重复
      */
     public boolean dealCompanyListJSON(JSONArray companies, List<Company> companyList) {
-        boolean repeat = false;
+        boolean repeat = true;
         for (Object object : companies) {
             JSONObject jsonObject = (JSONObject) object;
             String jsonString = jsonObject.toJSONString();
             Company company = JSONObject.parseObject(jsonString, Company.class);
             if (!companyList.contains(company)) {
                 companyList.add(company);
-            } else {
-                repeat = true;
+                repeat = false;
             }
         }
         return repeat;

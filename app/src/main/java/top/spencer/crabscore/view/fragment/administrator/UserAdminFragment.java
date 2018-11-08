@@ -12,6 +12,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import butterknife.BindView;
@@ -91,6 +92,12 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
         userAdminPresenter.detachView();
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        Log.d("HIDDEN:", String.valueOf(hidden));
+    }
+
     /**
      * 初始化视图
      *
@@ -139,12 +146,7 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && lastVisibleItemPosition[0] + 1 == userAdminListAdapter.getItemCount()) {
-                    swipeRefreshLayout.setRefreshing(false);
-                    if (!repeat) {
-                        administratorListPresenter.getAllUser(pageNum, pageSize, jwt);
-                    } else {
-                        showToast("没有更多了哦");
-                    }
+                    administratorListPresenter.getAllUser(pageNum, pageSize, jwt);
                 }
             }
 

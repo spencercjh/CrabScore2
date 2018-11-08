@@ -143,15 +143,14 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
      * @return 是否有重复
      */
     public boolean dealGroupListJSON(JSONArray groups, List<Group> groupList) {
-        boolean repeat = false;
+        boolean repeat = true;
         for (Object object : groups) {
             JSONObject jsonObject = (JSONObject) object;
             String jsonString = jsonObject.toJSONString();
             Group group = JSONObject.parseObject(jsonString, Group.class);
             if (!groupList.contains(group)) {
                 groupList.add(group);
-            } else {
-                repeat = true;
+                repeat = false;
             }
         }
         return repeat;

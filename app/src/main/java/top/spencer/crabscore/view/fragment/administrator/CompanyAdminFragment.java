@@ -122,10 +122,7 @@ public class CompanyAdminFragment extends BaseFragment implements MyRecycleListV
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && lastVisibleItemPosition[0] + 1 == companyAdminListAdapter.getItemCount()) {
-                    swipeRefreshLayout.setRefreshing(false);
-                    if (!repeat) {
-                        administratorListPresenter.getAllCompany(pageNum, pageSize, jwt);
-                    }
+                    administratorListPresenter.getAllCompany(pageNum, pageSize, jwt);
                 }
             }
 
@@ -158,6 +155,7 @@ public class CompanyAdminFragment extends BaseFragment implements MyRecycleListV
         pageNum++;
         repeat = administratorListPresenter.dealCompanyListJSON(successData.getJSONArray("result"), companyList);
         if (repeat) {
+            showToast("没有更多了哦");
             return;
         }
         new Handler(Looper.getMainLooper()).post(new Runnable() {
