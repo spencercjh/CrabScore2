@@ -105,6 +105,44 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
      */
     @Override
     public void setRecycleView() {
+        initUserAdminListAdapter();
+        if (userList.size() == 0) {
+            userListView.setEmptyView(emptyText);
+        }
+        userListView.setAdapter(userAdminListAdapter);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                administratorListPresenter.getAllUser(pageNum, pageSize, jwt);
+            }
+        });
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        userListView.setLayoutManager(layoutManager);
+        userListView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()),
+                DividerItemDecoration.VERTICAL));
+        final int[] lastVisibleItemPosition = {0};
+        userListView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE
+                        && lastVisibleItemPosition[0] + 1 == userAdminListAdapter.getItemCount()) {
+                    swipeRefreshLayout.setRefreshing(false);
+                    if (!repeat) {
+                        administratorListPresenter.getAllUser(pageNum, pageSize, jwt);
+                    }
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastVisibleItemPosition[0] = layoutManager.findLastVisibleItemPosition();
+            }
+        });
+    }
+
+    private void initUserAdminListAdapter() {
         userAdminListAdapter = new UserAdminListAdapter(userList);
         userAdminListAdapter.setOnItemClickListener(new MyOnItemClickListener() {
 
@@ -150,40 +188,6 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
             public void onItemLongClick(View view) {
             }
         });
-        if (userList.size() == 0) {
-            userListView.setEmptyView(emptyText);
-        }
-        userListView.setAdapter(userAdminListAdapter);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                administratorListPresenter.getAllUser(pageNum, pageSize, jwt);
-            }
-        });
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        userListView.setLayoutManager(layoutManager);
-        userListView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()),
-                DividerItemDecoration.VERTICAL));
-        final int[] lastVisibleItemPosition = {0};
-        userListView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastVisibleItemPosition[0] + 1 == userAdminListAdapter.getItemCount()) {
-                    swipeRefreshLayout.setRefreshing(false);
-                    if (!repeat) {
-                        administratorListPresenter.getAllUser(pageNum, pageSize, jwt);
-                    }
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                lastVisibleItemPosition[0] = layoutManager.findLastVisibleItemPosition();
-            }
-        });
     }
 
     /**
@@ -207,6 +211,7 @@ public class UserAdminFragment extends BaseFragment implements MyRecycleListView
         pageNum++;
         repeat = administratorListPresenter.dealUserListJSON(successData.getJSONArray("result"), userList);
         if (repeat) {
+            showToast("所有数据加载完毕！");
             return;
         }
         new Handler(Looper.getMainLooper()).post(new Runnable() {

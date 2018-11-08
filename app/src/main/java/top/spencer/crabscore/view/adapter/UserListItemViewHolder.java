@@ -7,7 +7,6 @@ import top.spencer.crabscore.R;
 
 /**
  * 分数排名列表适配器的ViewHolder
- * //TODO Add user phone
  *
  * @author spencercjh
  */
@@ -16,6 +15,7 @@ class UserListItemViewHolder extends RecyclerView.ViewHolder {
     TextView displayName;
     TextView role;
     TextView status;
+    TextView phone;
 
     UserListItemViewHolder(View view) {
         super(view);
@@ -23,6 +23,7 @@ class UserListItemViewHolder extends RecyclerView.ViewHolder {
         displayName = view.findViewById(R.id.textview_display_name);
         role = view.findViewById(R.id.textview_role);
         status = view.findViewById(R.id.textview_status);
+        phone = view.findViewById(R.id.textview_phone);
     }
 }
 

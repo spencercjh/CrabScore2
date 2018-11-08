@@ -17,7 +17,7 @@ import com.alibaba.fastjson.JSONObject;
  */
 public abstract class BaseFragment extends Fragment implements BaseView {
     private Unbinder unbinder;
-    protected static int pageSize = 10;
+    protected static int pageSize = 15;
 
     /**
      * 返回布局id

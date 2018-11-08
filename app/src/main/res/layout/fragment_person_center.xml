@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
                                              android:background="@color/bgc1">
@@ -30,7 +29,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tl_head"
-            app:layout_constraintVertical_bias="0.046">
+            app:layout_constraintVertical_bias="0.046"
+            android:focusable="true">
 
         <ImageView
                 android:id="@+id/iv_avatar"
@@ -48,7 +48,7 @@
                 android:layout_marginLeft="20dp"
                 android:text="头像"
                 android:textColor="#353535"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
         <View
                 android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                 android:layout_marginLeft="20dp"
                 android:text="用户名"
                 android:textColor="#353535"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
         <TextView
                 android:id="@+id/text_user_name"
@@ -96,7 +96,7 @@
                 android:singleLine="true"
                 android:text="123"
                 android:textColor="#AAAAAA"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
         <View
                 android:layout_width="match_parent"
@@ -129,7 +129,7 @@
                 android:layout_marginLeft="20dp"
                 android:text="修改密码"
                 android:textColor="#353535"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
         <View
                 android:layout_width="match_parent"
@@ -141,7 +141,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/re_display_name"
+            android:id="@+id/re_didplay_name"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:background="@drawable/btn_list_item_bg"
@@ -163,10 +163,10 @@
                 android:layout_marginLeft="20dp"
                 android:text="显示名"
                 android:textColor="#353535"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
         <TextView
-                android:id="@+id/text_display_name"
+                android:id="@+id/text_didplay_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/tv3"
@@ -177,7 +177,7 @@
                 android:singleLine="true"
                 android:text="123"
                 android:textColor="#AAAAAA"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
         <View
                 android:layout_width="match_parent"
@@ -213,7 +213,7 @@
                 android:layout_marginLeft="20dp"
                 android:text="邮箱"
                 android:textColor="#353535"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
         <TextView
                 android:id="@+id/text_email"
@@ -228,7 +228,7 @@
                 android:singleLine="true"
                 android:text="123"
                 android:textColor="#AAAAAA"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
 
     </RelativeLayout>

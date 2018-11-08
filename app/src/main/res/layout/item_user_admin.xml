@@ -7,7 +7,7 @@
     <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
-            android:layout_height="18sp"
+            android:layout_height="18dp"
             android:orientation="horizontal">
 
         <TextView
@@ -30,7 +30,7 @@
                 android:text="显示名:"/>
 
         <TextView
-                android:id="@+id/textview_display_name"
+                android:id="@+id/textview_didplay_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -41,7 +41,7 @@
     <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="18sp"
+            android:layout_height="18dp"
             android:orientation="horizontal">
 
         <TextView
@@ -76,7 +76,27 @@
     <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
-            android:layout_height="18sp"
+            android:layout_height="18dp"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="手机号:"/>
+
+        <TextView
+                android:id="@+id/textview_phone"
+                android:layout_width="135dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
             android:orientation="horizontal"
             android:weightSum="1">
 

@@ -34,7 +34,7 @@
                 android:singleLine="true"
                 android:text="null"
                 android:textColor="#AAAAAA"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 tools:ignore="RtlHardcoded"/>
 
         <TextView
@@ -46,7 +46,7 @@
                 android:layout_marginStart="20dp"
                 android:text="年份及备注"
                 android:textColor="#353535"
-                android:textSize="16sp"/>
+                android:textSize="16dp"/>
 
     </RelativeLayout>
 
@@ -74,7 +74,7 @@
                 android:layout_marginStart="20dp"
                 android:text="雄蟹肥满度参数"
                 android:textColor="#353535"
-                android:textSize="16sp"/>
+                android:textSize="16dp"/>
 
         <TextView
                 android:id="@+id/textview_var_fatness_m"
@@ -89,7 +89,7 @@
                 android:singleLine="true"
                 android:text="null"
                 android:textColor="#AAAAAA"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 tools:ignore="RtlHardcoded"/>
 
 
@@ -120,7 +120,7 @@
                 android:layout_marginStart="20dp"
                 android:text="雄蟹体重参数"
                 android:textColor="#353535"
-                android:textSize="16sp"/>
+                android:textSize="16dp"/>
 
         <TextView
                 android:id="@+id/textview_var_weight_m"
@@ -134,7 +134,7 @@
                 android:singleLine="true"
                 android:text="null"
                 android:textColor="#AAAAAA"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 tools:ignore="RtlHardcoded"/>
 
 
@@ -165,7 +165,7 @@
                 android:layout_marginStart="20dp"
                 android:text="雄蟹肥满度标准差参数"
                 android:textColor="#353535"
-                android:textSize="16sp"/>
+                android:textSize="16dp"/>
 
         <TextView
                 android:id="@+id/textview_var_mfatness_sd"
@@ -180,7 +180,7 @@
                 android:singleLine="true"
                 android:text="null"
                 android:textColor="#AAAAAA"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 tools:ignore="RtlHardcoded"/>
     </RelativeLayout>
 
@@ -210,7 +210,7 @@
                 android:layout_marginStart="19dp"
                 android:text="雄蟹体重标准差参数"
                 android:textColor="#353535"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 tools:ignore="RtlHardcoded"/>
 
         <TextView
@@ -225,7 +225,7 @@
                 android:singleLine="true"
                 android:text="null"
                 android:textColor="#AAAAAA"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 tools:ignore="RtlHardcoded"/>
 
 
@@ -258,7 +258,7 @@
                 android:singleLine="true"
                 android:text="null"
                 android:textColor="#AAAAAA"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 tools:ignore="RtlHardcoded"/>
 
         <TextView
@@ -270,7 +270,7 @@
                 android:layout_marginStart="20dp"
                 android:text="雌蟹肥满度参数"
                 android:textColor="#353535"
-                android:textSize="16sp"/>
+                android:textSize="16dp"/>
 
     </RelativeLayout>
 
@@ -301,7 +301,7 @@
                 android:singleLine="true"
                 android:text="null"
                 android:textColor="#AAAAAA"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 tools:ignore="RtlHardcoded"/>
 
         <TextView
@@ -313,7 +313,7 @@
                 android:layout_marginStart="20dp"
                 android:text="雌蟹体重参数"
                 android:textColor="#353535"
-                android:textSize="16sp"/>
+                android:textSize="16dp"/>
 
     </RelativeLayout>
 
@@ -344,7 +344,7 @@
                 android:singleLine="true"
                 android:text="null"
                 android:textColor="#AAAAAA"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 tools:ignore="RtlHardcoded"/>
 
         <TextView
@@ -356,7 +356,7 @@
                 android:layout_marginStart="20dp"
                 android:text="雌蟹肥满度标准差参数"
                 android:textColor="#353535"
-                android:textSize="16sp"/>
+                android:textSize="16dp"/>
 
     </RelativeLayout>
 
@@ -387,7 +387,7 @@
                 android:singleLine="true"
                 android:text="null"
                 android:textColor="#AAAAAA"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 tools:ignore="RtlHardcoded"/>
 
         <TextView
@@ -399,7 +399,7 @@
                 android:layout_marginStart="20dp"
                 android:text="雌蟹体重标准差参数"
                 android:textColor="#353535"
-                android:textSize="16sp"/>
+                android:textSize="16dp"/>
 
     </RelativeLayout>
 
@@ -430,7 +430,7 @@
                 android:singleLine="true"
                 android:text="null"
                 android:textColor="#AAAAAA"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 tools:ignore="RtlHardcoded"/>
 
         <TextView
@@ -442,7 +442,7 @@
                 android:layout_marginStart="20dp"
                 android:text="排名结果可见设置"
                 android:textColor="#353535"
-                android:textSize="16sp"/>
+                android:textSize="16dp"/>
 
     </RelativeLayout>
 
