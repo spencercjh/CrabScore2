@@ -30,7 +30,7 @@
                 android:text="显示名:"/>
 
         <TextView
-                android:id="@+id/textview_didplay_name"
+                android:id="@+id/textview_display_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
