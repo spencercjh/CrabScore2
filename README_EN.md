@@ -17,7 +17,7 @@ network:OkHttp
 
 picture:Glide
 
-encryption：commons-codec,JWT
+encryption：commons-codec,JWT,AES
 
 JSON:com.alibaba.fastjson,Gson
 

@@ -21,7 +21,7 @@ public class AesUtil {
      * 密钥算法
      * java6支持56位密钥，bouncycastle支持64位
      */
-    public static final String KEY_ALGORITHM = "AES";
+    private static final String KEY_ALGORITHM = "AES";
 
     /**
      * 加密/解密算法/工作模式/填充方式
@@ -29,7 +29,7 @@ public class AesUtil {
      * JAVA6 支持PKCS5PADDING填充方式
      * Bouncy castle支持PKCS7Padding填充方式
      */
-    public static final String CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";
+    private static final String CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";
 
     /**
      * 生成密钥，java6只支持56位密钥，bouncycastle支持64位密钥
@@ -54,7 +54,7 @@ public class AesUtil {
      * @param key 二进制密钥
      * @return Key 密钥
      */
-    public static Key toKey(byte[] key) {
+    private static Key toKey(byte[] key) {
         //实例化DES密钥
         //生成密钥
         SecretKey secretKey = new SecretKeySpec(key, KEY_ALGORITHM);
@@ -90,7 +90,7 @@ public class AesUtil {
      * @param key  密钥
      * @return byte[] 解密后的数据
      */
-    public static byte[] decrypt(byte[] data, byte[] key) throws Exception {
+    private static byte[] decrypt(byte[] data, byte[] key) throws Exception {
         //欢迎密钥
         Key k = toKey(key);
         /**
@@ -103,26 +103,5 @@ public class AesUtil {
         cipher.init(Cipher.DECRYPT_MODE, k);
         //执行操作
         return cipher.doFinal(data);
-    }
-
-    /**
-     * @param args
-     * @throws Exception
-     */
-    public static void main(String[] args) throws Exception {
-        String str = "AES";
-        System.out.println("原文：" + str);
-        //初始化密钥
-        byte[] key = CommonConstant.AES_KEY;
-        String keyString=Base64.encodeBase64String(key);
-        System.out.println("密钥：" + keyString);
-        byte[] test=Base64.decodeBase64(keyString);
-        System.out.println(test==key);
-        //加密数据
-        byte[] data = AesUtil.encrypt(str.getBytes(), key);
-        System.out.println("加密后：" + Base64.encodeBase64String(data));
-        //解密数据
-        data = AesUtil.decrypt(data, key);
-        System.out.println("解密后：" + new String(data, StandardCharsets.UTF_8));
     }
 }

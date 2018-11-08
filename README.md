@@ -33,7 +33,7 @@ ButterKnife
 
 [Google推荐——Glide使用详解](https://www.jianshu.com/p/7ce7b02988a4)
 
-加密：commons-codec、JWT
+加密：commons-codec、JWT、对称密钥加密
 
 [commons-codec使用简介](https://blog.csdn.net/yaomingyang/article/details/80653593)
 
