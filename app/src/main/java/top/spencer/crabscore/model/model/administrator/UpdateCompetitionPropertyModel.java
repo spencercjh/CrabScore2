@@ -8,15 +8,15 @@ import top.spencer.crabscore.common.CommonConstant;
 /**
  * @author spencercjh
  */
-public class UpdateUserPropertyModel extends BaseModel {
+public class UpdateCompetitionPropertyModel extends BaseModel {
     /**
-     * 参数表User user的JSON, String jwt
+     * 参数表Competition competition, String jwt
      *
      * @param myCallBack myCallBack
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "admin/user/property";
+        String url = CommonConstant.URL + "admin/competition/property";
         requestPutJSONAPI(url, mvpParams[0], myCallBack, mvpParams[1]);
     }
 }

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="300dp"
+              android:orientation="vertical">
+    <RelativeLayout
+            android:id="@+id/re_result_fatness"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/btn_list_item_bg">
+        <RadioGroup
+                android:id="@+id/radio_group_fatness_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="15dp">
+
+            <RadioButton
+                    android:id="@+id/radio_fatness_rank_enable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="可见"/>
+            <RadioButton
+                    android:id="@+id/radio_fatness_rank_unable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="不可见"/>
+        </RadioGroup>
+
+        <TextView
+                android:id="@+id/tv_result_fatness"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:text="肥满度评比排名"
+                android:textColor="#353535"
+                android:textSize="16sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/re_result_quality"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/btn_list_item_bg">
+
+        <RadioGroup
+                android:id="@+id/radio_group_quality_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="15dp">
+
+            <RadioButton
+                    android:id="@+id/radio_quality_rank_enable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="可见"/>
+
+            <RadioButton
+                    android:id="@+id/radio_quality_rank_unable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="不可见"/>
+        </RadioGroup>
+
+        <TextView
+                android:id="@+id/tv_result_quality"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:text="种质评比排名"
+                android:textColor="#353535"
+                android:textSize="16sp"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+            android:id="@+id/re_result_taste"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/btn_list_item_bg">
+
+        <RadioGroup
+                android:id="@+id/radio_group_taste_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="15dp">
+
+            <RadioButton
+                    android:id="@+id/radio_taste_rank_enable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="可见"/>
+
+            <RadioButton
+                    android:id="@+id/radio_taste_rank_unable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="不可见"/>
+        </RadioGroup>
+
+        <TextView
+                android:id="@+id/tv_result_taste"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:text="口感评比排名"
+                android:textColor="#353535"
+                android:textSize="16sp"/>
+
+    </RelativeLayout>
+</LinearLayout>
