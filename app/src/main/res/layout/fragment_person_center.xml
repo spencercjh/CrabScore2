@@ -48,7 +48,7 @@
                 android:layout_marginLeft="20dp"
                 android:text="头像"
                 android:textColor="#353535"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
         <View
                 android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                 android:layout_marginLeft="20dp"
                 android:text="用户名"
                 android:textColor="#353535"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
         <TextView
                 android:id="@+id/text_user_name"
@@ -96,7 +96,7 @@
                 android:singleLine="true"
                 android:text="123"
                 android:textColor="#AAAAAA"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
 
         <View
                 android:layout_width="match_parent"
@@ -129,7 +129,7 @@
                 android:layout_marginLeft="20dp"
                 android:text="修改密码"
                 android:textColor="#353535"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
         <View
                 android:layout_width="match_parent"
@@ -163,7 +163,7 @@
                 android:layout_marginLeft="20dp"
                 android:text="显示名"
                 android:textColor="#353535"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
         <TextView
                 android:id="@+id/text_didplay_name"
@@ -177,7 +177,7 @@
                 android:singleLine="true"
                 android:text="123"
                 android:textColor="#AAAAAA"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
 
         <View
                 android:layout_width="match_parent"
@@ -213,7 +213,7 @@
                 android:layout_marginLeft="20dp"
                 android:text="邮箱"
                 android:textColor="#353535"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
         <TextView
                 android:id="@+id/text_email"
@@ -228,7 +228,7 @@
                 android:singleLine="true"
                 android:text="123"
                 android:textColor="#AAAAAA"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
 
 
     </RelativeLayout>

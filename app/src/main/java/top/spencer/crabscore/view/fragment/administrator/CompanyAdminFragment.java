@@ -31,7 +31,7 @@ import java.util.Objects;
  *
  * @author spencercjh
  */
-public class CompanyAdminFragment extends BaseFragment implements MyRecycleListView {
+public class CompanyAdminFragment extends BaseFragment implements MyRecycleListView, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.recycler_view_list)
     EmptyRecyclerView companyListView;
     @BindView(R.id.textview_empty)
@@ -105,10 +105,12 @@ public class CompanyAdminFragment extends BaseFragment implements MyRecycleListV
             companyListView.setEmptyView(emptyText);
         }
         companyListView.setAdapter(companyAdminListAdapter);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.post(new Runnable() {
             @Override
-            public void onRefresh() {
-                administratorListPresenter.getAllCompany(pageNum, pageSize, jwt);
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+                onRefresh();
             }
         });
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -164,6 +166,17 @@ public class CompanyAdminFragment extends BaseFragment implements MyRecycleListV
             public void run() {
                 swipeRefreshLayout.setRefreshing(false);
                 companyAdminListAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    @Override
+    public void onRefresh() {
+        administratorListPresenter.getAllCompany(pageNum, pageSize, jwt);
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }

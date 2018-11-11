@@ -30,7 +30,7 @@ import java.util.Objects;
 /**
  * @author spencercjh
  */
-public class FatnessRankFragment extends BaseFragment implements MyRecycleListView {
+public class FatnessRankFragment extends BaseFragment implements MyRecycleListView, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.recycler_view_list)
     EmptyRecyclerView rankListView;
     @BindView(R.id.textview_empty)
@@ -105,10 +105,12 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
             rankListView.setEmptyView(emptyText);
         }
         rankListView.setAdapter(fatnessRankListAdapter);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.post(new Runnable() {
             @Override
-            public void onRefresh() {
-                rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+                onRefresh();
             }
         });
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -165,6 +167,17 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
             public void run() {
                 swipeRefreshLayout.setRefreshing(false);
                 fatnessRankListAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    @Override
+    public void onRefresh() {
+        rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }

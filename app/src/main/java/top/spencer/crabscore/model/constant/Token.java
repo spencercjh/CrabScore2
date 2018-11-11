@@ -43,4 +43,10 @@ public interface Token {
     String API_DELETE_USER = DeleteUserModel.class.getName();
 
     String API_UPDATE_COMPETITION_PROPERTY = UpdateCompetitionPropertyModel.class.getName();
+
+    String API_ALL_COMPETITION = AllCompetitionModel.class.getName();
+
+    String API_GENERATE_SCORE = GenerateScoreModel.class.getName();
+
+    String API_UPDATE_PRESENT_COMPETITION_CONFIG = UpdatePresentCompetitionConfigModel.class.getName();
 }

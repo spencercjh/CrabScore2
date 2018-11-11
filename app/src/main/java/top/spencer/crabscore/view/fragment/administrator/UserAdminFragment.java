@@ -41,7 +41,7 @@ import java.util.Objects;
  *
  * @author spencercjh
  */
-public class UserAdminFragment extends BaseFragment implements UserAdminListView {
+public class UserAdminFragment extends BaseFragment implements UserAdminListView, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.recycler_view_list)
     EmptyRecyclerView userListView;
     @BindView(R.id.textview_empty)
@@ -129,10 +129,12 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
             userListView.setEmptyView(emptyText);
         }
         userListView.setAdapter(userAdminListAdapter);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.post(new Runnable() {
             @Override
-            public void onRefresh() {
-                administratorListPresenter.getAllUser(pageNum, pageSize, jwt);
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+                onRefresh();
             }
         });
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -383,6 +385,17 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+    }
+
+    @Override
+    public void onRefresh() {
+        administratorListPresenter.getAllUser(pageNum, pageSize, jwt);
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }

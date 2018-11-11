@@ -4,25 +4,21 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
->
+        android:orientation="vertical">
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-    >
+            android:layout_weight="1">
         <top.spencer.crabscore.view.widget.EmptyRecyclerView
                 android:id="@+id/recycler_view_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-        />
+                android:layout_height="match_parent"/>
         <TextView
                 android:id="@+id/textview_empty"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone"
                 android:gravity="center"
-                android:text="没有相关数据"
-        />
+                android:text="没有相关数据"/>
     </FrameLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

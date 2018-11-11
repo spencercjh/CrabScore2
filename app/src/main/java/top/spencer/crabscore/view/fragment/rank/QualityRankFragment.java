@@ -30,7 +30,7 @@ import java.util.Objects;
 /**
  * @author spencercjh
  */
-public class QualityRankFragment extends BaseFragment implements MyRecycleListView {
+public class QualityRankFragment extends BaseFragment implements MyRecycleListView, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.recycler_view_list)
     EmptyRecyclerView rankListView;
     @BindView(R.id.textview_empty)
@@ -105,10 +105,12 @@ public class QualityRankFragment extends BaseFragment implements MyRecycleListVi
             rankListView.setEmptyView(emptyText);
         }
         rankListView.setAdapter(qualityRankListAdapter);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.post(new Runnable() {
             @Override
-            public void onRefresh() {
-                rankListPresenter.getQualityRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+                onRefresh();
             }
         });
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -168,5 +170,16 @@ public class QualityRankFragment extends BaseFragment implements MyRecycleListVi
             }
         });
 
+    }
+
+    @Override
+    public void onRefresh() {
+        rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 }

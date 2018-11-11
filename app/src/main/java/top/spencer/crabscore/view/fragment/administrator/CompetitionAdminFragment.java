@@ -3,9 +3,12 @@ package top.spencer.crabscore.view.fragment.administrator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.*;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -18,11 +21,12 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
-import top.spencer.crabscore.base.BaseView;
 import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.presenter.CompetitionAdminPresenter;
+import top.spencer.crabscore.presenter.NavigationPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
+import top.spencer.crabscore.view.view.CompetitionAdminView;
 
 import java.util.Objects;
 
@@ -31,7 +35,7 @@ import java.util.Objects;
  *
  * @author spencercjh
  */
-public class CompetitionAdminFragment extends BaseFragment implements BaseView {
+public class CompetitionAdminFragment extends BaseFragment implements CompetitionAdminView, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.re_year_note)
     RelativeLayout yearAndNoteRelativeLayout;
     @BindView(R.id.textview_year_note)
@@ -72,9 +76,12 @@ public class CompetitionAdminFragment extends BaseFragment implements BaseView {
     RelativeLayout moreSettingRelativeLayout;
     @BindView(R.id.textview_more_setting)
     TextView moreSettingTextView;
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
     private Competition presentCompetition;
     private String jwt;
     private CompetitionAdminPresenter competitionAdminPresenter;
+    private NavigationPresenter navigationPresenter;
 
     /**
      * 取得实例
@@ -97,6 +104,7 @@ public class CompetitionAdminFragment extends BaseFragment implements BaseView {
     public void onDestroyView() {
         super.onDestroyView();
         competitionAdminPresenter.detachView();
+        navigationPresenter.detachView();
     }
 
     /**
@@ -120,9 +128,19 @@ public class CompetitionAdminFragment extends BaseFragment implements BaseView {
         super.onViewCreated(view, savedInstanceState);
         competitionAdminPresenter = new CompetitionAdminPresenter();
         competitionAdminPresenter.attachView(this);
+        navigationPresenter = new NavigationPresenter();
+        navigationPresenter.attachView(this);
         SharedPreferencesUtil.getInstance(getContext(), "PROPERTY");
         presentCompetition = (Competition) (SharedPreferencesUtil.getData("PRESENT_COMPETITION", new Competition()));
         jwt = (String) (SharedPreferencesUtil.getData("JWT", ""));
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+                onRefresh();
+            }
+        });
         initView();
     }
 
@@ -130,6 +148,7 @@ public class CompetitionAdminFragment extends BaseFragment implements BaseView {
      * 数据初始化UI
      */
     private void initView() {
+        swipeRefreshLayout.setRefreshing(false);
         if (presentCompetition != null) {
             if (StrUtil.isNotBlank(presentCompetition.getCompetitionYear())) {
                 yearAndNoteTextView.setText(presentCompetition.getCompetitionYear());
@@ -220,6 +239,8 @@ public class CompetitionAdminFragment extends BaseFragment implements BaseView {
                 if (yearString.equals(presentCompetition.getCompetitionYear()) && noteString.equals(presentCompetition.getNote())) {
                     showToast("未作修改");
                 } else {
+                    String display = yearString + noteString.substring(0, 5) + "...";
+                    yearAndNoteTextView.setText(display);
                     presentCompetition.setCompetitionYear(yearString);
                     presentCompetition.setNote(noteString);
                     competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
@@ -274,6 +295,7 @@ public class CompetitionAdminFragment extends BaseFragment implements BaseView {
                     if (presentCompetition.getVarFatnessM().equals(varFatnessMFloat)) {
                         showToast("未作修改");
                     } else {
+                        varFatnessMTextView.setText(varFatnessMString);
                         presentCompetition.setVarFatnessM(varFatnessMFloat);
                         competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
                     }
@@ -327,6 +349,7 @@ public class CompetitionAdminFragment extends BaseFragment implements BaseView {
                     if (presentCompetition.getVarWeightM().equals(varWeightMFloat)) {
                         showToast("未作修改");
                     } else {
+                        varWeightMTextView.setText(varWeightMString);
                         presentCompetition.setVarWeightM(varWeightMFloat);
                         competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
                     }
@@ -380,6 +403,7 @@ public class CompetitionAdminFragment extends BaseFragment implements BaseView {
                     if (presentCompetition.getVarMfatnessSd().equals(varMFatnessSdFloat)) {
                         showToast("未作修改");
                     } else {
+                        varMFatnessSdTextView.setText(varMFatnessSdString);
                         presentCompetition.setVarMfatnessSd(varMFatnessSdFloat);
                         competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
                     }
@@ -433,6 +457,7 @@ public class CompetitionAdminFragment extends BaseFragment implements BaseView {
                     if (presentCompetition.getVarMweightSd().equals(varMWeightSdFloat)) {
                         showToast("未作修改");
                     } else {
+                        varMWeightSdTextView.setText(varMWeightSdString);
                         presentCompetition.setVarMweightSd(varMWeightSdFloat);
                         competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
                     }
@@ -486,6 +511,7 @@ public class CompetitionAdminFragment extends BaseFragment implements BaseView {
                     if (presentCompetition.getVarFatnessF().equals(varFatnessFFloat)) {
                         showToast("未作修改");
                     } else {
+                        varFatnessFTextView.setText(varFatnessFString);
                         presentCompetition.setVarFatnessF(varFatnessFFloat);
                         competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
                     }
@@ -539,6 +565,7 @@ public class CompetitionAdminFragment extends BaseFragment implements BaseView {
                     if (presentCompetition.getVarWeightF().equals(varWeightFFloat)) {
                         showToast("未作修改");
                     } else {
+                        varWeightFTextView.setText(varWeightFString);
                         presentCompetition.setVarWeightF(varWeightFFloat);
                         competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
                     }
@@ -592,6 +619,7 @@ public class CompetitionAdminFragment extends BaseFragment implements BaseView {
                     if (presentCompetition.getVarFfatnessSd().equals(varFFatnessSdFloat)) {
                         showToast("未作修改");
                     } else {
+                        varFFatnessSdTextView.setText(varFFatnessSdString);
                         presentCompetition.setVarFfatnessSd(varFFatnessSdFloat);
                         competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
                     }
@@ -645,6 +673,7 @@ public class CompetitionAdminFragment extends BaseFragment implements BaseView {
                     if (presentCompetition.getVarFweightSd().equals(varFWeightSdFloat)) {
                         showToast("未作修改");
                     } else {
+                        varFWeightSdTextView.setText(varFWeightSdString);
                         presentCompetition.setVarFweightSd(varFWeightSdFloat);
                         competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
                     }
@@ -729,6 +758,17 @@ public class CompetitionAdminFragment extends BaseFragment implements BaseView {
                 competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
             }
         });
+        if (presentCompetition.getResultFatness() == 1 &&
+                presentCompetition.getResultQuality() == 1 &&
+                presentCompetition.getResultFatness() == 1) {
+            moreSettingTextView.setText("全部可见");
+        } else if (presentCompetition.getResultFatness() == 0 &&
+                presentCompetition.getResultQuality() == 0 &&
+                presentCompetition.getResultTaste() == 0) {
+            moreSettingTextView.setText("全部不可见");
+        } else {
+            moreSettingTextView.setText("部分可见");
+        }
         dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -739,14 +779,36 @@ public class CompetitionAdminFragment extends BaseFragment implements BaseView {
     }
 
     /**
-     * updateCompetitionProperty请求成功
+     * getPresentCompetitionProperty请求成功
      *
      * @param successData 成功数据源
      */
     @Override
     public void showData(JSONObject successData) {
+        presentCompetition = JSONObject.parseObject(successData.getString("result"), Competition.class);
+        SharedPreferencesUtil.putData("PRESENT_COMPETITION", presentCompetition);
+    }
+
+    /**
+     * updateCompetitionProperty请求成功
+     *
+     * @param successData 成功数据源
+     */
+    @Override
+    public void showUpdateCompetitionPropertyResponse(JSONObject successData) {
         if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
             showToast(successData.getString("message"));
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        navigationPresenter.getPresentCompetitionProperty();
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 }

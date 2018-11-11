@@ -91,15 +91,17 @@ public class AdministratorFragment extends BaseFragment implements TabLayoutView
         mTitleList.add("注册审核");
         mTitleList.add("参选单位");
         mTitleList.add("大赛管理");
+        mTitleList.add("结果管理");
         tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(0)), true);
         tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(1)));
         tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(2)));
         tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(3)));
-        List<Fragment> mFragmentList = new ArrayList<>(4);
+        List<Fragment> mFragmentList = new ArrayList<>(5);
         mFragmentList.add(UserAdminFragment.newInstance("UserAdminFragment"));
         mFragmentList.add(RegistAssessmentFragment.newInstance("RegistAssessmentFragment"));
         mFragmentList.add(CompanyAdminFragment.newInstance("CompanyAdminFragment"));
         mFragmentList.add(CompetitionAdminFragment.newInstance("CompetitionAdminFragment"));
+        mFragmentList.add(OutputResultFragment.newInstance("OutputResultFragment"));
         TabLayoutPageAdapter adapter = new TabLayoutPageAdapter(getChildFragmentManager(), mFragmentList, mTitleList);
         vpContent.setAdapter(adapter);
         vpContent.setOffscreenPageLimit(mFragmentList.size());
@@ -113,7 +115,6 @@ public class AdministratorFragment extends BaseFragment implements TabLayoutView
      */
     @Override
     public void showData(JSONObject successData) {
+        //nothing
     }
-
-    //TODO AdministratorFragment
 }

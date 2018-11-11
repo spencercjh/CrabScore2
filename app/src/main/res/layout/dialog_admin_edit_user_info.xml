@@ -27,7 +27,7 @@
                 android:layout_marginStart="20dp"
                 android:text="用户名"
                 android:textColor="#353535"
-                android:textSize="16dp"/>
+                android:textSize="16sp"/>
 
         <EditText
                 android:id="@+id/edit_username"
@@ -40,7 +40,7 @@
                 android:text="null"
                 android:inputType="textPersonName"
                 android:textColor="#AAAAAA"
-                android:textSize="14dp"
+                android:textSize="14sp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 tools:ignore="RtlHardcoded"/>
@@ -68,7 +68,7 @@
                 android:layout_marginStart="20dp"
                 android:text="显示名"
                 android:textColor="#353535"
-                android:textSize="16dp"/>
+                android:textSize="16sp"/>
 
         <EditText
                 android:id="@+id/edit_display_name"
@@ -81,7 +81,7 @@
                 android:text="null"
                 android:inputType="textPersonName"
                 android:textColor="#AAAAAA"
-                android:textSize="14dp"
+                android:textSize="14sp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 tools:ignore="RtlHardcoded"/>
@@ -111,7 +111,7 @@
                 android:layout_marginStart="20dp"
                 android:text="手机号"
                 android:textColor="#353535"
-                android:textSize="16dp"/>
+                android:textSize="16sp"/>
 
         <EditText
                 android:id="@+id/edit_phone"
@@ -127,7 +127,7 @@
                 android:singleLine="true"
                 android:text="null"
                 android:textColor="#AAAAAA"
-                android:textSize="14dp"
+                android:textSize="14sp"
                 tools:ignore="RtlHardcoded"/>
 
 

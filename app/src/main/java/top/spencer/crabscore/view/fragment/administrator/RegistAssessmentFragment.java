@@ -39,7 +39,7 @@ import java.util.Objects;
  *
  * @author spencercjh
  */
-public class RegistAssessmentFragment extends BaseFragment implements UserAdminListView {
+public class RegistAssessmentFragment extends BaseFragment implements UserAdminListView, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.recycler_view_list)
     EmptyRecyclerView userListView;
     @BindView(R.id.textview_empty)
@@ -121,10 +121,12 @@ public class RegistAssessmentFragment extends BaseFragment implements UserAdminL
             userListView.setEmptyView(emptyText);
         }
         userListView.setAdapter(userAdminListAdapter);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.post(new Runnable() {
             @Override
-            public void onRefresh() {
-                administratorListPresenter.getAllUserByStatus(CommonConstant.USER_STATUS_LOCK, pageNum, pageSize, jwt);
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+                onRefresh();
             }
         });
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -357,5 +359,16 @@ public class RegistAssessmentFragment extends BaseFragment implements UserAdminL
             showToast(successData.getString("message"));
             resetList();
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        administratorListPresenter.getAllUserByStatus(CommonConstant.USER_STATUS_LOCK, pageNum, pageSize, jwt);
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 }
