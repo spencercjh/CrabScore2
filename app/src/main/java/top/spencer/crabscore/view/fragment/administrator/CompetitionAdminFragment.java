@@ -807,6 +807,7 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
+                initView();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
