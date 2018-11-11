@@ -16,6 +16,11 @@ import java.util.List;
  * @author spencercjh
  */
 public class CompanyAdminListAdapter extends RecyclerView.Adapter<CompanyListItemViewHolder> {
+    private MyOnItemClickListener myOnItemClickListener;
+
+    public void setOnItemClickListener(MyOnItemClickListener mListener) {
+        this.myOnItemClickListener = mListener;
+    }
 
     private List<Company> companyList;
 
@@ -28,17 +33,35 @@ public class CompanyAdminListAdapter extends RecyclerView.Adapter<CompanyListIte
         return companyList.size();
     }
 
+    @SuppressWarnings("Duplicates")
     @NonNull
     @Override
     public CompanyListItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_company_admin, parent, false);
-        return new CompanyListItemViewHolder(v);
+        CompanyListItemViewHolder companyListItemViewHolder = new CompanyListItemViewHolder(v);
+        if (myOnItemClickListener != null) {
+            companyListItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    myOnItemClickListener.onItemClick(v);
+                }
+            });
+            companyListItemViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    myOnItemClickListener.onItemLongClick(v);
+                    return true;
+                }
+            });
+        }
+        return companyListItemViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull CompanyListItemViewHolder holder, int position) {
         if (companyList.get(position) != null) {
             Company company = companyList.get(position);
+            holder.itemView.setTag(company);
             holder.companyId.setText(String.valueOf(company.getCompanyId()));
             holder.companyName.setText(company.getCompanyName());
             holder.status.setText(company.getCompetitionId() == 1 ? "全部大赛有效" : "当前大赛有效");

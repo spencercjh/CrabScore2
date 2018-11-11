@@ -269,7 +269,7 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
      * @param successData 成功数据源
      */
     @Override
-    public void showUpdateUserResponse(JSONObject successData) {
+    public void showUpdateUserPropertyResponse(JSONObject successData) {
         if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
             showToast(successData.getString("message"));
             resetList();
@@ -277,13 +277,16 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
     }
 
     /**
-     * 空闲
+     * deleteUser请求成功
      *
      * @param successData 成功数据源
      */
     @Override
     public void showDeleteUserResponse(JSONObject successData) {
-        //nothing here
+        if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
+            showToast(successData.getString("message"));
+            resetList();
+        }
     }
 
     /**

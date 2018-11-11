@@ -331,7 +331,7 @@ public class RegistAssessmentFragment extends BaseFragment implements UserAdminL
      * @param successData 成功数据源
      */
     @Override
-    public void showUpdateUserResponse(JSONObject successData) {
+    public void showUpdateUserPropertyResponse(JSONObject successData) {
         if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
             showToast(successData.getString("message"));
             resetList();

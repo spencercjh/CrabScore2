@@ -1,5 +1,8 @@
 package top.spencer.crabscore.view.fragment.administrator;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -9,20 +12,27 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.view.*;
+import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
+import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.model.entity.Company;
 import top.spencer.crabscore.presenter.AdministratorListPresenter;
+import top.spencer.crabscore.presenter.CompanyAdminPresenter;
+import top.spencer.crabscore.util.PatternUtil;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
 import top.spencer.crabscore.view.adapter.CompanyAdminListAdapter;
-import top.spencer.crabscore.view.view.MyRecycleListView;
+import top.spencer.crabscore.view.adapter.MyOnItemClickListener;
+import top.spencer.crabscore.view.view.CompanyAdminListView;
 import top.spencer.crabscore.view.widget.EmptyRecyclerView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,7 +41,7 @@ import java.util.Objects;
  *
  * @author spencercjh
  */
-public class CompanyAdminFragment extends BaseFragment implements MyRecycleListView, SwipeRefreshLayout.OnRefreshListener {
+public class CompanyAdminFragment extends BaseFragment implements CompanyAdminListView, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.recycler_view_list)
     EmptyRecyclerView companyListView;
     @BindView(R.id.textview_empty)
@@ -39,7 +49,9 @@ public class CompanyAdminFragment extends BaseFragment implements MyRecycleListV
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     private AdministratorListPresenter administratorListPresenter;
+    private CompanyAdminPresenter companyAdminPresenter;
     private String jwt;
+    private String adminUsername;
     private CompanyAdminListAdapter companyAdminListAdapter;
     private List<Company> companyList = new ArrayList<>(pageSize);
     private int pageNum = 1;
@@ -90,7 +102,10 @@ public class CompanyAdminFragment extends BaseFragment implements MyRecycleListV
         super.onViewCreated(view, savedInstanceState);
         administratorListPresenter = new AdministratorListPresenter();
         administratorListPresenter.attachView(this);
+        companyAdminPresenter = new CompanyAdminPresenter();
+        companyAdminPresenter.attachView(this);
         SharedPreferencesUtil.getInstance(getContext(), "PROPERTY");
+        adminUsername = (String) (SharedPreferencesUtil.getData("USERNAME", ""));
         jwt = (String) (SharedPreferencesUtil.getData("JWT", ""));
         setRecycleView();
     }
@@ -100,7 +115,7 @@ public class CompanyAdminFragment extends BaseFragment implements MyRecycleListV
      */
     @Override
     public void setRecycleView() {
-        companyAdminListAdapter = new CompanyAdminListAdapter(companyList);
+        initAdminListAdapter();
         if (companyList.size() == 0) {
             companyListView.setEmptyView(emptyText);
         }
@@ -134,6 +149,97 @@ public class CompanyAdminFragment extends BaseFragment implements MyRecycleListV
                 lastVisibleItemPosition[0] = layoutManager.findLastVisibleItemPosition();
             }
         });
+    }
+
+    /**
+     * 初始化列表adapter，设置单击监听
+     */
+    private void initAdminListAdapter() {
+        companyAdminListAdapter = new CompanyAdminListAdapter(companyList);
+        companyAdminListAdapter.setOnItemClickListener(new MyOnItemClickListener() {
+
+            @Override
+            public void onItemClick(View view) {
+                final Company companyInPopupMenu = (Company) view.getTag();
+                final PopupMenu popupMenu = new PopupMenu(getContext(), view);
+                final MenuInflater inflater = popupMenu.getMenuInflater();
+                inflater.inflate(R.menu.pop_menu_company_admin, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.menu_edit_company_info: {
+                                initEditCompanyInfoDialog(companyInPopupMenu);
+                                popupMenu.dismiss();
+                                break;
+                            }
+                            case R.id.menu_check_score: {
+                                //TODO next activity;
+                                break;
+                            }
+                            case R.id.menu_delete_company: {
+                                companyAdminPresenter.deleteCompany(companyInPopupMenu.getCompanyId(), jwt);
+                                break;
+                            }
+                            default: {
+                                break;
+                            }
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+
+            @Override
+            public void onItemLongClick(View view) {
+
+            }
+        });
+    }
+
+    /**
+     * 编辑参选单位信息AlertDialog
+     *
+     * @param companyInDialog 参选单位对象
+     */
+    private void initEditCompanyInfoDialog(final Company companyInDialog) {
+        @SuppressLint("InflateParams")
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_admin_edit_company_info, null);
+        final EditText companyName = dialogView.findViewById(R.id.edit_company_name);
+        companyName.setText(companyInDialog.getCompanyName());
+        AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
+        Window dialogWindow = dialog.getWindow();
+        Objects.requireNonNull(dialogWindow).setGravity(Gravity.CENTER);
+        dialogWindow.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        dialog.setIcon(R.drawable.app_logo);
+        dialog.setTitle("修改参选单位信息");
+        dialog.setView(dialogView);
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String companyNameString = companyName.getText().toString().trim();
+                if (!PatternUtil.isUsername(companyNameString)) {
+                    showToast("非法用户名");
+                    return;
+                } else {
+                    companyInDialog.setCompanyName(companyNameString);
+                    companyInDialog.setUpdateDate(new Date(System.currentTimeMillis()));
+                    companyInDialog.setUpdateUser(adminUsername);
+                    companyAdminPresenter.updateCompanyProperty(companyInDialog,
+                            (String) SharedPreferencesUtil.getData("JWT", ""));
+                }
+                dialog.dismiss();
+            }
+        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     /**
@@ -179,5 +285,41 @@ public class CompanyAdminFragment extends BaseFragment implements MyRecycleListV
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+    }
+
+    /**
+     * updateCompanyProperty请求成功
+     *
+     * @param successData 成功数据源
+     */
+    @Override
+    public void showUpdateCompanyPropertyResponse(JSONObject successData) {
+        if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
+            showToast(successData.getString("message"));
+            resetList();
+        }
+    }
+
+    /**
+     * 更新过数据后重置列表
+     */
+    private void resetList() {
+        companyList.clear();
+        pageNum = 1;
+        repeat = false;
+        administratorListPresenter.getAllCompany(pageNum, pageSize, jwt);
+    }
+
+    /**
+     * deleteCompany请求成功
+     *
+     * @param successData 成功数据源
+     */
+    @Override
+    public void showDeleteCompanyResponse(JSONObject successData) {
+        if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
+            showToast(successData.getString("message"));
+            resetList();
+        }
     }
 }

@@ -52,4 +52,8 @@ public interface Token {
     String API_UPDATE_PRESENT_COMPETITION_CONFIG = UpdatePresentCompetitionConfigModel.class.getName();
 
     String API_ALL_GROUP = AllGroupModel.class.getName();
+
+    String API_UPDATE_COMPANY_PROPERTY = UpdateCompanyPropertyModel.class.getName();
+
+    String API_DELETE_COMPANY = DeleteCompanyModel.class.getName();
 }
