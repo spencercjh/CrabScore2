@@ -33,6 +33,7 @@ public class UserAdminListAdapter extends RecyclerView.Adapter<UserListItemViewH
         return userList.size();
     }
 
+    @SuppressWarnings("Duplicates")
     @NonNull
     @Override
     public UserListItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -53,7 +54,7 @@ public class UserAdminListAdapter extends RecyclerView.Adapter<UserListItemViewH
                 }
             });
         }
-        return new UserListItemViewHolder(v);
+        return userListItemViewHolder;
     }
 
     @Override

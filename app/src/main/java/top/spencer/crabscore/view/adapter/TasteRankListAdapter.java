@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import top.spencer.crabscore.R;
-import top.spencer.crabscore.model.entity.Group;
+import top.spencer.crabscore.model.entity.vo.GroupResult;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ import java.util.List;
  */
 public class TasteRankListAdapter extends RecyclerView.Adapter<RankListItemViewHolder> {
 
-    private List<Group> groupList;
+    private List<GroupResult> groupList;
 
-    public TasteRankListAdapter(List<Group> data) {
+    public TasteRankListAdapter(List<GroupResult> data) {
         this.groupList = data;
     }
 
@@ -37,11 +37,11 @@ public class TasteRankListAdapter extends RecyclerView.Adapter<RankListItemViewH
 
     @Override
     public void onBindViewHolder(@NonNull RankListItemViewHolder holder, int position) {
-        holder.order.setText(String.valueOf(position));
+        holder.order.setText(String.valueOf(position + 1));
         if (groupList.get(position) != null) {
-            Group group = groupList.get(position);
+            GroupResult group = groupList.get(position);
             holder.groupId.setText(String.valueOf(group.getGroupId()));
-            holder.companyName.setText(String.valueOf(group.getCompanyId()));
+            holder.companyName.setText(group.getCompanyName());
             holder.score.setText(String.valueOf((group.getTasteScoreF() + group.getTasteScoreM()) / 2.0));
         }
     }

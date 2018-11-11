@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
-import top.spencer.crabscore.model.entity.Group;
+import top.spencer.crabscore.model.entity.vo.GroupResult;
 import top.spencer.crabscore.model.model.common.ModelFactory;
 import top.spencer.crabscore.model.model.common.rank.FatnessRankModel;
 import top.spencer.crabscore.model.model.common.rank.QualityRankModel;
@@ -142,12 +142,12 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
      * @param groupList list
      * @return 是否有重复
      */
-    public boolean dealGroupListJSON(JSONArray groups, List<Group> groupList) {
+    public boolean dealGroupListJSON(JSONArray groups, List<GroupResult> groupList) {
         boolean repeat = true;
         for (Object object : groups) {
             JSONObject jsonObject = (JSONObject) object;
             String jsonString = jsonObject.toJSONString();
-            Group group = JSONObject.parseObject(jsonString, Group.class);
+            GroupResult group = JSONObject.parseObject(jsonString, GroupResult.class);
             if (!groupList.contains(group)) {
                 groupList.add(group);
                 repeat = false;

@@ -5,6 +5,7 @@ import top.spencer.crabscore.model.model.common.*;
 import top.spencer.crabscore.model.model.common.rank.FatnessRankModel;
 import top.spencer.crabscore.model.model.common.rank.QualityRankModel;
 import top.spencer.crabscore.model.model.common.rank.TasteRankModel;
+import top.spencer.crabscore.model.model.judge.AllGroupModel;
 
 /**
  * 具体Model类，常量用于反射
@@ -49,4 +50,6 @@ public interface Token {
     String API_GENERATE_SCORE = GenerateScoreModel.class.getName();
 
     String API_UPDATE_PRESENT_COMPETITION_CONFIG = UpdatePresentCompetitionConfigModel.class.getName();
+
+    String API_ALL_GROUP = AllGroupModel.class.getName();
 }

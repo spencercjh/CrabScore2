@@ -12,7 +12,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import butterknife.BindView;
@@ -90,12 +89,6 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
         super.onDestroyView();
         administratorListPresenter.detachView();
         userAdminPresenter.detachView();
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        Log.d("HIDDEN:", String.valueOf(hidden));
     }
 
     /**
@@ -301,7 +294,6 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
         pageNum = 1;
         repeat = false;
         administratorListPresenter.getAllUser(pageNum, pageSize, jwt);
-
     }
 
     /**

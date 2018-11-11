@@ -104,8 +104,6 @@ public class JudgeFragment extends BaseFragment implements TabLayoutView {
 
     @Override
     public void showData(JSONObject successData) {
-
+        //nothing
     }
-
-    //TODO JudgeFragment
 }

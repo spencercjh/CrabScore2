@@ -16,7 +16,7 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.model.entity.Competition;
-import top.spencer.crabscore.model.entity.Group;
+import top.spencer.crabscore.model.entity.vo.GroupResult;
 import top.spencer.crabscore.presenter.RankListPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
 import top.spencer.crabscore.view.adapter.FatnessRankListAdapter;
@@ -40,9 +40,8 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
     private Competition presentCompetition;
     private FatnessRankListAdapter fatnessRankListAdapter;
     private RankListPresenter rankListPresenter;
-    private List<Group> groupList = new ArrayList<>(pageSize);
+    private List<GroupResult> groupList = new ArrayList<>(pageSize);
     private int pageNum = 1;
-    private boolean repeat = false;
 
     /**
      * 取得实例
@@ -156,7 +155,7 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
     @Override
     public void showData(JSONObject successData) {
         pageNum++;
-        repeat = rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
+        boolean repeat = rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
         if (repeat) {
             showToast("没有更多了哦");
             return;
