@@ -122,13 +122,6 @@ public class RegistAssessmentFragment extends BaseFragment implements UserAdminL
         }
         userListView.setAdapter(userAdminListAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-                onRefresh();
-            }
-        });
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         userListView.setLayoutManager(layoutManager);
         userListView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()),

@@ -128,13 +128,6 @@ public class TasteGradeFragment extends BaseFragment implements MyRecycleListVie
         }
         groupListView.setAdapter(groupGradeListAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-                onRefresh();
-            }
-        });
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         groupListView.setLayoutManager(layoutManager);
         groupListView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()),

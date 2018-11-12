@@ -134,13 +134,6 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
         presentCompetition = (Competition) (SharedPreferencesUtil.getData("PRESENT_COMPETITION", new Competition()));
         jwt = (String) (SharedPreferencesUtil.getData("JWT", ""));
         swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-                onRefresh();
-            }
-        });
         initView();
     }
 

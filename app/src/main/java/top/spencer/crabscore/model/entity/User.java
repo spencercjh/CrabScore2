@@ -18,7 +18,10 @@ public class User implements Serializable {
      * 唯一标识 用户id")
      */
     private Integer userId;
-
+    /**
+     * 绑定的参选单位Id
+     */
+    private Integer companyId;
     /**
      * 用户名")
      */

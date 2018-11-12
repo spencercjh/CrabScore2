@@ -123,13 +123,6 @@ public class CompanyAdminFragment extends BaseFragment implements CompanyAdminLi
         }
         companyListView.setAdapter(companyAdminListAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-                onRefresh();
-            }
-        });
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         companyListView.setLayoutManager(layoutManager);
         companyListView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()),

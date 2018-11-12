@@ -267,9 +267,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
             showToast(successData.getString("message"));
             String resultJSON = successData.getString("result");
             JSONObject resultJSONObject = JSON.parseObject(resultJSON);
-            SharedPreferencesUtil.putData("JWT", resultJSONObject.get("jwt"));
-            User user = (User) resultJSONObject.get("user");
-            SharedPreferencesUtil.putData("USER", user);
+            SharedPreferencesUtil.putData("JWT", resultJSONObject.getString("jwt"));
+            SharedPreferencesUtil.putData("USER",
+                    JSONObject.parseObject(resultJSONObject.getString("user"), User.class));
             Intent intent = new Intent(getContext(), MainActivity.class);
             startActivity(intent);
             finish();

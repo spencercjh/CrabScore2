@@ -50,46 +50,4 @@ public class GroupPresenter extends BasePresenter<MyRecycleListView> {
                     }
                 });
     }
-
-    /**
-     * 查看一个参选单位的所有组
-     *
-     * @param competitionId 大赛Id
-     * @param companyId     参选单位Id
-     * @param pageNum       页数
-     * @param pageSize      页面大小
-     * @param jwt           JWT
-     * @see top.spencer.crabscore.model.model.company.GetOneCompanyAllGroupModel
-     */
-    public void getOneCompanyAllGroup(Integer competitionId, Integer companyId, Integer pageNum, Integer pageSize, String jwt) {
-        if (isViewAttached()) {
-            return;
-        }
-        getView().showLoading();
-        ModelFactory
-                .request(Token.API_GET_ONE_COMPANY_ALL_GROUP)
-                .params(String.valueOf(competitionId), String.valueOf(companyId), String.valueOf(pageNum),
-                        String.valueOf(pageSize), jwt)
-                .execute(new MyCallback<JSONObject>() {
-                    @Override
-                    public void onSuccess(JSONObject data) {
-                        getView().showData(data);
-                    }
-
-                    @Override
-                    public void onFailure(JSONObject data) {
-                        getView().showFailure(data);
-                    }
-
-                    @Override
-                    public void onError() {
-                        getView().showErr();
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        getView().hideLoading();
-                    }
-                });
-    }
 }

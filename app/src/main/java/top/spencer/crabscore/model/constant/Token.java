@@ -5,6 +5,7 @@ import top.spencer.crabscore.model.model.common.*;
 import top.spencer.crabscore.model.model.common.rank.GetFatnessRankModel;
 import top.spencer.crabscore.model.model.common.rank.GetQualityRankModel;
 import top.spencer.crabscore.model.model.common.rank.GetTasteRankModel;
+import top.spencer.crabscore.model.model.company.GetCompanyModel;
 import top.spencer.crabscore.model.model.company.GetOneCompanyAllGroupModel;
 import top.spencer.crabscore.model.model.judge.AllGroupModel;
 
@@ -59,4 +60,6 @@ public interface Token {
     String API_DELETE_COMPANY = DeleteCompanyModel.class.getName();
 
     String API_GET_ONE_COMPANY_ALL_GROUP = GetOneCompanyAllGroupModel.class.getName();
+
+    String API_GET_COMPANY = GetCompanyModel.class.getName();
 }

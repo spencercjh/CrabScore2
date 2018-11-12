@@ -36,7 +36,7 @@ public class CompanyCheckGroupListAdapter extends RecyclerView.Adapter<CompanyCh
     @NonNull
     @Override
     public CompanyCheckGroupListItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_group_judge, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_group_company, parent, false);
         CompanyCheckGroupListItemViewHolder companyCheckGroupListItemViewHolder = new CompanyCheckGroupListItemViewHolder(v);
         if (myOnItemClickListener != null) {
             companyCheckGroupListItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {

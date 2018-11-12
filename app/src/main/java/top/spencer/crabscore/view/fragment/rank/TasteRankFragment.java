@@ -105,13 +105,6 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
         }
         rankListView.setAdapter(tasteRankListAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-                onRefresh();
-            }
-        });
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rankListView.setLayoutManager(layoutManager);
         rankListView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()),

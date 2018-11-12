@@ -69,7 +69,7 @@
                 android:id="@+id/tv_quality_score"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="种质评分:"/>
+                android:text="种质评分:  "/>
 
         <TextView
                 android:id="@+id/textview_quality_score"
@@ -91,7 +91,7 @@
                 android:id="@+id/tv_taste_score"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="口感评分:"/>
+                android:text="口感评分:  "/>
 
         <TextView
                 android:id="@+id/textview_taste_score"
