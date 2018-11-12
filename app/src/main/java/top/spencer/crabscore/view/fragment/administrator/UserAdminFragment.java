@@ -243,7 +243,6 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
         pageNum++;
         repeat = administratorListPresenter.dealUserListJSON(successData.getJSONArray("result"), userList);
         if (repeat) {
-//            showToast("没有更多了哦");
             return;
         }
         new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -309,7 +308,6 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
         phone.setText(userInDialog.getEmail());
         final Spinner roleSpinner = dialogView.findViewById(R.id.spinner_role);
         initSpinner(roleSpinner, userInDialog);
-        roleSpinner.setSelection(userInDialog.getRoleId());
         AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
         Window dialogWindow = dialog.getWindow();
         Objects.requireNonNull(dialogWindow).setGravity(Gravity.CENTER);
@@ -375,6 +373,7 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
 
             }
         });
+        roleSpinner.setSelection(userInDialog.getRoleId());
     }
 
     /**

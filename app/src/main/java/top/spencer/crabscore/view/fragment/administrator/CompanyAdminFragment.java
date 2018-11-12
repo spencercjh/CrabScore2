@@ -260,7 +260,6 @@ public class CompanyAdminFragment extends BaseFragment implements CompanyAdminLi
         pageNum++;
         repeat = administratorListPresenter.dealCompanyListJSON(successData.getJSONArray("result"), companyList);
         if (repeat) {
-//            showToast("没有更多了哦");
             return;
         }
         new Handler(Looper.getMainLooper()).post(new Runnable() {

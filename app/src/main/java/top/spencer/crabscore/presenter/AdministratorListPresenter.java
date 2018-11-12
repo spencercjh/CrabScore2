@@ -134,7 +134,7 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
         }
         getView().showLoading();
         ModelFactory
-                .request(Token.API_GET_ALL_COMPANY)
+                .request(Token.API_GET_ALL_COMPANY_ADMIN)
                 .params(String.valueOf(pageNum), String.valueOf(pageSize), jwt)
                 .execute(new MyCallback<JSONObject>() {
                     @Override
@@ -174,6 +174,29 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
             Company company = JSONObject.parseObject(jsonString, Company.class);
             if (!companyList.contains(company)) {
                 companyList.add(company);
+                repeat = false;
+            }
+        }
+        return repeat;
+    }
+
+
+    /**
+     * 处理返回的参选单位结果
+     *
+     * @param companies   jsonResult
+     * @param companyList list
+     * @return 是否重复
+     */
+    public boolean dealCompanyListJSON(JSONArray companies, List<Company> companyList, List<String> companyNameList) {
+        boolean repeat = true;
+        for (Object object : companies) {
+            JSONObject jsonObject = (JSONObject) object;
+            String jsonString = jsonObject.toJSONString();
+            Company company = JSONObject.parseObject(jsonString, Company.class);
+            if (!companyList.contains(company)) {
+                companyList.add(company);
+                companyNameList.add(company.getCompanyName());
                 repeat = false;
             }
         }

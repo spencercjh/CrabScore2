@@ -5,7 +5,7 @@ import top.spencer.crabscore.model.model.common.*;
 import top.spencer.crabscore.model.model.common.rank.GetFatnessRankModel;
 import top.spencer.crabscore.model.model.common.rank.GetQualityRankModel;
 import top.spencer.crabscore.model.model.common.rank.GetTasteRankModel;
-import top.spencer.crabscore.model.model.company.GetCompanyModel;
+import top.spencer.crabscore.model.model.company.UserBindCompanyModel;
 import top.spencer.crabscore.model.model.company.GetOneCompanyAllGroupModel;
 import top.spencer.crabscore.model.model.judge.AllGroupModel;
 
@@ -39,7 +39,7 @@ public interface Token {
 
     String API_GET_ALL_USER_BY_STATUS = GetAllUserByStatusModel.class.getName();
 
-    String API_GET_ALL_COMPANY = GetAllCompanyModel.class.getName();
+    String API_GET_ALL_COMPANY_ADMIN = GetAllCompanyModel.class.getName();
 
     String API_UPDATE_USER_PROPERTY = UpdateUserPropertyModel.class.getName();
 
@@ -61,5 +61,7 @@ public interface Token {
 
     String API_GET_ONE_COMPANY_ALL_GROUP = GetOneCompanyAllGroupModel.class.getName();
 
-    String API_GET_COMPANY = GetCompanyModel.class.getName();
+    String API_GET_ALL_COMPANY_USER = top.spencer.crabscore.model.model.company.GetAllCompanyModel.class.getName();
+
+    String API_USER_BIND_COMPANY = UserBindCompanyModel.class.getName();
 }

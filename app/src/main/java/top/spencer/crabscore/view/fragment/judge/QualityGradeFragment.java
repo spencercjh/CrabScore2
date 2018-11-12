@@ -183,7 +183,6 @@ public class QualityGradeFragment extends BaseFragment implements MyRecycleListV
         pageNum++;
         boolean repeat = rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
         if (repeat) {
-//            showToast("没有更多了哦");
             return;
         }
         new Handler(Looper.getMainLooper()).post(new Runnable() {

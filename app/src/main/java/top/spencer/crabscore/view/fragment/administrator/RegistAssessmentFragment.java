@@ -305,7 +305,6 @@ public class RegistAssessmentFragment extends BaseFragment implements UserAdminL
         pageNum++;
         repeat = administratorListPresenter.dealUserListJSON(successData.getJSONArray("result"), userList);
         if (repeat) {
-//            showToast("没有更多了哦");
             return;
         }
         new Handler(Looper.getMainLooper()).post(new Runnable() {

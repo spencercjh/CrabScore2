@@ -1,5 +1,7 @@
 package top.spencer.crabscore.view.fragment.company;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -9,9 +11,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.Button;
+import android.view.*;
+import android.widget.*;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
@@ -20,10 +23,12 @@ import top.spencer.crabscore.model.entity.Company;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.User;
 import top.spencer.crabscore.model.entity.vo.GroupResult;
+import top.spencer.crabscore.presenter.AdministratorListPresenter;
 import top.spencer.crabscore.presenter.CompanyPresenter;
 import top.spencer.crabscore.presenter.RankListPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
 import top.spencer.crabscore.view.adapter.CompanyCheckGroupListAdapter;
+import top.spencer.crabscore.view.adapter.MyOnItemClickListener;
 import top.spencer.crabscore.view.view.CompanyView;
 import top.spencer.crabscore.view.widget.EmptyRecyclerView;
 
@@ -46,12 +51,14 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
     private CompanyCheckGroupListAdapter companyCheckGroupListAdapter;
     private RankListPresenter rankListPresenter;
     private CompanyPresenter companyPresenter;
+    private AdministratorListPresenter administratorListPresenter;
     private String jwt;
     private User user;
-    private Company company;
     private Competition presentCompetition;
     private List<GroupResult> groupList = new ArrayList<>(pageSize);
     private int pageNum = 1;
+    private List<Company> allCompanyList = new ArrayList<>(pageSize);
+    private List<String> allCompanyNameList = new ArrayList<>(pageSize);
 
     /**
      * 取得实例
@@ -75,6 +82,7 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
         super.onDestroyView();
         companyPresenter.detachView();
         rankListPresenter.detachView();
+        administratorListPresenter.detachView();
     }
 
     /**
@@ -101,6 +109,8 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
         companyPresenter.attachView(this);
         rankListPresenter = new RankListPresenter();
         rankListPresenter.attachView(this);
+        administratorListPresenter = new AdministratorListPresenter();
+        administratorListPresenter.attachView(this);
         SharedPreferencesUtil.getInstance(getContext(), "PROPERTY");
         jwt = (String) (SharedPreferencesUtil.getData("JWT", ""));
         presentCompetition = (Competition) (SharedPreferencesUtil.getData("PRESENT_COMPETITION", new Competition()));
@@ -118,6 +128,7 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
         super.onActivityCreated(savedInstanceState);
         companyPresenter.getOneCompanyAllGroup(presentCompetition.getCompetitionId(), user.getCompanyId(),
                 pageNum, pageSize, jwt);
+        companyPresenter.getAllCompany(jwt);
     }
 
     /**
@@ -126,7 +137,7 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
     @SuppressWarnings("Duplicates")
     @Override
     public void setRecycleView() {
-        companyCheckGroupListAdapter = new CompanyCheckGroupListAdapter(groupList);
+        initCompanyCheckGroupListAdapter();
         if (groupList.size() == 0) {
             groupListView.setEmptyView(bindCompany);
         }
@@ -157,6 +168,24 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
     }
 
     /**
+     * 初始化companyCheckGroupListAdapter
+     */
+    private void initCompanyCheckGroupListAdapter() {
+        companyCheckGroupListAdapter = new CompanyCheckGroupListAdapter(groupList);
+        companyCheckGroupListAdapter.setOnItemClickListener(new MyOnItemClickListener() {
+            @Override
+            public void onItemClick(View view) {
+                //todo score detail activity
+            }
+
+            @Override
+            public void onItemLongClick(View view) {
+                //nothing
+            }
+        });
+    }
+
+    /**
      * swipeRefreshLayout刷新监听
      */
     @Override
@@ -172,7 +201,75 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
     }
 
     /**
-     * getOneCompanyAllGroup请求成功
+     * 设置列表为空时的按键监听
+     *
+     * @param view view
+     */
+    @OnClick(R.id.button_empty)
+    public void userBindCompany(View view) {
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_user_bind_company, null);
+        final TextView username = dialogView.findViewById(R.id.textview_user_name);
+        final TextView displayName = dialogView.findViewById(R.id.textview_display_name);
+        if (user != null) {
+            if (user.getUserName() != null) {
+                username.setText(user.getUserName());
+            }
+            if (user.getDisplayName() != null) {
+                displayName.setText(user.getDisplayName());
+            }
+        }
+        final Spinner allCompanySpinner = dialogView.findViewById(R.id.spinner_company);
+        initSpinner(allCompanySpinner);
+        AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
+        Window dialogWindow = dialog.getWindow();
+        Objects.requireNonNull(dialogWindow).setGravity(Gravity.CENTER);
+        dialogWindow.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        dialog.setIcon(R.drawable.app_logo);
+        dialog.setTitle("选择一个参选单位进行绑定");
+        dialog.setView(dialogView);
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "绑定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                companyPresenter.userBindCompany(user.getUserId(), user.getCompanyId(), jwt);
+                dialog.dismiss();
+            }
+        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    /**
+     * 初始化参选单位Spinner
+     *
+     * @param companySpinner companySpinner
+     */
+    private void initSpinner(Spinner companySpinner) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+                R.layout.item_spinner_company, allCompanyNameList);
+        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown_company);
+        companySpinner.setAdapter(adapter);
+        companySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                Company company = allCompanyList.get(pos);
+                user.setCompanyId(company.getCompanyId());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //nothing
+            }
+        });
+        companySpinner.setSelection(0);
+    }
+
+    /**
+     * GetOneCompanyAllGroup请求成功
      *
      * @param successData 成功数据源
      */
@@ -181,7 +278,6 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
         pageNum++;
         boolean repeat = rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
         if (repeat) {
-//            showToast("没有更多了哦");
             return;
         }
         new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -195,14 +291,27 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
     }
 
     /**
-     * GetCompany请求成功
+     * GetAllCompany请求成功
      *
      * @param successData 成功数据源
      */
     @Override
-    public void showGetCompanyResponse(JSONObject successData) {
-        if (successData.get("code").equals(CommonConstant.SUCCESS)) {
-            company = JSONObject.parseObject(successData.getString("result"), Company.class);
+    public void showGetAllCompanyResponse(JSONObject successData) {
+        administratorListPresenter.dealCompanyListJSON(successData.getJSONArray("result"),
+                allCompanyList, allCompanyNameList);
+    }
+
+    /**
+     * UserBindCompany请求成功
+     *
+     * @param successData 成功数据源
+     */
+    @Override
+    public void showUserBindCompanyResponse(JSONObject successData) {
+        if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
+            showToast(successData.getString("message"));
+            companyPresenter.getOneCompanyAllGroup(presentCompetition.getCompetitionId(), user.getCompanyId(),
+                    pageNum, pageSize, jwt);
         }
     }
 }

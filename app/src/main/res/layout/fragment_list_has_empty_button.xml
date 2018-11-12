@@ -19,6 +19,9 @@
                 android:layout_height="match_parent"
                 android:visibility="gone"
                 android:gravity="center"
-                android:text="现在绑定参选单位"/>
+                android:background="@color/bgc1"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="账号没有绑定参选单位，现在绑定！"/>
     </FrameLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

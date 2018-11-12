@@ -5,15 +5,18 @@ import top.spencer.crabscore.base.BaseModel;
 import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.common.CommonConstant;
 
-public class GetCompanyModel extends BaseModel {
+/**
+ * @author spencercjh
+ */
+public class GetAllCompanyModel extends BaseModel {
     /**
-     * 参数表Integer companyId, String jwt
+     * 参数表String jwt
      *
      * @param myCallBack myCallBack
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "company/" + mvpParams[0];
-        requestGetAPI(url, myCallBack, mvpParams[1]);
+        String url = CommonConstant.URL + "/company/companies";
+        requestGetAPI(url, myCallBack, mvpParams[0]);
     }
 }

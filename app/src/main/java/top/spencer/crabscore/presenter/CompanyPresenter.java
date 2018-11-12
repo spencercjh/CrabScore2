@@ -5,6 +5,7 @@ import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.model.common.ModelFactory;
+import top.spencer.crabscore.model.model.company.UserBindCompanyModel;
 import top.spencer.crabscore.view.view.CompanyView;
 
 /**
@@ -54,24 +55,62 @@ public class CompanyPresenter extends BasePresenter<CompanyView> {
     }
 
     /**
-     * 根据用户绑定的companyId查找参选单位
+     * 参选单位用户获取所有参选单位
      *
-     * @param companyId 参选单位Id
-     * @param jwt       JWT
-     * @see top.spencer.crabscore.model.model.company.GetCompanyModel
+     * @param jwt JWT
+     * @see top.spencer.crabscore.model.model.company.GetAllCompanyModel
      */
-    public void getCompany(Integer companyId, String jwt) {
+    public void getAllCompany(String jwt) {
         if (isViewAttached()) {
             return;
         }
         getView().showLoading();
         ModelFactory
-                .request(Token.API_GET_COMPANY)
-                .params(String.valueOf(companyId), jwt)
+                .request(Token.API_GET_ALL_COMPANY_USER)
+                .params(jwt)
                 .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
-                        getView().showGetCompanyResponse(data);
+                        getView().showGetAllCompanyResponse(data);
+                    }
+
+                    @Override
+                    public void onFailure(JSONObject data) {
+                        getView().showFailure(data);
+                    }
+
+                    @Override
+                    public void onError() {
+                        getView().showErr();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        getView().hideLoading();
+                    }
+                });
+    }
+
+    /**
+     * 用户绑定参选单位
+     *
+     * @param userId    用户Id
+     * @param companyId 参选单位Id
+     * @param jwt       JWT
+     * @see UserBindCompanyModel
+     */
+    public void userBindCompany(Integer userId, Integer companyId, String jwt) {
+        if (isViewAttached()) {
+            return;
+        }
+        getView().showLoading();
+        ModelFactory
+                .request(Token.API_USER_BIND_COMPANY)
+                .params(String.valueOf(userId), String.valueOf(companyId), jwt)
+                .execute(new MyCallback<JSONObject>() {
+                    @Override
+                    public void onSuccess(JSONObject data) {
+                        getView().showUserBindCompanyResponse(data);
                     }
 
                     @Override

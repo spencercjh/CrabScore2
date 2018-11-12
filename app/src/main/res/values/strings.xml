@@ -16,7 +16,7 @@
     <string name="记住密码">记住密码</string>
     <string name="自动登录">自动登录</string>
     <string name="登录">登 录</string>
-    <string name="api_sever_error_msg">API调用失败</string>
+    <string name="api_sever_error_msg">服务器连接失败</string>
     <string name="新用户注册点我">新用户注册点我！</string>
     <string name="忘记密码">忘记密码?</string>
 
