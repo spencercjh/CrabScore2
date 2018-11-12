@@ -82,7 +82,7 @@ public class TasteGradeFragment extends BaseFragment implements MyRecycleListVie
      */
     @Override
     public int getContentViewId() {
-        return R.layout.fragment_list;
+        return R.layout.fragment_list_has_empty_textview;
     }
 
     /**
@@ -196,6 +196,9 @@ public class TasteGradeFragment extends BaseFragment implements MyRecycleListVie
         });
     }
 
+    /**
+     * swipeRefreshLayout刷新监听
+     */
     @Override
     public void onRefresh() {
         gradePresenter.getAllGroup(presentCompetition.getCompetitionId(), pageNum, pageSize, jwt);

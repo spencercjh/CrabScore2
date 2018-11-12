@@ -86,7 +86,7 @@ public class RegistAssessmentFragment extends BaseFragment implements UserAdminL
      */
     @Override
     public int getContentViewId() {
-        return R.layout.fragment_list;
+        return R.layout.fragment_list_has_empty_textview;
     }
 
     /**
@@ -354,6 +354,9 @@ public class RegistAssessmentFragment extends BaseFragment implements UserAdminL
         }
     }
 
+    /**
+     * swipeRefreshLayout刷新监听
+     */
     @Override
     public void onRefresh() {
         administratorListPresenter.getAllUserByStatus(CommonConstant.USER_STATUS_LOCK, pageNum, pageSize, jwt);

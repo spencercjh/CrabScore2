@@ -78,7 +78,7 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
      */
     @Override
     public int getContentViewId() {
-        return R.layout.fragment_list;
+        return R.layout.fragment_list_has_empty_textview;
     }
 
     /**
@@ -377,6 +377,9 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
         });
     }
 
+    /**
+     * swipeRefreshLayout刷新监听
+     */
     @Override
     public void onRefresh() {
         administratorListPresenter.getAllUser(pageNum, pageSize, jwt);

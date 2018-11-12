@@ -89,7 +89,7 @@ public class CompanyAdminFragment extends BaseFragment implements CompanyAdminLi
      */
     @Override
     public int getContentViewId() {
-        return R.layout.fragment_list;
+        return R.layout.fragment_list_has_empty_textview;
     }
 
     /**
@@ -273,6 +273,9 @@ public class CompanyAdminFragment extends BaseFragment implements CompanyAdminLi
         });
     }
 
+    /**
+     * swipeRefreshLayout刷新监听
+     */
     @Override
     public void onRefresh() {
         administratorListPresenter.getAllCompany(pageNum, pageSize, jwt);

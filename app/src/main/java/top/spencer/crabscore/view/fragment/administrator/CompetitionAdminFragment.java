@@ -794,6 +794,9 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
         }
     }
 
+    /**
+     * swipeRefreshLayout刷新监听
+     */
     @Override
     public void onRefresh() {
         navigationPresenter.getPresentCompetitionProperty();

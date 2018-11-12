@@ -73,7 +73,7 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
      */
     @Override
     public int getContentViewId() {
-        return R.layout.fragment_list;
+        return R.layout.fragment_list_has_empty_textview;
     }
 
     /**
@@ -163,6 +163,9 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
         });
     }
 
+    /**
+     * swipeRefreshLayout刷新监听
+     */
     @Override
     public void onRefresh() {
         rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(), pageNum, pageSize);

@@ -73,7 +73,7 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
      */
     @Override
     public int getContentViewId() {
-        return R.layout.fragment_list;
+        return R.layout.fragment_list_has_empty_textview;
     }
 
     /**
@@ -163,6 +163,9 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
         });
     }
 
+    /**
+     * swipeRefreshLayout刷新监听
+     */
     @Override
     public void onRefresh() {
         rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(), pageNum, pageSize);

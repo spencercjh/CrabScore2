@@ -10,7 +10,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
 import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
@@ -39,8 +39,8 @@ import java.util.Objects;
 public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyView, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.recycler_view_list)
     EmptyRecyclerView groupListView;
-    @BindView(R.id.textview_empty)
-    TextView emptyText;
+    @BindView(R.id.button_empty)
+    Button bindCompany;
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     private CompanyCheckGroupListAdapter companyCheckGroupListAdapter;
@@ -84,7 +84,7 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
      */
     @Override
     public int getContentViewId() {
-        return R.layout.fragment_list;
+        return R.layout.fragment_list_has_empty_button;
     }
 
     /**
@@ -128,7 +128,7 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
     public void setRecycleView() {
         companyCheckGroupListAdapter = new CompanyCheckGroupListAdapter(groupList);
         if (groupList.size() == 0) {
-            groupListView.setEmptyView(emptyText);
+            groupListView.setEmptyView(bindCompany);
         }
         groupListView.setAdapter(companyCheckGroupListAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -156,6 +156,9 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
         });
     }
 
+    /**
+     * swipeRefreshLayout刷新监听
+     */
     @Override
     public void onRefresh() {
         companyPresenter.getOneCompanyAllGroup(presentCompetition.getCompetitionId(), user.getCompanyId(),
