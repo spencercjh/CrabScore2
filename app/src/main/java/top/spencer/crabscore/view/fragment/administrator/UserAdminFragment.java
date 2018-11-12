@@ -250,7 +250,7 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
         pageNum++;
         repeat = administratorListPresenter.dealUserListJSON(successData.getJSONArray("result"), userList);
         if (repeat) {
-            showToast("没有更多了哦");
+//            showToast("没有更多了哦");
             return;
         }
         new Handler(Looper.getMainLooper()).post(new Runnable() {

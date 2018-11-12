@@ -7,9 +7,9 @@ import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.entity.Company;
 import top.spencer.crabscore.model.entity.User;
-import top.spencer.crabscore.model.model.administrator.AllCompanyModel;
-import top.spencer.crabscore.model.model.administrator.AllUserByStatusModel;
-import top.spencer.crabscore.model.model.administrator.AllUserModel;
+import top.spencer.crabscore.model.model.administrator.GetAllCompanyModel;
+import top.spencer.crabscore.model.model.administrator.GetAllUserByStatusModel;
+import top.spencer.crabscore.model.model.administrator.GetAllUserModel;
 import top.spencer.crabscore.model.model.common.ModelFactory;
 import top.spencer.crabscore.view.view.MyRecycleListView;
 
@@ -26,7 +26,7 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
      * @param pageNum  页数
      * @param pageSize 页面大小
      * @param jwt      JWT
-     * @see AllUserModel
+     * @see GetAllUserModel
      */
     public void getAllUser(Integer pageNum, Integer pageSize, String jwt) {
         if (isViewAttached()) {
@@ -34,7 +34,7 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
         }
         getView().showLoading();
         ModelFactory
-                .request(Token.API_ALL_USER)
+                .request(Token.API_GET_ALL_USER)
                 .params(String.valueOf(pageNum), String.valueOf(pageSize), jwt)
                 .execute(new MyCallback<JSONObject>() {
                     @Override
@@ -66,7 +66,7 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
      * @param pageNum  页数
      * @param pageSize 页面大小
      * @param jwt      JWT
-     * @see AllUserByStatusModel
+     * @see GetAllUserByStatusModel
      */
     public void getAllUserByStatus(Integer status, Integer pageNum, Integer pageSize, String jwt) {
         if (isViewAttached()) {
@@ -74,7 +74,7 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
         }
         getView().showLoading();
         ModelFactory
-                .request(Token.API_ALL_USER_BY_STATUS)
+                .request(Token.API_GET_ALL_USER_BY_STATUS)
                 .params(String.valueOf(status), String.valueOf(pageNum), String.valueOf(pageSize), jwt)
                 .execute(new MyCallback<JSONObject>() {
                     @Override
@@ -126,7 +126,7 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
      * @param pageNum  页数
      * @param pageSize 页面大小
      * @param jwt      JWT
-     * @see AllCompanyModel
+     * @see GetAllCompanyModel
      */
     public void getAllCompany(Integer pageNum, Integer pageSize, String jwt) {
         if (isViewAttached()) {
@@ -134,7 +134,7 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
         }
         getView().showLoading();
         ModelFactory
-                .request(Token.API_ALL_COMPANY)
+                .request(Token.API_GET_ALL_COMPANY)
                 .params(String.valueOf(pageNum), String.valueOf(pageSize), jwt)
                 .execute(new MyCallback<JSONObject>() {
                     @Override

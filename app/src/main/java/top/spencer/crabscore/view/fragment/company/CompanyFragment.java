@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * 参选单位用户组一级页面
+ *
  * @author spencercjh
  */
 public class CompanyFragment extends BaseFragment implements TabLayoutView {
@@ -84,16 +86,10 @@ public class CompanyFragment extends BaseFragment implements TabLayoutView {
     @Override
     public void initTabLayout() {
         List<String> mTitleList = new ArrayList<>(3);
-        mTitleList.add("整体情况");
-        mTitleList.add("种质得分");
-        mTitleList.add("口感得分");
+        mTitleList.add("全部小组");
         tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(0)), true);
-        tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(1)));
-        tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(2)));
         List<Fragment> mFragmentList = new ArrayList<>(3);
-        mFragmentList.add(OverallScoreFragment.newInstance("OverallScoreFragment"));
-        mFragmentList.add(QualityScoreFragment.newInstance("QualityScoreFragment"));
-        mFragmentList.add(TasteScoreFragment.newInstance("TasteScoreFragment"));
+        mFragmentList.add(OneCompanyAllGroupFragment.newInstance("OneCompanyAllGroupFragment"));
         TabLayoutPageAdapter adapter = new TabLayoutPageAdapter(getChildFragmentManager(), mFragmentList, mTitleList);
         vpContent.setAdapter(adapter);
         vpContent.setOffscreenPageLimit(mFragmentList.size());
@@ -102,8 +98,6 @@ public class CompanyFragment extends BaseFragment implements TabLayoutView {
 
     @Override
     public void showData(JSONObject successData) {
-
+        //nothing
     }
-
-    //TODO UserAdminFragment
 }

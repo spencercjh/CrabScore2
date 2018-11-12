@@ -30,6 +30,12 @@
         <activity android:name=".view.activity.RegistActivity"/>
         <activity android:name=".view.activity.PhoneLoginActivity"/>
         <activity android:name=".view.activity.ForgetPasswordActivity"/>
+        <activity android:name=".view.activity.administrator.AdminCheckCompanyScoreActivity">
+        </activity>
+        <activity android:name=".view.activity.judge.QualityGradeActivity">
+        </activity>
+        <activity android:name=".view.activity.judge.TasteGradeActivity">
+        </activity>
     </application>
 
 </manifest>

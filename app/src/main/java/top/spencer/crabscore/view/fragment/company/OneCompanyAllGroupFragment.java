@@ -1,4 +1,4 @@
-package top.spencer.crabscore.view.fragment.judge;
+package top.spencer.crabscore.view.fragment.company;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,13 +15,13 @@ import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
+import top.spencer.crabscore.model.entity.Company;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.vo.GroupResult;
-import top.spencer.crabscore.presenter.JudgePresenter;
+import top.spencer.crabscore.presenter.GroupPresenter;
 import top.spencer.crabscore.presenter.RankListPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
-import top.spencer.crabscore.view.adapter.GroupJudgeListAdapter;
-import top.spencer.crabscore.view.adapter.MyOnItemClickListener;
+import top.spencer.crabscore.view.adapter.CompanyCheckGroupListAdapter;
 import top.spencer.crabscore.view.view.MyRecycleListView;
 import top.spencer.crabscore.view.widget.EmptyRecyclerView;
 
@@ -30,21 +30,23 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * 评委用户组的所有小组页面
+ * 评委用户组的种质评分-所有小组页面
+ * //fixme company id and company's user id
  *
  * @author spencercjh
  */
-public class AllGroupFragment extends BaseFragment implements MyRecycleListView, SwipeRefreshLayout.OnRefreshListener {
+public class OneCompanyAllGroupFragment extends BaseFragment implements MyRecycleListView, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.recycler_view_list)
     EmptyRecyclerView groupListView;
     @BindView(R.id.textview_empty)
     TextView emptyText;
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
-    private GroupJudgeListAdapter groupJudgeListAdapter;
-    private JudgePresenter judgePresenter;
+    private CompanyCheckGroupListAdapter companyCheckGroupListAdapter;
+    private GroupPresenter groupPresenter;
     private RankListPresenter rankListPresenter;
     private String jwt;
+    private Company company;
     private Competition presentCompetition;
     private List<GroupResult> groupList = new ArrayList<>(pageSize);
     private int pageNum = 1;
@@ -55,10 +57,10 @@ public class AllGroupFragment extends BaseFragment implements MyRecycleListView,
      * @param name 测试参数
      * @return fragment
      */
-    public static AllGroupFragment newInstance(String name) {
+    public static OneCompanyAllGroupFragment newInstance(String name) {
         Bundle args = new Bundle();
         args.putString("name", name);
-        AllGroupFragment fragment = new AllGroupFragment();
+        OneCompanyAllGroupFragment fragment = new OneCompanyAllGroupFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -69,7 +71,7 @@ public class AllGroupFragment extends BaseFragment implements MyRecycleListView,
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        judgePresenter.detachView();
+        groupPresenter.detachView();
         rankListPresenter.detachView();
     }
 
@@ -89,16 +91,18 @@ public class AllGroupFragment extends BaseFragment implements MyRecycleListView,
      * @param view               view
      * @param savedInstanceState saveInstanceState
      */
+    @SuppressWarnings("Duplicates")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        judgePresenter = new JudgePresenter();
-        judgePresenter.attachView(this);
+        groupPresenter = new GroupPresenter();
+        groupPresenter.attachView(this);
         rankListPresenter = new RankListPresenter();
         rankListPresenter.attachView(this);
         SharedPreferencesUtil.getInstance(getContext(), "PROPERTY");
         jwt = (String) (SharedPreferencesUtil.getData("JWT", ""));
         presentCompetition = (Competition) (SharedPreferencesUtil.getData("PRESENT_COMPETITION", new Competition()));
+
         setRecycleView();
     }
 
@@ -110,19 +114,21 @@ public class AllGroupFragment extends BaseFragment implements MyRecycleListView,
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        judgePresenter.allGroup(presentCompetition.getCompetitionId(), pageNum, pageSize, jwt);
+        groupPresenter.getOneCompanyAllGroup(presentCompetition.getCompetitionId(), 1,
+                pageNum, pageSize, jwt);
     }
 
     /**
      * 初始化RecycleView
      */
+    @SuppressWarnings("Duplicates")
     @Override
     public void setRecycleView() {
-        initGroupListAdapter();
+        companyCheckGroupListAdapter = new CompanyCheckGroupListAdapter(groupList);
         if (groupList.size() == 0) {
             groupListView.setEmptyView(emptyText);
         }
-        groupListView.setAdapter(groupJudgeListAdapter);
+        groupListView.setAdapter(companyCheckGroupListAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
             @Override
@@ -141,8 +147,9 @@ public class AllGroupFragment extends BaseFragment implements MyRecycleListView,
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastVisibleItemPosition[0] + 1 == groupJudgeListAdapter.getItemCount()) {
-                    judgePresenter.allGroup(presentCompetition.getCompetitionId(), pageNum, pageSize, jwt);
+                        && lastVisibleItemPosition[0] + 1 == companyCheckGroupListAdapter.getItemCount()) {
+                    groupPresenter.getOneCompanyAllGroup(presentCompetition.getCompetitionId(), 1,
+                            pageNum, pageSize, jwt);
                 }
             }
 
@@ -150,27 +157,6 @@ public class AllGroupFragment extends BaseFragment implements MyRecycleListView,
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 lastVisibleItemPosition[0] = layoutManager.findLastVisibleItemPosition();
-            }
-        });
-    }
-
-    /**
-     * 初始化列表adapter，设置单击监听
-     */
-    private void initGroupListAdapter() {
-        groupJudgeListAdapter = new GroupJudgeListAdapter(groupList);
-        groupJudgeListAdapter.setOnItemClickListener(new MyOnItemClickListener() {
-
-            @Override
-            public void onItemClick(View view) {
-                final GroupResult groupResult = (GroupResult) view.getTag();
-                //TODO next activity
-                showToast(groupResult.toString());
-            }
-
-            @Override
-            public void onItemLongClick(View view) {
-                //nothing
             }
         });
     }
@@ -185,7 +171,7 @@ public class AllGroupFragment extends BaseFragment implements MyRecycleListView,
         pageNum++;
         boolean repeat = rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
         if (repeat) {
-            showToast("没有更多了哦");
+//            showToast("没有更多了哦");
             return;
         }
         new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -193,14 +179,15 @@ public class AllGroupFragment extends BaseFragment implements MyRecycleListView,
             @Override
             public void run() {
                 swipeRefreshLayout.setRefreshing(false);
-                groupJudgeListAdapter.notifyDataSetChanged();
+                companyCheckGroupListAdapter.notifyDataSetChanged();
             }
         });
     }
 
     @Override
     public void onRefresh() {
-        judgePresenter.allGroup(presentCompetition.getCompetitionId(), pageNum, pageSize, jwt);
+        groupPresenter.getOneCompanyAllGroup(presentCompetition.getCompetitionId(), 1,
+                pageNum, pageSize, jwt);
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {

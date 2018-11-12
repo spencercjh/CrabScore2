@@ -8,7 +8,7 @@ import top.spencer.crabscore.common.CommonConstant;
 /**
  * @author spencercjh
  */
-public class TasteRankModel extends BaseModel {
+public class GetTasteRankModel extends BaseModel {
     /**
      * 参数表Integer competitionId
      * common接口不传JWT

@@ -91,7 +91,7 @@ public class StaffFragment extends BaseFragment implements TabLayoutView {
         tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(0)), true);
         tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(1)));
         List<Fragment> mFragmentList = new ArrayList<>(2);
-        mFragmentList.add(DataEntryFragment.newInstance("DataEntryFragment"));
+        mFragmentList.add(AllGroupFragment.newInstance("AllGroupFragment"));
         mFragmentList.add(FindLabelFragment.newInstance("FindLabelFragment"));
         TabLayoutPageAdapter adapter = new TabLayoutPageAdapter(getChildFragmentManager(), mFragmentList, mTitleList);
         vpContent.setAdapter(adapter);

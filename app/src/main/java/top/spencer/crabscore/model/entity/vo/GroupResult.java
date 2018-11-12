@@ -2,6 +2,7 @@ package top.spencer.crabscore.model.entity.vo;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * rxpb_group_info
  */
 @Data
-public class GroupResult {
+public class GroupResult implements Serializable {
 
     private Integer groupId;
 

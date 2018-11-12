@@ -7,9 +7,9 @@ import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.entity.vo.GroupResult;
 import top.spencer.crabscore.model.model.common.ModelFactory;
-import top.spencer.crabscore.model.model.common.rank.FatnessRankModel;
-import top.spencer.crabscore.model.model.common.rank.QualityRankModel;
-import top.spencer.crabscore.model.model.common.rank.TasteRankModel;
+import top.spencer.crabscore.model.model.common.rank.GetFatnessRankModel;
+import top.spencer.crabscore.model.model.common.rank.GetQualityRankModel;
+import top.spencer.crabscore.model.model.common.rank.GetTasteRankModel;
 import top.spencer.crabscore.view.view.MyRecycleListView;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
      * @param competitionId 大赛Id
      * @param pageNum       页数
      * @param pageSize      页面大小
-     * @see FatnessRankModel
+     * @see GetFatnessRankModel
      */
     public void getFatnessRank(Integer competitionId, Integer pageNum, Integer pageSize) {
         if (isViewAttached()) {
@@ -32,7 +32,7 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
         }
         getView().showLoading();
         ModelFactory
-                .request(Token.API_FATNESS_RANK)
+                .request(Token.API_GET_FATNESS_RANK)
                 .params(String.valueOf(competitionId), String.valueOf(pageNum), String.valueOf(pageSize))
                 .execute(new MyCallback<JSONObject>() {
                     @Override
@@ -63,7 +63,7 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
      * @param competitionId 大赛Id
      * @param pageNum       页数
      * @param pageSize      页面大小
-     * @see QualityRankModel
+     * @see GetQualityRankModel
      */
     public void getQualityRank(Integer competitionId, Integer pageNum, Integer pageSize) {
         if (isViewAttached()) {
@@ -71,7 +71,7 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
         }
         getView().showLoading();
         ModelFactory
-                .request(Token.API_QUALITY_RANK)
+                .request(Token.API_GET_QUALITY_RANK)
                 .params(String.valueOf(competitionId), String.valueOf(pageNum), String.valueOf(pageSize))
                 .execute(new MyCallback<JSONObject>() {
                     @Override
@@ -102,7 +102,7 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
      * @param competitionId 大赛Id
      * @param pageNum       页数
      * @param pageSize      页面大小
-     * @see TasteRankModel
+     * @see GetTasteRankModel
      */
     public void getTasteRank(Integer competitionId, Integer pageNum, Integer pageSize) {
         if (isViewAttached()) {
@@ -110,7 +110,7 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
         }
         getView().showLoading();
         ModelFactory
-                .request(Token.API_TASTE_RANK)
+                .request(Token.API_GET_TASTE_RANK)
                 .params(String.valueOf(competitionId), String.valueOf(pageNum), String.valueOf(pageSize))
                 .execute(new MyCallback<JSONObject>() {
                     @Override

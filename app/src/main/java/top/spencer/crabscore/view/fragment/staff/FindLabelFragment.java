@@ -14,7 +14,7 @@ import java.util.Objects;
 
 /**
  * 工作人员用户组查找标签一级页面
- *
+ *  //todo find label
  * @author spencercjh
  */
 public class FindLabelFragment extends Fragment {
@@ -50,6 +50,4 @@ public class FindLabelFragment extends Fragment {
             tv.setText(name);
         }
     }
-
-    //TODO FindLabelFragment
 }

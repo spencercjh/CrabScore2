@@ -3,6 +3,7 @@ package top.spencer.crabscore.view.fragment.administrator;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -26,6 +27,7 @@ import top.spencer.crabscore.presenter.AdministratorListPresenter;
 import top.spencer.crabscore.presenter.CompanyAdminPresenter;
 import top.spencer.crabscore.util.PatternUtil;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
+import top.spencer.crabscore.view.activity.administrator.AdminCheckCompanyScoreActivity;
 import top.spencer.crabscore.view.adapter.CompanyAdminListAdapter;
 import top.spencer.crabscore.view.adapter.MyOnItemClickListener;
 import top.spencer.crabscore.view.view.CompanyAdminListView;
@@ -175,7 +177,9 @@ public class CompanyAdminFragment extends BaseFragment implements CompanyAdminLi
                                 break;
                             }
                             case R.id.menu_check_score: {
-                                //TODO next activity;
+                                Intent intent = new Intent(getContext(), AdminCheckCompanyScoreActivity.class);
+                                intent.putExtra("company", companyInPopupMenu);
+                                startActivity(intent);
                                 break;
                             }
                             case R.id.menu_delete_company: {
@@ -263,7 +267,7 @@ public class CompanyAdminFragment extends BaseFragment implements CompanyAdminLi
         pageNum++;
         repeat = administratorListPresenter.dealCompanyListJSON(successData.getJSONArray("result"), companyList);
         if (repeat) {
-            showToast("没有更多了哦");
+//            showToast("没有更多了哦");
             return;
         }
         new Handler(Looper.getMainLooper()).post(new Runnable() {

@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author spencercjh
  */
-public class GroupJudgeListAdapter extends RecyclerView.Adapter<GroupListItemViewHolder> {
+public class GroupGradeListAdapter extends RecyclerView.Adapter<GroupGradeListItemViewHolder> {
     private MyOnItemClickListener myOnItemClickListener;
     private List<GroupResult> groupList;
 
@@ -23,7 +23,7 @@ public class GroupJudgeListAdapter extends RecyclerView.Adapter<GroupListItemVie
         this.myOnItemClickListener = mListener;
     }
 
-    public GroupJudgeListAdapter(List<GroupResult> data) {
+    public GroupGradeListAdapter(List<GroupResult> data) {
         this.groupList = data;
     }
 
@@ -35,17 +35,17 @@ public class GroupJudgeListAdapter extends RecyclerView.Adapter<GroupListItemVie
     @SuppressWarnings("Duplicates")
     @NonNull
     @Override
-    public GroupListItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GroupGradeListItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_group_judge, parent, false);
-        GroupListItemViewHolder groupListItemViewHolder = new GroupListItemViewHolder(v);
+        GroupGradeListItemViewHolder groupGradeListItemViewHolder = new GroupGradeListItemViewHolder(v);
         if (myOnItemClickListener != null) {
-            groupListItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            groupGradeListItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     myOnItemClickListener.onItemClick(v);
                 }
             });
-            groupListItemViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            groupGradeListItemViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
                     myOnItemClickListener.onItemLongClick(v);
@@ -53,37 +53,36 @@ public class GroupJudgeListAdapter extends RecyclerView.Adapter<GroupListItemVie
                 }
             });
         }
-        return groupListItemViewHolder;
+        return groupGradeListItemViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GroupListItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull GroupGradeListItemViewHolder holder, int position) {
         if (groupList.get(position) != null) {
             GroupResult groupResult = groupList.get(position);
             holder.itemView.setTag(groupResult);
             holder.groupId.setText(String.valueOf(groupResult.getGroupId()));
             holder.companyName.setText(groupResult.getCompanyName());
-            if (groupResult.getFatnessScoreF() == 0 ||
-                    groupResult.getFatnessScoreM() == 0 ||
-                    groupResult.getQualityScoreF() == 0 ||
-                    groupResult.getQualityScoreM() == 0 ||
-                    groupResult.getTasteScoreM() == 0 ||
+            if (groupResult.getQualityScoreF() == 0 &&
+                    groupResult.getQualityScoreM() == 0 &&
+                    groupResult.getTasteScoreM() != 0 &&
+                    groupResult.getTasteScoreF() != 0) {
+                holder.gradeStatus.setText("口感分已出");
+            } else if (groupResult.getQualityScoreF() != 0 &&
+                    groupResult.getQualityScoreM() != 0 &&
+                    groupResult.getTasteScoreM() == 0 &&
                     groupResult.getTasteScoreF() == 0) {
-                holder.gradeStatus.setText("已部分评分");
-            } else if (groupResult.getFatnessScoreF() == 0 &&
-                    groupResult.getFatnessScoreM() == 0 &&
-                    groupResult.getQualityScoreF() == 0 &&
+                holder.gradeStatus.setText("种质分已出");
+            } else if (groupResult.getQualityScoreF() == 0 &&
                     groupResult.getQualityScoreM() == 0 &&
                     groupResult.getTasteScoreM() == 0 &&
                     groupResult.getTasteScoreF() == 0) {
-                holder.gradeStatus.setText("没有评分");
-            } else if (groupResult.getFatnessScoreF() != 0 &&
-                    groupResult.getFatnessScoreM() != 0 &&
-                    groupResult.getQualityScoreF() != 0 &&
+                holder.gradeStatus.setText("没有出分");
+            } else if (groupResult.getQualityScoreF() != 0 &&
                     groupResult.getQualityScoreM() != 0 &&
                     groupResult.getTasteScoreM() != 0 &&
                     groupResult.getTasteScoreF() != 0) {
-                holder.gradeStatus.setText("已全部评分");
+                holder.gradeStatus.setText("已全部出分");
             }
         }
     }

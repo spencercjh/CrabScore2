@@ -5,7 +5,7 @@ import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.model.common.ModelFactory;
-import top.spencer.crabscore.model.model.common.PresentCompetitionPropertyModel;
+import top.spencer.crabscore.model.model.common.GetPresentCompetitionPropertyModel;
 
 /**
  * @author spencercjh
@@ -14,7 +14,7 @@ public class NavigationPresenter extends BasePresenter {
     /**
      * 获取当前大赛信息
      *
-     * @see PresentCompetitionPropertyModel
+     * @see GetPresentCompetitionPropertyModel
      */
     public void getPresentCompetitionProperty() {
         if (isViewAttached()) {
@@ -22,7 +22,7 @@ public class NavigationPresenter extends BasePresenter {
         }
         getView().showLoading();
         ModelFactory
-                .request(Token.API_PRESENT_COMPETITION_PROPERTY)
+                .request(Token.API_GET_PRESENT_COMPETITION_PROPERTY)
                 .params()
                 .execute(new MyCallback<JSONObject>() {
                     @Override

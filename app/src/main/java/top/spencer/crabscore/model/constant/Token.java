@@ -2,9 +2,10 @@ package top.spencer.crabscore.model.constant;
 
 import top.spencer.crabscore.model.model.administrator.*;
 import top.spencer.crabscore.model.model.common.*;
-import top.spencer.crabscore.model.model.common.rank.FatnessRankModel;
-import top.spencer.crabscore.model.model.common.rank.QualityRankModel;
-import top.spencer.crabscore.model.model.common.rank.TasteRankModel;
+import top.spencer.crabscore.model.model.common.rank.GetFatnessRankModel;
+import top.spencer.crabscore.model.model.common.rank.GetQualityRankModel;
+import top.spencer.crabscore.model.model.common.rank.GetTasteRankModel;
+import top.spencer.crabscore.model.model.company.GetOneCompanyAllGroupModel;
 import top.spencer.crabscore.model.model.judge.AllGroupModel;
 
 /**
@@ -25,19 +26,19 @@ public interface Token {
 
     String API_FORGET_PASSWORD = ForgetPasswordModel.class.getName();
 
-    String API_FATNESS_RANK = FatnessRankModel.class.getName();
+    String API_GET_FATNESS_RANK = GetFatnessRankModel.class.getName();
 
-    String API_QUALITY_RANK = QualityRankModel.class.getName();
+    String API_GET_QUALITY_RANK = GetQualityRankModel.class.getName();
 
-    String API_TASTE_RANK = TasteRankModel.class.getName();
+    String API_GET_TASTE_RANK = GetTasteRankModel.class.getName();
 
-    String API_PRESENT_COMPETITION_PROPERTY = PresentCompetitionPropertyModel.class.getName();
+    String API_GET_PRESENT_COMPETITION_PROPERTY = GetPresentCompetitionPropertyModel.class.getName();
 
-    String API_ALL_USER = AllUserModel.class.getName();
+    String API_GET_ALL_USER = GetAllUserModel.class.getName();
 
-    String API_ALL_USER_BY_STATUS = AllUserByStatusModel.class.getName();
+    String API_GET_ALL_USER_BY_STATUS = GetAllUserByStatusModel.class.getName();
 
-    String API_ALL_COMPANY = AllCompanyModel.class.getName();
+    String API_GET_ALL_COMPANY = GetAllCompanyModel.class.getName();
 
     String API_UPDATE_USER_PROPERTY = UpdateUserPropertyModel.class.getName();
 
@@ -45,15 +46,17 @@ public interface Token {
 
     String API_UPDATE_COMPETITION_PROPERTY = UpdateCompetitionPropertyModel.class.getName();
 
-    String API_ALL_COMPETITION = AllCompetitionModel.class.getName();
+    String API_GET_ALL_COMPETITION = GetAllCompetitionModel.class.getName();
 
     String API_GENERATE_SCORE = GenerateScoreModel.class.getName();
 
     String API_UPDATE_PRESENT_COMPETITION_CONFIG = UpdatePresentCompetitionConfigModel.class.getName();
 
-    String API_ALL_GROUP = AllGroupModel.class.getName();
+    String API_GET_ALL_GROUP = AllGroupModel.class.getName();
 
     String API_UPDATE_COMPANY_PROPERTY = UpdateCompanyPropertyModel.class.getName();
 
     String API_DELETE_COMPANY = DeleteCompanyModel.class.getName();
+
+    String API_GET_ONE_COMPANY_ALL_GROUP = GetOneCompanyAllGroupModel.class.getName();
 }

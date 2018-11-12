@@ -8,7 +8,7 @@ import top.spencer.crabscore.common.CommonConstant;
 /**
  * @author spencercjh
  */
-public class AllCompetitionModel extends BaseModel {
+public class GetAllCompetitionModel extends BaseModel {
     /**
      * 参数表String jwt
      *

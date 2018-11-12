@@ -1,4 +1,4 @@
-package top.spencer.crabscore.view.helper;
+package top.spencer.crabscore.view.adapter;
 
 import android.annotation.SuppressLint;
 import android.support.design.internal.BottomNavigationItemView;

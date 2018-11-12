@@ -14,7 +14,7 @@ import java.util.Objects;
 
 /**
  * 个人中心页面
- *
+ *  //todo person center
  * @author spencercjh
  */
 public class PersonCenterFragment extends Fragment {
@@ -50,6 +50,4 @@ public class PersonCenterFragment extends Fragment {
             tv.setText(name);
         }
     }
-
-    //TODO PersonCenterFragment
 }

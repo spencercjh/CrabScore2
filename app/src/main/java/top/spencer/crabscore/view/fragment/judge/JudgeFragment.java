@@ -85,15 +85,12 @@ public class JudgeFragment extends BaseFragment implements TabLayoutView {
      */
     @Override
     public void initTabLayout() {
-        List<String> mTitleList = new ArrayList<>(3);
-        mTitleList.add("全部小组");
+        List<String> mTitleList = new ArrayList<>(2);
         mTitleList.add("种质评分");
         mTitleList.add("口感评分");
         tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(0)), true);
         tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(1)));
-        tabLayout.addTab(tabLayout.newTab().setText(mTitleList.get(2)));
-        List<Fragment> mFragmentList = new ArrayList<>(4);
-        mFragmentList.add(AllGroupFragment.newInstance("AllGroupFragment"));
+        List<Fragment> mFragmentList = new ArrayList<>(2);
         mFragmentList.add(QualityGradeFragment.newInstance("QualityGradeFragment"));
         mFragmentList.add(TasteGradeFragment.newInstance("TasteGradeFragment"));
         TabLayoutPageAdapter adapter = new TabLayoutPageAdapter(getChildFragmentManager(), mFragmentList, mTitleList);

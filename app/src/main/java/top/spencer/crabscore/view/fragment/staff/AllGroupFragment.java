@@ -1,4 +1,4 @@
-package top.spencer.crabscore.view.fragment.company;
+package top.spencer.crabscore.view.fragment.staff;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,17 +13,17 @@ import top.spencer.crabscore.R;
 import java.util.Objects;
 
 /**
- * 参选单位用户组的查看总体得分情况页面
- *
+ * 工作人员用户组数据录入页面
+ * //TODO all group list
  * @author spencercjh
  */
-public class OverallScoreFragment extends Fragment {
+public class AllGroupFragment extends Fragment {
     private View view;
 
-    public static OverallScoreFragment newInstance(String name) {
+    public static AllGroupFragment newInstance(String name) {
         Bundle args = new Bundle();
         args.putString("name", name);
-        OverallScoreFragment fragment = new OverallScoreFragment();
+        AllGroupFragment fragment = new AllGroupFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,6 +50,4 @@ public class OverallScoreFragment extends Fragment {
             tv.setText(name);
         }
     }
-
-    //TODO OverallScoreFragment
 }

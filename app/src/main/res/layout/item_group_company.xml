@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:text="组号:"/>
+
+        <TextView
+                android:id="@+id/textview_group_id"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:lines="1"
+                android:gravity="center"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="参赛单位:"/>
+
+        <TextView
+                android:id="@+id/textview_company_name"
+                android:layout_width="159dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:orientation="horizontal">
+
+
+        <TextView
+                android:id="@+id/tv_fatness_score"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="肥满度评分:"/>
+
+        <TextView
+                android:id="@+id/textview_fatness_score"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:lines="1"
+                android:gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:orientation="horizontal">
+
+
+        <TextView
+                android:id="@+id/tv_quality_score"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="种质评分:"/>
+
+        <TextView
+                android:id="@+id/textview_quality_score"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:lines="1"
+                android:gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:orientation="horizontal">
+
+
+        <TextView
+                android:id="@+id/tv_taste_score"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="口感评分:"/>
+
+        <TextView
+                android:id="@+id/textview_taste_score"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:lines="1"
+                android:gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="18dp">
+    </LinearLayout>
+</LinearLayout>

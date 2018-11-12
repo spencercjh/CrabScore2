@@ -10,12 +10,12 @@ import top.spencer.crabscore.R;
  *
  * @author spencercjh
  */
-class GroupListItemViewHolder extends RecyclerView.ViewHolder {
+class GroupGradeListItemViewHolder extends RecyclerView.ViewHolder {
     TextView groupId;
     TextView companyName;
     TextView gradeStatus;
 
-    GroupListItemViewHolder(View view) {
+    GroupGradeListItemViewHolder(View view) {
         super(view);
         groupId = view.findViewById(R.id.textview_group_id);
         companyName = view.findViewById(R.id.textview_company_name);

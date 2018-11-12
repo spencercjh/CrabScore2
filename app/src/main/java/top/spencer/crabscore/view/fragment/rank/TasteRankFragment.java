@@ -157,7 +157,7 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
         pageNum++;
         boolean repeat = rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
         if (repeat) {
-            showToast("没有更多了哦");
+//            showToast("没有更多了哦");
             return;
         }
         new Handler(Looper.getMainLooper()).post(new Runnable() {

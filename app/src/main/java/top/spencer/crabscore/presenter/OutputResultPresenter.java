@@ -8,6 +8,7 @@ import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.CompetitionConfig;
+import top.spencer.crabscore.model.model.administrator.GetAllCompetitionModel;
 import top.spencer.crabscore.model.model.common.ModelFactory;
 import top.spencer.crabscore.view.view.OutputResultView;
 
@@ -23,7 +24,7 @@ public class OutputResultPresenter extends BasePresenter<OutputResultView> {
      * 查询所有大赛
      *
      * @param jwt JWT
-     * @see top.spencer.crabscore.model.model.administrator.AllCompetitionModel
+     * @see GetAllCompetitionModel
      */
     public void allCompetition(String jwt) {
         if (isViewAttached()) {
@@ -31,7 +32,7 @@ public class OutputResultPresenter extends BasePresenter<OutputResultView> {
         }
         getView().showLoading();
         ModelFactory
-                .request(Token.API_ALL_COMPETITION)
+                .request(Token.API_GET_ALL_COMPETITION)
                 .params(jwt)
                 .execute(new MyCallback<JSONObject>() {
                     @Override

@@ -24,7 +24,7 @@ import top.spencer.crabscore.view.fragment.judge.JudgeFragment;
 import top.spencer.crabscore.view.fragment.person.PersonCenterFragment;
 import top.spencer.crabscore.view.fragment.rank.RankFragment;
 import top.spencer.crabscore.view.fragment.staff.StaffFragment;
-import top.spencer.crabscore.view.helper.BottomNavigationViewHelper;
+import top.spencer.crabscore.view.adapter.BottomNavigationViewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
