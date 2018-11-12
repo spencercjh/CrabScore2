@@ -18,7 +18,7 @@ import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.vo.GroupResult;
-import top.spencer.crabscore.presenter.GroupPresenter;
+import top.spencer.crabscore.presenter.GradePresenter;
 import top.spencer.crabscore.presenter.RankListPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
 import top.spencer.crabscore.view.activity.judge.QualityGradeActivity;
@@ -44,7 +44,7 @@ public class QualityGradeFragment extends BaseFragment implements MyRecycleListV
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     private GroupGradeListAdapter groupGradeListAdapter;
-    private GroupPresenter groupPresenter;
+    private GradePresenter gradePresenter;
     private RankListPresenter rankListPresenter;
     private String jwt;
     private Competition presentCompetition;
@@ -71,7 +71,7 @@ public class QualityGradeFragment extends BaseFragment implements MyRecycleListV
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        groupPresenter.detachView();
+        gradePresenter.detachView();
         rankListPresenter.detachView();
     }
 
@@ -95,8 +95,8 @@ public class QualityGradeFragment extends BaseFragment implements MyRecycleListV
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        groupPresenter = new GroupPresenter();
-        groupPresenter.attachView(this);
+        gradePresenter = new GradePresenter();
+        gradePresenter.attachView(this);
         rankListPresenter = new RankListPresenter();
         rankListPresenter.attachView(this);
         SharedPreferencesUtil.getInstance(getContext(), "PROPERTY");
@@ -113,7 +113,7 @@ public class QualityGradeFragment extends BaseFragment implements MyRecycleListV
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        groupPresenter.getAllGroup(presentCompetition.getCompetitionId(), pageNum, pageSize, jwt);
+        gradePresenter.getAllGroup(presentCompetition.getCompetitionId(), pageNum, pageSize, jwt);
     }
 
     /**
@@ -139,7 +139,7 @@ public class QualityGradeFragment extends BaseFragment implements MyRecycleListV
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && lastVisibleItemPosition[0] + 1 == groupGradeListAdapter.getItemCount()) {
-                    groupPresenter.getAllGroup(presentCompetition.getCompetitionId(), pageNum, pageSize, jwt);
+                    gradePresenter.getAllGroup(presentCompetition.getCompetitionId(), pageNum, pageSize, jwt);
                 }
             }
 
@@ -198,7 +198,7 @@ public class QualityGradeFragment extends BaseFragment implements MyRecycleListV
 
     @Override
     public void onRefresh() {
-        groupPresenter.getAllGroup(presentCompetition.getCompetitionId(), pageNum, pageSize, jwt);
+        gradePresenter.getAllGroup(presentCompetition.getCompetitionId(), pageNum, pageSize, jwt);
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {

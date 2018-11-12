@@ -10,7 +10,7 @@ import top.spencer.crabscore.view.view.MyRecycleListView;
 /**
  * @author spencercjh
  */
-public class GroupPresenter extends BasePresenter<MyRecycleListView> {
+public class GradePresenter extends BasePresenter<MyRecycleListView> {
     /**
      * 查看所有比赛组
      *
