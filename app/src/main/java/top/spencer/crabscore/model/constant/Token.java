@@ -5,9 +5,10 @@ import top.spencer.crabscore.model.model.common.*;
 import top.spencer.crabscore.model.model.common.rank.GetFatnessRankModel;
 import top.spencer.crabscore.model.model.common.rank.GetQualityRankModel;
 import top.spencer.crabscore.model.model.common.rank.GetTasteRankModel;
-import top.spencer.crabscore.model.model.company.UserBindCompanyModel;
 import top.spencer.crabscore.model.model.company.GetOneCompanyAllGroupModel;
-import top.spencer.crabscore.model.model.judge.AllGroupModel;
+import top.spencer.crabscore.model.model.company.UserBindCompanyModel;
+import top.spencer.crabscore.model.model.judge.GetAllGroupModel;
+import top.spencer.crabscore.model.model.staff.AddCrabModel;
 
 /**
  * 具体Model类，常量用于反射
@@ -53,7 +54,7 @@ public interface Token {
 
     String API_UPDATE_PRESENT_COMPETITION_CONFIG = UpdatePresentCompetitionConfigModel.class.getName();
 
-    String API_GET_ALL_GROUP = AllGroupModel.class.getName();
+    String API_GET_ALL_GROUP_JUDGE = GetAllGroupModel.class.getName();
 
     String API_UPDATE_COMPANY_PROPERTY = UpdateCompanyPropertyModel.class.getName();
 
@@ -64,4 +65,8 @@ public interface Token {
     String API_GET_ALL_COMPANY_USER = top.spencer.crabscore.model.model.company.GetAllCompanyModel.class.getName();
 
     String API_USER_BIND_COMPANY = UserBindCompanyModel.class.getName();
+
+    String API_GET_ALL_GROUP_STAFF = top.spencer.crabscore.model.model.staff.GetAllGroupModel.class.getName();
+
+    String API_ADD_CRAB = AddCrabModel.class.getName();
 }

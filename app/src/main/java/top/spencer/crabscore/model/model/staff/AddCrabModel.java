@@ -1,4 +1,4 @@
-package top.spencer.crabscore.model.model.judge;
+package top.spencer.crabscore.model.model.staff;
 
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BaseModel;
@@ -8,15 +8,15 @@ import top.spencer.crabscore.common.CommonConstant;
 /**
  * @author spencercjh
  */
-public class AllGroupModel extends BaseModel {
+public class AddCrabModel extends BaseModel {
     /**
-     * 参数表Integer competitionId, Integer pageNum, Integer pageSize, String jwt
+     * 参数表Crab crab,String jwt
      *
      * @param myCallBack myCallBack
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "judge/groups/" + mvpParams[0] + "/" + mvpParams[1] + "/" + mvpParams[2];
-        requestGetAPI(url, myCallBack, mvpParams[3]);
+        String url = CommonConstant.URL + "admin/staff/crab";
+        requestPostJSONAPI(url, mvpParams[0], myCallBack, mvpParams[1]);
     }
 }
