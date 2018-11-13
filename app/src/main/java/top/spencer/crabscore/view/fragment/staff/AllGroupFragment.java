@@ -195,6 +195,7 @@ public class AllGroupFragment extends BaseFragment implements StaffGroupListView
                 popupMenu.show();
             }
 
+            @Deprecated
             @Override
             public void onItemLongClick(View view) {
                 //nothing

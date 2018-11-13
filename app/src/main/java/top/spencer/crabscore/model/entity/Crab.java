@@ -21,16 +21,24 @@ public class Crab implements Serializable {
 
     /**
      * 所属小组id")
+     *
+     * @see Group#groupId
+     * @see top.spencer.crabscore.model.entity.vo.GroupResult#groupId
      */
     private Integer groupId;
 
     /**
-     * 性别，1:雄 2：雌")
+     * 性别，0:雌 1 雄")
+     *
+     * @see top.spencer.crabscore.common.CommonConstant#CRAB_MALE
+     * @see top.spencer.crabscore.common.CommonConstant#CRAB_FEMALE
      */
     private Integer crabSex;
 
     /**
-     * 螃蟹标签")
+     * 螃蟹标签 命名规则：
+     * groupInDialog.CompetitionId+groupInDialog.CompanyId+groupInDialog.GroupId+SEX
+     * i)
      */
     private String crabLabel;
 

@@ -21,6 +21,8 @@ public class Group implements Serializable {
 
     /**
      * 所属参选单位id")
+     *
+     * @see Company#companyId
      */
     private Integer companyId;
 

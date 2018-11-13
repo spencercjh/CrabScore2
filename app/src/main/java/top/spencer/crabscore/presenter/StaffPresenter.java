@@ -152,10 +152,12 @@ public class StaffPresenter extends BasePresenter<StaffGroupListView> {
                 Crab crab = new Crab();
                 crab.setGroupId(groupInDialog.getGroupId());
                 crab.setCrabSex(CommonConstant.CRAB_FEMALE);
-                crab.setCrabLabel(String.valueOf(groupInDialog.getCompanyId()) +
+                crab.setCrabLabel(String.valueOf(groupInDialog.getCompetitionId()) +
+                        String.valueOf(groupInDialog.getCompanyId()) +
                         String.valueOf(groupInDialog.getGroupId()) +
                         String.valueOf(CommonConstant.CRAB_FEMALE) +
                         String.valueOf(i));
+                crab.setCompetitionId(groupInDialog.getCompetitionId());
                 crab.setCreateDate(new Date(System.currentTimeMillis()));
                 crab.setUpdateDate(new Date(System.currentTimeMillis()));
                 crab.setCreateUser(username);
@@ -168,10 +170,12 @@ public class StaffPresenter extends BasePresenter<StaffGroupListView> {
                 Crab crab = new Crab();
                 crab.setGroupId(groupInDialog.getGroupId());
                 crab.setCrabSex(CommonConstant.CRAB_MALE);
-                crab.setCrabLabel(String.valueOf(groupInDialog.getCompanyId()) +
+                crab.setCrabLabel(String.valueOf(groupInDialog.getCompetitionId()) +
+                        String.valueOf(groupInDialog.getCompanyId()) +
                         String.valueOf(groupInDialog.getGroupId()) +
                         String.valueOf(CommonConstant.CRAB_MALE) +
                         String.valueOf(i));
+                crab.setCompetitionId(groupInDialog.getCompetitionId());
                 crab.setCreateDate(new Date(System.currentTimeMillis()));
                 crab.setUpdateDate(new Date(System.currentTimeMillis()));
                 crab.setCreateUser(username);
@@ -180,5 +184,42 @@ public class StaffPresenter extends BasePresenter<StaffGroupListView> {
             }
         }
         this.addCrabList(crabList, jwt);
+    }
+
+    /**
+     * 根据标签查找螃蟹
+     *
+     * @param label label
+     * @param jwt   JWT
+     */
+    public void findCrabByLabel(String label, String jwt) {
+        if (isViewAttached()) {
+            return;
+        }
+        getView().showLoading();
+        ModelFactory
+                .request(Token.API_FIND_CRAB_BY_LABEL)
+                .params(label, jwt)
+                .execute(new MyCallback<JSONObject>() {
+                    @Override
+                    public void onSuccess(JSONObject data) {
+                        getView().showData(data);
+                    }
+
+                    @Override
+                    public void onFailure(JSONObject data) {
+                        getView().showFailure(data);
+                    }
+
+                    @Override
+                    public void onError() {
+                        getView().showErr();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        getView().hideLoading();
+                    }
+                });
     }
 }

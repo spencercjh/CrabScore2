@@ -99,6 +99,7 @@ public class JudgeFragment extends BaseFragment implements TabLayoutView {
         tabLayout.setupWithViewPager(vpContent);
     }
 
+    @Deprecated
     @Override
     public void showData(JSONObject successData) {
         //nothing

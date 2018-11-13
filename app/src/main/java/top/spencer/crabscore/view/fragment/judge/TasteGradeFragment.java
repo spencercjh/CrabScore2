@@ -166,6 +166,7 @@ public class TasteGradeFragment extends BaseFragment implements MyRecycleListVie
                 startActivity(intent);
             }
 
+            @Deprecated
             @Override
             public void onItemLongClick(View view) {
                 //nothing

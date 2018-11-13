@@ -113,6 +113,7 @@ public class AdministratorFragment extends BaseFragment implements TabLayoutView
      *
      * @param successData 成功数据源
      */
+    @Deprecated
     @Override
     public void showData(JSONObject successData) {
         //nothing

@@ -6,7 +6,7 @@ package top.spencer.crabscore.common;
 public interface CommonConstant {
     Integer CRAB_MALE = 1;
 
-    Integer CRAB_FEMALE = 2;
+    Integer CRAB_FEMALE = 0;
     /**
      * login请求的body加密秘钥
      */

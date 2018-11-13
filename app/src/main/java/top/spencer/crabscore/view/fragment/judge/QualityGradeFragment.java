@@ -166,6 +166,7 @@ public class QualityGradeFragment extends BaseFragment implements MyRecycleListV
                 startActivity(intent);
             }
 
+            @Deprecated
             @Override
             public void onItemLongClick(View view) {
                 //nothing

@@ -178,6 +178,7 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
                 //todo score detail activity
             }
 
+            @Deprecated
             @Override
             public void onItemLongClick(View view) {
                 //nothing
@@ -260,6 +261,7 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
                 user.setCompanyId(company.getCompanyId());
             }
 
+            @Deprecated
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 //nothing

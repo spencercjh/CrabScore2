@@ -10,6 +10,7 @@ import top.spencer.crabscore.model.model.company.UserBindCompanyModel;
 import top.spencer.crabscore.model.model.judge.GetAllGroupModel;
 import top.spencer.crabscore.model.model.staff.AddCrabListModel;
 import top.spencer.crabscore.model.model.staff.AddCrabModel;
+import top.spencer.crabscore.model.model.staff.FindCrabByLabel;
 
 /**
  * 具体Model类，常量用于反射
@@ -72,4 +73,6 @@ public interface Token {
     String API_ADD_CRAB = AddCrabModel.class.getName();
 
     String API_ADD_CRAB_LIST = AddCrabListModel.class.getName();
+
+    String API_FIND_CRAB_BY_LABEL = FindCrabByLabel.class.getName();
 }

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+
+    <Button
+            android:id="@+id/button_find"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/background_button_div"
+            android:text="查  找"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.44"/>
+
+    <EditText
+            android:id="@+id/edit_crab_label"
+            android:layout_width="344dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:hint="请输入标识号"
+            android:inputType="none|number"
+            android:maxLines="1"
+            android:selectAllOnFocus="false"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.295">
+
+        <requestFocus/>
+    </EditText>
+
+    <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="查找标识所属螃蟹信息"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.1"/>
+
+    <TextView
+            android:id="@+id/textview_crab_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="false"
+            android:text="螃蟹编号："
+            android:textSize="17sp"
+            android:singleLine="false"
+            android:gravity="top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.555"
+            app:layout_constraintHorizontal_bias="0.0" android:visibility="invisible">
+
+    </TextView>
+    <TextView
+            android:id="@+id/textview_company_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="false"
+            android:text="所属单位名："
+            android:textSize="17sp"
+            android:singleLine="false"
+            android:gravity="top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.696"
+            app:layout_constraintHorizontal_bias="1.0" android:visibility="invisible">
+
+    </TextView>
+    <TextView
+            android:id="@+id/textview_crab_sex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="false"
+            android:text="性别："
+            android:textSize="17sp"
+            android:singleLine="false"
+            android:gravity="top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.743"
+            app:layout_constraintHorizontal_bias="0.0" android:visibility="invisible">
+
+    </TextView>
+    <TextView
+            android:id="@+id/textview_crab_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="false"
+            android:text="体重："
+            android:textSize="17sp"
+            android:singleLine="false"
+            android:gravity="top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.79"
+            app:layout_constraintHorizontal_bias="0.0" android:visibility="invisible">
+
+    </TextView>
+    <TextView
+            android:id="@+id/textview_crab_length"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="false"
+            android:text="壳长："
+            android:textSize="17sp"
+            android:singleLine="false"
+            android:gravity="top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.838"
+            app:layout_constraintHorizontal_bias="0.0" android:visibility="invisible">
+
+    </TextView>
+    <TextView
+            android:id="@+id/textview_crab_fatness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="false"
+            android:text="肥满度："
+            android:textSize="17sp"
+            android:singleLine="false"
+            android:gravity="top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.885"
+            app:layout_constraintHorizontal_bias="0.0" android:visibility="invisible">
+
+    </TextView>
+    <TextView
+            android:id="@+id/textview_crab_competition_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="false"
+            android:text="所属大赛编号："
+            android:textSize="17sp"
+            android:singleLine="false"
+            android:gravity="top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.932"
+            app:layout_constraintHorizontal_bias="0.0" android:visibility="invisible">
+
+    </TextView>
+    <TextView
+            android:id="@+id/textview_company_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="false"
+            android:text="所属单位编号："
+            android:textSize="17sp"
+            android:singleLine="false"
+            android:gravity="top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.649"
+            app:layout_constraintHorizontal_bias="1.0" android:visibility="invisible">
+
+    </TextView>
+    <TextView
+            android:id="@+id/textview_group_id"
+            android:layout_width="match_parent"
+            android:layout_height="23dp"
+            android:selectAllOnFocus="false"
+            android:text="小组编号："
+            android:textSize="17sp"
+            android:singleLine="false"
+            android:gravity="top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.602"
+            app:layout_constraintHorizontal_bias="0.0" android:visibility="invisible">
+
+    </TextView>
+
+</android.support.constraint.ConstraintLayout>
