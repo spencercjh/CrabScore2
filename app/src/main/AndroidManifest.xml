@@ -36,6 +36,8 @@
         </activity>
         <activity android:name=".view.activity.judge.TasteGradeActivity">
         </activity>
+        <activity android:name=".view.activity.staff.CrabListActivity">
+        </activity>
     </application>
 
 </manifest>

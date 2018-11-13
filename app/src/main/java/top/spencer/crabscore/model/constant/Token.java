@@ -8,6 +8,7 @@ import top.spencer.crabscore.model.model.common.rank.GetTasteRankModel;
 import top.spencer.crabscore.model.model.company.GetOneCompanyAllGroupModel;
 import top.spencer.crabscore.model.model.company.UserBindCompanyModel;
 import top.spencer.crabscore.model.model.judge.GetAllGroupModel;
+import top.spencer.crabscore.model.model.staff.AddCrabListModel;
 import top.spencer.crabscore.model.model.staff.AddCrabModel;
 
 /**
@@ -69,4 +70,6 @@ public interface Token {
     String API_GET_ALL_GROUP_STAFF = top.spencer.crabscore.model.model.staff.GetAllGroupModel.class.getName();
 
     String API_ADD_CRAB = AddCrabModel.class.getName();
+
+    String API_ADD_CRAB_LIST = AddCrabListModel.class.getName();
 }
