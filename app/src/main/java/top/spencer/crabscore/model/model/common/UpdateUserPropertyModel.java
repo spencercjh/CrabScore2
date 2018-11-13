@@ -16,7 +16,7 @@ public class UpdateUserPropertyModel extends BaseModel {
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "user/property";
+        String url = CommonConstant.URL + "common/person/property";
         requestPutJSONAPI(url, mvpParams[0], myCallBack, mvpParams[1]);
     }
 }

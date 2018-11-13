@@ -347,6 +347,12 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
     public void showData(JSONObject successData) {
         if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
             showToast(successData.getString("message"));
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    initView();
+                }
+            });
         }
     }
 
