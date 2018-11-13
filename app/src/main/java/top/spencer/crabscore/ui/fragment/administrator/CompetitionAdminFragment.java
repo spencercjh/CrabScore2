@@ -25,7 +25,7 @@ import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.presenter.CompetitionAdminPresenter;
 import top.spencer.crabscore.presenter.NavigationPresenter;
-import top.spencer.crabscore.util.SharedPreferencesUtil;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.ui.view.CompetitionAdminView;
 
 import java.util.Objects;

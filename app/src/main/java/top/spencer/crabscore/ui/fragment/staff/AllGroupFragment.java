@@ -29,7 +29,7 @@ import top.spencer.crabscore.model.entity.User;
 import top.spencer.crabscore.model.entity.vo.GroupResult;
 import top.spencer.crabscore.presenter.RankListPresenter;
 import top.spencer.crabscore.presenter.StaffPresenter;
-import top.spencer.crabscore.util.SharedPreferencesUtil;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.ui.activity.staff.CrabListActivity;
 import top.spencer.crabscore.ui.adapter.GroupGradeListAdapter;
 import top.spencer.crabscore.ui.adapter.MyOnItemClickListener;

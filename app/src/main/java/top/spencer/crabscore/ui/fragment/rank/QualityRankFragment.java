@@ -18,7 +18,7 @@ import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.vo.GroupResult;
 import top.spencer.crabscore.presenter.RankListPresenter;
-import top.spencer.crabscore.util.SharedPreferencesUtil;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.ui.adapter.QualityRankListAdapter;
 import top.spencer.crabscore.ui.view.MyRecycleListView;
 import top.spencer.crabscore.ui.widget.EmptyRecyclerView;

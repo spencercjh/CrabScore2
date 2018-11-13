@@ -1,13 +1,9 @@
-package top.spencer.crabscore.util;
-
-import org.apache.commons.codec.binary.Base64;
-import top.spencer.crabscore.common.CommonConstant;
+package top.spencer.crabscore.common.util;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
 
 /**

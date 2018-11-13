@@ -1,4 +1,4 @@
-package top.spencer.crabscore.util;
+package top.spencer.crabscore.common.util;
 
 
 import top.spencer.crabscore.common.vo.Result;

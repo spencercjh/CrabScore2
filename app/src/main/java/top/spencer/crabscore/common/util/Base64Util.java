@@ -1,4 +1,4 @@
-package top.spencer.crabscore.util;
+package top.spencer.crabscore.common.util;
 
 import org.apache.commons.codec.binary.Base64;
 

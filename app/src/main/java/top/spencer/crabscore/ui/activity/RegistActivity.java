@@ -14,8 +14,8 @@ import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseActivity;
 import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.presenter.VerifyCodePresenter;
-import top.spencer.crabscore.util.PatternUtil;
-import top.spencer.crabscore.util.SharedPreferencesUtil;
+import top.spencer.crabscore.common.util.PatternUtil;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.ui.view.VerifyCodeView;
 
 import java.util.Date;

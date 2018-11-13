@@ -1,4 +1,4 @@
-package top.spencer.crabscore.util;
+package top.spencer.crabscore.common.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;

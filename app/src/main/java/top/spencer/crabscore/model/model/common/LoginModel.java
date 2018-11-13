@@ -9,8 +9,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import top.spencer.crabscore.base.BaseModel;
 import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.common.CommonConstant;
-import top.spencer.crabscore.util.AesUtil;
-import top.spencer.crabscore.util.PatternUtil;
+import top.spencer.crabscore.common.util.AesUtil;
+import top.spencer.crabscore.common.util.PatternUtil;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;

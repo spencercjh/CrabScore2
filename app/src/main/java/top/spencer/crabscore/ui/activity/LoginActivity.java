@@ -14,7 +14,7 @@ import top.spencer.crabscore.base.BaseActivity;
 import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.model.entity.User;
 import top.spencer.crabscore.presenter.LoginPresenter;
-import top.spencer.crabscore.util.SharedPreferencesUtil;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.ui.view.LoginView;
 
 import static android.content.ContentValues.TAG;

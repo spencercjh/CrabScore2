@@ -26,7 +26,7 @@ import top.spencer.crabscore.model.entity.vo.GroupResult;
 import top.spencer.crabscore.presenter.AdministratorListPresenter;
 import top.spencer.crabscore.presenter.CompanyPresenter;
 import top.spencer.crabscore.presenter.RankListPresenter;
-import top.spencer.crabscore.util.SharedPreferencesUtil;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.ui.adapter.CompanyCheckGroupListAdapter;
 import top.spencer.crabscore.ui.adapter.MyOnItemClickListener;
 import top.spencer.crabscore.ui.view.CompanyView;

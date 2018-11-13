@@ -18,7 +18,7 @@ import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.CompetitionConfig;
 import top.spencer.crabscore.presenter.OutputResultPresenter;
-import top.spencer.crabscore.util.SharedPreferencesUtil;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.ui.view.OutputResultView;
 
 import java.util.*;

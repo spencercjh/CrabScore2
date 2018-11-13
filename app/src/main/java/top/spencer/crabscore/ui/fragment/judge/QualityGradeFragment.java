@@ -20,7 +20,7 @@ import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.vo.GroupResult;
 import top.spencer.crabscore.presenter.GradePresenter;
 import top.spencer.crabscore.presenter.RankListPresenter;
-import top.spencer.crabscore.util.SharedPreferencesUtil;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.ui.activity.judge.QualityGradeActivity;
 import top.spencer.crabscore.ui.adapter.GroupGradeListAdapter;
 import top.spencer.crabscore.ui.adapter.MyOnItemClickListener;
