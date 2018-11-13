@@ -11,7 +11,7 @@ import top.spencer.crabscore.model.model.administrator.GetAllCompanyModel;
 import top.spencer.crabscore.model.model.administrator.GetAllUserByStatusModel;
 import top.spencer.crabscore.model.model.administrator.GetAllUserModel;
 import top.spencer.crabscore.model.model.common.ModelFactory;
-import top.spencer.crabscore.view.view.MyRecycleListView;
+import top.spencer.crabscore.ui.view.MyRecycleListView;
 
 import java.util.List;
 

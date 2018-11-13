@@ -6,7 +6,7 @@ import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.model.common.ModelFactory;
 import top.spencer.crabscore.model.model.company.UserBindCompanyModel;
-import top.spencer.crabscore.view.view.CompanyView;
+import top.spencer.crabscore.ui.view.CompanyView;
 
 /**
  * @author spencercjh

@@ -5,7 +5,7 @@ import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.model.common.*;
-import top.spencer.crabscore.view.view.VerifyCodeView;
+import top.spencer.crabscore.ui.view.VerifyCodeView;
 
 /**
  * @author spencercjh

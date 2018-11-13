@@ -10,7 +10,7 @@ import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.CompetitionConfig;
 import top.spencer.crabscore.model.model.administrator.GetAllCompetitionModel;
 import top.spencer.crabscore.model.model.common.ModelFactory;
-import top.spencer.crabscore.view.view.OutputResultView;
+import top.spencer.crabscore.ui.view.OutputResultView;
 
 import java.util.HashMap;
 import java.util.List;

@@ -8,7 +8,7 @@ import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.entity.Company;
 import top.spencer.crabscore.model.model.administrator.UpdateCompanyPropertyModel;
 import top.spencer.crabscore.model.model.common.ModelFactory;
-import top.spencer.crabscore.view.view.CompanyAdminListView;
+import top.spencer.crabscore.ui.view.CompanyAdminListView;
 
 /**
  * @author spencercjh

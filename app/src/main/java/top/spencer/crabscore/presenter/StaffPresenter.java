@@ -9,7 +9,7 @@ import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.entity.Crab;
 import top.spencer.crabscore.model.entity.vo.GroupResult;
 import top.spencer.crabscore.model.model.common.ModelFactory;
-import top.spencer.crabscore.view.view.StaffGroupListView;
+import top.spencer.crabscore.ui.view.StaffGroupListView;
 
 import java.util.ArrayList;
 import java.util.Date;

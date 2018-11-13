@@ -6,7 +6,7 @@ import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.model.common.ModelFactory;
 import top.spencer.crabscore.model.model.judge.GetAllGroupModel;
-import top.spencer.crabscore.view.view.MyRecycleListView;
+import top.spencer.crabscore.ui.view.MyRecycleListView;
 
 /**
  * @author spencercjh
