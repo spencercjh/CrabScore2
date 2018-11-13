@@ -17,6 +17,7 @@ import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.presenter.NavigationPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
+import top.spencer.crabscore.view.adapter.BottomNavigationViewHelper;
 import top.spencer.crabscore.view.adapter.MainPagerAdapter;
 import top.spencer.crabscore.view.fragment.administrator.AdministratorFragment;
 import top.spencer.crabscore.view.fragment.company.CompanyFragment;
@@ -24,7 +25,6 @@ import top.spencer.crabscore.view.fragment.judge.JudgeFragment;
 import top.spencer.crabscore.view.fragment.person.PersonCenterFragment;
 import top.spencer.crabscore.view.fragment.rank.RankFragment;
 import top.spencer.crabscore.view.fragment.staff.StaffFragment;
-import top.spencer.crabscore.view.adapter.BottomNavigationViewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity implements BaseView {
         int roleChoice = (int) SharedPreferencesUtil.getData("ROLE_CHOICE", CommonConstant.USER_TYPE_COMPANY);
         MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mainPagerAdapter);
-        List<Fragment> list = new ArrayList<>();
+        List<Fragment> list = new ArrayList<>(3);
         list.add(RankFragment.newInstance("大赛排名"));
         if (roleChoice == CommonConstant.USER_TYPE_ADMIN) {
             list.add(AdministratorFragment.newInstance("管理员"));

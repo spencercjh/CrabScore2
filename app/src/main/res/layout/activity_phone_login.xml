@@ -76,7 +76,7 @@
                 android:textOff=""
                 android:textOn=""
                 android:layout_alignParentEnd="true"
-                android:background="@drawable/code"
+                android:background="@drawable/icon_code"
                 android:checked="false"
                 android:layout_alignParentBottom="true"/>
     </RelativeLayout>

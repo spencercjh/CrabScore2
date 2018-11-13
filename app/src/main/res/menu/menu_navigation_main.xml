@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
             android:id="@+id/navigation_rank"
-            android:icon="@drawable/admin"
+            android:icon="@drawable/icon_rank"
             android:title="大赛排名"/>
     <item
             android:id="@+id/navigation_function"
-            android:icon="@drawable/user3"
+            android:icon="@drawable/icon_crab"
             android:title="参与大赛"/>
     <item
             android:id="@+id/navigation_person_center"
-            android:icon="@drawable/user2"
+            android:icon="@drawable/icon_person_center"
             android:title="个人中心"/>
 </menu>

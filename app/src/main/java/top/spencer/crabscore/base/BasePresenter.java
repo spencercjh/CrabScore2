@@ -63,11 +63,11 @@ public class BasePresenter<V extends BaseView> {
     public void toggleButtonDisplayPassword(ToggleButton toggleButton, EditText password, boolean isChecked, Context context) {
         if (isChecked) {
             //如果选中，显示密码
-            toggleButton.setBackground(context.getDrawable(R.drawable.eye_open));
+            toggleButton.setBackground(context.getDrawable(R.drawable.icon_eye_open));
             password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
         } else {
             //否则隐藏密码
-            toggleButton.setBackground(context.getDrawable(R.drawable.eye_close));
+            toggleButton.setBackground(context.getDrawable(R.drawable.icon_eye_close));
             password.setTransformationMethod(PasswordTransformationMethod.getInstance());
         }
     }
