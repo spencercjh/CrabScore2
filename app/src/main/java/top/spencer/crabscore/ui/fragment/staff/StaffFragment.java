@@ -103,6 +103,4 @@ public class StaffFragment extends BaseFragment implements TabLayoutView {
     public void showData(JSONObject successData) {
 
     }
-
-    //TODO StaffFragment
 }

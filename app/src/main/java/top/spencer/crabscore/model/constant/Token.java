@@ -1,6 +1,7 @@
 package top.spencer.crabscore.model.constant;
 
 import top.spencer.crabscore.model.model.administrator.*;
+import top.spencer.crabscore.model.model.administrator.UpdateUserPropertyModel;
 import top.spencer.crabscore.model.model.common.*;
 import top.spencer.crabscore.model.model.common.rank.GetFatnessRankModel;
 import top.spencer.crabscore.model.model.common.rank.GetQualityRankModel;
@@ -44,7 +45,7 @@ public interface Token {
 
     String API_GET_ALL_COMPANY_ADMIN = GetAllCompanyModel.class.getName();
 
-    String API_UPDATE_USER_PROPERTY = UpdateUserPropertyModel.class.getName();
+    String API_UPDATE_USER_PROPERTY_ADMIN = UpdateUserPropertyModel.class.getName();
 
     String API_DELETE_USER = DeleteUserModel.class.getName();
 
@@ -75,4 +76,6 @@ public interface Token {
     String API_ADD_CRAB_LIST = AddCrabListModel.class.getName();
 
     String API_FIND_CRAB_BY_LABEL = FindCrabByLabel.class.getName();
+
+    String API_UPDATE_USER_PROPERTY_USER = top.spencer.crabscore.model.model.common.UpdateUserPropertyModel.class.getName();
 }

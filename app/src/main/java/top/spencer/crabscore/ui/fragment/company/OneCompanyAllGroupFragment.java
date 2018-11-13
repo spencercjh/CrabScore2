@@ -2,6 +2,7 @@ package top.spencer.crabscore.ui.fragment.company;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,6 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.common.CommonConstant;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Company;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.User;
@@ -26,7 +28,7 @@ import top.spencer.crabscore.model.entity.vo.GroupResult;
 import top.spencer.crabscore.presenter.AdministratorListPresenter;
 import top.spencer.crabscore.presenter.CompanyPresenter;
 import top.spencer.crabscore.presenter.RankListPresenter;
-import top.spencer.crabscore.common.util.SharedPreferencesUtil;
+import top.spencer.crabscore.ui.activity.company.ScoreListActivity;
 import top.spencer.crabscore.ui.adapter.CompanyCheckGroupListAdapter;
 import top.spencer.crabscore.ui.adapter.MyOnItemClickListener;
 import top.spencer.crabscore.ui.view.CompanyView;
@@ -175,7 +177,10 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
         companyCheckGroupListAdapter.setOnItemClickListener(new MyOnItemClickListener() {
             @Override
             public void onItemClick(View view) {
-                //todo score detail activity
+                GroupResult groupResultInList = (GroupResult) view.getTag();
+                Intent intent = new Intent(getContext(), ScoreListActivity.class);
+                intent.putExtra("group", groupResultInList);
+                startActivity(intent);
             }
 
             @Deprecated

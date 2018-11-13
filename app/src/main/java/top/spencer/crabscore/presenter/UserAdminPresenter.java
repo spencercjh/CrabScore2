@@ -26,7 +26,7 @@ public class UserAdminPresenter extends BasePresenter<UserAdminListView> {
         }
         getView().showLoading();
         ModelFactory
-                .request(Token.API_UPDATE_USER_PROPERTY)
+                .request(Token.API_UPDATE_USER_PROPERTY_ADMIN)
                 .params(JSON.toJSON(user).toString(), jwt)
                 .execute(new MyCallback<JSONObject>() {
                     @Override

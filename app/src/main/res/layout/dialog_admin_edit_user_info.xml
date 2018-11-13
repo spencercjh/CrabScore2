@@ -7,7 +7,7 @@
               android:orientation="vertical">
 
     <RelativeLayout
-            android:id="@+id/re_user_name"
+            android:id="@+id/re_update_user_name"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@drawable/btn_list_item_bg"
