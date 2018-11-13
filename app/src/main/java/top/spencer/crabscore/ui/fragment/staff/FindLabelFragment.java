@@ -1,4 +1,4 @@
-package top.spencer.crabscore.view.fragment.staff;
+package top.spencer.crabscore.ui.fragment.staff;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,7 +21,7 @@ import top.spencer.crabscore.model.entity.User;
 import top.spencer.crabscore.model.entity.vo.CrabResult;
 import top.spencer.crabscore.presenter.StaffPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
-import top.spencer.crabscore.view.view.StaffGroupListView;
+import top.spencer.crabscore.ui.view.StaffGroupListView;
 
 /**
  * 工作人员用户组查找标签一级页面

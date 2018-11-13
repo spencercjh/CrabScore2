@@ -1,4 +1,4 @@
-package top.spencer.crabscore.view.view;
+package top.spencer.crabscore.ui.view;
 
 import top.spencer.crabscore.base.BaseView;
 

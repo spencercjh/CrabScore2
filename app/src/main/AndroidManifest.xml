@@ -18,25 +18,27 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".view.activity.MainActivity"
+                android:name=".ui.activity.MainActivity"
                 android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
-        <activity android:name=".view.activity.LoginActivity">
+        <activity android:name=".ui.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.RegistActivity"/>
-        <activity android:name=".view.activity.PhoneLoginActivity"/>
-        <activity android:name=".view.activity.ForgetPasswordActivity"/>
-        <activity android:name=".view.activity.administrator.AdminCheckCompanyScoreActivity">
+        <activity android:name=".ui.activity.RegistActivity"/>
+        <activity android:name=".ui.activity.PhoneLoginActivity"/>
+        <activity android:name=".ui.activity.ForgetPasswordActivity"/>
+        <activity android:name=".ui.activity.administrator.AdminCheckCompanyScoreActivity">
         </activity>
-        <activity android:name=".view.activity.judge.QualityGradeActivity">
+        <activity android:name=".ui.activity.judge.QualityGradeActivity">
         </activity>
-        <activity android:name=".view.activity.judge.TasteGradeActivity">
+        <activity android:name=".ui.activity.judge.TasteGradeActivity">
         </activity>
-        <activity android:name=".view.activity.staff.CrabListActivity">
+        <activity android:name=".ui.activity.staff.CrabListActivity">
+        </activity>
+        <activity android:name=".ui.activity.company.ScoreListActivity">
         </activity>
     </application>
 

@@ -1,4 +1,4 @@
-package top.spencer.crabscore.view.fragment.staff;
+package top.spencer.crabscore.ui.fragment.staff;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,8 +13,8 @@ import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
-import top.spencer.crabscore.view.adapter.TabLayoutPageAdapter;
-import top.spencer.crabscore.view.view.TabLayoutView;
+import top.spencer.crabscore.ui.adapter.TabLayoutPageAdapter;
+import top.spencer.crabscore.ui.view.TabLayoutView;
 
 import java.util.ArrayList;
 import java.util.List;

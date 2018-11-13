@@ -1,4 +1,4 @@
-package top.spencer.crabscore.view.fragment.staff;
+package top.spencer.crabscore.ui.fragment.staff;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -30,11 +30,11 @@ import top.spencer.crabscore.model.entity.vo.GroupResult;
 import top.spencer.crabscore.presenter.RankListPresenter;
 import top.spencer.crabscore.presenter.StaffPresenter;
 import top.spencer.crabscore.util.SharedPreferencesUtil;
-import top.spencer.crabscore.view.activity.staff.CrabListActivity;
-import top.spencer.crabscore.view.adapter.GroupGradeListAdapter;
-import top.spencer.crabscore.view.adapter.MyOnItemClickListener;
-import top.spencer.crabscore.view.view.StaffGroupListView;
-import top.spencer.crabscore.view.widget.EmptyRecyclerView;
+import top.spencer.crabscore.ui.activity.staff.CrabListActivity;
+import top.spencer.crabscore.ui.adapter.GroupGradeListAdapter;
+import top.spencer.crabscore.ui.adapter.MyOnItemClickListener;
+import top.spencer.crabscore.ui.view.StaffGroupListView;
+import top.spencer.crabscore.ui.widget.EmptyRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;

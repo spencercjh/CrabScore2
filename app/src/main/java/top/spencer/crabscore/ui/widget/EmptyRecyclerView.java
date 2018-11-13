@@ -1,4 +1,4 @@
-package top.spencer.crabscore.view.widget;
+package top.spencer.crabscore.ui.widget;
 
 import android.content.Context;
 import android.os.Handler;
