@@ -49,4 +49,8 @@ public class Company implements Serializable {
      */
     private String updateUser;
 
+    /**
+     * 头像链接
+     */
+    private String avatarUrl;
 }

@@ -82,4 +82,8 @@ public class Crab implements Serializable {
      */
     private Integer competitionId;
 
+    /**
+     * 头像链接
+     */
+    private String avatarUrl;
 }

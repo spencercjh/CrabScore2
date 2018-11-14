@@ -1,10 +1,16 @@
 package top.spencer.crabscore.ui.fragment.person;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -13,11 +19,15 @@ import android.view.*;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.OnClick;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.bumptech.glide.Glide;
+import com.qiniu.android.http.ResponseInfo;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.common.util.PatternUtil;
+import top.spencer.crabscore.common.util.QiNiuUploadUtil;
 import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.User;
 import top.spencer.crabscore.presenter.PersonCenterPresenter;
@@ -25,6 +35,9 @@ import top.spencer.crabscore.ui.view.PersonCenterView;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * 个人中心页面
@@ -55,6 +68,10 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
     private PersonCenterPresenter personCenterPresenter;
     private String jwt;
     private User user;
+    private String accesskey;
+    private String secret;
+    private String bucket;
+    private final Integer UPLOAD_CODE = 0x1;
 
     /**
      * 取得实例
@@ -104,6 +121,9 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
         jwt = (String) (SharedPreferencesUtil.getData("JWT", ""));
         user = (User) (SharedPreferencesUtil.getData("USER", new User()));
         initView();
+        Glide.with(Objects.requireNonNull(getContext()))
+                .load(user.getAvatarUrl())
+                .into(avatarImageView);
     }
 
     /**
@@ -132,7 +152,6 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
 
     /**
@@ -142,7 +161,16 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
      */
     @OnClick(R.id.re_avatar)
     public void updateAvatar(View view) {
-        //todo update avatar alert dialog
+        accesskey = (String) SharedPreferencesUtil.getData("accessKey", CommonConstant.NULL);
+        secret = (String) SharedPreferencesUtil.getData("secretKey", CommonConstant.NULL);
+        bucket = (String) SharedPreferencesUtil.getData("bucket", CommonConstant.NULL);
+        if (CommonConstant.NULL.equals(accesskey) &&
+                CommonConstant.NULL.equals(secret) &&
+                CommonConstant.NULL.equals(bucket)) {
+            personCenterPresenter.getQiNiuPropertyAndUpload(jwt);
+        } else {
+            personCenterPresenter.upload();
+        }
     }
 
     /**
@@ -152,7 +180,7 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
      */
     @OnClick(R.id.re_update_user_name)
     public void updateUsername(View view) {
-        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_edit_single_line, null);
+        @SuppressLint("InflateParams") View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_edit_single_line, null);
         final TextInputLayout textInputLayout = dialogView.findViewById(R.id.text_input_layout);
         textInputLayout.setHint("修改用户名");
         final EditText usernameEditText = dialogView.findViewById(R.id.edit_single_line);
@@ -196,7 +224,7 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
      */
     @OnClick(R.id.re_update_password)
     public void updatePassword(View view) {
-        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_update_password, null);
+        @SuppressLint("InflateParams") View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_update_password, null);
         final EditText passwordEditText = dialogView.findViewById(R.id.edit_password);
         final EditText newPasswordEditText = dialogView.findViewById(R.id.edit_new_password);
         final ToggleButton togglePassword = dialogView.findViewById(R.id.toggle_password);
@@ -257,7 +285,7 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
      */
     @OnClick(R.id.re_update_display_name)
     public void updateDisplayName(View view) {
-        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_edit_single_line, null);
+        @SuppressLint("InflateParams") View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_edit_single_line, null);
         final TextInputLayout textInputLayout = dialogView.findViewById(R.id.text_input_layout);
         textInputLayout.setHint("修改显示名");
         final EditText displayNameEditText = dialogView.findViewById(R.id.edit_single_line);
@@ -301,7 +329,7 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
      */
     @OnClick(R.id.re_update_phone)
     public void updatePhone(View view) {
-        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_edit_single_line, null);
+        @SuppressLint("InflateParams") View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_edit_single_line, null);
         final TextInputLayout textInputLayout = dialogView.findViewById(R.id.text_input_layout);
         textInputLayout.setHint("修改手机号");
         final EditText phoneEditText = dialogView.findViewById(R.id.edit_single_line);
@@ -345,7 +373,7 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
      */
     @Override
     public void showData(JSONObject successData) {
-        if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
+        if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
             showToast(successData.getString("message"));
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
@@ -356,6 +384,9 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
         }
     }
 
+    /**
+     * SwipeRefreshLayout监听刷新
+     */
     @Override
     public void onRefresh() {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -364,5 +395,83 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+    }
+
+    /**
+     * GetQiNiuPropertyAndUpload请求成功
+     *
+     * @param successData 成功数据源
+     */
+    @Override
+    public void showGetQiNiuPropertyAndUploadResponse(JSONObject successData) {
+        if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
+            String resultJSON = successData.getString("result");
+            JSONObject resultJSONObject = JSON.parseObject(resultJSON);
+            accesskey = resultJSONObject.getString("accessKey");
+            secret = resultJSONObject.getString("secretKey");
+            bucket = resultJSONObject.getString("bucket");
+            SharedPreferencesUtil.putData("accessKey", accesskey);
+            SharedPreferencesUtil.putData("secretKey", secret);
+            SharedPreferencesUtil.putData("bucket", bucket);
+            Intent intent = new Intent(Intent.ACTION_PICK, null);
+            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+            startActivityForResult(intent, UPLOAD_CODE);
+        }
+    }
+
+    /**
+     * 利用本地存储的秘钥上传七牛云
+     */
+    @Override
+    public void upload() {
+        Intent intent = new Intent(Intent.ACTION_PICK, null);
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(intent, UPLOAD_CODE);
+    }
+
+    /**
+     * 图片选择后进行上传
+     *
+     * @param requestCode 0x1
+     * @param resultCode  RESULT_OK
+     * @param data        picture
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == UPLOAD_CODE && resultCode == RESULT_OK) {
+            QiNiuUploadUtil.init(accesskey, secret, bucket);
+            if (data != null) {
+                Cursor cursor = null;
+                ContentResolver resolver = Objects.requireNonNull(getActivity()).getContentResolver();
+                try {
+                    Uri uri = data.getData();
+                    String[] projection = {MediaStore.Images.Media.DATA};
+                    cursor = resolver.query(Objects.requireNonNull(uri), projection, null, null, null);
+                    int columnIndex = Objects.requireNonNull(cursor).getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                    cursor.moveToFirst();
+                    String photoPath = cursor.getString(columnIndex);
+                    QiNiuUploadUtil.uploadPicture(photoPath, UUID.randomUUID().toString(), new QiNiuUploadUtil.UploadCallBack() {
+                        @Override
+                        public void success(String url) {
+                            Glide.with(Objects.requireNonNull(getContext()))
+                                    .load(CommonConstant.QINIU_URL + url)
+                                    .into(avatarImageView);
+                            user.setAvatarUrl(CommonConstant.QINIU_URL + url);
+                            personCenterPresenter.updateUserProperty(user, jwt);
+                        }
+
+                        @Override
+                        public void fail(String key, ResponseInfo info) {
+                            showToast(key + info.error);
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    Objects.requireNonNull(cursor).close();
+                }
+            }
+        }
     }
 }

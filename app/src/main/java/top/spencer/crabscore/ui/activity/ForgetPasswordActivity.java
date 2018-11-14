@@ -189,7 +189,7 @@ public class ForgetPasswordActivity extends BaseActivity implements VerifyCodeVi
      */
     @Override
     public void showData(JSONObject successData) {
-        if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
+        if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
             showToast("密码修改成功");
         } else {
             showToast(successData.getString("message"));
@@ -204,7 +204,7 @@ public class ForgetPasswordActivity extends BaseActivity implements VerifyCodeVi
      */
     @Override
     public void dealSendCode(JSONObject successData) {
-        Integer code = successData.getInteger("code");
+        Integer code = successData.getInteger(CommonConstant.CODE);
         String message = successData.getString("message");
         if (code.equals(CommonConstant.SUCCESS) && "验证码发送成功".equals(message)) {
             showToast("验证码发送成功！");
@@ -221,7 +221,7 @@ public class ForgetPasswordActivity extends BaseActivity implements VerifyCodeVi
      */
     @Override
     public void dealVerifyCode(JSONObject successData) {
-        Integer code = successData.getInteger("code");
+        Integer code = successData.getInteger(CommonConstant.CODE);
         String message = successData.getString("message");
         if (code.equals(CommonConstant.SUCCESS) && "验证码校验成功".equals(message)) {
             isVerified = true;

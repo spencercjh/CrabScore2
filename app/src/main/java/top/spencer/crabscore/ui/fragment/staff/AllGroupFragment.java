@@ -284,7 +284,7 @@ public class AllGroupFragment extends BaseFragment implements StaffGroupListView
      */
     @Override
     public void showAddCrabResponse(JSONObject successData) {
-        if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
+        if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
             showToast(successData.getString("message"));
         }
     }

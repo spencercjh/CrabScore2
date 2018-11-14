@@ -123,7 +123,7 @@ public class FindLabelFragment extends BaseFragment implements StaffGroupListVie
      */
     @Override
     public void showData(JSONObject successData) {
-        if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
+        if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
             final CrabResult crab = JSONObject.parseObject(successData.getString("result"), CrabResult.class);
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override

@@ -72,7 +72,7 @@ public abstract class BaseModel {
                     String responseBody = response.body().string();
                     Log.d(TAG, responseBody);
                     responseJsonResult = JSON.parseObject(responseBody);
-                    code = responseJsonResult.getInteger("code");
+                    code = responseJsonResult.getInteger(CommonConstant.CODE);
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
                     myCallBack.onError();
@@ -134,7 +134,7 @@ public abstract class BaseModel {
                     String responseBody = response.body().string();
                     Log.d(TAG, responseBody);
                     responseJsonResult = JSON.parseObject(responseBody);
-                    code = responseJsonResult.getInteger("code");
+                    code = responseJsonResult.getInteger(CommonConstant.CODE);
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
                     myCallBack.onError();
@@ -192,7 +192,7 @@ public abstract class BaseModel {
                     String responseBody = response.body().string();
                     Log.d(TAG, responseBody);
                     responseJsonResult = JSON.parseObject(responseBody);
-                    code = responseJsonResult.getInteger("code");
+                    code = responseJsonResult.getInteger(CommonConstant.CODE);
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
                     myCallBack.onError();
@@ -255,7 +255,7 @@ public abstract class BaseModel {
                     String responseBody = response.body().string();
                     Log.d(TAG, responseBody);
                     responseJsonResult = JSON.parseObject(responseBody);
-                    code = responseJsonResult.getInteger("code");
+                    code = responseJsonResult.getInteger(CommonConstant.CODE);
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
                     myCallBack.onError();
@@ -316,7 +316,7 @@ public abstract class BaseModel {
                     String responseBody = response.body().string();
                     Log.d(TAG, responseBody);
                     responseJsonResult = JSON.parseObject(responseBody);
-                    code = responseJsonResult.getInteger("code");
+                    code = responseJsonResult.getInteger(CommonConstant.CODE);
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
                     myCallBack.onError();
@@ -373,7 +373,7 @@ public abstract class BaseModel {
                     String responseBody = response.body().string();
                     Log.d(TAG, responseBody);
                     responseJsonResult = JSON.parseObject(responseBody);
-                    code = responseJsonResult.getInteger("code");
+                    code = responseJsonResult.getInteger(CommonConstant.CODE);
                 } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
                     myCallBack.onError();

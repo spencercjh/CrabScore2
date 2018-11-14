@@ -31,9 +31,9 @@ ButterKnife
 
 图片：Glide
 
-[Google推荐——Glide使用详解](https://www.jianshu.com/p/7ce7b02988a4)
+[Glide V4使用指南](https://www.jianshu.com/p/0d7e1f899b05)
 
-加密：commons-codec、JWT、对称密钥加密
+加密：commons-codec、JWT、AES
 
 [commons-codec使用简介](https://blog.csdn.net/yaomingyang/article/details/80653593)
 

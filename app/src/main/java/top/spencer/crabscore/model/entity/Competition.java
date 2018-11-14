@@ -91,4 +91,8 @@ public class Competition implements Serializable {
      */
     private String updateUser;
 
+    /**
+     * 头像链接
+     */
+    private String avatarUrl;
 }

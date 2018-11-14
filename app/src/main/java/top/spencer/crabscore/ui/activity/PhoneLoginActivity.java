@@ -180,7 +180,7 @@ public class PhoneLoginActivity extends BaseActivity implements VerifyCodeView {
      */
     @Override
     public void dealSendCode(JSONObject successData) {
-        Integer code = successData.getInteger("code");
+        Integer code = successData.getInteger(CommonConstant.CODE);
         String message = successData.getString("message");
         if (code.equals(CommonConstant.SUCCESS) && "验证码发送成功".equals(message)) {
             showToast("验证码发送成功！");
@@ -197,7 +197,7 @@ public class PhoneLoginActivity extends BaseActivity implements VerifyCodeView {
      */
     @Override
     public void dealVerifyCode(JSONObject successData) {
-        Integer code = successData.getInteger("code");
+        Integer code = successData.getInteger(CommonConstant.CODE);
         String message = successData.getString("message");
         if (code.equals(CommonConstant.SUCCESS) && "验证码校验成功".equals(message)) {
             isVerified = true;
@@ -214,7 +214,7 @@ public class PhoneLoginActivity extends BaseActivity implements VerifyCodeView {
      */
     @Override
     public void showData(JSONObject successData) {
-        if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
+        if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
             SharedPreferencesUtil.putData("USERNAME", phone.getText().toString().trim());
             showToast(successData.getString("message"));
             Map result = (Map) successData.get("result");

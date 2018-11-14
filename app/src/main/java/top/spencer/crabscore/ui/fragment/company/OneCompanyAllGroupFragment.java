@@ -315,7 +315,7 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
      */
     @Override
     public void showUserBindCompanyResponse(JSONObject successData) {
-        if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
+        if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
             showToast(successData.getString("message"));
             companyPresenter.getOneCompanyAllGroup(presentCompetition.getCompetitionId(), user.getCompanyId(),
                     pageNum, pageSize, jwt);

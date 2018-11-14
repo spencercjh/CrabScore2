@@ -7,6 +7,7 @@ import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.entity.User;
 import top.spencer.crabscore.model.model.common.ModelFactory;
+import top.spencer.crabscore.model.model.common.person.UpdateUserPropertyModel;
 import top.spencer.crabscore.ui.view.PersonCenterView;
 
 /**
@@ -18,7 +19,7 @@ public class PersonCenterPresenter extends BasePresenter<PersonCenterView> {
      *
      * @param user 用户对象
      * @param jwt  JWT
-     * @see top.spencer.crabscore.model.model.common.UpdateUserPropertyModel
+     * @see UpdateUserPropertyModel
      */
     public void updateUserProperty(User user, String jwt) {
         if (isViewAttached()) {
@@ -49,5 +50,49 @@ public class PersonCenterPresenter extends BasePresenter<PersonCenterView> {
                         getView().hideLoading();
                     }
                 });
+    }
+
+    /**
+     * 获取七牛云的AppKey，Secret,BucketName，并上传七牛云
+     *
+     * @param jwt JWT
+     * @see top.spencer.crabscore.model.model.common.person.GetQiNiuPropertyModel
+     */
+    public void getQiNiuPropertyAndUpload(String jwt) {
+        if (isViewAttached()) {
+            return;
+        }
+        getView().showLoading();
+        ModelFactory
+                .request(Token.API_GET_QINIU_PROPERTY)
+                .params(jwt)
+                .execute(new MyCallback<JSONObject>() {
+                    @Override
+                    public void onSuccess(JSONObject data) {
+                        getView().showGetQiNiuPropertyAndUploadResponse(data);
+                    }
+
+                    @Override
+                    public void onFailure(JSONObject data) {
+                        getView().showFailure(data);
+                    }
+
+                    @Override
+                    public void onError() {
+                        getView().showErr();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        getView().hideLoading();
+                    }
+                });
+    }
+
+    /**
+     * 上传七牛云
+     */
+    public void upload() {
+        getView().upload();
     }
 }

@@ -324,7 +324,7 @@ public class RegistAssessmentFragment extends BaseFragment implements UserAdminL
      */
     @Override
     public void showUpdateUserPropertyResponse(JSONObject successData) {
-        if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
+        if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
             showToast(successData.getString("message"));
             resetList();
         }
@@ -347,7 +347,7 @@ public class RegistAssessmentFragment extends BaseFragment implements UserAdminL
      */
     @Override
     public void showDeleteUserResponse(JSONObject successData) {
-        if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
+        if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
             showToast(successData.getString("message"));
             resetList();
         }

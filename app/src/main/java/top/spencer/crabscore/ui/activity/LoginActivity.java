@@ -260,7 +260,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
      */
     @Override
     public void showData(JSONObject successData) {
-        if (successData.getInteger("code").equals(CommonConstant.SUCCESS)) {
+        if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
             SharedPreferencesUtil.putData("USERNAME", username.getText().toString().trim());
             SharedPreferencesUtil.putData("PASSWORD", password.getText().toString().trim());
             SharedPreferencesUtil.putData("ROLE_CHOICE", roleChoice);

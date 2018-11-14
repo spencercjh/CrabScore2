@@ -24,7 +24,7 @@ public class VerifyCodeModel extends BaseModel {
         String url = CommonConstant.URL + "common/code";
         Map<String, Object> postParams = new HashMap<>(2);
         postParams.put("mobile", mvpParams[0]);
-        postParams.put("code", mvpParams[1]);
+        postParams.put(CommonConstant.CODE, mvpParams[1]);
         requestPostAPI(url, postParams, myCallBack, "");
     }
 }

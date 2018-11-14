@@ -76,4 +76,9 @@ public class User implements Serializable {
      * 更新用户")
      */
     private String updateUser;
+
+    /**
+     * 头像链接
+     */
+    private String avatarUrl;
 }

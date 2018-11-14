@@ -4,6 +4,10 @@ package top.spencer.crabscore.common;
  * @author spencercjh
  */
 public interface CommonConstant {
+    String NULL = "null";
+
+    String CODE = "code";
+
     Integer CRAB_MALE = 1;
 
     Integer CRAB_FEMALE = 0;
@@ -38,10 +42,14 @@ public interface CommonConstant {
     String REMEMBER_PASSWORD = "REMEMBER_PASSWORD";
 
     /**
-     * 服务器地址
+     * 后端服务器地址
      */
     String URL = "https://www.spencercjh.top/crabscore/api/";
 
+    /**
+     * 七牛云对象存储服务器地址
+     */
+    String QINIU_URL = "http://spencercjh.top/";
     /**
      * 成功
      */
@@ -55,7 +63,7 @@ public interface CommonConstant {
     /**
      * 用户默认头像
      */
-    String USER_DEFAULT_AVATAR = "";
+    String USER_DEFAULT_AVATAR = "http://spencercjh.top/%E4%B8%8A%E6%B5%B7%E6%B5%B7%E6%B4%8B%E5%A4%A7%E5%AD%A6%E6%A0%A1%E5%BE%BD.jpg";
 
     /**
      * 用户正常状态
