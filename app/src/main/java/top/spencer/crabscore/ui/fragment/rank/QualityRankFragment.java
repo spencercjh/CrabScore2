@@ -99,7 +99,7 @@ public class QualityRankFragment extends BaseFragment implements MyRecycleListVi
      */
     @Override
     public void setRecycleView() {
-        qualityRankListAdapter = new QualityRankListAdapter(groupList);
+        qualityRankListAdapter = new QualityRankListAdapter(groupList,getContext());
         if (groupList.size() == 0) {
             rankListView.setEmptyView(emptyText);
         }

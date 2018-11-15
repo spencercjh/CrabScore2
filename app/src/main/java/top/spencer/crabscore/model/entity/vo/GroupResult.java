@@ -18,6 +18,8 @@ public class GroupResult implements Serializable {
 
     private String companyName;
 
+    private String avatarUrl;
+
     private Integer competitionId;
 
     private Float fatnessScoreM;

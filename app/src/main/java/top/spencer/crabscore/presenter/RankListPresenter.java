@@ -148,9 +148,25 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
             JSONObject jsonObject = (JSONObject) object;
             String jsonString = jsonObject.toJSONString();
             GroupResult group = JSONObject.parseObject(jsonString, GroupResult.class);
-            if (!groupList.contains(group)) {
-                groupList.add(group);
+            //是否需要调用add方法添加到groupList中去
+            boolean needAdd = true;
+            //遍历已有的groupList
+            for (int i = 0; i < groupList.size(); ++i) {
+                //存在新groupResult对象和已有的groupResult对象的id相同
+                if (groupList.get(i).getGroupId().equals(group.getGroupId())) {
+                    needAdd = false;
+                    //属性发生了变化
+                    if (!groupList.get(i).equals(group)) {
+                        //更新属性信息
+                        groupList.set(i, group);
+                        repeat = false;
+                    }
+                    break;
+                }
+            }
+            if (needAdd) {
                 repeat = false;
+                groupList.add(group);
             }
         }
         return repeat;

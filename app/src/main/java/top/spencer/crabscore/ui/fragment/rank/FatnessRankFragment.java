@@ -99,7 +99,7 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
      */
     @Override
     public void setRecycleView() {
-        fatnessRankListAdapter = new FatnessRankListAdapter(groupList);
+        fatnessRankListAdapter = new FatnessRankListAdapter(groupList,getContext());
         if (groupList.size() == 0) {
             rankListView.setEmptyView(emptyText);
         }

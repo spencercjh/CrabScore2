@@ -15,10 +15,10 @@ import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.vo.GroupResult;
 import top.spencer.crabscore.presenter.RankListPresenter;
-import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.ui.adapter.TasteRankListAdapter;
 import top.spencer.crabscore.ui.view.MyRecycleListView;
 import top.spencer.crabscore.ui.widget.EmptyRecyclerView;
@@ -99,7 +99,7 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
      */
     @Override
     public void setRecycleView() {
-        tasteRankListAdapter = new TasteRankListAdapter(groupList);
+        tasteRankListAdapter = new TasteRankListAdapter(groupList, getContext());
         if (groupList.size() == 0) {
             rankListView.setEmptyView(emptyText);
         }
