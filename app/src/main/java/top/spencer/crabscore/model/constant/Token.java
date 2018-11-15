@@ -7,6 +7,7 @@ import top.spencer.crabscore.model.model.common.rank.GetFatnessRankModel;
 import top.spencer.crabscore.model.model.common.rank.GetQualityRankModel;
 import top.spencer.crabscore.model.model.common.rank.GetTasteRankModel;
 import top.spencer.crabscore.model.model.company.GetOneCompanyAllGroupModel;
+import top.spencer.crabscore.model.model.company.GetOneGroupAllCrabAndScoreModel;
 import top.spencer.crabscore.model.model.company.UserBindCompanyModel;
 import top.spencer.crabscore.model.model.judge.GetAllGroupModel;
 import top.spencer.crabscore.model.model.staff.AddCrabListModel;
@@ -80,4 +81,6 @@ public interface Token {
     String API_UPDATE_USER_PROPERTY_USER = top.spencer.crabscore.model.model.common.person.UpdateUserPropertyModel.class.getName();
 
     String API_GET_QINIU_PROPERTY = GetQiNiuPropertyModel.class.getName();
+
+    String API_GET_ONE_GROUP_ALL_CRAB_AND_SCORE = GetOneGroupAllCrabAndScoreModel.class.getName();
 }
