@@ -188,9 +188,25 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
             JSONObject jsonObject = (JSONObject) object;
             String jsonString = jsonObject.toJSONString();
             Company company = JSONObject.parseObject(jsonString, Company.class);
-            if (!companyList.contains(company)) {
-                companyList.add(company);
+            //是否需要调用add方法添加到companyList中去
+            boolean needAdd = true;
+            //遍历已有的companyList
+            for (int i = 0; i < companyList.size(); ++i) {
+                //存在新company对象和已有的company对象的id相同
+                if (companyList.get(i).getCompanyId().equals(company.getCompanyId())) {
+                    needAdd = false;
+                    //属性发生了变化
+                    if (!companyList.get(i).equals(company)) {
+                        //更新属性信息
+                        companyList.set(i, company);
+                        repeat = false;
+                    }
+                    break;
+                }
+            }
+            if (needAdd) {
                 repeat = false;
+                companyList.add(company);
             }
         }
         return repeat;

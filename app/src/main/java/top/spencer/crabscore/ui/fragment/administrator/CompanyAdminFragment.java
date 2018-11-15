@@ -22,11 +22,11 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.common.CommonConstant;
+import top.spencer.crabscore.common.util.PatternUtil;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Company;
 import top.spencer.crabscore.presenter.AdministratorListPresenter;
 import top.spencer.crabscore.presenter.CompanyAdminPresenter;
-import top.spencer.crabscore.common.util.PatternUtil;
-import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.ui.activity.administrator.AdminCheckCompanyScoreActivity;
 import top.spencer.crabscore.ui.adapter.CompanyAdminListAdapter;
 import top.spencer.crabscore.ui.adapter.MyOnItemClickListener;
@@ -150,7 +150,7 @@ public class CompanyAdminFragment extends BaseFragment implements CompanyAdminLi
      * 初始化列表adapter，设置单击监听
      */
     private void initAdminListAdapter() {
-        companyAdminListAdapter = new CompanyAdminListAdapter(companyList);
+        companyAdminListAdapter = new CompanyAdminListAdapter(companyList, getContext());
         companyAdminListAdapter.setOnItemClickListener(new MyOnItemClickListener() {
 
             @Override

@@ -10,17 +10,10 @@
             android:layout_height="wrap_content">
         <ImageView
                 android:layout_width="65dp"
-                android:layout_height="54dp"
+                android:layout_height="83dp"
                 app:srcCompat="@drawable/icon_crab"
                 android:id="@+id/imageview_user"
                 android:contentDescription="userLogo"/>
-        <LinearLayout
-                android:id="@+id/linearLayout5"
-                android:layout_width="match_parent"
-                android:layout_height="17dp"
-                android:orientation="horizontal"
-                android:weightSum="1">
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -119,7 +112,7 @@
         <LinearLayout
                 android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
-                android:layout_height="16dp"
+                android:layout_height="29dp"
                 android:orientation="horizontal"
                 android:weightSum="1">
         </LinearLayout>
