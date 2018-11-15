@@ -13,7 +13,9 @@ import top.spencer.crabscore.common.util.AesUtil;
 import top.spencer.crabscore.common.util.PatternUtil;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -59,10 +61,20 @@ public class LoginModel extends BaseModel {
         String json = JSON.toJSONString(param);
         String url = CommonConstant.URL + "common/login";
         Map<String, Object> postParam = new HashMap<>(1);
-        byte[] key = CommonConstant.AES_KEY;
+        byte[] key = new byte[0];
+        try {
+            key = AesUtil.initKey();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        List<Byte> keyList = new ArrayList<>(8);
+        for (byte aKey : key) {
+            keyList.add(aKey);
+        }
         try {
             postParam.put("json", Base64.encodeToString(AesUtil.encrypt(json.getBytes(StandardCharsets.UTF_8), key),
                     Base64.URL_SAFE));
+            postParam.put("key", JSON.toJSON(keyList).toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

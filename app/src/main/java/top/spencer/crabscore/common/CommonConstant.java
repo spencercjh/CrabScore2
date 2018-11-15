@@ -11,10 +11,6 @@ public interface CommonConstant {
     Integer CRAB_MALE = 1;
 
     Integer CRAB_FEMALE = 0;
-    /**
-     * login请求的body加密秘钥
-     */
-    byte[] AES_KEY = {34, 70, 37, -19, -41, -44, -114, -103, 91, -13, -115, -57, 94, 17, 67, 3};
 
     /**
      * SeekBar的百分百进度
