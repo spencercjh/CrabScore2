@@ -112,9 +112,25 @@ public class AdministratorListPresenter extends BasePresenter<MyRecycleListView>
             JSONObject jsonObject = (JSONObject) object;
             String jsonString = jsonObject.toJSONString();
             User user = JSONObject.parseObject(jsonString, User.class);
-            if (!userList.contains(user)) {
-                userList.add(user);
+            //是否需要调用add方法添加到userList中去
+            boolean needAdd = true;
+            //遍历已有的userList
+            for (int i = 0; i < userList.size(); ++i) {
+                //存在新user对象和已有的user对象的id相同
+                if (userList.get(i).getUserId().equals(user.getUserId())) {
+                    needAdd = false;
+                    //属性发生了变化
+                    if (!userList.get(i).equals(user)) {
+                        //更新属性信息
+                        userList.set(i, user);
+                        repeat = false;
+                    }
+                    break;
+                }
+            }
+            if (needAdd) {
                 repeat = false;
+                userList.add(user);
             }
         }
         return repeat;

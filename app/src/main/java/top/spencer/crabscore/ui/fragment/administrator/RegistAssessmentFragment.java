@@ -149,7 +149,7 @@ public class RegistAssessmentFragment extends BaseFragment implements UserAdminL
      * 初始化列表adapter，设置单击监听
      */
     private void initUserAdminListAdapter() {
-        userAdminListAdapter = new UserAdminListAdapter(userList);
+        userAdminListAdapter = new UserAdminListAdapter(userList,getContext());
         userAdminListAdapter.setOnItemClickListener(new MyOnItemClickListener() {
 
             @Override

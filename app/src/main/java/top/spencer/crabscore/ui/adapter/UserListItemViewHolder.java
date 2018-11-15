@@ -2,6 +2,7 @@ package top.spencer.crabscore.ui.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import top.spencer.crabscore.R;
 
@@ -16,6 +17,7 @@ class UserListItemViewHolder extends RecyclerView.ViewHolder {
     TextView role;
     TextView status;
     TextView phone;
+    ImageView avatar;
 
     UserListItemViewHolder(View view) {
         super(view);
@@ -24,6 +26,7 @@ class UserListItemViewHolder extends RecyclerView.ViewHolder {
         role = view.findViewById(R.id.textview_role);
         status = view.findViewById(R.id.textview_status);
         phone = view.findViewById(R.id.textview_phone);
+        avatar = view.findViewById(R.id.imageview_user);
     }
 }
 

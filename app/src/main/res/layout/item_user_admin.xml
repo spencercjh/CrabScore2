@@ -1,104 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
-
     <LinearLayout
-            android:id="@+id/linearLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:orientation="horizontal">
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="用户名:"/>
-
-        <TextView
-                android:id="@+id/textview_user_name"
-                android:layout_width="133dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:lines="1"
-                android:gravity="center"/>
-
-        <TextView
-                android:layout_width="68dp"
-                android:layout_height="match_parent"
-                android:ellipsize="end"
-                android:text="显示名:"/>
-
-        <TextView
-                android:id="@+id/textview_display_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:lines="1"
-                android:gravity="center"/>
-    </LinearLayout>
-
-    <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:orientation="horizontal">
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="用户组:"/>
-
-        <TextView
-                android:id="@+id/textview_role"
-                android:layout_width="135dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:lines="1"
-                android:gravity="center"/>
-
-        <TextView
-                android:id="@+id/textView4"
-                android:layout_width="68dp"
-                android:layout_height="match_parent"
-                android:text="状态:"/>
-
-        <TextView
-                android:id="@+id/textview_status"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:lines="1"
-                android:gravity="center"/>
-    </LinearLayout>
-
-    <LinearLayout
-            android:id="@+id/linearLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:orientation="horizontal">
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="手机号:"/>
-
-        <TextView
-                android:id="@+id/textview_phone"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <ImageView
+                android:layout_width="65dp"
+                android:layout_height="54dp"
+                app:srcCompat="@drawable/icon_crab"
+                android:id="@+id/imageview_user"
+                android:contentDescription="userLogo"/>
+        <LinearLayout
+                android:id="@+id/linearLayout5"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:lines="1"
-                android:gravity="center"/>
+                android:layout_height="17dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-            android:id="@+id/linearLayout4"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:layout_height="match_parent">
+        <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="18dp"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="用户名:"/>
+
+            <TextView
+                    android:id="@+id/textview_user_name"
+                    android:layout_width="133dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:gravity="center"/>
+
+            <TextView
+                    android:layout_width="68dp"
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:text="显示名:"/>
+
+            <TextView
+                    android:id="@+id/textview_display_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:lines="1"
+                    android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="18dp"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="用户组:"/>
+
+            <TextView
+                    android:id="@+id/textview_role"
+                    android:layout_width="135dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:gravity="center"/>
+
+            <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="68dp"
+                    android:layout_height="match_parent"
+                    android:text="状态:"/>
+
+            <TextView
+                    android:id="@+id/textview_status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="18dp"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="手机号:"/>
+
+            <TextView
+                    android:id="@+id/textview_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

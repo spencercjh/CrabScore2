@@ -19,12 +19,12 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.common.CommonConstant;
+import top.spencer.crabscore.common.util.PatternUtil;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.User;
 import top.spencer.crabscore.presenter.AdministratorListPresenter;
 import top.spencer.crabscore.presenter.UserAdminPresenter;
-import top.spencer.crabscore.common.util.PatternUtil;
-import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.ui.adapter.MyOnItemClickListener;
 import top.spencer.crabscore.ui.adapter.UserAdminListAdapter;
 import top.spencer.crabscore.ui.view.UserAdminListView;
@@ -150,7 +150,7 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
      * 初始化列表adapter，设置单击监听
      */
     private void initUserAdminListAdapter() {
-        userAdminListAdapter = new UserAdminListAdapter(userList);
+        userAdminListAdapter = new UserAdminListAdapter(userList, getContext());
         userAdminListAdapter.setOnItemClickListener(new MyOnItemClickListener() {
 
             @Override

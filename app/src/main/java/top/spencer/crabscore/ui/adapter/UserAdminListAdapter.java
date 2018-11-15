@@ -1,15 +1,18 @@
 package top.spencer.crabscore.ui.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.bumptech.glide.Glide;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.model.entity.User;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 用户管理页面用户列表适配器
@@ -19,13 +22,15 @@ import java.util.List;
 public class UserAdminListAdapter extends RecyclerView.Adapter<UserListItemViewHolder> {
     private MyOnItemClickListener myOnItemClickListener;
     private List<User> userList;
+    private Context context;
 
     public void setOnItemClickListener(MyOnItemClickListener mListener) {
         this.myOnItemClickListener = mListener;
     }
 
-    public UserAdminListAdapter(List<User> data) {
+    public UserAdminListAdapter(List<User> data, Context context) {
         this.userList = data;
+        this.context = context;
     }
 
     @Override
@@ -65,6 +70,9 @@ public class UserAdminListAdapter extends RecyclerView.Adapter<UserListItemViewH
             holder.username.setText(user.getUserName());
             holder.displayName.setText(user.getDisplayName());
             holder.phone.setText(user.getEmail());
+            Glide.with(Objects.requireNonNull(context))
+                    .load(user.getAvatarUrl())
+                    .into(holder.avatar);
             if (user.getStatus().equals(CommonConstant.USER_STATUS_NORMAL)) {
                 holder.status.setText(user.getCompetitionId().equals(CommonConstant.USER_COMPETITION_ALL) ?
                         "永久有效" : "仅当前赛事有效");
