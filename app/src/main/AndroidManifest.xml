@@ -39,8 +39,7 @@
         <activity android:name=".ui.activity.staff.CrabListActivity">
         </activity>
         <activity android:name=".ui.activity.company.ScoreListActivity"
-                  android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        </activity>
+                  android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
     </application>
 
 </manifest>

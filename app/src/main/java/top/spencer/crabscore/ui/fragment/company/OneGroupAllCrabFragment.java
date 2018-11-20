@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * //todo adapter
+ * 参选单位用户组某一小组内的全部螃蟹和得分信息页面
  *
  * @author spencercjh
  */

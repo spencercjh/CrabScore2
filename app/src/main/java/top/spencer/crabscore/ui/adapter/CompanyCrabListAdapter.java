@@ -42,7 +42,7 @@ public class CompanyCrabListAdapter extends RecyclerView.Adapter<CompanyCrabList
     @NonNull
     @Override
     public CompanyCrabListItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_group_company, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_crab_score_result, parent, false);
         CompanyCrabListItemViewHolder companyCrabListItemViewHolder = new CompanyCrabListItemViewHolder(v);
         if (myOnItemClickListener != null) {
             companyCrabListItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {

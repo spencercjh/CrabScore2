@@ -10,9 +10,7 @@ import top.spencer.crabscore.model.model.company.GetOneCompanyAllGroupModel;
 import top.spencer.crabscore.model.model.company.GetOneGroupAllCrabAndScoreModel;
 import top.spencer.crabscore.model.model.company.UserBindCompanyModel;
 import top.spencer.crabscore.model.model.judge.GetAllGroupModel;
-import top.spencer.crabscore.model.model.staff.AddCrabListModel;
-import top.spencer.crabscore.model.model.staff.AddCrabModel;
-import top.spencer.crabscore.model.model.staff.FindCrabByLabel;
+import top.spencer.crabscore.model.model.staff.*;
 
 /**
  * 具体Model类，常量用于反射
@@ -76,11 +74,15 @@ public interface Token {
 
     String API_ADD_CRAB_LIST = AddCrabListModel.class.getName();
 
-    String API_FIND_CRAB_BY_LABEL = FindCrabByLabel.class.getName();
+    String API_FIND_CRAB_BY_LABEL = FindCrabByLabelModel.class.getName();
 
     String API_UPDATE_USER_PROPERTY_USER = top.spencer.crabscore.model.model.common.person.UpdateUserPropertyModel.class.getName();
 
     String API_GET_QINIU_PROPERTY = GetQiNiuPropertyModel.class.getName();
 
     String API_GET_ONE_GROUP_ALL_CRAB_AND_SCORE = GetOneGroupAllCrabAndScoreModel.class.getName();
+
+    String API_GET_ONE_GROUP_ONE_SEX_CRAB = GetOneGroupOneSexCrabModel.class.getName();
+
+    String API_UPDATE_CRAB_INFO = UpdateCrabInfoModel.class.getName();
 }

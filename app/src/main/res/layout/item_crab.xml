@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools" android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+        <ImageView
+                android:layout_width="65dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/icon_crab"
+                android:id="@+id/imageview_crab"
+                android:contentDescription="crabLogo"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="18dp"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="螃蟹ID:"/>
+
+            <TextView
+                    android:id="@+id/textview_crab_id"
+                    android:layout_width="92dp"
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:gravity="center"/>
+
+            <TextView
+                    android:layout_width="68dp"
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:text="小组ID:"/>
+
+            <TextView
+                    android:id="@+id/textview_group_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:lines="1"
+                    android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="18dp"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="螃蟹性别:"/>
+
+            <TextView
+                    android:id="@+id/textview_crab_sex"
+                    android:layout_width="76dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:gravity="center"/>
+
+            <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="标签:"/>
+
+            <TextView
+                    android:id="@+id/textview_crab_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="18dp"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="体重:"/>
+
+            <TextView
+                    android:id="@+id/textview_crab_weight"
+                    android:layout_width="105dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:gravity="center"/>
+            <TextView
+                    android:text="壳长:"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textView2"
+                    android:layout_weight="1"
+                    android:layout_width="2dp"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textview_crab_length"
+                    android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="18dp">
+            <TextView
+                    android:text="肥满度:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dp"
+                    android:id="@+id/textView5"
+                    android:layout_weight="1"/>
+            <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textview_fatness"
+                    android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="18dp">
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -8,15 +8,15 @@ import top.spencer.crabscore.common.CommonConstant;
 /**
  * @author spencercjh
  */
-public class FindCrabByLabel extends BaseModel {
+public class UpdateCrabInfoModel extends BaseModel {
     /**
-     * 参数表String label, String jwt
+     * 参数表Crab crab,String jwt
      *
      * @param myCallBack myCallBack
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "staff/crab/" + mvpParams[0];
-        requestGetAPI(url, myCallBack, mvpParams[1]);
+        String url = CommonConstant.URL + "staff/crab";
+        requestPutJSONAPI(url, mvpParams[0], myCallBack, mvpParams[1]);
     }
 }

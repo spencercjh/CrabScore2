@@ -16,6 +16,7 @@ import top.spencer.crabscore.R;
 @SuppressWarnings("deprecation")
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
 
+    protected static int pageSize = 15;
     private ProgressDialog mProgressDialog;
 
     @Override

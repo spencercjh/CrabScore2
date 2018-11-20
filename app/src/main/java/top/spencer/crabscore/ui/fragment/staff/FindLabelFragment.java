@@ -16,11 +16,11 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.common.CommonConstant;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.User;
 import top.spencer.crabscore.model.entity.vo.CrabResult;
 import top.spencer.crabscore.presenter.StaffPresenter;
-import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.ui.view.StaffGroupListView;
 
 /**
@@ -165,6 +165,11 @@ public class FindLabelFragment extends BaseFragment implements StaffGroupListVie
     @Deprecated
     @Override
     public void showAddCrabResponse(JSONObject successData) {
+        //nothing
+    }
+
+    @Override
+    public void showUpdateCrabInfoResponse(JSONObject successData) {
         //nothing
     }
 

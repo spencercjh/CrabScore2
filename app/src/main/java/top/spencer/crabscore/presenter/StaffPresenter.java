@@ -1,6 +1,7 @@
 package top.spencer.crabscore.presenter;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.MyCallback;
@@ -26,6 +27,7 @@ public class StaffPresenter extends BasePresenter<StaffGroupListView> {
      * @param pageNum       页数
      * @param pageSize      页面大小
      * @param jwt           JWT
+     * @see top.spencer.crabscore.model.model.staff.GetAllGroupModel
      */
     public void getAllGroup(Integer competitionId, Integer pageNum, Integer pageSize, String jwt) {
         if (isViewAttached()) {
@@ -63,6 +65,7 @@ public class StaffPresenter extends BasePresenter<StaffGroupListView> {
      *
      * @param crab 螃蟹对象
      * @param jwt  JWT
+     * @see top.spencer.crabscore.model.model.staff.AddCrabListModel
      */
     public void addCrab(Crab crab, String jwt) {
         if (isViewAttached()) {
@@ -191,6 +194,7 @@ public class StaffPresenter extends BasePresenter<StaffGroupListView> {
      *
      * @param label label
      * @param jwt   JWT
+     * @see top.spencer.crabscore.model.model.staff.FindCrabByLabelModel
      */
     public void findCrabByLabel(String label, String jwt) {
         if (isViewAttached()) {
@@ -204,6 +208,118 @@ public class StaffPresenter extends BasePresenter<StaffGroupListView> {
                     @Override
                     public void onSuccess(JSONObject data) {
                         getView().showData(data);
+                    }
+
+                    @Override
+                    public void onFailure(JSONObject data) {
+                        getView().showFailure(data);
+                    }
+
+                    @Override
+                    public void onError() {
+                        getView().showErr();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        getView().hideLoading();
+                    }
+                });
+    }
+
+    /**
+     * 查找某一年某一组某一性别的所有螃蟹
+     *
+     * @param competitionId 大赛Id
+     * @param groupId       小组Id
+     * @param sex           性别
+     * @param pageNum       页数
+     * @param pageSize      页面大小
+     * @param jwt           JWT
+     * @see top.spencer.crabscore.model.model.staff.GetOneGroupOneSexCrabModel
+     */
+    public void getOneGroupOneSexCrab(Integer competitionId, Integer groupId, Integer sex, Integer pageNum, Integer pageSize,
+                                      String jwt) {
+        if (isViewAttached()) {
+            return;
+        }
+        getView().showLoading();
+        ModelFactory
+                .request(Token.API_GET_ONE_GROUP_ONE_SEX_CRAB)
+                .params(String.valueOf(competitionId), String.valueOf(groupId), String.valueOf(sex),
+                        String.valueOf(pageNum), String.valueOf(pageSize), jwt)
+                .execute(new MyCallback<JSONObject>() {
+                    @Override
+                    public void onSuccess(JSONObject data) {
+                        getView().showData(data);
+                    }
+
+                    @Override
+                    public void onFailure(JSONObject data) {
+                        getView().showFailure(data);
+                    }
+
+                    @Override
+                    public void onError() {
+                        getView().showErr();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        getView().hideLoading();
+                    }
+                });
+    }
+
+    public boolean dealCrabJSON(JSONArray results, List<Crab> crabList) {
+        boolean repeat = true;
+        for (Object object : results) {
+            JSONObject jsonObject = (JSONObject) object;
+            String jsonString = jsonObject.toJSONString();
+            Crab crab = JSONObject.parseObject(jsonString, Crab.class);
+            //是否需要调用add方法添加到crabList中去
+            boolean needAdd = true;
+            //遍历已有的crabList
+            for (int i = 0; i < crabList.size(); ++i) {
+                //存在新crab对象和已有的crab对象的id相同
+                if (crabList.get(i).getCrabId().equals(crab.getCrabId())) {
+                    needAdd = false;
+                    //属性发生了变化
+                    if (!crabList.get(i).equals(crab)) {
+                        //更新属性信息
+                        crabList.set(i, crab);
+                        repeat = false;
+                    }
+                    break;
+                }
+            }
+            if (needAdd) {
+                repeat = false;
+                crabList.add(crab);
+            }
+        }
+        return repeat;
+    }
+
+    /**
+     * 更新螃蟹信息
+     *
+     * @param crab 螃蟹对象
+     * @param jwt  JWT
+     * @see top.spencer.crabscore.model.model.staff.UpdateCrabInfoModel
+     */
+    public void updateCrabInfo(Crab crab, String jwt) {
+        if (isViewAttached()) {
+            return;
+        }
+        getView().showLoading();
+        ModelFactory
+                .request(Token.API_UPDATE_CRAB_INFO)
+                .params(JSON.toJSON(crab).toString(), jwt)
+                .execute(new MyCallback<JSONObject>() {
+                    @Override
+                    public void onSuccess(JSONObject data) {
+                        getView().showUpdateCrabInfoResponse(data);
                     }
 
                     @Override
