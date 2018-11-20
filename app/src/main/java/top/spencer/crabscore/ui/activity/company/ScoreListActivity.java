@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +18,6 @@ import top.spencer.crabscore.ui.view.TabLayoutView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author spencercjh
@@ -55,7 +53,6 @@ public class ScoreListActivity extends BaseActivity implements TabLayoutView {
     public void initView() {
         toolbar.setTitle("Company");
         toolbar.setEnabled(false);
-        ((AppCompatActivity) Objects.requireNonNull((getContext()))).setSupportActionBar(toolbar);
         initTabLayout();
     }
 
