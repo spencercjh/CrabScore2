@@ -8,15 +8,15 @@ import top.spencer.crabscore.common.CommonConstant;
 /**
  * @author spencercjh
  */
-public class AddCrabModel extends BaseModel {
+public class AddQualityScoreListModel extends BaseModel {
     /**
-     * 参数表Crab crab,String jwt
+     * 参数表List<QualityScore> qualityScoreList,String jwt
      *
      * @param myCallBack myCallBack
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "admin/staff/crab";
+        String url = CommonConstant.URL + "staff/qualities";
         requestPostJSONAPI(url, mvpParams[0], myCallBack, mvpParams[1]);
     }
 }

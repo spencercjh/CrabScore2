@@ -16,15 +16,15 @@ import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.vo.GroupResult;
 import top.spencer.crabscore.presenter.GradePresenter;
 import top.spencer.crabscore.presenter.RankListPresenter;
-import top.spencer.crabscore.common.util.SharedPreferencesUtil;
-import top.spencer.crabscore.ui.activity.judge.TasteGradeActivity;
+import top.spencer.crabscore.ui.activity.judge.GradeTasteScoreListActivity;
 import top.spencer.crabscore.ui.adapter.GroupGradeListAdapter;
 import top.spencer.crabscore.ui.adapter.MyOnItemClickListener;
-import top.spencer.crabscore.ui.view.MyRecycleListView;
+import top.spencer.crabscore.ui.view.GradeListView;
 import top.spencer.crabscore.ui.widget.EmptyRecyclerView;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ import java.util.Objects;
  *
  * @author spencercjh
  */
-public class TasteGradeFragment extends BaseFragment implements MyRecycleListView, SwipeRefreshLayout.OnRefreshListener {
+public class TasteGradeFragment extends BaseFragment implements GradeListView, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.recycler_view_list)
     EmptyRecyclerView groupListView;
     @BindView(R.id.textview_empty)
@@ -161,7 +161,7 @@ public class TasteGradeFragment extends BaseFragment implements MyRecycleListVie
             @Override
             public void onItemClick(View view) {
                 final GroupResult groupResult = (GroupResult) view.getTag();
-                Intent intent = new Intent(getContext(), TasteGradeActivity.class);
+                Intent intent = new Intent(getContext(), GradeTasteScoreListActivity.class);
                 intent.putExtra("group", groupResult);
                 startActivity(intent);
             }
@@ -208,5 +208,11 @@ public class TasteGradeFragment extends BaseFragment implements MyRecycleListVie
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+    }
+
+    @Deprecated
+    @Override
+    public void showUpdateScoreResponse(JSONObject successData) {
+        //nothing
     }
 }

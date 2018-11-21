@@ -25,7 +25,10 @@ public class TasteScore implements Serializable {
     private Integer groupId;
 
     /**
-     * 性别，1:雄 2：雌")
+     * 性别
+     *
+     * @see top.spencer.crabscore.common.CommonConstant#CRAB_MALE
+     * @see top.spencer.crabscore.common.CommonConstant#CRAB_FEMALE
      */
     private Integer crabSex;
 

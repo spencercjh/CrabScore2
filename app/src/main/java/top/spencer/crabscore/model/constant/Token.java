@@ -10,6 +10,7 @@ import top.spencer.crabscore.model.model.company.GetOneCompanyAllGroupModel;
 import top.spencer.crabscore.model.model.company.GetOneGroupAllCrabAndScoreModel;
 import top.spencer.crabscore.model.model.company.UserBindCompanyModel;
 import top.spencer.crabscore.model.model.judge.GetAllGroupModel;
+import top.spencer.crabscore.model.model.judge.*;
 import top.spencer.crabscore.model.model.staff.*;
 
 /**
@@ -70,8 +71,6 @@ public interface Token {
 
     String API_GET_ALL_GROUP_STAFF = top.spencer.crabscore.model.model.staff.GetAllGroupModel.class.getName();
 
-    String API_ADD_CRAB = AddCrabModel.class.getName();
-
     String API_ADD_CRAB_LIST = AddCrabListModel.class.getName();
 
     String API_FIND_CRAB_BY_LABEL = FindCrabByLabelModel.class.getName();
@@ -85,4 +84,16 @@ public interface Token {
     String API_GET_ONE_GROUP_ONE_SEX_CRAB = GetOneGroupOneSexCrabModel.class.getName();
 
     String API_UPDATE_CRAB_INFO = UpdateCrabInfoModel.class.getName();
+
+    String API_ADD_TASTE_SCORE_LIST_MODEL = AddTasteScoreListModel.class.getName();
+
+    String API_ADD_QUALITY_SCORE_LIST_MODEL = AddQualityScoreListModel.class.getName();
+
+    String API_GET_ONE_GROUP_ALL_TASTE_SCORE = GetOneGroupAllTasteScoreModel.class.getName();
+
+    String API_GET_ONE_GROUP_ALL_QUALITY_SCORE = GetOneGroupAllQualityScoreModel.class.getName();
+
+    String API_UPDATE_QUALITY_SCORE = UpdateQualityScoreModel.class.getName();
+
+    String API_UPDATE_TASTE_SCORE = UpdateTasteScoreModel.class.getName();
 }

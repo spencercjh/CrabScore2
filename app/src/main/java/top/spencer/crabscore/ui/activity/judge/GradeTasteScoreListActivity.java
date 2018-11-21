@@ -10,7 +10,7 @@ import top.spencer.crabscore.R;
  *
  * @author spencercjh
  */
-public class TasteGradeActivity extends AppCompatActivity {
+public class GradeTasteScoreListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

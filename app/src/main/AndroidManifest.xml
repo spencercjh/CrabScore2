@@ -32,9 +32,9 @@
         <activity android:name=".ui.activity.ForgetPasswordActivity"/>
         <activity android:name=".ui.activity.administrator.AdminCheckCompanyScoreActivity">
         </activity>
-        <activity android:name=".ui.activity.judge.QualityGradeActivity">
+        <activity android:name=".ui.activity.judge.GradeQualityScoreListActivity">
         </activity>
-        <activity android:name=".ui.activity.judge.TasteGradeActivity">
+        <activity android:name=".ui.activity.judge.GradeTasteScoreListActivity">
         </activity>
         <activity android:name=".ui.activity.staff.CrabListActivity">
         </activity>
