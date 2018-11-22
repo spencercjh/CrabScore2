@@ -790,7 +790,7 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
     @Override
     public void showUpdateCompetitionPropertyResponse(JSONObject successData) {
         if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
-            showToast(successData.getString("message"));
+            showToast(successData.getString(CommonConstant.MESSAGE));
         }
     }
 

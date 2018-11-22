@@ -294,7 +294,7 @@ public class CompanyAdminFragment extends BaseFragment implements CompanyAdminLi
     @Override
     public void showUpdateCompanyPropertyResponse(JSONObject successData) {
         if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
-            showToast(successData.getString("message"));
+            showToast(successData.getString(CommonConstant.MESSAGE));
             resetList();
         }
     }
@@ -317,7 +317,7 @@ public class CompanyAdminFragment extends BaseFragment implements CompanyAdminLi
     @Override
     public void showDeleteCompanyResponse(JSONObject successData) {
         if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
-            showToast(successData.getString("message"));
+            showToast(successData.getString(CommonConstant.MESSAGE));
             resetList();
         }
     }

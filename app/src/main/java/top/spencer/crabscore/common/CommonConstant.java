@@ -4,6 +4,8 @@ package top.spencer.crabscore.common;
  * @author spencercjh
  */
 public interface CommonConstant {
+    String MESSAGE = "message";
+
     String NULL = "null";
 
     String CODE = "code";

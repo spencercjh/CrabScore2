@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.alibaba.fastjson.JSONObject;
+import top.spencer.crabscore.common.CommonConstant;
 
 /**
  * @author spencercjh
@@ -70,7 +71,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
 
     @Override
     public void showFailure(JSONObject errorData) {
-        showToast(errorData.getString("message"));
+        showToast(errorData.getString(CommonConstant.MESSAGE));
     }
 
     /**

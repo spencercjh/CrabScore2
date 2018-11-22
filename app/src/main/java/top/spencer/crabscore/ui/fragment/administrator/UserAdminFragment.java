@@ -263,7 +263,7 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
     @Override
     public void showUpdateUserPropertyResponse(JSONObject successData) {
         if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
-            showToast(successData.getString("message"));
+            showToast(successData.getString(CommonConstant.MESSAGE));
             resetList();
         }
     }
@@ -276,7 +276,7 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
     @Override
     public void showDeleteUserResponse(JSONObject successData) {
         if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
-            showToast(successData.getString("message"));
+            showToast(successData.getString(CommonConstant.MESSAGE));
             resetList();
         }
     }

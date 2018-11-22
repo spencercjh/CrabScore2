@@ -1,6 +1,5 @@
 package top.spencer.crabscore.ui.adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,7 +18,7 @@ public class TasteScoreListAdapter extends RecyclerView.Adapter<TasteScoreListVi
     private MyOnItemClickListener myOnItemClickListener;
     private List<TasteScore> tasteScoreList;
 
-    public TasteScoreListAdapter(Context context, List<TasteScore> tasteScoreList) {
+    public TasteScoreListAdapter(List<TasteScore> tasteScoreList) {
         this.tasteScoreList = tasteScoreList;
     }
 

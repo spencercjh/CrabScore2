@@ -264,7 +264,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
             SharedPreferencesUtil.putData("USERNAME", username.getText().toString().trim());
             SharedPreferencesUtil.putData("PASSWORD", password.getText().toString().trim());
             SharedPreferencesUtil.putData("ROLE_CHOICE", roleChoice);
-            showToast(successData.getString("message"));
+            showToast(successData.getString(CommonConstant.MESSAGE));
             String resultJSON = successData.getString("result");
             JSONObject resultJSONObject = JSON.parseObject(resultJSON);
             SharedPreferencesUtil.putData("JWT", resultJSONObject.getString("jwt"));
@@ -274,7 +274,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
             startActivity(intent);
             finish();
         } else {
-            showToast(successData.getString("message"));
+            showToast(successData.getString(CommonConstant.MESSAGE));
         }
 
     }

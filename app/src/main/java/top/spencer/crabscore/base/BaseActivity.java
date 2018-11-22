@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
+import top.spencer.crabscore.common.CommonConstant;
 
 /**
  * @author spencercjh
@@ -73,6 +74,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     @Override
     public void showFailure(JSONObject errorData) {
-        showToast(errorData.getString("message"));
+        showToast(errorData.getString(CommonConstant.MESSAGE));
     }
 }

@@ -285,7 +285,7 @@ public class CrabListActivity extends BaseActivity implements StaffGroupListView
     @Override
     public void showUpdateCrabInfoResponse(JSONObject successData) {
         if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
-            showToast(successData.getString("message"));
+            showToast(successData.getString(CommonConstant.MESSAGE));
         }
     }
 }

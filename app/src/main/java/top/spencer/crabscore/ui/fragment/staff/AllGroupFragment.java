@@ -240,6 +240,10 @@ public class AllGroupFragment extends BaseFragment implements StaffGroupListView
                     }
                     staffPresenter.sendCrabList(groupInDialog, addCrabAmount, isAddMale, isAddFemale,
                             user.getUserName(), jwt);
+                    staffPresenter.sendQualityScoreList(groupInDialog, addCrabAmount, isAddMale, isAddFemale,
+                            user.getUserName(), jwt);
+                    staffPresenter.sendTasteScoreList(groupInDialog, addCrabAmount, isAddMale, isAddFemale,
+                            user.getUserName(), jwt);
                 } else {
                     showToast("添加数量非法");
                 }
@@ -288,7 +292,7 @@ public class AllGroupFragment extends BaseFragment implements StaffGroupListView
     @Override
     public void showAddCrabResponse(JSONObject successData) {
         if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
-            showToast(successData.getString("message"));
+            showToast(successData.getString(CommonConstant.MESSAGE));
         }
     }
 

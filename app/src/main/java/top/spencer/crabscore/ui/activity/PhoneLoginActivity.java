@@ -181,7 +181,7 @@ public class PhoneLoginActivity extends BaseActivity implements VerifyCodeView {
     @Override
     public void dealSendCode(JSONObject successData) {
         Integer code = successData.getInteger(CommonConstant.CODE);
-        String message = successData.getString("message");
+        String message = successData.getString(CommonConstant.MESSAGE);
         if (code.equals(CommonConstant.SUCCESS) && "验证码发送成功".equals(message)) {
             showToast("验证码发送成功！");
             delaySendCode();
@@ -198,7 +198,7 @@ public class PhoneLoginActivity extends BaseActivity implements VerifyCodeView {
     @Override
     public void dealVerifyCode(JSONObject successData) {
         Integer code = successData.getInteger(CommonConstant.CODE);
-        String message = successData.getString("message");
+        String message = successData.getString(CommonConstant.MESSAGE);
         if (code.equals(CommonConstant.SUCCESS) && "验证码校验成功".equals(message)) {
             isVerified = true;
             showToast("验证码校验成功！");
@@ -216,7 +216,7 @@ public class PhoneLoginActivity extends BaseActivity implements VerifyCodeView {
     public void showData(JSONObject successData) {
         if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
             SharedPreferencesUtil.putData("USERNAME", phone.getText().toString().trim());
-            showToast(successData.getString("message"));
+            showToast(successData.getString(CommonConstant.MESSAGE));
             Map result = (Map) successData.get("result");
             SharedPreferencesUtil.putData("JWT", result.get("jwt"));
             SharedPreferencesUtil.putData("ROLE_CHOICE", result.get("roleId"));

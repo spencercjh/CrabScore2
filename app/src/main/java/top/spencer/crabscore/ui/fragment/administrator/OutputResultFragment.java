@@ -179,7 +179,7 @@ public class OutputResultFragment extends BaseFragment implements OutputResultVi
     @Override
     public void showUpdatePresentCompetitionConfigResponse(JSONObject successData) {
         if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
-            showToast(successData.getString("message"));
+            showToast(successData.getString(CommonConstant.MESSAGE));
         }
     }
 
@@ -191,7 +191,7 @@ public class OutputResultFragment extends BaseFragment implements OutputResultVi
     @Override
     public void showGenerateScoreResponse(JSONObject successData) {
         if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
-            showToast(successData.getString("message"));
+            showToast(successData.getString(CommonConstant.MESSAGE));
         }
     }
 }

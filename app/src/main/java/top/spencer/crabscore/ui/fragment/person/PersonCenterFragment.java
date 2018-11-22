@@ -374,7 +374,7 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
     @Override
     public void showData(JSONObject successData) {
         if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
-            showToast(successData.getString("message"));
+            showToast(successData.getString(CommonConstant.MESSAGE));
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
