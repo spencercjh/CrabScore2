@@ -24,7 +24,7 @@ import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Company;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.User;
-import top.spencer.crabscore.model.entity.vo.GroupResult;
+import top.spencer.crabscore.model.entity.dto.GroupResult;
 import top.spencer.crabscore.presenter.AdministratorListPresenter;
 import top.spencer.crabscore.presenter.CompanyPresenter;
 import top.spencer.crabscore.presenter.RankListPresenter;

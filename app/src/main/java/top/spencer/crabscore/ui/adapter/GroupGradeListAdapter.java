@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import top.spencer.crabscore.R;
-import top.spencer.crabscore.model.entity.vo.GroupResult;
+import top.spencer.crabscore.model.entity.dto.GroupResult;
 
 import java.util.List;
 

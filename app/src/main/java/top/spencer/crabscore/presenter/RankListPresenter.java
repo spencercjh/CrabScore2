@@ -5,7 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
-import top.spencer.crabscore.model.entity.vo.GroupResult;
+import top.spencer.crabscore.model.entity.dto.GroupResult;
+import top.spencer.crabscore.model.entity.dto.RankResult;
 import top.spencer.crabscore.model.model.common.ModelFactory;
 import top.spencer.crabscore.model.model.common.rank.GetFatnessRankModel;
 import top.spencer.crabscore.model.model.common.rank.GetQualityRankModel;
@@ -167,6 +168,43 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
             if (needAdd) {
                 repeat = false;
                 groupList.add(group);
+            }
+        }
+        return repeat;
+    }
+
+    /**
+     * 对排行榜页面中处理返回的group对象的封装
+     *
+     * @param groups    jsonResult
+     * @param rankResultList list
+     * @return 是否有重复
+     */
+    public boolean dealRankListJSON(JSONArray groups, List<RankResult> rankResultList) {
+        boolean repeat = true;
+        for (Object object : groups) {
+            JSONObject jsonObject = (JSONObject) object;
+            String jsonString = jsonObject.toJSONString();
+            RankResult rankResult = JSONObject.parseObject(jsonString, RankResult.class);
+            //是否需要调用add方法添加到rankResultList中去
+            boolean needAdd = true;
+            //遍历已有的rankResultList
+            for (int i = 0; i < rankResultList.size(); ++i) {
+                //存在新rankResult对象和已有的rankResult对象的id相同
+                if (rankResultList.get(i).getGroupId().equals(rankResult.getGroupId())) {
+                    needAdd = false;
+                    //属性发生了变化
+                    if (!rankResultList.get(i).equals(rankResult)) {
+                        //更新属性信息
+                        rankResultList.set(i, rankResult);
+                        repeat = false;
+                    }
+                    break;
+                }
+            }
+            if (needAdd) {
+                repeat = false;
+                rankResultList.add(rankResult);
             }
         }
         return repeat;

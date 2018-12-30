@@ -1,4 +1,4 @@
-package top.spencer.crabscore.model.entity.vo;
+package top.spencer.crabscore.model.entity.dto;
 
 import lombok.Data;
 

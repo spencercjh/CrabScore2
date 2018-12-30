@@ -17,9 +17,9 @@ import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Competition;
-import top.spencer.crabscore.model.entity.vo.GroupResult;
+import top.spencer.crabscore.model.entity.dto.RankResult;
 import top.spencer.crabscore.presenter.RankListPresenter;
-import top.spencer.crabscore.ui.adapter.TasteRankListAdapter;
+import top.spencer.crabscore.ui.adapter.RankListAdapter;
 import top.spencer.crabscore.ui.view.MyRecycleListView;
 import top.spencer.crabscore.ui.widget.EmptyRecyclerView;
 
@@ -38,9 +38,9 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     private Competition presentCompetition;
-    private TasteRankListAdapter tasteRankListAdapter;
+    private RankListAdapter tasteRankListAdapter;
     private RankListPresenter rankListPresenter;
-    private List<GroupResult> groupList = new ArrayList<>(pageSize);
+    private List<RankResult> tasteRankResultList = new ArrayList<>(pageSize);
     private int pageNum = 1;
 
     /**
@@ -99,8 +99,8 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
      */
     @Override
     public void setRecycleView() {
-        tasteRankListAdapter = new TasteRankListAdapter(groupList, getContext());
-        if (groupList.size() == 0) {
+        tasteRankListAdapter = new RankListAdapter(tasteRankResultList, getContext());
+        if (tasteRankResultList.size() == 0) {
             rankListView.setEmptyView(emptyText);
         }
         rankListView.setAdapter(tasteRankListAdapter);
@@ -148,7 +148,8 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
     @Override
     public void showData(JSONObject successData) {
         pageNum++;
-        boolean repeat = rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
+        boolean repeat =
+                rankListPresenter.dealRankListJSON(successData.getJSONObject("result").getJSONArray("list"), tasteRankResultList);
         if (repeat) {
             return;
         }

@@ -19,7 +19,7 @@ import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.User;
-import top.spencer.crabscore.model.entity.vo.CrabResult;
+import top.spencer.crabscore.model.entity.dto.CrabResult;
 import top.spencer.crabscore.presenter.StaffPresenter;
 import top.spencer.crabscore.ui.view.StaffGroupListView;
 
@@ -128,13 +128,13 @@ public class FindLabelFragment extends BaseFragment implements StaffGroupListVie
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    String crabIdString = crabId.getText().toString() + String.valueOf(crab.getCrabId());
+                    String crabIdString = crabId.getText().toString() + crab.getCrabId();
                     crabId.setText(crabIdString);
                     crabId.setVisibility(View.VISIBLE);
-                    String crabGroupIdString = groupId.getText().toString() + String.valueOf(crab.getGroupId());
+                    String crabGroupIdString = groupId.getText().toString() + crab.getGroupId();
                     groupId.setText(crabGroupIdString);
                     groupId.setVisibility(View.VISIBLE);
-                    String crabCompanyIdString = companyId.getText().toString() + String.valueOf(crab.getCompanyId());
+                    String crabCompanyIdString = companyId.getText().toString() + crab.getCompanyId();
                     companyId.setText(crabCompanyIdString);
                     companyId.setVisibility(View.VISIBLE);
                     String crabCompanyNameString = companyName.getText().toString() + crab.getCompanyName();
@@ -144,17 +144,17 @@ public class FindLabelFragment extends BaseFragment implements StaffGroupListVie
                             CommonConstant.CRAB_FEMALE) ? "雌性" : "雄性");
                     crabSex.setText(crabSexString);
                     crabSex.setVisibility(View.VISIBLE);
-                    String crabWeightString = crabWeight.getText().toString() + String.valueOf(crab.getCrabWeight());
+                    String crabWeightString = crabWeight.getText().toString() + crab.getCrabWeight();
                     crabWeight.setText(crabWeightString);
                     crabWeight.setVisibility(View.VISIBLE);
-                    String crabLengthString = crabLength.getText().toString() + String.valueOf(crab.getCrabLength());
+                    String crabLengthString = crabLength.getText().toString() + crab.getCrabLength();
                     crabLength.setText(crabLengthString);
                     crabLength.setVisibility(View.VISIBLE);
-                    String crabFatnessString = crabFatness.getText().toString() + String.valueOf(crab.getCrabFatness());
+                    String crabFatnessString = crabFatness.getText().toString() + crab.getCrabFatness();
                     crabFatness.setText(crabFatnessString);
                     crabFatness.setVisibility(View.VISIBLE);
                     String crabCompetitionIdString = crabCompetitionId.getText().toString() +
-                            String.valueOf(crab.getCompetitionId());
+                            crab.getCompetitionId();
                     crabCompetitionId.setText(crabCompetitionIdString);
                     crabCompetitionId.setVisibility(View.VISIBLE);
                 }

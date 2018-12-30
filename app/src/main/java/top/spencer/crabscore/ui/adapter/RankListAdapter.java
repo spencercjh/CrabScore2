@@ -8,22 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import top.spencer.crabscore.R;
-import top.spencer.crabscore.model.entity.vo.GroupResult;
+import top.spencer.crabscore.model.entity.dto.RankResult;
 
 import java.util.List;
 import java.util.Objects;
 
 /**
- * 种质分数排名列表适配器
+ * 排名列表适配器
  *
  * @author spencercjh
  */
-public class QualityRankListAdapter extends RecyclerView.Adapter<RankListItemViewHolder> {
+public class RankListAdapter extends RecyclerView.Adapter<RankListItemViewHolder> {
 
-    private List<GroupResult> groupList;
+    private List<RankResult> groupList;
     private Context context;
 
-    public QualityRankListAdapter(List<GroupResult> data, Context context) {
+    public RankListAdapter(List<RankResult> data, Context context) {
         this.groupList = data;
         this.context = context;
     }
@@ -44,13 +44,13 @@ public class QualityRankListAdapter extends RecyclerView.Adapter<RankListItemVie
     public void onBindViewHolder(@NonNull RankListItemViewHolder holder, int position) {
         holder.order.setText(String.valueOf(position + 1));
         if (groupList.get(position) != null) {
-            GroupResult group = groupList.get(position);
+            RankResult group = groupList.get(position);
+            holder.groupId.setText(String.valueOf(group.getGroupId()));
             Glide.with(Objects.requireNonNull(context))
                     .load(group.getAvatarUrl())
                     .into(holder.avatar);
-            holder.groupId.setText(String.valueOf(group.getGroupId()));
             holder.companyName.setText(group.getCompanyName());
-            holder.score.setText(String.valueOf((group.getFatnessScoreF() + group.getFatnessScoreM()) / 2.0));
+            holder.score.setText(String.valueOf(group.getScore()));
         }
     }
 

@@ -23,7 +23,7 @@ public class Crab implements Serializable {
      * 所属小组id")
      *
      * @see Group#groupId
-     * @see top.spencer.crabscore.model.entity.vo.GroupResult#groupId
+     * @see top.spencer.crabscore.model.entity.dto.GroupResult#groupId
      */
     private Integer groupId;
 

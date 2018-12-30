@@ -15,11 +15,11 @@ import butterknife.BindView;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
-import top.spencer.crabscore.model.entity.Competition;
-import top.spencer.crabscore.model.entity.vo.GroupResult;
-import top.spencer.crabscore.presenter.RankListPresenter;
 import top.spencer.crabscore.common.util.SharedPreferencesUtil;
-import top.spencer.crabscore.ui.adapter.FatnessRankListAdapter;
+import top.spencer.crabscore.model.entity.Competition;
+import top.spencer.crabscore.model.entity.dto.RankResult;
+import top.spencer.crabscore.presenter.RankListPresenter;
+import top.spencer.crabscore.ui.adapter.RankListAdapter;
 import top.spencer.crabscore.ui.view.MyRecycleListView;
 import top.spencer.crabscore.ui.widget.EmptyRecyclerView;
 
@@ -38,9 +38,9 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     private Competition presentCompetition;
-    private FatnessRankListAdapter fatnessRankListAdapter;
+    private RankListAdapter fatnessRankListAdapter;
     private RankListPresenter rankListPresenter;
-    private List<GroupResult> groupList = new ArrayList<>(pageSize);
+    private List<RankResult> fatnessRankList = new ArrayList<>(pageSize);
     private int pageNum = 1;
 
     /**
@@ -99,8 +99,8 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
      */
     @Override
     public void setRecycleView() {
-        fatnessRankListAdapter = new FatnessRankListAdapter(groupList,getContext());
-        if (groupList.size() == 0) {
+        fatnessRankListAdapter = new RankListAdapter(fatnessRankList, getContext());
+        if (fatnessRankList.size() == 0) {
             rankListView.setEmptyView(emptyText);
         }
         rankListView.setAdapter(fatnessRankListAdapter);
@@ -148,7 +148,7 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
     @Override
     public void showData(JSONObject successData) {
         pageNum++;
-        boolean repeat = rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
+        boolean repeat = rankListPresenter.dealRankListJSON(successData.getJSONObject("result").getJSONArray("list"), fatnessRankList);
         if (repeat) {
             return;
         }

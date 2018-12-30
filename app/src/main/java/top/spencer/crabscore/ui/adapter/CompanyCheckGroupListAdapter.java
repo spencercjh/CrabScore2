@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import top.spencer.crabscore.R;
-import top.spencer.crabscore.model.entity.vo.GroupResult;
+import top.spencer.crabscore.model.entity.dto.GroupResult;
 
 import java.util.List;
 
@@ -67,8 +67,8 @@ public class CompanyCheckGroupListAdapter extends RecyclerView.Adapter<CompanyCh
                     groupResult.getFatnessScoreM()) / 2.0));
             holder.qualityScore.setText(String.valueOf((groupResult.getQualityScoreF() +
                     groupResult.getQualityScoreM()) / 2.0));
-            holder.tasteScore.setText(String.valueOf(String.valueOf((groupResult.getTasteScoreF() +
-                    groupResult.getTasteScoreM()) / 2.0)));
+            holder.tasteScore.setText(String.valueOf((groupResult.getTasteScoreF() +
+                    groupResult.getTasteScoreM()) / 2.0));
         }
     }
 }

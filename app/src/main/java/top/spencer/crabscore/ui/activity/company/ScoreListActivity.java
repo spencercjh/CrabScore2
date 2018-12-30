@@ -11,7 +11,7 @@ import butterknife.ButterKnife;
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseActivity;
-import top.spencer.crabscore.model.entity.vo.GroupResult;
+import top.spencer.crabscore.model.entity.dto.GroupResult;
 import top.spencer.crabscore.ui.adapter.TabLayoutPageAdapter;
 import top.spencer.crabscore.ui.fragment.company.OneGroupAllCrabFragment;
 import top.spencer.crabscore.ui.view.TabLayoutView;

@@ -10,7 +10,7 @@ import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.entity.Crab;
 import top.spencer.crabscore.model.entity.QualityScore;
 import top.spencer.crabscore.model.entity.TasteScore;
-import top.spencer.crabscore.model.entity.vo.GroupResult;
+import top.spencer.crabscore.model.entity.dto.GroupResult;
 import top.spencer.crabscore.model.model.common.ModelFactory;
 import top.spencer.crabscore.ui.view.StaffGroupListView;
 
@@ -120,10 +120,10 @@ public class StaffPresenter extends BasePresenter<StaffGroupListView> {
                 crab.setGroupId(groupInDialog.getGroupId());
                 crab.setCrabSex(CommonConstant.CRAB_FEMALE);
                 crab.setCrabLabel(String.valueOf(groupInDialog.getCompetitionId()) +
-                        String.valueOf(groupInDialog.getCompanyId()) +
-                        String.valueOf(groupInDialog.getGroupId()) +
-                        String.valueOf(CommonConstant.CRAB_FEMALE) +
-                        String.valueOf(i));
+                        groupInDialog.getCompanyId() +
+                        groupInDialog.getGroupId() +
+                        CommonConstant.CRAB_FEMALE +
+                        i);
                 crab.setCompetitionId(groupInDialog.getCompetitionId());
                 crab.setCreateDate(new Date(System.currentTimeMillis()));
                 crab.setUpdateDate(new Date(System.currentTimeMillis()));
@@ -138,10 +138,10 @@ public class StaffPresenter extends BasePresenter<StaffGroupListView> {
                 crab.setGroupId(groupInDialog.getGroupId());
                 crab.setCrabSex(CommonConstant.CRAB_MALE);
                 crab.setCrabLabel(String.valueOf(groupInDialog.getCompetitionId()) +
-                        String.valueOf(groupInDialog.getCompanyId()) +
-                        String.valueOf(groupInDialog.getGroupId()) +
-                        String.valueOf(CommonConstant.CRAB_MALE) +
-                        String.valueOf(i));
+                        groupInDialog.getCompanyId() +
+                        groupInDialog.getGroupId() +
+                        CommonConstant.CRAB_MALE +
+                        i);
                 crab.setCompetitionId(groupInDialog.getCompetitionId());
                 crab.setCreateDate(new Date(System.currentTimeMillis()));
                 crab.setUpdateDate(new Date(System.currentTimeMillis()));

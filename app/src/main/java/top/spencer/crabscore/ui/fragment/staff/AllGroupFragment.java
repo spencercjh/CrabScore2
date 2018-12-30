@@ -27,7 +27,7 @@ import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.User;
-import top.spencer.crabscore.model.entity.vo.GroupResult;
+import top.spencer.crabscore.model.entity.dto.GroupResult;
 import top.spencer.crabscore.presenter.RankListPresenter;
 import top.spencer.crabscore.presenter.StaffPresenter;
 import top.spencer.crabscore.ui.activity.staff.CrabListActivity;

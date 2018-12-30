@@ -24,7 +24,7 @@ import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.QualityScore;
 import top.spencer.crabscore.model.entity.User;
-import top.spencer.crabscore.model.entity.vo.GroupResult;
+import top.spencer.crabscore.model.entity.dto.GroupResult;
 import top.spencer.crabscore.presenter.GradePresenter;
 import top.spencer.crabscore.ui.adapter.MyOnItemClickListener;
 import top.spencer.crabscore.ui.adapter.QualityScoreListAdapter;
@@ -192,8 +192,7 @@ public class GradeQualityScoreListActivity extends BaseActivity implements Grade
         Objects.requireNonNull(dialogWindow).setGravity(Gravity.CENTER);
         dialogWindow.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         dialog.setIcon(R.drawable.app_logo);
-        dialog.setTitle("为第" + groupResult.getGroupId() + "组" + String.valueOf(
-                Objects.requireNonNull(qualityScoreInDialog).getScoreId()) + "号螃蟹评分");
+        dialog.setTitle("为第" + groupResult.getGroupId() + "组" + Objects.requireNonNull(qualityScoreInDialog).getScoreId() + "号螃蟹评分");
         dialog.setView(dialogView);
         dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
             @Override

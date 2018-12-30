@@ -42,7 +42,7 @@ public interface CommonConstant {
     /**
      * 后端服务器地址
      */
-    String URL = "https://www.spencercjh.top/crabscore/api/";
+    String URL = "https://www.spencercjh.top:8081/crabscore/api/";
 
     /**
      * 七牛云对象存储服务器地址

@@ -24,7 +24,7 @@ import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.TasteScore;
 import top.spencer.crabscore.model.entity.User;
-import top.spencer.crabscore.model.entity.vo.GroupResult;
+import top.spencer.crabscore.model.entity.dto.GroupResult;
 import top.spencer.crabscore.presenter.GradePresenter;
 import top.spencer.crabscore.ui.adapter.MyOnItemClickListener;
 import top.spencer.crabscore.ui.adapter.TasteScoreListAdapter;
@@ -37,13 +37,12 @@ import java.util.Objects;
 
 /**
  * 评委口感评分活动
- * //todo taste grade
  *
  * @author spencercjh
  */
 public class GradeTasteScoreListActivity extends BaseActivity implements GradeListView, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.recycler_view_list)
-    EmptyRecyclerView TasteScoreListView;
+    EmptyRecyclerView tasteScoreListView;
     @BindView(R.id.textview_empty)
     TextView emptyText;
     @BindView(R.id.swipe_refresh_layout)
@@ -54,15 +53,14 @@ public class GradeTasteScoreListActivity extends BaseActivity implements GradeLi
     private GroupResult groupResult;
     private User user;
     private int pageNum = 1;
-    private List<TasteScore> TasteScoreList = new ArrayList<>(pageSize);
-    private TasteScoreListAdapter TasteScoreListAdapter;
+    private List<TasteScore> tasteScoreList = new ArrayList<>(pageSize);
+    private TasteScoreListAdapter tasteScoreListAdapter;
 
     /**
      * 初始化参数和视图
      *
      * @param savedInstanceState savedInstanceState
      */
-    @SuppressWarnings("Duplicates")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,22 +105,22 @@ public class GradeTasteScoreListActivity extends BaseActivity implements GradeLi
     @Override
     public void setRecycleView() {
         initTasteScoreListAdapter();
-        if (TasteScoreList.size() == 0) {
-            TasteScoreListView.setEmptyView(emptyText);
+        if (tasteScoreList.size() == 0) {
+            tasteScoreListView.setEmptyView(emptyText);
         }
-        TasteScoreListView.setAdapter(TasteScoreListAdapter);
+        tasteScoreListView.setAdapter(tasteScoreListAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        TasteScoreListView.setLayoutManager(layoutManager);
-        TasteScoreListView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()),
+        tasteScoreListView.setLayoutManager(layoutManager);
+        tasteScoreListView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()),
                 DividerItemDecoration.VERTICAL));
         final int[] lastVisibleItemPosition = {0};
-        TasteScoreListView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        tasteScoreListView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastVisibleItemPosition[0] + 1 == TasteScoreListAdapter.getItemCount()) {
+                        && lastVisibleItemPosition[0] + 1 == tasteScoreListAdapter.getItemCount()) {
                     gradePresenter.getOneGroupAllTasteScore(presentCompetition.getCompetitionId(),
                             groupResult.getGroupId(), pageNum, pageSize, jwt);
                 }
@@ -140,8 +138,8 @@ public class GradeTasteScoreListActivity extends BaseActivity implements GradeLi
      * 初始化TasteScoreListAdapter
      */
     private void initTasteScoreListAdapter() {
-        TasteScoreListAdapter = new TasteScoreListAdapter(TasteScoreList);
-        TasteScoreListAdapter.setOnItemClickListener(new MyOnItemClickListener() {
+        tasteScoreListAdapter = new TasteScoreListAdapter(tasteScoreList);
+        tasteScoreListAdapter.setOnItemClickListener(new MyOnItemClickListener() {
             @Override
             public void onItemClick(View view) {
                 final TasteScore tasteScoreInList = (TasteScore) view.getTag();
@@ -202,8 +200,7 @@ public class GradeTasteScoreListActivity extends BaseActivity implements GradeLi
         Objects.requireNonNull(dialogWindow).setGravity(Gravity.CENTER);
         dialogWindow.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         dialog.setIcon(R.drawable.app_logo);
-        dialog.setTitle("为第" + groupResult.getGroupId() + "组" + String.valueOf(
-                Objects.requireNonNull(tasteScoreInDialog).getScoreId()) + "号螃蟹评分");
+        dialog.setTitle("为第" + groupResult.getGroupId() + "组" + Objects.requireNonNull(tasteScoreInDialog).getScoreId() + "号螃蟹评分");
         dialog.setView(dialogView);
         dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
             @Override
@@ -245,7 +242,7 @@ public class GradeTasteScoreListActivity extends BaseActivity implements GradeLi
     @Override
     public void showData(JSONObject successData) {
         pageNum++;
-        boolean repeat = gradePresenter.dealTasteScoreJSON(successData.getJSONArray("result"), TasteScoreList);
+        boolean repeat = gradePresenter.dealTasteScoreJSON(successData.getJSONArray("result"), tasteScoreList);
         if (repeat) {
             return;
         }
@@ -254,7 +251,7 @@ public class GradeTasteScoreListActivity extends BaseActivity implements GradeLi
             @Override
             public void run() {
                 swipeRefreshLayout.setRefreshing(false);
-                TasteScoreListAdapter.notifyDataSetChanged();
+                tasteScoreListAdapter.notifyDataSetChanged();
             }
         });
     }

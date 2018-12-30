@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.common.CommonConstant;
-import top.spencer.crabscore.model.entity.vo.CrabScoreResult;
+import top.spencer.crabscore.model.entity.dto.CrabScoreResult;
 
 import java.util.List;
 import java.util.Objects;
