@@ -182,10 +182,7 @@ public class QualityGradeFragment extends BaseFragment implements GradeListView,
     @Override
     public void showData(JSONObject successData) {
         pageNum++;
-        boolean repeat = rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
-        if (repeat) {
-            return;
-        }
+        rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
         new Handler(Looper.getMainLooper()).post(new Runnable() {
 
             @Override

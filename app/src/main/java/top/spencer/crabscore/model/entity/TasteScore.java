@@ -20,6 +20,11 @@ public class TasteScore implements Serializable {
     private Integer scoreId;
 
     /**
+     * 螃蟹Id
+     */
+    private Integer crabId;
+
+    /**
      * 所属小组id")
      */
     private Integer groupId;

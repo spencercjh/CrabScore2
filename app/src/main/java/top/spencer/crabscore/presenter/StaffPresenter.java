@@ -8,7 +8,6 @@ import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.entity.Crab;
-import top.spencer.crabscore.model.entity.QualityScore;
 import top.spencer.crabscore.model.entity.TasteScore;
 import top.spencer.crabscore.model.entity.dto.GroupResult;
 import top.spencer.crabscore.model.model.common.ModelFactory;
@@ -109,7 +108,7 @@ public class StaffPresenter extends BasePresenter<StaffGroupListView> {
      * @param isAddFemale   isAddFemale
      * @param username      staff user name
      * @param jwt           JWT
-     * @see StaffPresenter#addCrabList(List, String)
+     * @see StaffPresenter#addCrabList
      */
     public void sendCrabList(GroupResult groupInDialog, int addAmount, boolean isAddMale, boolean isAddFemale,
                              String username, String jwt) {
@@ -339,128 +338,5 @@ public class StaffPresenter extends BasePresenter<StaffGroupListView> {
                         getView().hideLoading();
                     }
                 });
-    }
-
-    /**
-     * 生成口感得分对象放入列表并发起请求
-     *
-     * @param groupInDialog group
-     * @param addAmount     添加数量
-     * @param isAddMale     添加雄性
-     * @param isAddFemale   添加雌性
-     * @param username      用户名
-     * @param jwt           JWT
-     */
-    public void sendTasteScoreList(GroupResult groupInDialog, int addAmount, boolean isAddMale, boolean isAddFemale,
-                                   String username, String jwt) {
-        List<TasteScore> tasteScoreList = new ArrayList<>(addAmount * 2);
-        if (isAddFemale) {
-            for (int i = 0; i < addAmount; ++i) {
-                TasteScore tasteScore = new TasteScore();
-                tasteScore.setGroupId(groupInDialog.getGroupId());
-                tasteScore.setCrabSex(CommonConstant.CRAB_FEMALE);
-                tasteScore.setCompetitionId(groupInDialog.getCompetitionId());
-                tasteScore.setCreateDate(new Date(System.currentTimeMillis()));
-                tasteScore.setUpdateDate(new Date(System.currentTimeMillis()));
-                tasteScore.setCreateUser(username);
-                tasteScore.setUpdateUser(username);
-                tasteScoreList.add(tasteScore);
-            }
-        }
-        if (isAddMale) {
-            for (int i = 0; i < addAmount; ++i) {
-                TasteScore tasteScore = new TasteScore();
-                tasteScore.setGroupId(groupInDialog.getGroupId());
-                tasteScore.setCrabSex(CommonConstant.CRAB_MALE);
-                tasteScore.setCompetitionId(groupInDialog.getCompetitionId());
-                tasteScore.setCreateDate(new Date(System.currentTimeMillis()));
-                tasteScore.setUpdateDate(new Date(System.currentTimeMillis()));
-                tasteScore.setCreateUser(username);
-                tasteScore.setUpdateUser(username);
-                tasteScoreList.add(tasteScore);
-            }
-        }
-        this.addTasteScoreList(tasteScoreList, jwt);
-    }
-
-
-    /**
-     * 批量添加种质得分对象
-     *
-     * @param qualityScoreList qualityScoreList
-     * @param jwt              JWT
-     * @see top.spencer.crabscore.model.model.staff.AddQualityScoreListModel
-     */
-    private void addQualityScoreList(List<QualityScore> qualityScoreList, String jwt) {
-        if (isViewAttached()) {
-            return;
-        }
-        getView().showLoading();
-        ModelFactory
-                .request(Token.API_ADD_QUALITY_SCORE_LIST_MODEL)
-                .params(JSON.toJSON(qualityScoreList).toString(), jwt)
-                .execute(new MyCallback<JSONObject>() {
-                    @Override
-                    public void onSuccess(JSONObject data) {
-                        getView().showData(data);
-                    }
-
-                    @Override
-                    public void onFailure(JSONObject data) {
-                        getView().showFailure(data);
-                    }
-
-                    @Override
-                    public void onError() {
-                        getView().showErr();
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        getView().hideLoading();
-                    }
-                });
-    }
-
-    /**
-     * 生成种质得分对象放入列表并发起请求
-     *
-     * @param groupInDialog group
-     * @param addAmount     添加数量
-     * @param isAddMale     添加雄性
-     * @param isAddFemale   添加雌性
-     * @param username      用户名
-     * @param jwt           JWT
-     */
-    public void sendQualityScoreList(GroupResult groupInDialog, int addAmount, boolean isAddMale, boolean isAddFemale,
-                                     String username, String jwt) {
-        List<QualityScore> qualityScoreList = new ArrayList<>(addAmount * 2);
-        if (isAddFemale) {
-            for (int i = 0; i < addAmount; ++i) {
-                QualityScore qualityScore = new QualityScore();
-                qualityScore.setGroupId(groupInDialog.getGroupId());
-                qualityScore.setCrabSex(CommonConstant.CRAB_FEMALE);
-                qualityScore.setCompetitionId(groupInDialog.getCompetitionId());
-                qualityScore.setCreateDate(new Date(System.currentTimeMillis()));
-                qualityScore.setUpdateDate(new Date(System.currentTimeMillis()));
-                qualityScore.setCreateUser(username);
-                qualityScore.setUpdateUser(username);
-                qualityScoreList.add(qualityScore);
-            }
-        }
-        if (isAddMale) {
-            for (int i = 0; i < addAmount; ++i) {
-                QualityScore qualityScore = new QualityScore();
-                qualityScore.setGroupId(groupInDialog.getGroupId());
-                qualityScore.setCrabSex(CommonConstant.CRAB_MALE);
-                qualityScore.setCompetitionId(groupInDialog.getCompetitionId());
-                qualityScore.setCreateDate(new Date(System.currentTimeMillis()));
-                qualityScore.setUpdateDate(new Date(System.currentTimeMillis()));
-                qualityScore.setCreateUser(username);
-                qualityScore.setUpdateUser(username);
-                qualityScoreList.add(qualityScore);
-            }
-        }
-        this.addQualityScoreList(qualityScoreList, jwt);
     }
 }

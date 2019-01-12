@@ -2,7 +2,6 @@ package top.spencer.crabscore.presenter;
 
 import android.widget.EditText;
 import cn.hutool.core.util.NumberUtil;
-import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -166,8 +165,13 @@ public class GradePresenter extends BasePresenter<GradeListView> {
      */
     public void updateQualityScore(final EditText scoreFin, final EditText scoreBts, final EditText scoreFts,
                                    final EditText scoreEc, final EditText scoreDscc, final EditText scoreBbyzt,
-                                   User user, String jwt) {
-        QualityScore qualityScore = new QualityScore();
+                                   final QualityScore qualityScoreInDialog, User user, String jwt) {
+        qualityScoreInDialog.setScoreFin(null);
+        qualityScoreInDialog.setScoreBbyzt(null);
+        qualityScoreInDialog.setScoreBts(null);
+        qualityScoreInDialog.setScoreDscc(null);
+        qualityScoreInDialog.setScoreEc(null);
+        qualityScoreInDialog.setScoreFts(null);
         String scoreFinString = scoreFin.getText().toString().trim();
         float finalScore = 0;
         String scoreBtsString = scoreBts.getText().toString().trim();
@@ -180,59 +184,68 @@ public class GradePresenter extends BasePresenter<GradeListView> {
         float dsccScore;
         String scoreBbyztString = scoreBbyzt.getText().toString().trim();
         float bbyztScore;
-        if (!StrUtil.isBlank(scoreFinString)) {
-            if (!NumberUtil.isNumber(scoreFinString)) {
-                getView().showToast("种质总分:非法数字");
-                return;
-            }
+        if (!NumberUtil.isNumber(scoreFinString)) {
+            getView().showToast("种质总分:非法数字");
         } else {
             finalScore = Float.parseFloat(scoreFinString);
-            qualityScore.setScoreFin(finalScore);
+            if (finalScore > 100) {
+                getView().showToast("总分不能超过100分");
+                return;
+            }
+            qualityScoreInDialog.setScoreFin(finalScore);
+            qualityScoreInDialog.setUserId(user.getUserId());
+            qualityScoreInDialog.setUpdateDate(new Date(System.currentTimeMillis()));
+            qualityScoreInDialog.setUpdateUser(user.getUserName());
+            sendUpdateQualityScoreRequest(qualityScoreInDialog, jwt);
+            return;
         }
         if (!NumberUtil.isNumber(scoreBtsString)) {
             getView().showToast("背部体色得分:非法数字");
             return;
         } else {
             btsScore = Float.parseFloat(scoreBtsString);
-            qualityScore.setScoreBts(btsScore);
+            qualityScoreInDialog.setScoreBts(btsScore);
         }
         if (!NumberUtil.isNumber(scoreFtsString)) {
             getView().showToast("腹部体色得分:非法数字");
             return;
         } else {
             ftsScore = Float.parseFloat(scoreFtsString);
-            qualityScore.setScoreFts(ftsScore);
+            qualityScoreInDialog.setScoreFts(ftsScore);
         }
         if (!NumberUtil.isNumber(scoreEcString)) {
             getView().showToast("额齿得分:非法数字");
             return;
         } else {
             ecScore = Float.parseFloat(scoreEcString);
-            qualityScore.setScoreEc(ecScore);
+            qualityScoreInDialog.setScoreEc(ecScore);
         }
         if (!NumberUtil.isNumber(scoreDsccString)) {
             getView().showToast("第四侧齿得分:非法数字");
             return;
         } else {
             dsccScore = Float.parseFloat(scoreDsccString);
-            qualityScore.setScoreDscc(dsccScore);
+            qualityScoreInDialog.setScoreDscc(dsccScore);
         }
         if (!NumberUtil.isNumber(scoreBbyztString)) {
             getView().showToast("背部疣状突得分:非法数字");
             return;
         } else {
             bbyztScore = Float.parseFloat(scoreBbyztString);
-            qualityScore.setScoreBbyzt(bbyztScore);
+            qualityScoreInDialog.setScoreBbyzt(bbyztScore);
         }
         if (finalScore != bbyztScore + dsccScore + ecScore + ftsScore + btsScore) {
             finalScore = bbyztScore + dsccScore + ecScore + ftsScore + btsScore;
-            qualityScore.setScoreFin(finalScore);
+            qualityScoreInDialog.setScoreFin(finalScore);
             getView().showToast("已为您自动计算并设置总分");
+            if (finalScore > 100) {
+                getView().showToast("总分不能超过100分");
+            }
         }
-        qualityScore.setUserId(user.getUserId());
-        qualityScore.setUpdateDate(new Date(System.currentTimeMillis()));
-        qualityScore.setUpdateUser(user.getUserName());
-        sendUpdateQualityScoreRequest(qualityScore, jwt);
+        qualityScoreInDialog.setUserId(user.getUserId());
+        qualityScoreInDialog.setUpdateDate(new Date(System.currentTimeMillis()));
+        qualityScoreInDialog.setUpdateUser(user.getUserName());
+        sendUpdateQualityScoreRequest(qualityScoreInDialog, jwt);
     }
 
     private void sendUpdateQualityScoreRequest(QualityScore qualityScore, String jwt) {
@@ -283,8 +296,16 @@ public class GradePresenter extends BasePresenter<GradeListView> {
      */
     public void updateTasteScore(final EditText scoreFin, final EditText scoreYgys, final EditText scoreSys,
                                  final EditText scoreGhys, final EditText scoreXwxw, final EditText scoreGh,
-                                 final EditText scoreFbjr, final EditText scoreBzjr, User user, String jwt) {
-        TasteScore tasteScore = new TasteScore();
+                                 final EditText scoreFbjr, final EditText scoreBzjr,
+                                 TasteScore tasteScoreInDialog, User user, String jwt) {
+        tasteScoreInDialog.setScoreFin(null);
+        tasteScoreInDialog.setScoreBzjr(null);
+        tasteScoreInDialog.setScoreFbjr(null);
+        tasteScoreInDialog.setScoreGh(null);
+        tasteScoreInDialog.setScoreGhys(null);
+        tasteScoreInDialog.setScoreSys(null);
+        tasteScoreInDialog.setScoreXwxw(null);
+        tasteScoreInDialog.setScoreYgys(null);
         String scoreFinString = scoreFin.getText().toString().trim();
         float finalScore = 0;
         String scoreYgysString = scoreYgys.getText().toString().trim();
@@ -301,73 +322,82 @@ public class GradePresenter extends BasePresenter<GradeListView> {
         float fbjrScore;
         String scoreBzjrString = scoreBzjr.getText().toString().trim();
         float bzjrScore;
-        if (!StrUtil.isBlank(scoreFinString)) {
-            if (!NumberUtil.isNumber(scoreFinString)) {
-                getView().showToast("口感总分:非法数字");
-                return;
-            }
+        if (!NumberUtil.isNumber(scoreFinString)) {
+            getView().showToast("口感总分:非法数字");
         } else {
             finalScore = Float.parseFloat(scoreFinString);
-            tasteScore.setScoreFin(finalScore);
+            if (finalScore > 100) {
+                getView().showToast("总分不能超过100分");
+                return;
+            }
+            tasteScoreInDialog.setScoreFin(finalScore);
+            tasteScoreInDialog.setUserId(user.getUserId());
+            tasteScoreInDialog.setUpdateDate(new Date(System.currentTimeMillis()));
+            tasteScoreInDialog.setUpdateUser(user.getUserName());
+            sendUpdateTasteScoreRequest(tasteScoreInDialog, jwt);
+            return;
         }
         if (!NumberUtil.isNumber(scoreYgysString)) {
             getView().showToast("蟹盖颜色得分:非法数字");
             return;
         } else {
             ygysScore = Float.parseFloat(scoreYgysString);
-            tasteScore.setScoreYgys(ygysScore);
+            tasteScoreInDialog.setScoreYgys(ygysScore);
         }
         if (!NumberUtil.isNumber(scoreSysString)) {
             getView().showToast("腮颜色得分:非法数字");
             return;
         } else {
             sysScore = Float.parseFloat(scoreSysString);
-            tasteScore.setScoreSys(sysScore);
+            tasteScoreInDialog.setScoreSys(sysScore);
         }
         if (!NumberUtil.isNumber(scoreGhysString)) {
             getView().showToast("膏黄颜色得分:非法数字");
             return;
         } else {
             ghysScore = Float.parseFloat(scoreGhysString);
-            tasteScore.setScoreGhys(ghysScore);
+            tasteScoreInDialog.setScoreGhys(ghysScore);
         }
         if (!NumberUtil.isNumber(scoreXwxwString)) {
             getView().showToast("腥香味得分:非法数字");
             return;
         } else {
             xwxwScore = Float.parseFloat(scoreXwxwString);
-            tasteScore.setScoreXwxw(xwxwScore);
+            tasteScoreInDialog.setScoreXwxw(xwxwScore);
         }
         if (!NumberUtil.isNumber(scoreGhString)) {
             getView().showToast("膏黄得分:非法数字");
             return;
         } else {
             ghScore = Float.parseFloat(scoreGhString);
-            tasteScore.setScoreGh(ghScore);
+            tasteScoreInDialog.setScoreGh(ghScore);
         }
         if (!NumberUtil.isNumber(scoreFbjrString)) {
             getView().showToast("腹部肌肉得分:非法数字");
             return;
         } else {
             fbjrScore = Float.parseFloat(scoreFbjrString);
-            tasteScore.setScoreFbjr(fbjrScore);
+            tasteScoreInDialog.setScoreFbjr(fbjrScore);
         }
         if (!NumberUtil.isNumber(scoreBzjrString)) {
             getView().showToast("第二三步足肌肉得分:非法数字");
             return;
         } else {
             bzjrScore = Float.parseFloat(scoreBzjrString);
-            tasteScore.setScoreBzjr(bzjrScore);
+            tasteScoreInDialog.setScoreBzjr(bzjrScore);
         }
         if (finalScore != ygysScore + sysScore + ghysScore + xwxwScore + ghScore + fbjrScore + bzjrScore) {
             finalScore = ygysScore + sysScore + ghysScore + xwxwScore + ghScore + fbjrScore + bzjrScore;
-            tasteScore.setScoreFin(finalScore);
+            tasteScoreInDialog.setScoreFin(finalScore);
             getView().showToast("已为您自动计算并设置总分");
+            if (finalScore > 100) {
+                getView().showToast("总分不能超过100分");
+            }
         }
-        tasteScore.setUserId(user.getUserId());
-        tasteScore.setUpdateDate(new Date(System.currentTimeMillis()));
-        tasteScore.setUpdateUser(user.getUserName());
-        sendUpdateTasteScoreRequest(tasteScore, jwt);
+        tasteScoreInDialog.setUserId(user.getUserId());
+        tasteScoreInDialog.setUpdateDate(new Date(System.currentTimeMillis()));
+        tasteScoreInDialog.setUpdateUser(user.getUserName());
+        sendUpdateTasteScoreRequest(tasteScoreInDialog, jwt);
     }
 
     private void sendUpdateTasteScoreRequest(TasteScore tasteScore, String jwt) {

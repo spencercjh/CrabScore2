@@ -148,10 +148,7 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
     @Override
     public void showData(JSONObject successData) {
         pageNum++;
-        boolean repeat = rankListPresenter.dealRankListJSON(successData.getJSONObject("result").getJSONArray("list"), fatnessRankList);
-        if (repeat) {
-            return;
-        }
+        rankListPresenter.dealRankListJSON(successData.getJSONObject("result").getJSONArray("list"), fatnessRankList);
         new Handler(Looper.getMainLooper()).post(new Runnable() {
 
             @Override

@@ -303,10 +303,7 @@ public class RegistAssessmentFragment extends BaseFragment implements UserAdminL
     @Override
     public void showData(JSONObject successData) {
         pageNum++;
-        repeat = administratorListPresenter.dealUserListJSON(successData.getJSONArray("result"), userList);
-        if (repeat) {
-            return;
-        }
+        administratorListPresenter.dealUserListJSON(successData.getJSONArray("result"), userList);
         new Handler(Looper.getMainLooper()).post(new Runnable() {
 
             @Override
@@ -336,7 +333,6 @@ public class RegistAssessmentFragment extends BaseFragment implements UserAdminL
     private void resetList() {
         userList.clear();
         pageNum = 1;
-        repeat = false;
         administratorListPresenter.getAllUserByStatus(CommonConstant.USER_STATUS_LOCK, pageNum, pageSize, jwt);
     }
 

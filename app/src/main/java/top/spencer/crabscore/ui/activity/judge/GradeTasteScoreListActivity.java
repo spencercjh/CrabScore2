@@ -158,7 +158,7 @@ public class GradeTasteScoreListActivity extends BaseActivity implements GradeLi
      *
      * @param tasteScoreInDialog tasteScoreInDialog
      */
-    private void initEditTasteScoreDialog(TasteScore tasteScoreInDialog) {
+    private void initEditTasteScoreDialog(final TasteScore tasteScoreInDialog) {
         @SuppressLint("InflateParams")
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_grade_taste_score, null);
         final EditText scoreFin = dialogView.findViewById(R.id.edit_final_score);
@@ -169,31 +169,32 @@ public class GradeTasteScoreListActivity extends BaseActivity implements GradeLi
         final EditText scoreGh = dialogView.findViewById(R.id.edit_score_gh);
         final EditText scoreFbjr = dialogView.findViewById(R.id.edit_score_fbjr);
         final EditText scoreBzjr = dialogView.findViewById(R.id.edit_score_bzjr);
-        if (tasteScoreInDialog != null) {
-            if (tasteScoreInDialog.getScoreFin() != null) {
+        if (null != tasteScoreInDialog) {
+            if (null != tasteScoreInDialog.getScoreFin()) {
                 scoreFin.setText(String.valueOf(tasteScoreInDialog.getScoreFin()));
             }
-            if (tasteScoreInDialog.getScoreYgys() != null) {
+            if (null != tasteScoreInDialog.getScoreYgys()) {
                 scoreYgys.setText(String.valueOf(tasteScoreInDialog.getScoreYgys()));
             }
-            if (tasteScoreInDialog.getScoreSys() != null) {
+            if (null != tasteScoreInDialog.getScoreSys()) {
                 scoreSys.setText(String.valueOf(tasteScoreInDialog.getScoreSys()));
             }
-            if (tasteScoreInDialog.getScoreGhys() != null) {
+            if (null != tasteScoreInDialog.getScoreGhys()) {
                 scoreGhys.setText(String.valueOf(tasteScoreInDialog.getScoreGhys()));
             }
-            if (tasteScoreInDialog.getScoreXwxw() != null) {
+            if (null != tasteScoreInDialog.getScoreXwxw()) {
                 scoreXwxw.setText(String.valueOf(tasteScoreInDialog.getScoreXwxw()));
             }
-            if (tasteScoreInDialog.getScoreGh() != null) {
+            if (null != tasteScoreInDialog.getScoreGh()) {
                 scoreGh.setText(String.valueOf(tasteScoreInDialog.getScoreGh()));
             }
-            if (tasteScoreInDialog.getScoreFbjr() != null) {
+            if (null != tasteScoreInDialog.getScoreFbjr()) {
                 scoreFbjr.setText(String.valueOf(tasteScoreInDialog.getScoreFbjr()));
             }
-            if (tasteScoreInDialog.getScoreBzjr() != null) {
+            if (null != tasteScoreInDialog.getScoreBzjr()) {
                 scoreBzjr.setText(String.valueOf(tasteScoreInDialog.getScoreBzjr()));
             }
+            tasteScoreInDialog.setUserId(user.getUserId());
         }
         AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
         Window dialogWindow = dialog.getWindow();
@@ -206,7 +207,7 @@ public class GradeTasteScoreListActivity extends BaseActivity implements GradeLi
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 gradePresenter.updateTasteScore(scoreFin, scoreYgys, scoreSys, scoreGhys, scoreXwxw, scoreGh, scoreFbjr,
-                        scoreBzjr, user, jwt);
+                        scoreBzjr,tasteScoreInDialog, user, jwt);
                 dialog.dismiss();
             }
         });
@@ -242,10 +243,7 @@ public class GradeTasteScoreListActivity extends BaseActivity implements GradeLi
     @Override
     public void showData(JSONObject successData) {
         pageNum++;
-        boolean repeat = gradePresenter.dealTasteScoreJSON(successData.getJSONArray("result"), tasteScoreList);
-        if (repeat) {
-            return;
-        }
+        gradePresenter.dealTasteScoreJSON(successData.getJSONArray("result"), tasteScoreList);
         new Handler(Looper.getMainLooper()).post(new Runnable() {
 
             @Override

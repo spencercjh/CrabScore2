@@ -148,11 +148,7 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
     @Override
     public void showData(JSONObject successData) {
         pageNum++;
-        boolean repeat =
-                rankListPresenter.dealRankListJSON(successData.getJSONObject("result").getJSONArray("list"), tasteRankResultList);
-        if (repeat) {
-            return;
-        }
+        rankListPresenter.dealRankListJSON(successData.getJSONObject("result").getJSONArray("list"), tasteRankResultList);
         new Handler(Looper.getMainLooper()).post(new Runnable() {
 
             @Override

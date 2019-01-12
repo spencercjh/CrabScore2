@@ -55,7 +55,6 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
     private UserAdminListAdapter userAdminListAdapter;
     private List<User> userList = new ArrayList<>(pageSize);
     private int pageNum = 1;
-    private boolean repeat = false;
 
     /**
      * 取得实例
@@ -241,10 +240,7 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
     @Override
     public void showData(JSONObject successData) {
         pageNum++;
-        repeat = administratorListPresenter.dealUserListJSON(successData.getJSONArray("result"), userList);
-        if (repeat) {
-            return;
-        }
+        administratorListPresenter.dealUserListJSON(successData.getJSONArray("result"), userList);
         new Handler(Looper.getMainLooper()).post(new Runnable() {
 
             @Override
@@ -287,7 +283,6 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
     private void resetList() {
         userList.clear();
         pageNum = 1;
-        repeat = false;
         administratorListPresenter.getAllUser(pageNum, pageSize, jwt);
     }
 

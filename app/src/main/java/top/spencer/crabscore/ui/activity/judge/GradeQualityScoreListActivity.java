@@ -2,7 +2,6 @@ package top.spencer.crabscore.ui.activity.judge;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -158,7 +157,7 @@ public class GradeQualityScoreListActivity extends BaseActivity implements Grade
      *
      * @param qualityScoreInDialog qualityScoreInDialog
      */
-    private void initEditQualityScoreDialog(QualityScore qualityScoreInDialog) {
+    private void initEditQualityScoreDialog(final QualityScore qualityScoreInDialog) {
         @SuppressLint("InflateParams")
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_grade_quality_score, null);
         final EditText scoreFin = dialogView.findViewById(R.id.edit_final_score);
@@ -167,23 +166,23 @@ public class GradeQualityScoreListActivity extends BaseActivity implements Grade
         final EditText scoreEc = dialogView.findViewById(R.id.edit_score_ec);
         final EditText scoreDscc = dialogView.findViewById(R.id.edit_score_dscc);
         final EditText scoreBbyzt = dialogView.findViewById(R.id.edit_score_bbyzt);
-        if (qualityScoreInDialog != null) {
-            if (qualityScoreInDialog.getScoreFin() != null) {
+        if (null != qualityScoreInDialog) {
+            if (null != qualityScoreInDialog.getScoreFin()) {
                 scoreFin.setText(String.valueOf(qualityScoreInDialog.getScoreFin()));
             }
-            if (qualityScoreInDialog.getScoreBts() != null) {
+            if (null != qualityScoreInDialog.getScoreBts()) {
                 scoreBts.setText(String.valueOf(qualityScoreInDialog.getScoreBts()));
             }
-            if (qualityScoreInDialog.getScoreFts() != null) {
+            if (null != qualityScoreInDialog.getScoreFts()) {
                 scoreFts.setText(String.valueOf(qualityScoreInDialog.getScoreFts()));
             }
-            if (qualityScoreInDialog.getScoreEc() != null) {
+            if (null != qualityScoreInDialog.getScoreEc()) {
                 scoreEc.setText(String.valueOf(qualityScoreInDialog.getScoreEc()));
             }
-            if (qualityScoreInDialog.getScoreDscc() != null) {
+            if (null != qualityScoreInDialog.getScoreDscc()) {
                 scoreDscc.setText(String.valueOf(qualityScoreInDialog.getScoreDscc()));
             }
-            if (qualityScoreInDialog.getScoreBbyzt() != null) {
+            if (null != qualityScoreInDialog.getScoreBbyzt()) {
                 scoreBbyzt.setText(String.valueOf(qualityScoreInDialog.getScoreBbyzt()));
             }
         }
@@ -194,19 +193,11 @@ public class GradeQualityScoreListActivity extends BaseActivity implements Grade
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("为第" + groupResult.getGroupId() + "组" + Objects.requireNonNull(qualityScoreInDialog).getScoreId() + "号螃蟹评分");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                gradePresenter.updateQualityScore(scoreFin, scoreBts, scoreFts, scoreEc, scoreDscc, scoreBbyzt, user, jwt);
-                dialog.dismiss();
-            }
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            gradePresenter.updateQualityScore(scoreFin, scoreBts, scoreFts, scoreEc, scoreDscc, scoreBbyzt, qualityScoreInDialog, user, jwt);
+            dialog1.dismiss();
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog2, which) -> dialog2.dismiss());
         dialog.show();
     }
 
@@ -217,12 +208,7 @@ public class GradeQualityScoreListActivity extends BaseActivity implements Grade
     public void onRefresh() {
         gradePresenter.getOneGroupAllQualityScore(presentCompetition.getCompetitionId(), groupResult.getGroupId(),
                 pageNum, pageSize, jwt);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        new Handler(Looper.getMainLooper()).post(() -> swipeRefreshLayout.setRefreshing(false));
     }
 
     /**
@@ -233,18 +219,12 @@ public class GradeQualityScoreListActivity extends BaseActivity implements Grade
     @Override
     public void showData(JSONObject successData) {
         pageNum++;
-        boolean repeat = gradePresenter.dealQualityScoreJSON(successData.getJSONArray("result"), qualityScoreList);
-        if (repeat) {
-            return;
-        }
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-                qualityScoreListAdapter.notifyDataSetChanged();
-            }
-        });
+        gradePresenter.dealQualityScoreJSON(successData.getJSONArray("result"), qualityScoreList);
+        new Handler(Looper.getMainLooper()).post(() -> {
+                    swipeRefreshLayout.setRefreshing(false);
+                    qualityScoreListAdapter.notifyDataSetChanged();
+                }
+        );
     }
 
     /**

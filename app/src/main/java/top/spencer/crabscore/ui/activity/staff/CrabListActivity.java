@@ -257,10 +257,7 @@ public class CrabListActivity extends BaseActivity implements StaffGroupListView
     @Override
     public void showData(JSONObject successData) {
         pageNum++;
-        boolean repeat = staffPresenter.dealCrabJSON(successData.getJSONArray("result"), crabList);
-        if (repeat) {
-            return;
-        }
+        staffPresenter.dealCrabJSON(successData.getJSONArray("result"), crabList);
         new Handler(Looper.getMainLooper()).post(new Runnable() {
 
             @Override

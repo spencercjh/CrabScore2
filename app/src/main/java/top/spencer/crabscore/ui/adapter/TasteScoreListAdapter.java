@@ -30,7 +30,7 @@ public class TasteScoreListAdapter extends RecyclerView.Adapter<TasteScoreListVi
     @NonNull
     @Override
     public TasteScoreListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_company_admin, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_taste_score, parent, false);
         TasteScoreListViewHolder tasteScoreListViewHolder = new TasteScoreListViewHolder(v);
         if (myOnItemClickListener != null) {
             tasteScoreListViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +55,7 @@ public class TasteScoreListAdapter extends RecyclerView.Adapter<TasteScoreListVi
         if (tasteScoreList.get(position) != null) {
             TasteScore tasteScore = tasteScoreList.get(position);
             holder.itemView.setTag(tasteScore);
-            holder.crabId.setText(String.valueOf(tasteScore.getScoreId()));
+            holder.crabId.setText(String.valueOf(tasteScore.getCrabId()));
             holder.crabSex.setText((tasteScore.getCrabSex().equals(CommonConstant.CRAB_MALE) ? "雄性" : "雌性"));
             holder.userId.setText(String.valueOf(tasteScore.getUserId()));
             holder.scoreFin.setText(String.valueOf(tasteScore.getScoreFin()));

@@ -57,8 +57,6 @@ public class CompanyAdminFragment extends BaseFragment implements CompanyAdminLi
     private CompanyAdminListAdapter companyAdminListAdapter;
     private List<Company> companyList = new ArrayList<>(pageSize);
     private int pageNum = 1;
-    private boolean repeat = false;
-
     /**
      * 取得实例
      *
@@ -258,10 +256,7 @@ public class CompanyAdminFragment extends BaseFragment implements CompanyAdminLi
     @Override
     public void showData(JSONObject successData) {
         pageNum++;
-        repeat = administratorListPresenter.dealCompanyListJSON(successData.getJSONArray("result"), companyList);
-        if (repeat) {
-            return;
-        }
+        administratorListPresenter.dealCompanyListJSON(successData.getJSONArray("result"), companyList);
         new Handler(Looper.getMainLooper()).post(new Runnable() {
 
             @Override
@@ -305,7 +300,6 @@ public class CompanyAdminFragment extends BaseFragment implements CompanyAdminLi
     private void resetList() {
         companyList.clear();
         pageNum = 1;
-        repeat = false;
         administratorListPresenter.getAllCompany(pageNum, pageSize, jwt);
     }
 

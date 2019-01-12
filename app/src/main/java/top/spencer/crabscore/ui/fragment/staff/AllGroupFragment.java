@@ -240,10 +240,10 @@ public class AllGroupFragment extends BaseFragment implements StaffGroupListView
                     }
                     staffPresenter.sendCrabList(groupInDialog, addCrabAmount, isAddMale, isAddFemale,
                             user.getUserName(), jwt);
-                    staffPresenter.sendQualityScoreList(groupInDialog, addCrabAmount, isAddMale, isAddFemale,
-                            user.getUserName(), jwt);
-                    staffPresenter.sendTasteScoreList(groupInDialog, addCrabAmount, isAddMale, isAddFemale,
-                            user.getUserName(), jwt);
+//                    staffPresenter.sendQualityScoreList(groupInDialog, addCrabAmount, isAddMale, isAddFemale,
+//                            user.getUserName(), jwt);
+//                    staffPresenter.sendTasteScoreList(groupInDialog, addCrabAmount, isAddMale, isAddFemale,
+//                            user.getUserName(), jwt);
                 } else {
                     showToast("添加数量非法");
                 }
@@ -310,10 +310,7 @@ public class AllGroupFragment extends BaseFragment implements StaffGroupListView
     @Override
     public void showData(JSONObject successData) {
         pageNum++;
-        boolean repeat = rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
-        if (repeat) {
-            return;
-        }
+        rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
         new Handler(Looper.getMainLooper()).post(new Runnable() {
 
             @Override

@@ -154,10 +154,7 @@ public class OneGroupAllCrabFragment extends BaseFragment implements MyRecycleLi
     @Override
     public void showData(JSONObject successData) {
         pageNum++;
-        boolean repeat = companyListPresenter.dealCrabScoreResultJSON(successData.getJSONArray("result"), crabScoreResultList);
-        if (repeat) {
-            return;
-        }
+        companyListPresenter.dealCrabScoreResultJSON(successData.getJSONArray("result"), crabScoreResultList);
         new Handler(Looper.getMainLooper()).post(new Runnable() {
 
             @Override
