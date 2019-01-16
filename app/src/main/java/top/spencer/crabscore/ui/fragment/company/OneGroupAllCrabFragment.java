@@ -155,13 +155,9 @@ public class OneGroupAllCrabFragment extends BaseFragment implements MyRecycleLi
     public void showData(JSONObject successData) {
         pageNum++;
         companyListPresenter.dealCrabScoreResultJSON(successData.getJSONArray("result"), crabScoreResultList);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-                companyCrabListAdapter.notifyDataSetChanged();
-            }
+        new Handler(Looper.getMainLooper()).post(() -> {
+            swipeRefreshLayout.setRefreshing(false);
+            companyCrabListAdapter.notifyDataSetChanged();
         });
     }
 
@@ -172,11 +168,6 @@ public class OneGroupAllCrabFragment extends BaseFragment implements MyRecycleLi
     public void onRefresh() {
         companyListPresenter.getOneGroupAllCrabAndScore(presentCompetition.getCompetitionId(), groupResult.getGroupId(),
                 pageNum, pageSize, jwt);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        new Handler(Looper.getMainLooper()).post(() -> swipeRefreshLayout.setRefreshing(false));
     }
 }

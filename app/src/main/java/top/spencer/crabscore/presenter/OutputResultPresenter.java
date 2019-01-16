@@ -98,18 +98,19 @@ public class OutputResultPresenter extends BasePresenter<OutputResultView> {
     /**
      * 生成大赛成绩
      *
-     * @param competition 大赛对象
-     * @param jwt         JWT
+     * @param competitionId 大赛Id
+     * @param username 用户名
+     * @param jwt           JWT
      * @see top.spencer.crabscore.model.model.administrator.GenerateScoreModel
      */
-    public void generateScore(Competition competition, String jwt) {
+    public void generateScore(Integer competitionId, String username, String jwt) {
         if (isViewAttached()) {
             return;
         }
         getView().showLoading();
         ModelFactory
                 .request(Token.API_GENERATE_SCORE)
-                .params(JSON.toJSON(competition).toString(), jwt)
+                .params(String.valueOf(competitionId), username, jwt)
                 .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
@@ -134,10 +135,40 @@ public class OutputResultPresenter extends BasePresenter<OutputResultView> {
     }
 
     /**
-     * 导出Excel文件
+     * 导出大赛Excel
+     *
+     * @param competitionId 大赛Id
+     * @param jwt           JWT
      */
-    public void outputExcel() {
-        //TODO output excel work
+    public void outputExcel(Integer competitionId, String jwt) {
+        if (isViewAttached()) {
+            return;
+        }
+        getView().showLoading();
+        ModelFactory
+                .request(Token.API_OUTPUT_EXCEL)
+                .params(String.valueOf(competitionId), jwt)
+                .execute(new MyCallback<JSONObject>() {
+                    @Override
+                    public void onSuccess(JSONObject data) {
+                        getView().shouOutputExcelResponse(data);
+                    }
+
+                    @Override
+                    public void onFailure(JSONObject data) {
+                        getView().showFailure(data);
+                    }
+
+                    @Override
+                    public void onError() {
+                        getView().showErr();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        getView().hideLoading();
+                    }
+                });
     }
 
     /**

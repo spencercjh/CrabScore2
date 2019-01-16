@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.*;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -15,10 +14,10 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.common.CommonConstant;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.CompetitionConfig;
 import top.spencer.crabscore.presenter.OutputResultPresenter;
-import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.ui.view.OutputResultView;
 
 import java.util.*;
@@ -39,6 +38,7 @@ public class OutputResultFragment extends BaseFragment implements OutputResultVi
     private Competition presentCompetition;
     private OutputResultPresenter outputResultPresenter;
     private List<Map<String, Object>> allCompetition = new ArrayList<>(8);
+    private String adminUsername;
 
     /**
      * 取得实例
@@ -82,6 +82,7 @@ public class OutputResultFragment extends BaseFragment implements OutputResultVi
         outputResultPresenter = new OutputResultPresenter();
         outputResultPresenter.attachView(this);
         SharedPreferencesUtil.getInstance(getContext(), "PROPERTY");
+        adminUsername = (String) (SharedPreferencesUtil.getData("USERNAME", ""));
         presentCompetition = (Competition) (SharedPreferencesUtil.getData("PRESENT_COMPETITION", new Competition()));
         jwt = (String) (SharedPreferencesUtil.getData("JWT", ""));
     }
@@ -99,12 +100,12 @@ public class OutputResultFragment extends BaseFragment implements OutputResultVi
 
     @OnClick(R.id.re_generate_score)
     public void generateScore(View view) {
-        outputResultPresenter.generateScore(presentCompetition, jwt);
+        outputResultPresenter.generateScore(presentCompetition.getCompetitionId(), adminUsername, jwt);
     }
 
     @OnClick(R.id.re_output_excel)
     public void outputExcel(View view) {
-        outputResultPresenter.outputExcel();
+        outputResultPresenter.outputExcel(presentCompetition.getCompetitionId(), jwt);
     }
 
     @OnClick(R.id.re_update_present_year)
@@ -123,39 +124,36 @@ public class OutputResultFragment extends BaseFragment implements OutputResultVi
                 allCompetition, R.layout.item_competition_admin, new String[]{
                 "competitionId", "competitionYear", "note"}, new int[]{
                 R.id.textview_competition_id, R.id.textview_competition_year, R.id.textview_note}));
-        competitionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Map<String, Object> competitionMap = allCompetition.get(position);
-                Competition competition = new Competition();
-                competition.setCompetitionId((Integer) competitionMap.get("competitionId"));
-                competition.setCompetitionYear((String) competitionMap.get("competitionYear"));
-                competition.setVarFatnessM((Float) competitionMap.get("varFatnessM"));
-                competition.setVarFatnessF((Float) competitionMap.get("varFatnessF"));
-                competition.setVarWeightM((Float) competitionMap.get("varWeightM"));
-                competition.setVarWeightF((Float) competitionMap.get("varWeightF"));
-                competition.setVarMfatnessSd((Float) competitionMap.get("varMfatnessSd"));
-                competition.setVarFfatnessSd((Float) competitionMap.get("varFfatnessSd"));
-                competition.setVarMweightSd((Float) competitionMap.get("varMweightSd"));
-                competition.setVarFweightSd((Float) competitionMap.get("varFweightSd"));
-                competition.setResultFatness((Integer) competitionMap.get("resultFatness"));
-                competition.setResultQuality((Integer) competitionMap.get("resultQuality"));
-                competition.setResultTaste((Integer) competitionMap.get("resultTaste"));
-                competition.setNote((String) competitionMap.get("note"));
-                competition.setStatus((Integer) competitionMap.get("status"));
-                competition.setCreateDate((Date) competitionMap.get("createDate"));
-                competition.setCreateUser((String) competitionMap.get("createUser"));
-                competition.setUpdateDate((Date) competitionMap.get("updateDate"));
-                competition.setUpdateUser((String) competitionMap.get("updateUser"));
-                SharedPreferencesUtil.putData("PRESENT_COMPETITION", competition);
-                CompetitionConfig competitionConfig = new CompetitionConfig();
-                competitionConfig.setId(1);
-                competitionConfig.setCompetitionId(competition.getCompetitionId());
-                competitionConfig.setUpdateDate(new Date(System.currentTimeMillis()));
-                competitionConfig.setUpdateUser((String) (SharedPreferencesUtil.getData("USERNAME", "")));
-                outputResultPresenter.updatePresentCompetitionConfig(competitionConfig, jwt);
-                dialog.dismiss();
-            }
+        competitionListView.setOnItemClickListener((parent, view1, position, id) -> {
+            Map<String, Object> competitionMap = allCompetition.get(position);
+            Competition competition = new Competition();
+            competition.setCompetitionId((Integer) competitionMap.get("competitionId"));
+            competition.setCompetitionYear((String) competitionMap.get("competitionYear"));
+            competition.setVarFatnessM((Float) competitionMap.get("varFatnessM"));
+            competition.setVarFatnessF((Float) competitionMap.get("varFatnessF"));
+            competition.setVarWeightM((Float) competitionMap.get("varWeightM"));
+            competition.setVarWeightF((Float) competitionMap.get("varWeightF"));
+            competition.setVarMfatnessSd((Float) competitionMap.get("varMfatnessSd"));
+            competition.setVarFfatnessSd((Float) competitionMap.get("varFfatnessSd"));
+            competition.setVarMweightSd((Float) competitionMap.get("varMweightSd"));
+            competition.setVarFweightSd((Float) competitionMap.get("varFweightSd"));
+            competition.setResultFatness((Integer) competitionMap.get("resultFatness"));
+            competition.setResultQuality((Integer) competitionMap.get("resultQuality"));
+            competition.setResultTaste((Integer) competitionMap.get("resultTaste"));
+            competition.setNote((String) competitionMap.get("note"));
+            competition.setStatus((Integer) competitionMap.get("status"));
+            competition.setCreateDate((Date) competitionMap.get("createDate"));
+            competition.setCreateUser((String) competitionMap.get("createUser"));
+            competition.setUpdateDate((Date) competitionMap.get("updateDate"));
+            competition.setUpdateUser((String) competitionMap.get("updateUser"));
+            SharedPreferencesUtil.putData("PRESENT_COMPETITION", competition);
+            CompetitionConfig competitionConfig = new CompetitionConfig();
+            competitionConfig.setId(1);
+            competitionConfig.setCompetitionId(competition.getCompetitionId());
+            competitionConfig.setUpdateDate(new Date(System.currentTimeMillis()));
+            competitionConfig.setUpdateUser((String) (SharedPreferencesUtil.getData("USERNAME", "")));
+            outputResultPresenter.updatePresentCompetitionConfig(competitionConfig, jwt);
+            dialog.dismiss();
         });
         dialog.show();
     }
@@ -190,6 +188,13 @@ public class OutputResultFragment extends BaseFragment implements OutputResultVi
      */
     @Override
     public void showGenerateScoreResponse(JSONObject successData) {
+        if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
+            showToast(successData.getString(CommonConstant.MESSAGE));
+        }
+    }
+
+    @Override
+    public void shouOutputExcelResponse(JSONObject successData) {
         if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
             showToast(successData.getString(CommonConstant.MESSAGE));
         }

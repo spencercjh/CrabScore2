@@ -149,13 +149,9 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
     public void showData(JSONObject successData) {
         pageNum++;
         rankListPresenter.dealRankListJSON(successData.getJSONObject("result").getJSONArray("list"), fatnessRankList);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-                fatnessRankListAdapter.notifyDataSetChanged();
-            }
+        new Handler(Looper.getMainLooper()).post(() -> {
+            swipeRefreshLayout.setRefreshing(false);
+            fatnessRankListAdapter.notifyDataSetChanged();
         });
     }
 
@@ -165,11 +161,6 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
     @Override
     public void onRefresh() {
         rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        new Handler(Looper.getMainLooper()).post(() -> swipeRefreshLayout.setRefreshing(false));
     }
 }

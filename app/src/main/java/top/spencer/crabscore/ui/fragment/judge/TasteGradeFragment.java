@@ -183,13 +183,9 @@ public class TasteGradeFragment extends BaseFragment implements GradeListView, S
     public void showData(JSONObject successData) {
         pageNum++;
         rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-                groupGradeListAdapter.notifyDataSetChanged();
-            }
+        new Handler(Looper.getMainLooper()).post(() -> {
+            swipeRefreshLayout.setRefreshing(false);
+            groupGradeListAdapter.notifyDataSetChanged();
         });
     }
 
@@ -199,12 +195,7 @@ public class TasteGradeFragment extends BaseFragment implements GradeListView, S
     @Override
     public void onRefresh() {
         gradePresenter.getAllGroup(presentCompetition.getCompetitionId(), pageNum, pageSize, jwt);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        new Handler(Looper.getMainLooper()).post(() -> swipeRefreshLayout.setRefreshing(false));
     }
 
     @Deprecated

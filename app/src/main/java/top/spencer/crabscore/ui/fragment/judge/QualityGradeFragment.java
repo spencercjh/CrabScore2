@@ -183,13 +183,9 @@ public class QualityGradeFragment extends BaseFragment implements GradeListView,
     public void showData(JSONObject successData) {
         pageNum++;
         rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-                groupGradeListAdapter.notifyDataSetChanged();
-            }
+        new Handler(Looper.getMainLooper()).post(() -> {
+            swipeRefreshLayout.setRefreshing(false);
+            groupGradeListAdapter.notifyDataSetChanged();
         });
     }
 
@@ -199,12 +195,7 @@ public class QualityGradeFragment extends BaseFragment implements GradeListView,
     @Override
     public void onRefresh() {
         gradePresenter.getAllGroup(presentCompetition.getCompetitionId(), pageNum, pageSize, jwt);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        new Handler(Looper.getMainLooper()).post(() -> swipeRefreshLayout.setRefreshing(false));
     }
 
     @Deprecated

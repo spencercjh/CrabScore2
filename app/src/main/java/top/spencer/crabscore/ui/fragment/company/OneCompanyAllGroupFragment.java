@@ -1,7 +1,6 @@
 package top.spencer.crabscore.ui.fragment.company;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -198,12 +197,7 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
     public void onRefresh() {
         companyPresenter.getOneCompanyAllGroup(presentCompetition.getCompetitionId(), user.getCompanyId(),
                 pageNum, pageSize, jwt);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        new Handler(Looper.getMainLooper()).post(() -> swipeRefreshLayout.setRefreshing(false));
     }
 
     /**
@@ -233,19 +227,11 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("选择一个参选单位进行绑定");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "绑定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                companyPresenter.userBindCompany(user.getUserId(), user.getCompanyId(), jwt);
-                dialog.dismiss();
-            }
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "绑定", (dialog1, which) -> {
+            companyPresenter.userBindCompany(user.getUserId(), user.getCompanyId(), jwt);
+            dialog1.dismiss();
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -284,13 +270,9 @@ public class OneCompanyAllGroupFragment extends BaseFragment implements CompanyV
     public void showData(JSONObject successData) {
         pageNum++;
         rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-                companyCheckGroupListAdapter.notifyDataSetChanged();
-            }
+        new Handler(Looper.getMainLooper()).post(() -> {
+            swipeRefreshLayout.setRefreshing(false);
+            companyCheckGroupListAdapter.notifyDataSetChanged();
         });
     }
 

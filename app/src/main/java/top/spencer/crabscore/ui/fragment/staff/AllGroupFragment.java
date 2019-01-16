@@ -163,37 +163,33 @@ public class AllGroupFragment extends BaseFragment implements StaffGroupListView
                 final PopupMenu popupMenu = new PopupMenu(getContext(), view);
                 final MenuInflater inflater = popupMenu.getMenuInflater();
                 inflater.inflate(R.menu.pop_menu_staff_group, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.menu_add_crab: {
-                                addCrabAlertDialog(groupInList);
-                                break;
-                            }
-                            case R.id.menu_female_crab_info: {
-                                Intent intent = new Intent(getContext(), CrabListActivity.class);
-                                intent.putExtra("GROUP", groupInList);
-                                intent.putExtra("USER", user);
-                                intent.putExtra("SEX", CommonConstant.CRAB_FEMALE);
-                                startActivity(intent);
-                                break;
-                            }
-                            case R.id.menu_male_crab_info: {
-                                Intent intent = new Intent(getContext(), CrabListActivity.class);
-                                intent.putExtra("GROUP", groupInList);
-                                intent.putExtra("USER", user);
-                                intent.putExtra("SEX", CommonConstant.CRAB_MALE);
-                                startActivity(intent);
-                                break;
-                            }
-                            default: {
-                                break;
-                            }
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    switch (item.getItemId()) {
+                        case R.id.menu_add_crab: {
+                            addCrabAlertDialog(groupInList);
+                            break;
                         }
-                        return false;
+                        case R.id.menu_female_crab_info: {
+                            Intent intent = new Intent(getContext(), CrabListActivity.class);
+                            intent.putExtra("GROUP", groupInList);
+                            intent.putExtra("USER", user);
+                            intent.putExtra("SEX", CommonConstant.CRAB_FEMALE);
+                            startActivity(intent);
+                            break;
+                        }
+                        case R.id.menu_male_crab_info: {
+                            Intent intent = new Intent(getContext(), CrabListActivity.class);
+                            intent.putExtra("GROUP", groupInList);
+                            intent.putExtra("USER", user);
+                            intent.putExtra("SEX", CommonConstant.CRAB_MALE);
+                            startActivity(intent);
+                            break;
+                        }
+                        default: {
+                            break;
+                        }
                     }
+                    return false;
                 });
                 popupMenu.show();
             }
@@ -224,38 +220,26 @@ public class AllGroupFragment extends BaseFragment implements StaffGroupListView
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("为第" + groupInDialog.getGroupId() + "组添加螃蟹");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "添加", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String addCrabAmountString = addAmount.getText().toString().trim();
-                if (NumberUtil.isNumber(addCrabAmountString)) {
-                    int addCrabAmount = Integer.parseInt(addCrabAmountString);
-                    boolean isAddMale = false;
-                    boolean isAddFemale = false;
-                    if (addFemaleCrab.isChecked()) {
-                        isAddFemale = true;
-                    }
-                    if (addMaleCrab.isChecked()) {
-                        isAddMale = true;
-                    }
-                    staffPresenter.sendCrabList(groupInDialog, addCrabAmount, isAddMale, isAddFemale,
-                            user.getUserName(), jwt);
-//                    staffPresenter.sendQualityScoreList(groupInDialog, addCrabAmount, isAddMale, isAddFemale,
-//                            user.getUserName(), jwt);
-//                    staffPresenter.sendTasteScoreList(groupInDialog, addCrabAmount, isAddMale, isAddFemale,
-//                            user.getUserName(), jwt);
-                } else {
-                    showToast("添加数量非法");
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "添加", (dialog1, which) -> {
+            String addCrabAmountString = addAmount.getText().toString().trim();
+            if (NumberUtil.isNumber(addCrabAmountString)) {
+                int addCrabAmount = Integer.parseInt(addCrabAmountString);
+                boolean isAddMale = false;
+                boolean isAddFemale = false;
+                if (addFemaleCrab.isChecked()) {
+                    isAddFemale = true;
                 }
-                dialog.dismiss();
+                if (addMaleCrab.isChecked()) {
+                    isAddMale = true;
+                }
+                staffPresenter.sendCrabList(groupInDialog, addCrabAmount, isAddMale, isAddFemale,
+                        user.getUserName(), jwt);
+            } else {
+                showToast("添加数量非法");
             }
+            dialog1.dismiss();
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -276,12 +260,7 @@ public class AllGroupFragment extends BaseFragment implements StaffGroupListView
     @Override
     public void onRefresh() {
         staffPresenter.getAllGroup(presentCompetition.getCompetitionId(), pageNum, pageSize, jwt);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        new Handler(Looper.getMainLooper()).post(() -> swipeRefreshLayout.setRefreshing(false));
     }
 
     /**
@@ -311,13 +290,9 @@ public class AllGroupFragment extends BaseFragment implements StaffGroupListView
     public void showData(JSONObject successData) {
         pageNum++;
         rankListPresenter.dealGroupListJSON(successData.getJSONArray("result"), groupList);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-                groupGradeListAdapter.notifyDataSetChanged();
-            }
+        new Handler(Looper.getMainLooper()).post(() -> {
+            swipeRefreshLayout.setRefreshing(false);
+            groupGradeListAdapter.notifyDataSetChanged();
         });
     }
 }

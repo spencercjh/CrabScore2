@@ -149,13 +149,9 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
     public void showData(JSONObject successData) {
         pageNum++;
         rankListPresenter.dealRankListJSON(successData.getJSONObject("result").getJSONArray("list"), tasteRankResultList);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-                tasteRankListAdapter.notifyDataSetChanged();
-            }
+        new Handler(Looper.getMainLooper()).post(() -> {
+            swipeRefreshLayout.setRefreshing(false);
+            tasteRankListAdapter.notifyDataSetChanged();
         });
     }
 
@@ -165,11 +161,6 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
     @Override
     public void onRefresh() {
         rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        new Handler(Looper.getMainLooper()).post(() -> swipeRefreshLayout.setRefreshing(false));
     }
 }

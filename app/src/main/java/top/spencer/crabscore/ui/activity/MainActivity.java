@@ -1,7 +1,6 @@
 package top.spencer.crabscore.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -14,9 +13,9 @@ import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseActivity;
 import top.spencer.crabscore.base.BaseView;
 import top.spencer.crabscore.common.CommonConstant;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.presenter.NavigationPresenter;
-import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.ui.adapter.BottomNavigationViewHelper;
 import top.spencer.crabscore.ui.adapter.MainPagerAdapter;
 import top.spencer.crabscore.ui.fragment.administrator.AdministratorFragment;
@@ -82,26 +81,22 @@ public class MainActivity extends BaseActivity implements BaseView {
         }
         list.add(PersonCenterFragment.newInstance("个人中心"));
         mainPagerAdapter.setList(list);
-        BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                menuItem = item;
-                switch (item.getItemId()) {
-                    case R.id.navigation_rank:
-                        viewPager.setCurrentItem(0);
-                        return true;
-                    case R.id.navigation_function:
-                        viewPager.setCurrentItem(1);
-                        return true;
-                    case R.id.navigation_person_center:
-                        viewPager.setCurrentItem(2);
-                        return true;
-                    default:
-                        break;
-                }
-                return false;
+        BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = item -> {
+            menuItem = item;
+            switch (item.getItemId()) {
+                case R.id.navigation_rank:
+                    viewPager.setCurrentItem(0);
+                    return true;
+                case R.id.navigation_function:
+                    viewPager.setCurrentItem(1);
+                    return true;
+                case R.id.navigation_person_center:
+                    viewPager.setCurrentItem(2);
+                    return true;
+                default:
+                    break;
             }
+            return false;
         };
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);

@@ -125,39 +125,36 @@ public class FindLabelFragment extends BaseFragment implements StaffGroupListVie
     public void showData(JSONObject successData) {
         if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
             final CrabResult crab = JSONObject.parseObject(successData.getString("result"), CrabResult.class);
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    String crabIdString = crabId.getText().toString() + crab.getCrabId();
-                    crabId.setText(crabIdString);
-                    crabId.setVisibility(View.VISIBLE);
-                    String crabGroupIdString = groupId.getText().toString() + crab.getGroupId();
-                    groupId.setText(crabGroupIdString);
-                    groupId.setVisibility(View.VISIBLE);
-                    String crabCompanyIdString = companyId.getText().toString() + crab.getCompanyId();
-                    companyId.setText(crabCompanyIdString);
-                    companyId.setVisibility(View.VISIBLE);
-                    String crabCompanyNameString = companyName.getText().toString() + crab.getCompanyName();
-                    companyName.setText(crabCompanyNameString);
-                    companyName.setVisibility(View.VISIBLE);
-                    String crabSexString = crabSex.getText().toString() + (crab.getCrabSex().equals(
-                            CommonConstant.CRAB_FEMALE) ? "雌性" : "雄性");
-                    crabSex.setText(crabSexString);
-                    crabSex.setVisibility(View.VISIBLE);
-                    String crabWeightString = crabWeight.getText().toString() + crab.getCrabWeight();
-                    crabWeight.setText(crabWeightString);
-                    crabWeight.setVisibility(View.VISIBLE);
-                    String crabLengthString = crabLength.getText().toString() + crab.getCrabLength();
-                    crabLength.setText(crabLengthString);
-                    crabLength.setVisibility(View.VISIBLE);
-                    String crabFatnessString = crabFatness.getText().toString() + crab.getCrabFatness();
-                    crabFatness.setText(crabFatnessString);
-                    crabFatness.setVisibility(View.VISIBLE);
-                    String crabCompetitionIdString = crabCompetitionId.getText().toString() +
-                            crab.getCompetitionId();
-                    crabCompetitionId.setText(crabCompetitionIdString);
-                    crabCompetitionId.setVisibility(View.VISIBLE);
-                }
+            new Handler(Looper.getMainLooper()).post(() -> {
+                String crabIdString = crabId.getText().toString() + crab.getCrabId();
+                crabId.setText(crabIdString);
+                crabId.setVisibility(View.VISIBLE);
+                String crabGroupIdString = groupId.getText().toString() + crab.getGroupId();
+                groupId.setText(crabGroupIdString);
+                groupId.setVisibility(View.VISIBLE);
+                String crabCompanyIdString = companyId.getText().toString() + crab.getCompanyId();
+                companyId.setText(crabCompanyIdString);
+                companyId.setVisibility(View.VISIBLE);
+                String crabCompanyNameString = companyName.getText().toString() + crab.getCompanyName();
+                companyName.setText(crabCompanyNameString);
+                companyName.setVisibility(View.VISIBLE);
+                String crabSexString = crabSex.getText().toString() + (crab.getCrabSex().equals(
+                        CommonConstant.CRAB_FEMALE) ? "雌性" : "雄性");
+                crabSex.setText(crabSexString);
+                crabSex.setVisibility(View.VISIBLE);
+                String crabWeightString = crabWeight.getText().toString() + crab.getCrabWeight();
+                crabWeight.setText(crabWeightString);
+                crabWeight.setVisibility(View.VISIBLE);
+                String crabLengthString = crabLength.getText().toString() + crab.getCrabLength();
+                crabLength.setText(crabLengthString);
+                crabLength.setVisibility(View.VISIBLE);
+                String crabFatnessString = crabFatness.getText().toString() + crab.getCrabFatness();
+                crabFatness.setText(crabFatnessString);
+                crabFatness.setVisibility(View.VISIBLE);
+                String crabCompetitionIdString = crabCompetitionId.getText().toString() +
+                        crab.getCompetitionId();
+                crabCompetitionId.setText(crabCompetitionIdString);
+                crabCompetitionId.setVisibility(View.VISIBLE);
             });
         }
     }

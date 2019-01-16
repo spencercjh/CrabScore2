@@ -24,13 +24,13 @@ public class UserAdminListAdapter extends RecyclerView.Adapter<UserListItemViewH
     private List<User> userList;
     private Context context;
 
-    public void setOnItemClickListener(MyOnItemClickListener mListener) {
-        this.myOnItemClickListener = mListener;
-    }
-
     public UserAdminListAdapter(List<User> data, Context context) {
         this.userList = data;
         this.context = context;
+    }
+
+    public void setOnItemClickListener(MyOnItemClickListener mListener) {
+        this.myOnItemClickListener = mListener;
     }
 
     @Override
@@ -45,18 +45,10 @@ public class UserAdminListAdapter extends RecyclerView.Adapter<UserListItemViewH
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_admin, parent, false);
         UserListItemViewHolder userListItemViewHolder = new UserListItemViewHolder(v);
         if (myOnItemClickListener != null) {
-            userListItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myOnItemClickListener.onItemClick(v);
-                }
-            });
-            userListItemViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    myOnItemClickListener.onItemLongClick(v);
-                    return true;
-                }
+            userListItemViewHolder.itemView.setOnClickListener(v1 -> myOnItemClickListener.onItemClick(v1));
+            userListItemViewHolder.itemView.setOnLongClickListener(v12 -> {
+                myOnItemClickListener.onItemLongClick(v12);
+                return true;
             });
         }
         return userListItemViewHolder;

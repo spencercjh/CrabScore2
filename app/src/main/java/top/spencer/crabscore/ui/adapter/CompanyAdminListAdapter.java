@@ -21,16 +21,15 @@ import java.util.Objects;
 public class CompanyAdminListAdapter extends RecyclerView.Adapter<CompanyListItemViewHolder> {
     private MyOnItemClickListener myOnItemClickListener;
     private Context context;
-
-    public void setOnItemClickListener(MyOnItemClickListener mListener) {
-        this.myOnItemClickListener = mListener;
-    }
-
     private List<Company> companyList;
 
     public CompanyAdminListAdapter(List<Company> data, Context context) {
         this.companyList = data;
         this.context = context;
+    }
+
+    public void setOnItemClickListener(MyOnItemClickListener mListener) {
+        this.myOnItemClickListener = mListener;
     }
 
     @Override
@@ -45,18 +44,10 @@ public class CompanyAdminListAdapter extends RecyclerView.Adapter<CompanyListIte
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_company_admin, parent, false);
         CompanyListItemViewHolder companyListItemViewHolder = new CompanyListItemViewHolder(v);
         if (myOnItemClickListener != null) {
-            companyListItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myOnItemClickListener.onItemClick(v);
-                }
-            });
-            companyListItemViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    myOnItemClickListener.onItemLongClick(v);
-                    return true;
-                }
+            companyListItemViewHolder.itemView.setOnClickListener(v1 -> myOnItemClickListener.onItemClick(v1));
+            companyListItemViewHolder.itemView.setOnLongClickListener(v12 -> {
+                myOnItemClickListener.onItemLongClick(v12);
+                return true;
             });
         }
         return companyListItemViewHolder;

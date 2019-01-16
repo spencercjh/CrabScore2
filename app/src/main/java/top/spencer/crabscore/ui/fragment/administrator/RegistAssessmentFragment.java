@@ -2,7 +2,6 @@ package top.spencer.crabscore.ui.fragment.administrator;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,11 +18,11 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.common.CommonConstant;
+import top.spencer.crabscore.common.util.PatternUtil;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.User;
 import top.spencer.crabscore.presenter.AdministratorListPresenter;
 import top.spencer.crabscore.presenter.UserAdminPresenter;
-import top.spencer.crabscore.common.util.PatternUtil;
-import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.ui.adapter.MyOnItemClickListener;
 import top.spencer.crabscore.ui.adapter.UserAdminListAdapter;
 import top.spencer.crabscore.ui.view.UserAdminListView;
@@ -149,7 +148,7 @@ public class RegistAssessmentFragment extends BaseFragment implements UserAdminL
      * 初始化列表adapter，设置单击监听
      */
     private void initUserAdminListAdapter() {
-        userAdminListAdapter = new UserAdminListAdapter(userList,getContext());
+        userAdminListAdapter = new UserAdminListAdapter(userList, getContext());
         userAdminListAdapter.setOnItemClickListener(new MyOnItemClickListener() {
 
             @Override
@@ -158,30 +157,26 @@ public class RegistAssessmentFragment extends BaseFragment implements UserAdminL
                 final PopupMenu popupMenu = new PopupMenu(getContext(), view);
                 final MenuInflater inflater = popupMenu.getMenuInflater();
                 inflater.inflate(R.menu.pop_menu_regist_assessment, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.menu_edit_user_info: {
-                                initEditUserInfoDialog(userInPopupMenu);
-                                popupMenu.dismiss();
-                                break;
-                            }
-                            case R.id.menu_open_user: {
-                                updateUserProperty(userInPopupMenu);
-                                break;
-                            }
-                            case R.id.menu_delete_user: {
-                                userAdminPresenter.deleteUser(userInPopupMenu.getUserId(), jwt);
-                                break;
-                            }
-                            default: {
-                                break;
-                            }
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    switch (item.getItemId()) {
+                        case R.id.menu_edit_user_info: {
+                            initEditUserInfoDialog(userInPopupMenu);
+                            popupMenu.dismiss();
+                            break;
                         }
-                        return false;
+                        case R.id.menu_open_user: {
+                            updateUserProperty(userInPopupMenu);
+                            break;
+                        }
+                        case R.id.menu_delete_user: {
+                            userAdminPresenter.deleteUser(userInPopupMenu.getUserId(), jwt);
+                            break;
+                        }
+                        default: {
+                            break;
+                        }
                     }
+                    return false;
                 });
                 popupMenu.show();
             }
@@ -224,39 +219,31 @@ public class RegistAssessmentFragment extends BaseFragment implements UserAdminL
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("修改用户信息");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String usernameString = username.getText().toString().trim();
-                String displayNameString = displayName.getText().toString().trim();
-                String mobile = phone.getText().toString().trim();
-                if (!PatternUtil.isUsername(usernameString)) {
-                    showToast("非法用户名");
-                    return;
-                } else if (!PatternUtil.isName(displayNameString)) {
-                    showToast("非法显示名");
-                    return;
-                } else if (!PatternUtil.isMobile(mobile)) {
-                    showToast("非法手机号");
-                    return;
-                } else {
-                    userInDialog.setUserName(usernameString);
-                    userInDialog.setDisplayName(displayNameString);
-                    userInDialog.setEmail(mobile);
-                    userInDialog.setUpdateUser(adminUsername);
-                    userInDialog.setUpdateDate(new Date(System.currentTimeMillis()));
-                    userAdminPresenter.updateUserProperty(userInDialog,
-                            (String) SharedPreferencesUtil.getData("JWT", ""));
-                }
-                dialog.dismiss();
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            String usernameString = username.getText().toString().trim();
+            String displayNameString = displayName.getText().toString().trim();
+            String mobile = phone.getText().toString().trim();
+            if (!PatternUtil.isUsername(usernameString)) {
+                showToast("非法用户名");
+                return;
+            } else if (!PatternUtil.isName(displayNameString)) {
+                showToast("非法显示名");
+                return;
+            } else if (!PatternUtil.isMobile(mobile)) {
+                showToast("非法手机号");
+                return;
+            } else {
+                userInDialog.setUserName(usernameString);
+                userInDialog.setDisplayName(displayNameString);
+                userInDialog.setEmail(mobile);
+                userInDialog.setUpdateUser(adminUsername);
+                userInDialog.setUpdateDate(new Date(System.currentTimeMillis()));
+                userAdminPresenter.updateUserProperty(userInDialog,
+                        (String) SharedPreferencesUtil.getData("JWT", ""));
             }
+            dialog1.dismiss();
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -355,11 +342,6 @@ public class RegistAssessmentFragment extends BaseFragment implements UserAdminL
     @Override
     public void onRefresh() {
         administratorListPresenter.getAllUserByStatus(CommonConstant.USER_STATUS_LOCK, pageNum, pageSize, jwt);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        new Handler(Looper.getMainLooper()).post(() -> swipeRefreshLayout.setRefreshing(false));
     }
 }

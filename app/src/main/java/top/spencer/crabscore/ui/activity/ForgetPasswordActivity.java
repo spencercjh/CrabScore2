@@ -82,13 +82,11 @@ public class ForgetPasswordActivity extends BaseActivity implements VerifyCodeVi
     @Override
     @SuppressWarnings("Duplicates")
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return false;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return false;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -237,7 +235,7 @@ public class ForgetPasswordActivity extends BaseActivity implements VerifyCodeVi
                 5,
                 5,
                 80,
-                TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(),
+                TimeUnit.SECONDS, new LinkedBlockingQueue<>(),
                 new ThreadPoolExecutor.AbortPolicy());
     }
 
@@ -245,31 +243,20 @@ public class ForgetPasswordActivity extends BaseActivity implements VerifyCodeVi
     private void delaySendCode() {
         long sendCodeTime = System.currentTimeMillis();
         nextSendCodeTime = sendCodeTime + (60 * 1000);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                verifyPhone.setBackgroundColor(getColor(R.color.tab_checked));
-                verifyPhone.setProgress(0);
-            }
+        new Handler(Looper.getMainLooper()).post(() -> {
+            verifyPhone.setBackgroundColor(getColor(R.color.tab_checked));
+            verifyPhone.setProgress(0);
         });
         isDelayed = true;
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(60 * 1000);
-                    isDelayed = false;
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            verifyPhone.setBackgroundColor(getColor(R.color.white));
-                        }
-                    });
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    isDelayed = true;
-                    Log.e(RegistActivity.class.getName(), "延迟60s出错");
-                }
+        executor.execute(() -> {
+            try {
+                Thread.sleep(60 * 1000);
+                isDelayed = false;
+                new Handler(Looper.getMainLooper()).post(() -> verifyPhone.setBackgroundColor(getColor(R.color.white)));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                isDelayed = true;
+                Log.e(RegistActivity.class.getName(), "延迟60s出错");
             }
         });
     }

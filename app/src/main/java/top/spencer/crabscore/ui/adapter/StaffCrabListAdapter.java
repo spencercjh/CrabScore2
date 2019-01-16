@@ -45,18 +45,10 @@ public class StaffCrabListAdapter extends RecyclerView.Adapter<StaffCrabListItem
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_crab, parent, false);
         StaffCrabListItemViewHolder staffCrabListItemViewHolder = new StaffCrabListItemViewHolder(v);
         if (myOnItemClickListener != null) {
-            staffCrabListItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myOnItemClickListener.onItemClick(v);
-                }
-            });
-            staffCrabListItemViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    myOnItemClickListener.onItemLongClick(v);
-                    return true;
-                }
+            staffCrabListItemViewHolder.itemView.setOnClickListener(v1 -> myOnItemClickListener.onItemClick(v1));
+            staffCrabListItemViewHolder.itemView.setOnLongClickListener(v12 -> {
+                myOnItemClickListener.onItemLongClick(v12);
+                return true;
             });
         }
         return staffCrabListItemViewHolder;

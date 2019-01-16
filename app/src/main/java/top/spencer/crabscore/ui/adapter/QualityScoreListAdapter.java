@@ -2,7 +2,6 @@ package top.spencer.crabscore.ui.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,18 +33,10 @@ public class QualityScoreListAdapter extends RecyclerView.Adapter<QualityScoreLi
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_quality_score, parent, false);
         QualityScoreListViewHolder qualityScoreListViewHolder = new QualityScoreListViewHolder(v);
         if (myOnItemClickListener != null) {
-            qualityScoreListViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myOnItemClickListener.onItemClick(v);
-                }
-            });
-            qualityScoreListViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    myOnItemClickListener.onItemLongClick(v);
-                    return true;
-                }
+            qualityScoreListViewHolder.itemView.setOnClickListener(v1 -> myOnItemClickListener.onItemClick(v1));
+            qualityScoreListViewHolder.itemView.setOnLongClickListener(v12 -> {
+                myOnItemClickListener.onItemLongClick(v12);
+                return true;
             });
         }
         return qualityScoreListViewHolder;

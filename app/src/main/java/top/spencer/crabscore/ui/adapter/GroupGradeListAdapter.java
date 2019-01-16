@@ -19,12 +19,12 @@ public class GroupGradeListAdapter extends RecyclerView.Adapter<GroupGradeListIt
     private MyOnItemClickListener myOnItemClickListener;
     private List<GroupResult> groupList;
 
-    public void setOnItemClickListener(MyOnItemClickListener mListener) {
-        this.myOnItemClickListener = mListener;
-    }
-
     public GroupGradeListAdapter(List<GroupResult> data) {
         this.groupList = data;
+    }
+
+    public void setOnItemClickListener(MyOnItemClickListener mListener) {
+        this.myOnItemClickListener = mListener;
     }
 
     @Override
@@ -39,18 +39,10 @@ public class GroupGradeListAdapter extends RecyclerView.Adapter<GroupGradeListIt
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_group_judge, parent, false);
         GroupGradeListItemViewHolder groupGradeListItemViewHolder = new GroupGradeListItemViewHolder(v);
         if (myOnItemClickListener != null) {
-            groupGradeListItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myOnItemClickListener.onItemClick(v);
-                }
-            });
-            groupGradeListItemViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    myOnItemClickListener.onItemLongClick(v);
-                    return true;
-                }
+            groupGradeListItemViewHolder.itemView.setOnClickListener(v1 -> myOnItemClickListener.onItemClick(v1));
+            groupGradeListItemViewHolder.itemView.setOnLongClickListener(v12 -> {
+                myOnItemClickListener.onItemLongClick(v12);
+                return true;
             });
         }
         return groupGradeListItemViewHolder;

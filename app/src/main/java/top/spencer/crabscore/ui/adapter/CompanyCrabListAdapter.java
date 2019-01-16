@@ -45,18 +45,10 @@ public class CompanyCrabListAdapter extends RecyclerView.Adapter<CompanyCrabList
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_crab_score_result, parent, false);
         CompanyCrabListItemViewHolder companyCrabListItemViewHolder = new CompanyCrabListItemViewHolder(v);
         if (myOnItemClickListener != null) {
-            companyCrabListItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myOnItemClickListener.onItemClick(v);
-                }
-            });
-            companyCrabListItemViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    myOnItemClickListener.onItemLongClick(v);
-                    return true;
-                }
+            companyCrabListItemViewHolder.itemView.setOnClickListener(v1 -> myOnItemClickListener.onItemClick(v1));
+            companyCrabListItemViewHolder.itemView.setOnLongClickListener(v12 -> {
+                myOnItemClickListener.onItemLongClick(v12);
+                return true;
             });
         }
         return companyCrabListItemViewHolder;

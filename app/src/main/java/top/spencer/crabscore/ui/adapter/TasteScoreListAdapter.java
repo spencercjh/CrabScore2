@@ -33,18 +33,10 @@ public class TasteScoreListAdapter extends RecyclerView.Adapter<TasteScoreListVi
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_taste_score, parent, false);
         TasteScoreListViewHolder tasteScoreListViewHolder = new TasteScoreListViewHolder(v);
         if (myOnItemClickListener != null) {
-            tasteScoreListViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myOnItemClickListener.onItemClick(v);
-                }
-            });
-            tasteScoreListViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    myOnItemClickListener.onItemLongClick(v);
-                    return true;
-                }
+            tasteScoreListViewHolder.itemView.setOnClickListener(v1 -> myOnItemClickListener.onItemClick(v1));
+            tasteScoreListViewHolder.itemView.setOnLongClickListener(v12 -> {
+                myOnItemClickListener.onItemLongClick(v12);
+                return true;
             });
         }
         return tasteScoreListViewHolder;

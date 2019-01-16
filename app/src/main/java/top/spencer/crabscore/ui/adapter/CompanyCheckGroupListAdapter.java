@@ -19,12 +19,12 @@ public class CompanyCheckGroupListAdapter extends RecyclerView.Adapter<CompanyCh
     private MyOnItemClickListener myOnItemClickListener;
     private List<GroupResult> groupList;
 
-    public void setOnItemClickListener(MyOnItemClickListener mListener) {
-        this.myOnItemClickListener = mListener;
-    }
-
     public CompanyCheckGroupListAdapter(List<GroupResult> data) {
         this.groupList = data;
+    }
+
+    public void setOnItemClickListener(MyOnItemClickListener mListener) {
+        this.myOnItemClickListener = mListener;
     }
 
     @Override
@@ -39,18 +39,10 @@ public class CompanyCheckGroupListAdapter extends RecyclerView.Adapter<CompanyCh
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_group_company, parent, false);
         CompanyCheckGroupListItemViewHolder companyCheckGroupListItemViewHolder = new CompanyCheckGroupListItemViewHolder(v);
         if (myOnItemClickListener != null) {
-            companyCheckGroupListItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myOnItemClickListener.onItemClick(v);
-                }
-            });
-            companyCheckGroupListItemViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    myOnItemClickListener.onItemLongClick(v);
-                    return true;
-                }
+            companyCheckGroupListItemViewHolder.itemView.setOnClickListener(v1 -> myOnItemClickListener.onItemClick(v1));
+            companyCheckGroupListItemViewHolder.itemView.setOnLongClickListener(v12 -> {
+                myOnItemClickListener.onItemLongClick(v12);
+                return true;
             });
         }
         return companyCheckGroupListItemViewHolder;

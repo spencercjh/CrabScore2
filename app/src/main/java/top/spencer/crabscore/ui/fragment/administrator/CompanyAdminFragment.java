@@ -2,7 +2,6 @@ package top.spencer.crabscore.ui.fragment.administrator;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -57,6 +56,7 @@ public class CompanyAdminFragment extends BaseFragment implements CompanyAdminLi
     private CompanyAdminListAdapter companyAdminListAdapter;
     private List<Company> companyList = new ArrayList<>(pageSize);
     private int pageNum = 1;
+
     /**
      * 取得实例
      *
@@ -211,29 +211,21 @@ public class CompanyAdminFragment extends BaseFragment implements CompanyAdminLi
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("修改参选单位信息");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String companyNameString = companyName.getText().toString().trim();
-                if (!PatternUtil.isUsername(companyNameString)) {
-                    showToast("非法用户名");
-                    return;
-                } else {
-                    companyInDialog.setCompanyName(companyNameString);
-                    companyInDialog.setUpdateDate(new Date(System.currentTimeMillis()));
-                    companyInDialog.setUpdateUser(adminUsername);
-                    companyAdminPresenter.updateCompanyProperty(companyInDialog,
-                            (String) SharedPreferencesUtil.getData("JWT", ""));
-                }
-                dialog.dismiss();
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            String companyNameString = companyName.getText().toString().trim();
+            if (!PatternUtil.isUsername(companyNameString)) {
+                showToast("非法用户名");
+                return;
+            } else {
+                companyInDialog.setCompanyName(companyNameString);
+                companyInDialog.setUpdateDate(new Date(System.currentTimeMillis()));
+                companyInDialog.setUpdateUser(adminUsername);
+                companyAdminPresenter.updateCompanyProperty(companyInDialog,
+                        (String) SharedPreferencesUtil.getData("JWT", ""));
             }
+            dialog1.dismiss();
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -257,13 +249,9 @@ public class CompanyAdminFragment extends BaseFragment implements CompanyAdminLi
     public void showData(JSONObject successData) {
         pageNum++;
         administratorListPresenter.dealCompanyListJSON(successData.getJSONArray("result"), companyList);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-                companyAdminListAdapter.notifyDataSetChanged();
-            }
+        new Handler(Looper.getMainLooper()).post(() -> {
+            swipeRefreshLayout.setRefreshing(false);
+            companyAdminListAdapter.notifyDataSetChanged();
         });
     }
 
@@ -273,12 +261,7 @@ public class CompanyAdminFragment extends BaseFragment implements CompanyAdminLi
     @Override
     public void onRefresh() {
         administratorListPresenter.getAllCompany(pageNum, pageSize, jwt);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        new Handler(Looper.getMainLooper()).post(() -> swipeRefreshLayout.setRefreshing(false));
     }
 
     /**

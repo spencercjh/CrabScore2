@@ -2,7 +2,6 @@ package top.spencer.crabscore.ui.fragment.administrator;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -158,34 +157,30 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
                 final PopupMenu popupMenu = new PopupMenu(getContext(), view);
                 final MenuInflater inflater = popupMenu.getMenuInflater();
                 inflater.inflate(R.menu.pop_menu_user_admin, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.menu_edit_user_info: {
-                                initEditUserInfoDialog(userInPopupMenu);
-                                popupMenu.dismiss();
-                                break;
-                            }
-                            case R.id.menu_ban_user: {
-                                banUser(userInPopupMenu);
-                                break;
-                            }
-                            case R.id.menu_allow_all_competition: {
-                                updateUserCompetition(userInPopupMenu, 0);
-                                break;
-                            }
-                            case R.id.menu_allow_only_present_competition: {
-                                updateUserCompetition(userInPopupMenu, presentCompetition.getCompetitionId());
-                                break;
-                            }
-                            default: {
-                                break;
-                            }
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    switch (item.getItemId()) {
+                        case R.id.menu_edit_user_info: {
+                            initEditUserInfoDialog(userInPopupMenu);
+                            popupMenu.dismiss();
+                            break;
                         }
-                        return false;
+                        case R.id.menu_ban_user: {
+                            banUser(userInPopupMenu);
+                            break;
+                        }
+                        case R.id.menu_allow_all_competition: {
+                            updateUserCompetition(userInPopupMenu, 0);
+                            break;
+                        }
+                        case R.id.menu_allow_only_present_competition: {
+                            updateUserCompetition(userInPopupMenu, presentCompetition.getCompetitionId());
+                            break;
+                        }
+                        default: {
+                            break;
+                        }
                     }
+                    return false;
                 });
                 popupMenu.show();
             }
@@ -241,13 +236,9 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
     public void showData(JSONObject successData) {
         pageNum++;
         administratorListPresenter.dealUserListJSON(successData.getJSONArray("result"), userList);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-                userAdminListAdapter.notifyDataSetChanged();
-            }
+        new Handler(Looper.getMainLooper()).post(() -> {
+            swipeRefreshLayout.setRefreshing(false);
+            userAdminListAdapter.notifyDataSetChanged();
         });
     }
 
@@ -310,39 +301,31 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("修改用户信息");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String usernameString = username.getText().toString().trim();
-                String displayNameString = displayName.getText().toString().trim();
-                String mobile = phone.getText().toString().trim();
-                if (!PatternUtil.isUsername(usernameString)) {
-                    showToast("非法用户名");
-                    return;
-                } else if (!PatternUtil.isName(displayNameString)) {
-                    showToast("非法显示名");
-                    return;
-                } else if (!PatternUtil.isMobile(mobile)) {
-                    showToast("非法手机号");
-                    return;
-                } else {
-                    userInDialog.setUserName(usernameString);
-                    userInDialog.setDisplayName(displayNameString);
-                    userInDialog.setEmail(mobile);
-                    userInDialog.setUpdateUser(adminUsername);
-                    userInDialog.setUpdateDate(new Date(System.currentTimeMillis()));
-                    userAdminPresenter.updateUserProperty(userInDialog,
-                            (String) SharedPreferencesUtil.getData("JWT", ""));
-                }
-                dialog.dismiss();
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            String usernameString = username.getText().toString().trim();
+            String displayNameString = displayName.getText().toString().trim();
+            String mobile = phone.getText().toString().trim();
+            if (!PatternUtil.isUsername(usernameString)) {
+                showToast("非法用户名");
+                return;
+            } else if (!PatternUtil.isName(displayNameString)) {
+                showToast("非法显示名");
+                return;
+            } else if (!PatternUtil.isMobile(mobile)) {
+                showToast("非法手机号");
+                return;
+            } else {
+                userInDialog.setUserName(usernameString);
+                userInDialog.setDisplayName(displayNameString);
+                userInDialog.setEmail(mobile);
+                userInDialog.setUpdateUser(adminUsername);
+                userInDialog.setUpdateDate(new Date(System.currentTimeMillis()));
+                userAdminPresenter.updateUserProperty(userInDialog,
+                        (String) SharedPreferencesUtil.getData("JWT", ""));
             }
+            dialog1.dismiss();
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -377,11 +360,6 @@ public class UserAdminFragment extends BaseFragment implements UserAdminListView
     @Override
     public void onRefresh() {
         administratorListPresenter.getAllUser(pageNum, pageSize, jwt);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        new Handler(Looper.getMainLooper()).post(() -> swipeRefreshLayout.setRefreshing(false));
     }
 }

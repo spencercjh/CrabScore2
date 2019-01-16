@@ -2,7 +2,6 @@ package top.spencer.crabscore.ui.activity.judge;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -203,20 +202,12 @@ public class GradeTasteScoreListActivity extends BaseActivity implements GradeLi
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("为第" + groupResult.getGroupId() + "组" + Objects.requireNonNull(tasteScoreInDialog).getScoreId() + "号螃蟹评分");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                gradePresenter.updateTasteScore(scoreFin, scoreYgys, scoreSys, scoreGhys, scoreXwxw, scoreGh, scoreFbjr,
-                        scoreBzjr,tasteScoreInDialog, user, jwt);
-                dialog.dismiss();
-            }
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            gradePresenter.updateTasteScore(scoreFin, scoreYgys, scoreSys, scoreGhys, scoreXwxw, scoreGh, scoreFbjr,
+                    scoreBzjr, tasteScoreInDialog, user, jwt);
+            dialog1.dismiss();
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -227,12 +218,7 @@ public class GradeTasteScoreListActivity extends BaseActivity implements GradeLi
     public void onRefresh() {
         gradePresenter.getOneGroupAllTasteScore(presentCompetition.getCompetitionId(), groupResult.getGroupId(),
                 pageNum, pageSize, jwt);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        new Handler(Looper.getMainLooper()).post(() -> swipeRefreshLayout.setRefreshing(false));
     }
 
     /**
@@ -244,13 +230,9 @@ public class GradeTasteScoreListActivity extends BaseActivity implements GradeLi
     public void showData(JSONObject successData) {
         pageNum++;
         gradePresenter.dealTasteScoreJSON(successData.getJSONArray("result"), tasteScoreList);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-                tasteScoreListAdapter.notifyDataSetChanged();
-            }
+        new Handler(Looper.getMainLooper()).post(() -> {
+            swipeRefreshLayout.setRefreshing(false);
+            tasteScoreListAdapter.notifyDataSetChanged();
         });
     }
 

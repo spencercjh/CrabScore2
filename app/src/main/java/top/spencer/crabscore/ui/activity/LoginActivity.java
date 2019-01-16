@@ -64,7 +64,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
         SharedPreferencesUtil.getInstance(getContext(), "PROPERTY");
         initSpinner();
         readSharedPreferences();
-        returnFromRegist();
+        returnFromRegister();
     }
 
     @Override
@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     /**
      * 从注册界面返回，自动填上刚注册的用户信息
      */
-    private void returnFromRegist() {
+    private void returnFromRegister() {
         try {
             Intent intent = getIntent();
             String usernameString = intent.getStringExtra("USERNAME");

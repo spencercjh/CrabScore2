@@ -217,35 +217,27 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("修改大赛年份和备注信息");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String yearString = year.getText().toString().trim();
-                String noteString = note.getText().toString().trim();
-                if (StrUtil.isEmpty(yearString)) {
-                    showToast("大赛年份不能为空");
-                    return;
-                } else if (StrUtil.isEmpty(noteString)) {
-                    showToast("大赛备注不能为空");
-                    return;
-                }
-                if (yearString.equals(presentCompetition.getCompetitionYear()) && noteString.equals(presentCompetition.getNote())) {
-                    showToast("未作修改");
-                } else {
-                    String display = yearString + noteString.substring(0, 5) + "...";
-                    yearAndNoteTextView.setText(display);
-                    presentCompetition.setCompetitionYear(yearString);
-                    presentCompetition.setNote(noteString);
-                    competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
-                }
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            String yearString = year.getText().toString().trim();
+            String noteString = note.getText().toString().trim();
+            if (StrUtil.isEmpty(yearString)) {
+                showToast("大赛年份不能为空");
+                return;
+            } else if (StrUtil.isEmpty(noteString)) {
+                showToast("大赛备注不能为空");
+                return;
+            }
+            if (yearString.equals(presentCompetition.getCompetitionYear()) && noteString.equals(presentCompetition.getNote())) {
+                showToast("未作修改");
+            } else {
+                String display = yearString + noteString.substring(0, 5) + "...";
+                yearAndNoteTextView.setText(display);
+                presentCompetition.setCompetitionYear(yearString);
+                presentCompetition.setNote(noteString);
+                competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
             }
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -277,30 +269,22 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("修改雄性肥满度参数");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String varFatnessMString = varFatnessM.getText().toString().trim();
-                if (!NumberUtil.isNumber(varFatnessMString)) {
-                    showToast("请输入合法数字");
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            String varFatnessMString = varFatnessM.getText().toString().trim();
+            if (!NumberUtil.isNumber(varFatnessMString)) {
+                showToast("请输入合法数字");
+            } else {
+                Float varFatnessMFloat = Float.parseFloat(varFatnessMString);
+                if (presentCompetition.getVarFatnessM().equals(varFatnessMFloat)) {
+                    showToast("未作修改");
                 } else {
-                    Float varFatnessMFloat = Float.parseFloat(varFatnessMString);
-                    if (presentCompetition.getVarFatnessM().equals(varFatnessMFloat)) {
-                        showToast("未作修改");
-                    } else {
-                        varFatnessMTextView.setText(varFatnessMString);
-                        presentCompetition.setVarFatnessM(varFatnessMFloat);
-                        competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
-                    }
+                    varFatnessMTextView.setText(varFatnessMString);
+                    presentCompetition.setVarFatnessM(varFatnessMFloat);
+                    competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
                 }
             }
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -331,30 +315,22 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("修改雄性体重参数");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String varWeightMString = varWeightM.getText().toString().trim();
-                if (!NumberUtil.isNumber(varWeightMString)) {
-                    showToast("请输入合法数字");
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            String varWeightMString = varWeightM.getText().toString().trim();
+            if (!NumberUtil.isNumber(varWeightMString)) {
+                showToast("请输入合法数字");
+            } else {
+                Float varWeightMFloat = Float.parseFloat(varWeightMString);
+                if (presentCompetition.getVarWeightM().equals(varWeightMFloat)) {
+                    showToast("未作修改");
                 } else {
-                    Float varWeightMFloat = Float.parseFloat(varWeightMString);
-                    if (presentCompetition.getVarWeightM().equals(varWeightMFloat)) {
-                        showToast("未作修改");
-                    } else {
-                        varWeightMTextView.setText(varWeightMString);
-                        presentCompetition.setVarWeightM(varWeightMFloat);
-                        competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
-                    }
+                    varWeightMTextView.setText(varWeightMString);
+                    presentCompetition.setVarWeightM(varWeightMFloat);
+                    competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
                 }
             }
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -385,21 +361,18 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("修改雄性肥满度标准差参数");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String varMFatnessSdString = varMFatnessSd.getText().toString().trim();
-                if (!NumberUtil.isNumber(varMFatnessSdString)) {
-                    showToast("请输入合法数字");
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            String varMFatnessSdString = varMFatnessSd.getText().toString().trim();
+            if (!NumberUtil.isNumber(varMFatnessSdString)) {
+                showToast("请输入合法数字");
+            } else {
+                Float varMFatnessSdFloat = Float.parseFloat(varMFatnessSdString);
+                if (presentCompetition.getVarMfatnessSd().equals(varMFatnessSdFloat)) {
+                    showToast("未作修改");
                 } else {
-                    Float varMFatnessSdFloat = Float.parseFloat(varMFatnessSdString);
-                    if (presentCompetition.getVarMfatnessSd().equals(varMFatnessSdFloat)) {
-                        showToast("未作修改");
-                    } else {
-                        varMFatnessSdTextView.setText(varMFatnessSdString);
-                        presentCompetition.setVarMfatnessSd(varMFatnessSdFloat);
-                        competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
-                    }
+                    varMFatnessSdTextView.setText(varMFatnessSdString);
+                    presentCompetition.setVarMfatnessSd(varMFatnessSdFloat);
+                    competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
                 }
             }
         });
@@ -439,30 +412,22 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("修改雄性体重标准差参数");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String varMWeightSdString = varMWeightSd.getText().toString().trim();
-                if (!NumberUtil.isNumber(varMWeightSdString)) {
-                    showToast("请输入合法数字");
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            String varMWeightSdString = varMWeightSd.getText().toString().trim();
+            if (!NumberUtil.isNumber(varMWeightSdString)) {
+                showToast("请输入合法数字");
+            } else {
+                Float varMWeightSdFloat = Float.parseFloat(varMWeightSdString);
+                if (presentCompetition.getVarMweightSd().equals(varMWeightSdFloat)) {
+                    showToast("未作修改");
                 } else {
-                    Float varMWeightSdFloat = Float.parseFloat(varMWeightSdString);
-                    if (presentCompetition.getVarMweightSd().equals(varMWeightSdFloat)) {
-                        showToast("未作修改");
-                    } else {
-                        varMWeightSdTextView.setText(varMWeightSdString);
-                        presentCompetition.setVarMweightSd(varMWeightSdFloat);
-                        competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
-                    }
+                    varMWeightSdTextView.setText(varMWeightSdString);
+                    presentCompetition.setVarMweightSd(varMWeightSdFloat);
+                    competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
                 }
             }
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -493,30 +458,22 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("修改雌性肥满度参数");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String varFatnessFString = varFatnessF.getText().toString().trim();
-                if (!NumberUtil.isNumber(varFatnessFString)) {
-                    showToast("请输入合法数字");
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            String varFatnessFString = varFatnessF.getText().toString().trim();
+            if (!NumberUtil.isNumber(varFatnessFString)) {
+                showToast("请输入合法数字");
+            } else {
+                Float varFatnessFFloat = Float.parseFloat(varFatnessFString);
+                if (presentCompetition.getVarFatnessF().equals(varFatnessFFloat)) {
+                    showToast("未作修改");
                 } else {
-                    Float varFatnessFFloat = Float.parseFloat(varFatnessFString);
-                    if (presentCompetition.getVarFatnessF().equals(varFatnessFFloat)) {
-                        showToast("未作修改");
-                    } else {
-                        varFatnessFTextView.setText(varFatnessFString);
-                        presentCompetition.setVarFatnessF(varFatnessFFloat);
-                        competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
-                    }
+                    varFatnessFTextView.setText(varFatnessFString);
+                    presentCompetition.setVarFatnessF(varFatnessFFloat);
+                    competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
                 }
             }
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -547,30 +504,22 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("修改雌性体重参数");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String varWeightFString = varWeightF.getText().toString().trim();
-                if (!NumberUtil.isNumber(varWeightFString)) {
-                    showToast("请输入合法数字");
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            String varWeightFString = varWeightF.getText().toString().trim();
+            if (!NumberUtil.isNumber(varWeightFString)) {
+                showToast("请输入合法数字");
+            } else {
+                Float varWeightFFloat = Float.parseFloat(varWeightFString);
+                if (presentCompetition.getVarWeightF().equals(varWeightFFloat)) {
+                    showToast("未作修改");
                 } else {
-                    Float varWeightFFloat = Float.parseFloat(varWeightFString);
-                    if (presentCompetition.getVarWeightF().equals(varWeightFFloat)) {
-                        showToast("未作修改");
-                    } else {
-                        varWeightFTextView.setText(varWeightFString);
-                        presentCompetition.setVarWeightF(varWeightFFloat);
-                        competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
-                    }
+                    varWeightFTextView.setText(varWeightFString);
+                    presentCompetition.setVarWeightF(varWeightFFloat);
+                    competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
                 }
             }
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -601,30 +550,22 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("修改雌性肥满度标准差参数");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String varFFatnessSdString = varFFatnessSd.getText().toString().trim();
-                if (!NumberUtil.isNumber(varFFatnessSdString)) {
-                    showToast("请输入合法数字");
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            String varFFatnessSdString = varFFatnessSd.getText().toString().trim();
+            if (!NumberUtil.isNumber(varFFatnessSdString)) {
+                showToast("请输入合法数字");
+            } else {
+                Float varFFatnessSdFloat = Float.parseFloat(varFFatnessSdString);
+                if (presentCompetition.getVarFfatnessSd().equals(varFFatnessSdFloat)) {
+                    showToast("未作修改");
                 } else {
-                    Float varFFatnessSdFloat = Float.parseFloat(varFFatnessSdString);
-                    if (presentCompetition.getVarFfatnessSd().equals(varFFatnessSdFloat)) {
-                        showToast("未作修改");
-                    } else {
-                        varFFatnessSdTextView.setText(varFFatnessSdString);
-                        presentCompetition.setVarFfatnessSd(varFFatnessSdFloat);
-                        competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
-                    }
+                    varFFatnessSdTextView.setText(varFFatnessSdString);
+                    presentCompetition.setVarFfatnessSd(varFFatnessSdFloat);
+                    competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
                 }
             }
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -655,30 +596,22 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("修改雌性体重标准差参数");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String varFWeightSdString = varFWeightSd.getText().toString().trim();
-                if (!NumberUtil.isNumber(varFWeightSdString)) {
-                    showToast("请输入合法数字");
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            String varFWeightSdString = varFWeightSd.getText().toString().trim();
+            if (!NumberUtil.isNumber(varFWeightSdString)) {
+                showToast("请输入合法数字");
+            } else {
+                Float varFWeightSdFloat = Float.parseFloat(varFWeightSdString);
+                if (presentCompetition.getVarFweightSd().equals(varFWeightSdFloat)) {
+                    showToast("未作修改");
                 } else {
-                    Float varFWeightSdFloat = Float.parseFloat(varFWeightSdString);
-                    if (presentCompetition.getVarFweightSd().equals(varFWeightSdFloat)) {
-                        showToast("未作修改");
-                    } else {
-                        varFWeightSdTextView.setText(varFWeightSdString);
-                        presentCompetition.setVarFweightSd(varFWeightSdFloat);
-                        competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
-                    }
+                    varFWeightSdTextView.setText(varFWeightSdString);
+                    presentCompetition.setVarFweightSd(varFWeightSdFloat);
+                    competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
                 }
             }
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -730,26 +663,23 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("修改大赛结果排名可见性");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (fatnessRankEnable.isChecked()) {
-                    presentCompetition.setResultFatness(1);
-                } else if (fatnessRankUnable.isChecked()) {
-                    presentCompetition.setResultFatness(0);
-                }
-                if (qualityRankEnable.isChecked()) {
-                    presentCompetition.setResultQuality(1);
-                } else if (qualityRankUnable.isChecked()) {
-                    presentCompetition.setResultQuality(0);
-                }
-                if (tasteRankEnable.isChecked()) {
-                    presentCompetition.setResultTaste(1);
-                } else if (tasteRankUnable.isChecked()) {
-                    presentCompetition.setResultTaste(0);
-                }
-                competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            if (fatnessRankEnable.isChecked()) {
+                presentCompetition.setResultFatness(1);
+            } else if (fatnessRankUnable.isChecked()) {
+                presentCompetition.setResultFatness(0);
             }
+            if (qualityRankEnable.isChecked()) {
+                presentCompetition.setResultQuality(1);
+            } else if (qualityRankUnable.isChecked()) {
+                presentCompetition.setResultQuality(0);
+            }
+            if (tasteRankEnable.isChecked()) {
+                presentCompetition.setResultTaste(1);
+            } else if (tasteRankUnable.isChecked()) {
+                presentCompetition.setResultTaste(0);
+            }
+            competitionAdminPresenter.updateCompetitionProperty(presentCompetition, jwt);
         });
         if (presentCompetition.getResultFatness() == 1 &&
                 presentCompetition.getResultQuality() == 1 &&
@@ -762,12 +692,7 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
         } else {
             moreSettingTextView.setText("部分可见");
         }
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -800,12 +725,9 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
     @Override
     public void onRefresh() {
         navigationPresenter.getPresentCompetitionProperty();
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                initView();
-                swipeRefreshLayout.setRefreshing(false);
-            }
+        new Handler(Looper.getMainLooper()).post(() -> {
+            initView();
+            swipeRefreshLayout.setRefreshing(false);
         });
     }
 }

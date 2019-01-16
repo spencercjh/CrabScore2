@@ -149,13 +149,9 @@ public class QualityRankFragment extends BaseFragment implements MyRecycleListVi
     public void showData(JSONObject successData) {
         pageNum++;
         rankListPresenter.dealRankListJSON(successData.getJSONObject("result").getJSONArray("list"), qualityRankResultList);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-                qualityRankListAdapter.notifyDataSetChanged();
-            }
+        new Handler(Looper.getMainLooper()).post(() -> {
+            swipeRefreshLayout.setRefreshing(false);
+            qualityRankListAdapter.notifyDataSetChanged();
         });
 
     }
@@ -166,11 +162,6 @@ public class QualityRankFragment extends BaseFragment implements MyRecycleListVi
     @Override
     public void onRefresh() {
         rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        new Handler(Looper.getMainLooper()).post(() -> swipeRefreshLayout.setRefreshing(false));
     }
 }

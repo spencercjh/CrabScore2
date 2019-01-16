@@ -3,7 +3,6 @@ package top.spencer.crabscore.ui.fragment.person;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -45,6 +44,7 @@ import static android.app.Activity.RESULT_OK;
  * @author spencercjh
  */
 public class PersonCenterFragment extends BaseFragment implements PersonCenterView, SwipeRefreshLayout.OnRefreshListener {
+    private final Integer UPLOAD_CODE = 0x1;
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.re_avatar)
@@ -71,7 +71,6 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
     private String accesskey;
     private String secret;
     private String bucket;
-    private final Integer UPLOAD_CODE = 0x1;
 
     /**
      * 取得实例
@@ -194,26 +193,18 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("修改用户名");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String username = usernameEditText.getText().toString().trim();
-                if (PatternUtil.isUsername(username)) {
-                    user.setUserName(username);
-                    user.setUpdateUser(user.getUserName());
-                    user.setUpdateDate(new Date(System.currentTimeMillis()));
-                    personCenterPresenter.updateUserProperty(user, jwt);
-                } else {
-                    showToast("非法用户名");
-                }
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            String username = usernameEditText.getText().toString().trim();
+            if (PatternUtil.isUsername(username)) {
+                user.setUserName(username);
+                user.setUpdateUser(user.getUserName());
+                user.setUpdateDate(new Date(System.currentTimeMillis()));
+                personCenterPresenter.updateUserProperty(user, jwt);
+            } else {
+                showToast("非法用户名");
             }
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -229,20 +220,10 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
         final EditText newPasswordEditText = dialogView.findViewById(R.id.edit_new_password);
         final ToggleButton togglePassword = dialogView.findViewById(R.id.toggle_password);
         final ToggleButton toggleNewPassword = dialogView.findViewById(R.id.toggle_new_password);
-        togglePassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                personCenterPresenter.toggleButtonDisplayPassword(togglePassword, passwordEditText,
-                        isChecked, getContext());
-            }
-        });
-        toggleNewPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                personCenterPresenter.toggleButtonDisplayPassword(toggleNewPassword, newPasswordEditText,
-                        isChecked, getContext());
-            }
-        });
+        togglePassword.setOnCheckedChangeListener((buttonView, isChecked) -> personCenterPresenter.toggleButtonDisplayPassword(togglePassword, passwordEditText,
+                isChecked, getContext()));
+        toggleNewPassword.setOnCheckedChangeListener((buttonView, isChecked) -> personCenterPresenter.toggleButtonDisplayPassword(toggleNewPassword, newPasswordEditText,
+                isChecked, getContext()));
         AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
         Window dialogWindow = dialog.getWindow();
         Objects.requireNonNull(dialogWindow).setGravity(Gravity.CENTER);
@@ -250,31 +231,23 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("修改密码");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String password = passwordEditText.getText().toString().trim();
-                String newPassword = newPasswordEditText.getText().toString().trim();
-                if (password.equals(user.getPassword())) {
-                    if (PatternUtil.isUsername(password)) {
-                        user.setPassword(newPassword);
-                        user.setUpdateUser(user.getUserName());
-                        user.setUpdateDate(new Date(System.currentTimeMillis()));
-                        personCenterPresenter.updateUserProperty(user, jwt);
-                    } else {
-                        showToast("非法密码");
-                    }
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            String password = passwordEditText.getText().toString().trim();
+            String newPassword = newPasswordEditText.getText().toString().trim();
+            if (password.equals(user.getPassword())) {
+                if (PatternUtil.isUsername(password)) {
+                    user.setPassword(newPassword);
+                    user.setUpdateUser(user.getUserName());
+                    user.setUpdateDate(new Date(System.currentTimeMillis()));
+                    personCenterPresenter.updateUserProperty(user, jwt);
                 } else {
-                    showToast("旧密码输入错误");
+                    showToast("非法密码");
                 }
+            } else {
+                showToast("旧密码输入错误");
             }
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -299,26 +272,18 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("修改显示名");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String displayName = displayNameEditText.getText().toString().trim();
-                if (PatternUtil.isName(displayName)) {
-                    user.setDisplayName(displayName);
-                    user.setUpdateUser(user.getUserName());
-                    user.setUpdateDate(new Date(System.currentTimeMillis()));
-                    personCenterPresenter.updateUserProperty(user, jwt);
-                } else {
-                    showToast("非法显示名");
-                }
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            String displayName = displayNameEditText.getText().toString().trim();
+            if (PatternUtil.isName(displayName)) {
+                user.setDisplayName(displayName);
+                user.setUpdateUser(user.getUserName());
+                user.setUpdateDate(new Date(System.currentTimeMillis()));
+                personCenterPresenter.updateUserProperty(user, jwt);
+            } else {
+                showToast("非法显示名");
             }
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -343,26 +308,18 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
         dialog.setIcon(R.drawable.app_logo);
         dialog.setTitle("修改手机号");
         dialog.setView(dialogView);
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String phone = phoneEditText.getText().toString().trim();
-                if (PatternUtil.isMobile(phone)) {
-                    user.setEmail(phone);
-                    user.setUpdateUser(user.getUserName());
-                    user.setUpdateDate(new Date(System.currentTimeMillis()));
-                    personCenterPresenter.updateUserProperty(user, jwt);
-                } else {
-                    showToast("非法手机号");
-                }
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
+            String phone = phoneEditText.getText().toString().trim();
+            if (PatternUtil.isMobile(phone)) {
+                user.setEmail(phone);
+                user.setUpdateUser(user.getUserName());
+                user.setUpdateDate(new Date(System.currentTimeMillis()));
+                personCenterPresenter.updateUserProperty(user, jwt);
+            } else {
+                showToast("非法手机号");
             }
         });
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
         dialog.show();
     }
 
@@ -375,12 +332,7 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
     public void showData(JSONObject successData) {
         if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
             showToast(successData.getString(CommonConstant.MESSAGE));
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    initView();
-                }
-            });
+            new Handler(Looper.getMainLooper()).post(() -> initView());
         }
     }
 
@@ -389,12 +341,7 @@ public class PersonCenterFragment extends BaseFragment implements PersonCenterVi
      */
     @Override
     public void onRefresh() {
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        new Handler(Looper.getMainLooper()).post(() -> swipeRefreshLayout.setRefreshing(false));
     }
 
     /**
