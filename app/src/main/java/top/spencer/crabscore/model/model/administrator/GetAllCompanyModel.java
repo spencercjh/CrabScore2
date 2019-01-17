@@ -16,7 +16,7 @@ public class GetAllCompanyModel extends BaseModel {
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "admin/company/companies/" + mvpParams[0] + "/" + mvpParams[1];
+        String url = CommonConstant.URL + "admin/company/companies?pageNum=" + mvpParams[0] + "&pageSize=" + mvpParams[1];
         requestGetAPI(url, myCallBack, mvpParams[2]);
     }
 }

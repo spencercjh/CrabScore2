@@ -16,7 +16,7 @@ public class GetAllUserModel extends BaseModel {
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "admin/user/users/" + mvpParams[0] + "/" + mvpParams[1];
+        String url = CommonConstant.URL + "admin/user/users?pageNum=" + mvpParams[0] + "&pageSize=" + mvpParams[1];
         requestGetAPI(url, myCallBack, mvpParams[2]);
     }
 }

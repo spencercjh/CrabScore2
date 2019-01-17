@@ -16,8 +16,7 @@ public class GetOneCompanyAllGroupModel extends BaseModel {
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "company/groups/" +
-                mvpParams[0] + "/" + mvpParams[1] + "/" + mvpParams[2] + "/" + mvpParams[3];
+        String url = CommonConstant.URL + "company/" + mvpParams[1] + "/groups/competition/" + mvpParams[0] + "?pageNum=" + mvpParams[2] + "&pageSize=" + mvpParams[3];
         requestGetAPI(url, myCallBack, mvpParams[4]);
     }
 }

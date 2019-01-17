@@ -17,7 +17,8 @@ public class GetQualityRankModel extends BaseModel {
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "common/score/qualities/" + mvpParams[0] + "/" + mvpParams[1] + "/" + mvpParams[2];
+        String url =
+                CommonConstant.URL + "common/score/qualities/competition/" + mvpParams[0] + "?pageSize=" + mvpParams[1] + "&pageNum=" + mvpParams[2];
         requestGetAPI(url, myCallBack, "");
     }
 }

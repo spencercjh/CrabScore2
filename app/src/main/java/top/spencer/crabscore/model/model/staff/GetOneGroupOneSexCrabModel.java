@@ -5,6 +5,9 @@ import top.spencer.crabscore.base.BaseModel;
 import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.common.CommonConstant;
 
+/**
+ * @author spencercjh
+ */
 public class GetOneGroupOneSexCrabModel extends BaseModel {
     /**
      * 参数表Integer competitionId, Integer groupId,Integer sex, Integer pageNum, Integer pageSize,String jwt
@@ -13,8 +16,8 @@ public class GetOneGroupOneSexCrabModel extends BaseModel {
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "staff/crabs/" + mvpParams[0] + "/" + mvpParams[1] +
-                "/" + mvpParams[2] + "/" + mvpParams[3] + "/" + mvpParams[4];
+        String url = CommonConstant.URL + "staff/crabs/competition/" + mvpParams[0] + "/group/" + mvpParams[1] +
+                "/sex/" + mvpParams[2] + "?pageNum=" + mvpParams[3] + "&pageSize=" + mvpParams[4];
         requestGetAPI(url, myCallBack, mvpParams[5]);
     }
 }
