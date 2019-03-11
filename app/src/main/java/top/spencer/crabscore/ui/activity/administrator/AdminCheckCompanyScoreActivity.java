@@ -2,7 +2,6 @@ package top.spencer.crabscore.ui.activity.administrator;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.alibaba.fastjson.JSONObject;
@@ -20,8 +19,6 @@ import top.spencer.crabscore.ui.widget.EmptyRecyclerView;
 public class AdminCheckCompanyScoreActivity extends BaseActivity implements MyRecycleListView, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.recycler_view_list)
     EmptyRecyclerView groupListView;
-    @BindView(R.id.button_empty)
-    Button bindCompany;
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     @Override

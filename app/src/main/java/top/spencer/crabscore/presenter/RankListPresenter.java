@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BasePresenter;
 import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
+import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.dto.GroupResult;
 import top.spencer.crabscore.model.entity.dto.RankResult;
 import top.spencer.crabscore.model.model.common.ModelFactory;
@@ -22,19 +23,22 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
     /**
      * 查询金蟹奖成绩
      *
-     * @param competitionId 大赛Id
-     * @param pageNum       页数
-     * @param pageSize      页面大小
+     * @param presentCompetition 当前大赛
+     * @param pageNum            页数
+     * @param pageSize           页面大小
      * @see GetFatnessRankModel
      */
-    public void getFatnessRank(Integer competitionId, Integer pageNum, Integer pageSize) {
+    public void getFatnessRank(Competition presentCompetition, Integer pageNum, Integer pageSize) {
         if (isViewAttached()) {
+            return;
+        }
+        if (presentCompetition.getResultFatness() == 0) {
             return;
         }
         getView().showLoading();
         ModelFactory
                 .request(Token.API_GET_FATNESS_RANK)
-                .params(String.valueOf(competitionId), String.valueOf(pageNum), String.valueOf(pageSize))
+                .params(String.valueOf(presentCompetition.getCompetitionId()), String.valueOf(pageNum), String.valueOf(pageSize))
                 .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
@@ -61,19 +65,22 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
     /**
      * 查询种质奖成绩
      *
-     * @param competitionId 大赛Id
-     * @param pageNum       页数
-     * @param pageSize      页面大小
+     * @param presentCompetition 当前大赛
+     * @param pageNum            页数
+     * @param pageSize           页面大小
      * @see GetQualityRankModel
      */
-    public void getQualityRank(Integer competitionId, Integer pageNum, Integer pageSize) {
+    public void getQualityRank(Competition presentCompetition, Integer pageNum, Integer pageSize) {
         if (isViewAttached()) {
+            return;
+        }
+        if (presentCompetition.getResultQuality() == 0) {
             return;
         }
         getView().showLoading();
         ModelFactory
                 .request(Token.API_GET_QUALITY_RANK)
-                .params(String.valueOf(competitionId), String.valueOf(pageNum), String.valueOf(pageSize))
+                .params(String.valueOf(presentCompetition.getCompetitionId()), String.valueOf(pageNum), String.valueOf(pageSize))
                 .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
@@ -100,19 +107,22 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
     /**
      * 查询口感奖成绩
      *
-     * @param competitionId 大赛Id
-     * @param pageNum       页数
-     * @param pageSize      页面大小
+     * @param presentCompetition 当前大赛
+     * @param pageNum            页数
+     * @param pageSize           页面大小
      * @see GetTasteRankModel
      */
-    public void getTasteRank(Integer competitionId, Integer pageNum, Integer pageSize) {
+    public void getTasteRank(Competition presentCompetition, Integer pageNum, Integer pageSize) {
         if (isViewAttached()) {
+            return;
+        }
+        if (presentCompetition.getResultTaste() == 0) {
             return;
         }
         getView().showLoading();
         ModelFactory
                 .request(Token.API_GET_TASTE_RANK)
-                .params(String.valueOf(competitionId), String.valueOf(pageNum), String.valueOf(pageSize))
+                .params(String.valueOf(presentCompetition.getCompetitionId()), String.valueOf(pageNum), String.valueOf(pageSize))
                 .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
@@ -176,7 +186,7 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
     /**
      * 对排行榜页面中处理返回的group对象的封装
      *
-     * @param groups    jsonResult
+     * @param groups         jsonResult
      * @param rankResultList list
      * @return 是否有重复
      */

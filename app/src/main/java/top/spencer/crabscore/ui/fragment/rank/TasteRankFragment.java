@@ -116,7 +116,7 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && lastVisibleItemPosition[0] + 1 == tasteRankListAdapter.getItemCount()) {
-                    rankListPresenter.getTasteRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
+                    rankListPresenter.getTasteRank(presentCompetition, pageNum, pageSize);
                 }
             }
 
@@ -137,7 +137,7 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        rankListPresenter.getTasteRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
+        rankListPresenter.getTasteRank(presentCompetition, pageNum, pageSize);
     }
 
     /**
@@ -160,7 +160,7 @@ public class TasteRankFragment extends BaseFragment implements MyRecycleListView
      */
     @Override
     public void onRefresh() {
-        rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
+        rankListPresenter.getFatnessRank(presentCompetition, pageNum, pageSize);
         new Handler(Looper.getMainLooper()).post(() -> swipeRefreshLayout.setRefreshing(false));
     }
 }

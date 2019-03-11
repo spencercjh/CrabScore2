@@ -116,7 +116,7 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && lastVisibleItemPosition[0] + 1 == fatnessRankListAdapter.getItemCount()) {
-                    rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
+                    rankListPresenter.getFatnessRank(presentCompetition, pageNum, pageSize);
                 }
             }
 
@@ -136,7 +136,7 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(),
+        rankListPresenter.getFatnessRank(presentCompetition,
                 pageNum, pageSize);
     }
 
@@ -160,7 +160,7 @@ public class FatnessRankFragment extends BaseFragment implements MyRecycleListVi
      */
     @Override
     public void onRefresh() {
-        rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
+        rankListPresenter.getFatnessRank(presentCompetition, pageNum, pageSize);
         new Handler(Looper.getMainLooper()).post(() -> swipeRefreshLayout.setRefreshing(false));
     }
 }

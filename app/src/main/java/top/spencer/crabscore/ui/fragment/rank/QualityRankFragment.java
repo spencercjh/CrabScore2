@@ -116,7 +116,7 @@ public class QualityRankFragment extends BaseFragment implements MyRecycleListVi
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && lastVisibleItemPosition[0] + 1 == qualityRankListAdapter.getItemCount()) {
-                    rankListPresenter.getQualityRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
+                    rankListPresenter.getQualityRank(presentCompetition, pageNum, pageSize);
                 }
             }
 
@@ -137,7 +137,7 @@ public class QualityRankFragment extends BaseFragment implements MyRecycleListVi
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        rankListPresenter.getQualityRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
+        rankListPresenter.getQualityRank(presentCompetition, pageNum, pageSize);
     }
 
     /**
@@ -161,7 +161,7 @@ public class QualityRankFragment extends BaseFragment implements MyRecycleListVi
      */
     @Override
     public void onRefresh() {
-        rankListPresenter.getFatnessRank(presentCompetition.getCompetitionId(), pageNum, pageSize);
+        rankListPresenter.getFatnessRank(presentCompetition, pageNum, pageSize);
         new Handler(Looper.getMainLooper()).post(() -> swipeRefreshLayout.setRefreshing(false));
     }
 }

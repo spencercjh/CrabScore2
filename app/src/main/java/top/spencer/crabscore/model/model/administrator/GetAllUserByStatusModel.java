@@ -16,7 +16,7 @@ public class GetAllUserByStatusModel extends BaseModel {
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "admin/user/users/status/" + mvpParams[0] + "?pageNum=" + mvpParams[1] + "&pageSize=" + mvpParams[2];
+        String url = CommonConstant.URL + "admin/user/users/?status=" + mvpParams[0] + "&pageNum=" + mvpParams[1] + "&pageSize=" + mvpParams[2];
         requestGetAPI(url, myCallBack, mvpParams[3]);
     }
 }
