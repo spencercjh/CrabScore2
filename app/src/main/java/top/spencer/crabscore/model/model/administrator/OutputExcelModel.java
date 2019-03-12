@@ -14,15 +14,15 @@ import java.util.Map;
  */
 public class OutputExcelModel extends BaseModel {
     /**
-     * 参数表Integer competitionId String jwt
+     * 参数表Integer competitionId String email String jwt
      *
      * @param myCallBack myCallBack
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "admin/result/excel";
+        String url = CommonConstant.PYTHON_URL+mvpParams[0];
         Map<String, Object> postParams = new HashMap<>(4);
-        postParams.put("competitionId", mvpParams[0]);
-        requestPostAPI(url, postParams, myCallBack, mvpParams[1]);
+        postParams.put("email", mvpParams[1]);
+        requestPostAPI(url, postParams, myCallBack, mvpParams[2]);
     }
 }

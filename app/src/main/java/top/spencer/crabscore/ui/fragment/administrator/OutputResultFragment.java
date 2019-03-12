@@ -17,6 +17,7 @@ import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.CompetitionConfig;
+import top.spencer.crabscore.model.entity.User;
 import top.spencer.crabscore.presenter.OutputResultPresenter;
 import top.spencer.crabscore.ui.view.OutputResultView;
 
@@ -39,6 +40,7 @@ public class OutputResultFragment extends BaseFragment implements OutputResultVi
     private OutputResultPresenter outputResultPresenter;
     private List<Map<String, Object>> allCompetition = new ArrayList<>(8);
     private String adminUsername;
+    private User presentUser = new User();
 
     /**
      * 取得实例
@@ -85,6 +87,7 @@ public class OutputResultFragment extends BaseFragment implements OutputResultVi
         adminUsername = (String) (SharedPreferencesUtil.getData("USERNAME", ""));
         presentCompetition = (Competition) (SharedPreferencesUtil.getData("PRESENT_COMPETITION", new Competition()));
         jwt = (String) (SharedPreferencesUtil.getData("JWT", ""));
+        presentUser = (User) (SharedPreferencesUtil.getData("USER", new User()));
     }
 
     /**
@@ -105,7 +108,7 @@ public class OutputResultFragment extends BaseFragment implements OutputResultVi
 
     @OnClick(R.id.re_output_excel)
     public void outputExcel(View view) {
-        outputResultPresenter.outputExcel(presentCompetition.getCompetitionId(), jwt);
+        outputResultPresenter.outputExcel(presentCompetition.getCompetitionId(), presentUser.getEmail(), jwt);
     }
 
     @OnClick(R.id.re_update_present_year)

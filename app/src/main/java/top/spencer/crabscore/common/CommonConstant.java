@@ -40,10 +40,11 @@ public interface CommonConstant {
     String REMEMBER_PASSWORD = "REMEMBER_PASSWORD";
 
     /**
-     * 后端服务器地址
+     * API后端服务器地址
      */
-    String URL = "http://192.168.1.2:14000/crabscore/api/";
+    String URL = "http://47.102.146.29:14000/crabscore/api/";
 
+    String PYTHON_URL="http://47.102.146.29:5000/generate/";
     /**
      * 七牛云对象存储服务器地址
      */

@@ -99,7 +99,7 @@ public class OutputResultPresenter extends BasePresenter<OutputResultView> {
      * 生成大赛成绩
      *
      * @param competitionId 大赛Id
-     * @param username 用户名
+     * @param username      用户名
      * @param jwt           JWT
      * @see top.spencer.crabscore.model.model.administrator.GenerateScoreModel
      */
@@ -140,14 +140,14 @@ public class OutputResultPresenter extends BasePresenter<OutputResultView> {
      * @param competitionId 大赛Id
      * @param jwt           JWT
      */
-    public void outputExcel(Integer competitionId, String jwt) {
+    public void outputExcel(Integer competitionId, String jwt, String email) {
         if (isViewAttached()) {
             return;
         }
         getView().showLoading();
         ModelFactory
                 .request(Token.API_OUTPUT_EXCEL)
-                .params(String.valueOf(competitionId), jwt)
+                .params(String.valueOf(competitionId), email, jwt)
                 .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
