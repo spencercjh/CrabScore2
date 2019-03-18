@@ -17,7 +17,8 @@ public class GetOneGroupAllQualityScoreModel extends BaseModel {
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "judge/qualities/competition/" + mvpParams[0] + "/group/" + mvpParams[1] + "?pageNum=" + mvpParams[2] + "&pageSize=" + mvpParams[3];
+        String url = CommonConstant.URL + "judge/competition/" + mvpParams[0] + "/group/" + mvpParams[1] +
+                "/qualities?pageNum=" + mvpParams[2] + "&pageSize=" + mvpParams[3];
         requestGetAPI(url, myCallBack, mvpParams[4]);
     }
 }

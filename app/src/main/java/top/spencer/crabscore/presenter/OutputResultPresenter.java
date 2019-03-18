@@ -139,15 +139,16 @@ public class OutputResultPresenter extends BasePresenter<OutputResultView> {
      *
      * @param competitionId 大赛Id
      * @param jwt           JWT
+     * @see top.spencer.crabscore.model.model.administrator.OutputExcelModel
      */
-    public void outputExcel(Integer competitionId, String jwt, String email) {
+    public void outputExcel(Integer competitionId, String jwt) {
         if (isViewAttached()) {
             return;
         }
         getView().showLoading();
         ModelFactory
                 .request(Token.API_OUTPUT_EXCEL)
-                .params(String.valueOf(competitionId), email, jwt)
+                .params(String.valueOf(competitionId), jwt)
                 .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {

@@ -16,7 +16,8 @@ public class GetOneGroupAllCrabAndScoreModel extends BaseModel {
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "company/group/" + mvpParams[1] + "/competition/" + mvpParams[0] + "/crabs?pageNum=" + mvpParams[2] + "&pageSize=" + mvpParams[3];
+        String url = CommonConstant.URL + "company/competition/" + mvpParams[0] + "/group/" + mvpParams[1] +
+                "/crabs?pageNum=" + mvpParams[2] + "&pageSize=" + mvpParams[3];
         requestGetAPI(url, myCallBack, mvpParams[4]);
     }
 }

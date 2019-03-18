@@ -40,7 +40,6 @@ public class OutputResultFragment extends BaseFragment implements OutputResultVi
     private OutputResultPresenter outputResultPresenter;
     private List<Map<String, Object>> allCompetition = new ArrayList<>(8);
     private String adminUsername;
-    private User presentUser = new User();
 
     /**
      * 取得实例
@@ -87,7 +86,6 @@ public class OutputResultFragment extends BaseFragment implements OutputResultVi
         adminUsername = (String) (SharedPreferencesUtil.getData("USERNAME", ""));
         presentCompetition = (Competition) (SharedPreferencesUtil.getData("PRESENT_COMPETITION", new Competition()));
         jwt = (String) (SharedPreferencesUtil.getData("JWT", ""));
-        presentUser = (User) (SharedPreferencesUtil.getData("USER", new User()));
     }
 
     /**
@@ -108,7 +106,7 @@ public class OutputResultFragment extends BaseFragment implements OutputResultVi
 
     @OnClick(R.id.re_output_excel)
     public void outputExcel(View view) {
-        outputResultPresenter.outputExcel(presentCompetition.getCompetitionId(), presentUser.getEmail(), jwt);
+        outputResultPresenter.outputExcel(presentCompetition.getCompetitionId(), jwt);
     }
 
     @OnClick(R.id.re_update_present_year)

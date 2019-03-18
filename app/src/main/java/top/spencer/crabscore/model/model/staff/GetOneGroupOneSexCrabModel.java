@@ -16,8 +16,9 @@ public class GetOneGroupOneSexCrabModel extends BaseModel {
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "staff/crabs/competition/" + mvpParams[0] + "/group/" + mvpParams[1] +
-                "/sex/" + mvpParams[2] + "?pageNum=" + mvpParams[3] + "&pageSize=" + mvpParams[4];
+        String url = CommonConstant.URL + "staff/competition/" + mvpParams[0] + "/group/" +
+                mvpParams[1] + "/crabSex/" + mvpParams[2] + "/crabs?pageNum=" + mvpParams[3] +
+                "&pageSize=" + mvpParams[4];
         requestGetAPI(url, myCallBack, mvpParams[5]);
     }
 }

@@ -42,9 +42,8 @@ public interface CommonConstant {
     /**
      * API后端服务器地址
      */
-    String URL = "http://47.102.146.29:14000/crabscore/api/";
+    String URL = "http://api.crabscore.spencercjh.top:14000/";
 
-    String PYTHON_URL="http://47.102.146.29:5000/generate/";
     /**
      * 七牛云对象存储服务器地址
      */

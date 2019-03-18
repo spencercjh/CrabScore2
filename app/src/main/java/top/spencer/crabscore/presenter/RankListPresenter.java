@@ -80,7 +80,7 @@ public class RankListPresenter extends BasePresenter<MyRecycleListView> {
         getView().showLoading();
         ModelFactory
                 .request(Token.API_GET_QUALITY_RANK)
-                .params(String.valueOf(presentCompetition.getCompetitionId()), String.valueOf(pageNum), String.valueOf(pageSize))
+                .params(String.valueOf(presentCompetition.getCompetitionId()), String.valueOf(pageSize), String.valueOf(pageNum))
                 .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {

@@ -17,7 +17,8 @@ public class GetOneGroupAllTasteScoreModel extends BaseModel {
      */
     @Override
     public void execute(MyCallback<JSONObject> myCallBack) {
-        String url = CommonConstant.URL + "judge/tastes/competition/" + mvpParams[0] + "/group/" + mvpParams[1] + "?pageNum=" + mvpParams[2] +
+        String url = CommonConstant.URL + "judge/competition/" + mvpParams[0] + "/group/" + mvpParams[1] +
+                "/tastes?pageNum=" + mvpParams[2] +
                 "&pageSize=" + mvpParams[3];
         requestGetAPI(url, myCallBack, mvpParams[4]);
     }
