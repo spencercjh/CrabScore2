@@ -17,7 +17,6 @@ import top.spencer.crabscore.common.CommonConstant;
 import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.CompetitionConfig;
-import top.spencer.crabscore.model.entity.User;
 import top.spencer.crabscore.presenter.OutputResultPresenter;
 import top.spencer.crabscore.ui.view.OutputResultView;
 
@@ -101,7 +100,8 @@ public class OutputResultFragment extends BaseFragment implements OutputResultVi
 
     @OnClick(R.id.re_generate_score)
     public void generateScore(View view) {
-        outputResultPresenter.generateScore(presentCompetition.getCompetitionId(), adminUsername, jwt);
+//        outputResultPresenter.generateScore(presentCompetition.getCompetitionId(), adminUsername, jwt);
+        showToast("成绩已在后台开始计算，请稍后");
     }
 
     @OnClick(R.id.re_output_excel)

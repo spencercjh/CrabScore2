@@ -8,11 +8,12 @@ import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.model.common.ModelFactory;
+import top.spencer.crabscore.ui.view.CompetitionAdminView;
 
 /**
  * @author spencercjh
  */
-public class CompetitionAdminPresenter extends BasePresenter<BaseView> {
+public class CompetitionAdminPresenter extends BasePresenter<CompetitionAdminView> {
     /**
      * 修改大赛属性
      *
@@ -31,7 +32,7 @@ public class CompetitionAdminPresenter extends BasePresenter<BaseView> {
                 .execute(new MyCallback<JSONObject>() {
                     @Override
                     public void onSuccess(JSONObject data) {
-                        getView().showData(data);
+                        getView().showUpdateCompetitionPropertyResponse(data);
                     }
 
                     @Override

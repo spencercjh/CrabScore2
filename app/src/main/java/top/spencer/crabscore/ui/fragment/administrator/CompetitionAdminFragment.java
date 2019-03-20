@@ -22,10 +22,10 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.common.CommonConstant;
+import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.presenter.CompetitionAdminPresenter;
 import top.spencer.crabscore.presenter.NavigationPresenter;
-import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.ui.view.CompetitionAdminView;
 
 import java.util.Objects;
@@ -230,7 +230,7 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
             if (yearString.equals(presentCompetition.getCompetitionYear()) && noteString.equals(presentCompetition.getNote())) {
                 showToast("未作修改");
             } else {
-                String display = yearString + noteString.substring(0, 5) + "...";
+                String display = yearString + noteString;
                 yearAndNoteTextView.setText(display);
                 presentCompetition.setCompetitionYear(yearString);
                 presentCompetition.setNote(noteString);
@@ -705,6 +705,8 @@ public class CompetitionAdminFragment extends BaseFragment implements Competitio
     public void showData(JSONObject successData) {
         presentCompetition = JSONObject.parseObject(successData.getString("result"), Competition.class);
         SharedPreferencesUtil.putData("PRESENT_COMPETITION", presentCompetition);
+        initView();
+        showToast(successData.getString(CommonConstant.MESSAGE));
     }
 
     /**

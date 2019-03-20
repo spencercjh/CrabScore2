@@ -21,7 +21,6 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseFragment;
 import top.spencer.crabscore.common.CommonConstant;
-import top.spencer.crabscore.common.util.PatternUtil;
 import top.spencer.crabscore.common.util.SharedPreferencesUtil;
 import top.spencer.crabscore.model.entity.Company;
 import top.spencer.crabscore.presenter.AdministratorListPresenter;
@@ -213,16 +212,12 @@ public class CompanyAdminFragment extends BaseFragment implements CompanyAdminLi
         dialog.setView(dialogView);
         dialog.setButton(AlertDialog.BUTTON_POSITIVE, "修改", (dialog1, which) -> {
             String companyNameString = companyName.getText().toString().trim();
-            if (!PatternUtil.isUsername(companyNameString)) {
-                showToast("非法用户名");
-                return;
-            } else {
-                companyInDialog.setCompanyName(companyNameString);
-                companyInDialog.setUpdateDate(new Date(System.currentTimeMillis()));
-                companyInDialog.setUpdateUser(adminUsername);
-                companyAdminPresenter.updateCompanyProperty(companyInDialog,
-                        (String) SharedPreferencesUtil.getData("JWT", ""));
-            }
+            companyInDialog.setCompanyName(companyNameString);
+            companyInDialog.setUpdateDate(new Date(System.currentTimeMillis()));
+            companyInDialog.setUpdateUser(adminUsername);
+            companyAdminPresenter.updateCompanyProperty(companyInDialog,
+                    (String) SharedPreferencesUtil.getData("JWT", ""));
+
             dialog1.dismiss();
         });
         dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", (dialog12, which) -> dialog12.dismiss());
