@@ -41,7 +41,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                     @Override
                     public void onSuccess(JSONObject data) {
                         //调用view接口显示数据，在具体的Activity中被重载
-                        getView().showData(data);
+                        getView().showLoginSuccessData(data);
                     }
 
                     @Override

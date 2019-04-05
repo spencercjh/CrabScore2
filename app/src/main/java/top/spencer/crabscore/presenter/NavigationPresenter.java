@@ -2,6 +2,7 @@ package top.spencer.crabscore.presenter;
 
 import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BasePresenter;
+import top.spencer.crabscore.base.BaseView;
 import top.spencer.crabscore.base.MyCallback;
 import top.spencer.crabscore.model.constant.Token;
 import top.spencer.crabscore.model.model.common.ModelFactory;
@@ -10,7 +11,7 @@ import top.spencer.crabscore.model.model.common.GetPresentCompetitionPropertyMod
 /**
  * @author spencercjh
  */
-public class NavigationPresenter extends BasePresenter {
+public class NavigationPresenter extends BasePresenter<BaseView> {
     /**
      * 获取当前大赛信息
      *

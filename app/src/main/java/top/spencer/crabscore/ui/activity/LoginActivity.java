@@ -12,9 +12,11 @@ import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.R;
 import top.spencer.crabscore.base.BaseActivity;
 import top.spencer.crabscore.common.CommonConstant;
+import top.spencer.crabscore.model.entity.Competition;
 import top.spencer.crabscore.model.entity.User;
 import top.spencer.crabscore.presenter.LoginPresenter;
 import top.spencer.crabscore.common.util.SharedPreferencesUtil;
+import top.spencer.crabscore.presenter.NavigationPresenter;
 import top.spencer.crabscore.ui.view.LoginView;
 
 import static android.content.ContentValues.TAG;
@@ -50,6 +52,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     private LoginPresenter loginPresenter;
     private int roleChoice = 0;
     private long lastPressTime = 0;
+    private NavigationPresenter navigationPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
         ButterKnife.bind(this);
         loginPresenter = new LoginPresenter();
         loginPresenter.attachView(this);
+        navigationPresenter = new NavigationPresenter();
+        navigationPresenter.attachView(this);
+        navigationPresenter.getPresentCompetitionProperty();
         SharedPreferencesUtil.getInstance(getContext(), "PROPERTY");
         initSpinner();
         readSharedPreferences();
@@ -71,6 +77,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     protected void onDestroy() {
         super.onDestroy();
         loginPresenter.detachView();
+        navigationPresenter.detachView();
     }
 
     /**
@@ -169,6 +176,26 @@ public class LoginActivity extends BaseActivity implements LoginView {
         }
     }
 
+    @Override
+    public void showLoginSuccessData(JSONObject successData) {
+        if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
+            SharedPreferencesUtil.putData("USERNAME", username.getText().toString().trim());
+            SharedPreferencesUtil.putData("PASSWORD", password.getText().toString().trim());
+            SharedPreferencesUtil.putData("ROLE_CHOICE", roleChoice);
+            showToast(successData.getString(CommonConstant.MESSAGE));
+            String resultJSON = successData.getString("result");
+            JSONObject resultJSONObject = JSON.parseObject(resultJSON);
+            SharedPreferencesUtil.putData("JWT", resultJSONObject.getString("jwt"));
+            SharedPreferencesUtil.putData("USER",
+                    JSONObject.parseObject(resultJSONObject.getString("user"), User.class));
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            showToast(successData.getString(CommonConstant.MESSAGE));
+        }
+    }
+
     /**
      * 显示密码的监听
      *
@@ -260,23 +287,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
      */
     @Override
     public void showData(JSONObject successData) {
-        if (successData.getInteger(CommonConstant.CODE).equals(CommonConstant.SUCCESS)) {
-            SharedPreferencesUtil.putData("USERNAME", username.getText().toString().trim());
-            SharedPreferencesUtil.putData("PASSWORD", password.getText().toString().trim());
-            SharedPreferencesUtil.putData("ROLE_CHOICE", roleChoice);
-            showToast(successData.getString(CommonConstant.MESSAGE));
-            String resultJSON = successData.getString("result");
-            JSONObject resultJSONObject = JSON.parseObject(resultJSON);
-            SharedPreferencesUtil.putData("JWT", resultJSONObject.getString("jwt"));
-            SharedPreferencesUtil.putData("USER",
-                    JSONObject.parseObject(resultJSONObject.getString("user"), User.class));
-            Intent intent = new Intent(getContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            showToast(successData.getString(CommonConstant.MESSAGE));
-        }
-
+        SharedPreferencesUtil.putData("PRESENT_COMPETITION",
+                JSONObject.parseObject(successData.getString("result"), Competition.class));
     }
 
     /**

@@ -1,5 +1,6 @@
 package top.spencer.crabscore.ui.view;
 
+import com.alibaba.fastjson.JSONObject;
 import top.spencer.crabscore.base.BaseView;
 
 /**
@@ -17,4 +18,9 @@ public interface LoginView extends BaseView {
      * 读取SharedPreferences，执行相关业务逻辑
      */
     void readSharedPreferences();
+
+    /**
+     * 登录成功回调
+     */
+    void showLoginSuccessData(JSONObject successData);
 }
